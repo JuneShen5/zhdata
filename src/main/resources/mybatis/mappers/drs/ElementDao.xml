@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.ElementDao">
+
+	<sql id="elementColumns">
+		a.id,
+		LPAD(a.id,7,'0') as "idCode", 
+		<!-- a.open_type AS "openType",
+		a.share_type AS "shareType", -->
+		a.name_cn AS "nameCn",
+		a.name_en AS "nameEn",
+		a.data_type AS "dataType",
+		a.data_typen AS "dataTypen",
+		<!-- a.object_type AS "objectType",
+		a.input_type AS "inputType",
+		a.search_type AS "searchType", -->
+		a.len,
+		a.label,		
+		<!-- a.source,
+		a.is_show AS "isShow", -->
+		a.sort,
+		<!-- a.dict, -->
+		a.company_id AS "companyId",
+		a.object_type AS "objectType",
+		a.data_label AS "dataLabel",
+		a.is_dict AS "isDict",
+		a.share_type AS "shareType",
+		a.share_condition AS "shareCondition",
+		a.share_mode AS "shareMode",
+		a.is_open AS "isOpen",
+		a.open_type AS "openType",
+		a.update_cycle AS "updateCycle",
+		a.to_pool AS "toPool",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+
+    <sql id="elementJoins">
+    	LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+
+	<!-- 根据编号获得属性 -->
+	<select id="get" resultType="Element">
+		SELECT
+		<include refid="elementColumns" />
+		FROM drs_element a
+		<include refid="elementJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- 查询全部属性 -->
+	<select id="findAll" resultType="Element">
+		SELECT
+		<include refid="elementColumns" />
+		FROM drs_element a
+		<include refid="elementJoins" />
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		ORDER BY a.id
+	</select>
+	
+	<select id="findList" resultType="Element">
+		SELECT
+		<include refid="elementColumns" />,
+		d.label AS "dataTypeName"
+		FROM drs_element a
+		<include refid="elementJoins" />
+		LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type' AND del_flag='0')d ON a.data_type=d.`value`
+		WHERE
+			a.del_flag =#{page.params.delFlag}
+			<if test="element.nameCn != null and element.nameCn !=''" >
+				AND a.name_cn LIKE CONCAT('%',#{element.nameCn},'%')
+			</if>
+			<if test="element.companyId != null and element.companyId !=''" >
+				AND a.company_id = #{element.companyId}
+			</if>
+			<if test="element.toPool != null" >
+				AND a.to_pool = #{element.toPool}
+			</if>
+			<if test="element.dataType != null and element.dataType !=''" >
+				AND a.data_type = #{element.dataType}
+			</if>
+<!-- 			<if test="element.objectType != null and element.objectType !=0" >
+				and a.object_type LIKE CONCAT('%',#{element.objectType},'%')
+			</if> 
+			
+ -->		<!-- <foreach collection="page.params" index="key" item="value" separator="" >
+	            <if test="value != null and value !=''" >
+	                <if test="key=='companyId'" >
+	                    and company_id = '${value}'
+	                </if>
+	            </if>
+	        </foreach> -->
+ 		ORDER BY #{page.params.orderByClause} 
+ 		
+	</select>
+
+	<select id="findByInfoId" resultType="Element">
+		SELECT
+		<include refid="elementColumns" />
+		FROM drs_element a
+		<include refid="elementJoins" />
+		LEFT JOIN drs_info_element ie ON ie.element_id=a.id 
+		WHERE ie.info_id=#{id} AND a.del_flag =0
+		ORDER BY a.id
+	</select>
+	
+	<select id="queryList" resultType="Element">
+		SELECT a.id,a.name_cn AS "nameCn",a.name_en AS "nameEn"
+		 FROM drs_element a 
+		 JOIN drs_info_element ie ON ie.element_id=a.id AND ie.info_id=#{id}
+		WHERE a.del_flag='0'
+	</select>
+	
+<!-- 查询全部 -->	
+	 <select id="queryAll" resultType="Element">
+        SELECT
+        <include refid="elementColumns" />
+        FROM drs_element a
+        <include refid="elementJoins" />
+       WHERE  a.del_flag = 0
+			<if test="element.companyId != null and element.companyId !=''" >
+				AND a.company_id = #{element.companyId}
+			</if>
+        ORDER BY a.id
+        <if test="page.isPage==true">
+			LIMIT ${page.startRow}, ${page.endRow}
+		</if>
+    </select>
+    
+     <!-- 添加多条数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		INSERT INTO drs_element
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
+	
+	
+	<!-- 更新信息项为导入数据元池 to_pool=1 -->
+	<update id="updateEle">
+    	UPDATE drs_element set to_pool = #{toPool} 
+    	<if test=" idList !=null and idList.size() >0 ">
+    	WHERE id IN 
+    	<foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+        </if>
+	</update>
+	
+	
+	
+	<!-- 更新信息项为非导入数据元池 to_pool=0 -->
+	<update id="updateEleByPool" parameterType="java.util.List">
+    	UPDATE drs_element set to_pool = 0 
+    	<if test=" eleIds !=null and eleIds.size() >0 ">
+    		WHERE id IN 
+    		<foreach collection="eleIds" item="id" open="("  close=")" separator=",">
+           	 #{id}
+        	</foreach>
+       </if>
+	</update>
+	
+	
+	<!-- 查询信息项的关联信息资源-频率分析信息资源数量 -->
+	<select id="queryAnalyList" resultType="Element">
+		 SELECT a.id,a.name_cn AS nameCn,a.element_id AS elementId,COUNT(a.element_id) AS count
+		 FROM
+			(SELECT e.id,e.name_cn,ie.element_id,ie.info_id FROM drs_element e 
+			LEFT JOIN drs_info_element ie ON ie.element_id=e.id WHERE e.del_flag='0')a
+		GROUP BY a.element_id  ORDER BY COUNT(a.element_id) DESC LIMIT 0,9
+	</select>
+	
+	
+	<select id="queryEleByInfoId" resultType="Element">
+		SELECT
+		<include refid="elementColumns" />,
+		d.label AS dataTypeName
+		FROM drs_element a
+		<include refid="elementJoins" />
+		LEFT JOIN drs_info_element ie ON ie.element_id=a.id 
+		LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type' AND del_flag='0')d ON a.data_type=d.`value`
+		WHERE ie.info_id=#{id} AND a.del_flag='0'
+	
+	</select>
+	
+	<!-- 数据表生成信息资源-根据ID查找信息项 -->
+	<select id="queyListById" resultType="Element">
+	 	SELECT
+		<include refid="elementColumns" />,
+			d.label AS dataTypeName
+		FROM drs_element a
+		<include refid="elementJoins" />
+		LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type' AND del_flag='0')d ON a.data_type=d.`value`
+		<if test=" eleIdList !=null and eleIdList.size() >0 ">
+    		WHERE a.id IN 
+    		<foreach collection="eleIdList" item="id" open="("  close=")" separator=",">
+           	 #{id}
+        	</foreach>
+        	AND a.del_flag='0'
+       </if>
+	</select>
+	
+	<!-- 删除关联表 -->
+	<delete id="deleteInfoEle">
+		 DELETE FROM drs_info_element WHERE element_id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+	
+	
+</mapper>

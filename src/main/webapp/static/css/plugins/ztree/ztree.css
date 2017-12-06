@@ -1,0 +1,109 @@
+/*ztree表格*/
+#tableMain .ztree {
+    padding: 0;
+    border: 1px solid #e7e7e7;
+}
+
+/* .ztree > li:nth-of-type(even) {
+	background-color: #f9f9f9;
+} */
+
+#tableMain .ztree li a {
+    vertical-align: middle;
+    height: 30px;
+}
+
+#tableMain .ztree li > a {
+    width: 100%;
+    line-height: 0;
+}
+
+#tableMain .ztree li > a:hover {
+	background-color: #eee;
+}
+
+#tableMain .ztree li > a,
+#tableMain .ztree li a.curSelectedNode {
+    padding-top: 0px;
+    background: none;
+    height: auto;
+    border: none;
+    cursor: default;
+    opacity: 1;
+    font-size: 14px !important;
+}
+
+#tableMain .ztree li a.curSelectedNode {
+    background: #DFF0D8;
+}
+
+#tableMain .ztree li ul {
+    padding-left: 0px
+}
+
+#tableMain .ztree div.diy span {
+    line-height: 30px;
+    vertical-align: middle;
+    font-size: 14px !important;
+}
+
+#tableMain .ztree div.diy {
+	padding-left: 10px;
+    height: 55px;
+    width: 25%;
+    line-height: 55px;
+    border-top: 1px solid #e7e7e7;
+    border-left: 1px solid #e7e7e7;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #6c6c6c;
+    overflow: hidden;
+    font-size: 14px !important;
+}
+
+#tableMain .ztree div.diy:first-child {
+    text-align: left;
+    text-indent: 10px;
+    border-left: none;
+}
+
+#tableMain .ztree .head div.diy {
+    border-top: none;
+    color: #6c6c6c;
+    font-family: "Microsoft YaHei";
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/*end--ztree表格*/
+
+#tableMain .ztree li span.button {
+	background: none;
+}
+
+#tableMain .ztree li span.button.noline_close {
+	width: 0;
+    height: 0;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    border-left: 8px solid #000;
+    margin-right: 5px;
+}
+
+#tableMain .ztree li span.button.noline_open {
+	width: 0;
+    height: 0;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-top: 8px solid #000;
+    margin-right: 5px;
+}
+
+/* 子级菜单中的树 */
+#menuContent {
+	width: 670px;
+	background-color: #fff;
+	border: 1px solid #eee;
+	max-height: 300px;
+	overflow: auto;
+}

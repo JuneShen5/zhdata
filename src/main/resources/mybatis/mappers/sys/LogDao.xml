@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.sys.dao.LogDao">
+	
+    <sql id="logColumns">
+    l.id,
+	l.title,	
+	l.remote_addr As "remoteAddr",
+	l.request_uri As "requestUri",
+	l.method,	
+	l.paramse,		
+	l.user_agent As "userAgent",
+	l.create_by As "createBy",
+	l.create_date As "createDate",
+	u.`login_name` As "userName"
+    </sql>
+    
+    <sql id="logJoins">
+    
+    </sql>
+    
+	<insert id="insert">
+		INSERT INTO sys_log(
+			id, 
+			type, 
+			title,
+			create_by, 
+			create_date, 
+			remote_addr, 
+			user_agent, 
+			request_uri, 
+			method, 
+			paramse, 
+			exception
+		) VALUES (
+			#{id}, 
+			#{type}, 
+			#{title}, 
+			#{createBy}, 
+			#{createDate}, 
+			#{remoteAddr}, 
+			#{userAgent}, 
+			#{requestUri}, 
+			#{method}, 
+			#{paramse}, 
+			#{exception}
+		)
+	</insert>
+	
+	<select id="findAllList" resultType="Log">
+	SELECT 
+	<include refid="logColumns" />
+	FROM sys_log l 
+	LEFT JOIN sys_user u
+	ON l.create_by = u.id
+	<where>
+			<!-- l.del_flag = #{DEL_FLAG_NORMAL} -->
+			<if test="title != null and title != ''">
+				  <!--  l.title LIKE '%#{title}%' -->
+				  l.title LIKE CONCAT('%',#{title},'%')
+			</if>
+		</where>
+	ORDER BY l.id desc 
+	</select>
+	
+</mapper>

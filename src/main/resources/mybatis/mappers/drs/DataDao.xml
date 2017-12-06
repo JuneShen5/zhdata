@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.DataDao">
+
+
+	<!-- 通用查询列表 -->
+	<select id="queryCount" resultType="java.lang.Long"	statementType="STATEMENT">
+		SELECT COUNT(*) FROM data_${page.tableName}
+		WHERE op = 0 
+		<if test="page.obj!= null and page.obj !=''" >
+			and ${page.obj} BETWEEN '${page.startDate}' and '${page.endDate}'
+        </if>
+        <if test="page.obj== null or page.obj ==''" >
+			<foreach collection="page.params" index="key" item="value" separator="" >
+	            <if test="value != null and value !=''" >
+	            	and ${key} LIKE CONCAT('%','${value}','%')
+	            </if>
+	        </foreach>
+	    </if> 
+	</select>
+
+	<!-- 通用查询列表 -->
+	<select id="queryList" resultType="java.util.Map" statementType="STATEMENT">
+		SELECT * FROM data_${page.tableName}
+		WHERE OP = 0 
+		<if test="page.obj!= null and page.obj !=''" >
+			and ${page.obj} BETWEEN '${page.startDate}' and '${page.endDate}'
+        </if>
+        <if test="page.obj== null or page.obj ==''" >
+			<foreach collection="page.params" index="key" item="value" separator="" >
+	            <if test="value != null and value !=''" >
+	            	and ${key} LIKE CONCAT('%','${value}','%')
+	            </if>
+	        </foreach>
+	    </if>
+		<if test="page.isPage==true">
+			LIMIT ${page.startRow}, ${page.endRow}
+		</if>
+	</select>
+
+	<!-- 添加数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		insert into ${tableName}
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
+
+	<!-- 添加数据 -->
+	<insert  id="saveData" statementType="STATEMENT" >
+		INSERT INTO data_${record.tableName}
+       <foreach collection="record.params" index="index"  item="item" separator="," open="(" close=")">
+			${index}
+       </foreach>
+	        VALUES
+       <foreach collection="record.params" index="index"  item="item" separator="," open="(" close=")">
+			'${item}'
+       </foreach>
+	</insert >
+	
+	<!-- 更新数据 -->
+	<update id="updateData">
+		UPDATE data_${record.tableName} SET
+       <foreach collection="record.params" index="index"  item="item" separator=",">
+			${index} = '${item}'
+       </foreach>
+       WHERE
+            TONG_ID = ${record.tong_id};
+	</update >
+	
+	<update id="deleteData" statementType="STATEMENT">
+		UPDATE data_${record.tableName} SET OP=1 WHERE TONG_ID = ${record.tong_id}
+	</update>
+</mapper>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.standard.dao.ElementPoolDao">
+
+
+	<sql id="elementPoolColumns">
+		a.id, 
+		LPAD(a.id,7,'0') as "idCode", 
+		a.name_cn AS "nameCn",
+		a.name_en AS "nameEn",
+		a.data_type AS "dataType",
+		a.data_typen AS "dataTypen",
+		a.len,
+		a.label,		
+		a.sort,
+		a.company_id AS "companyId",
+		a.ele_id AS "eleId",
+		a.public_id AS "publicId",
+		a.object_type AS "objectType",
+		a.data_label AS "dataLabel",
+		a.is_dict AS "isDict",
+		a.share_type AS "shareType",
+		a.share_condition AS "shareCondition",
+		a.share_mode AS "shareMode",
+		a.is_open AS "isOpen",
+		a.open_type AS "openType",
+		a.update_cycle AS "updateCycle",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+	
+	<sql id="elementPoolJoins">
+    	LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+	
+	<!-- 查询全部数据池 -->
+	<select id="findAll" resultType="ElementPool">
+		SELECT
+		<include refid="elementPoolColumns" />,
+		d.label AS "dataTypeName"
+		FROM drs_element_pool a
+		<include refid="elementPoolJoins" />
+		LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON a.data_type=d.`value`
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="nameCn != null and nameCn != ''">
+				AND a.name_cn LIKE CONCAT('%',#{nameCn},'%')
+			</if>
+			<if test="publicId != null">
+				AND a.public_id = #{publicId}
+			</if>
+			<if test="companyId != null and companyId != 0">
+				AND a.company_id = #{companyId}
+			</if>
+			<if test="dataType != null">
+				AND a.data_type = #{dataType}
+			</if>
+		</where>
+		ORDER BY a.id DESC
+	</select>
+	
+	
+	<!-- 数据元重复清洗 -->
+	<select id="queryRepeatList" resultType="ElementPool">
+		SELECT id,name_cn AS nameCn,COUNT(name_cn) AS count
+		FROM drs_element_pool 
+		<where>
+			del_flag='0' 
+			<if test="elepool.nameCn != null and elepool.nameCn !=''" >
+				AND name_cn LIKE CONCAT('%',#{elepool.nameCn},'%')
+			</if>
+		</where>
+		GROUP BY name_cn 
+		HAVING COUNT(name_cn)>1
+		ORDER BY COUNT(name_cn)
+		<choose>
+			<when test="elepool.isDesc!=0 and elepool.isDesc !=null">
+				DESC
+			</when>
+			<when test="elepool.isDesc!=1 and elepool.isDesc !=null">
+				ASC
+			</when>
+		</choose>
+		
+		 
+	</select>
+	
+	
+	<!-- 信息项导入到数据元池 -->
+	<insert id="importEle">
+	INSERT INTO drs_element_pool(
+		name_cn,
+		name_en,
+		data_type,
+		len,
+		label,
+		company_id,
+		create_by,
+		update_by,
+		remarks,
+		ele_id)
+	SELECT name_cn,
+		name_en,
+		data_type,
+		len,
+		label,
+		company_id,
+		create_by,
+		update_by,
+		remarks,
+		id
+	FROM
+		drs_element 
+		WHERE del_flag=0
+		AND to_pool=0
+		<if test=" idList !=null and idList.size() >0 ">
+		AND id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+		</if>
+		
+</insert>
+
+
+   <!-- 根据同义词去数据元池进行模糊查找 -->
+	<select id="queryCount" resultType="Integer">
+		
+		SELECT COUNT(name_cn) AS count FROM drs_element_pool WHERE del_flag='0'
+		<if test=" list !=null and list.size() >0 ">
+		 AND
+		<foreach item="ElementSame" collection="list" open="(" separator=" OR "
+			close=")">
+			name_cn LIKE #{ElementSame.sqlName} 
+		</foreach>
+		</if>
+	</select>
+	
+	
+	<!--查询数据元池中的所有信息项ID -->
+	<select id="queryEleIds" resultType="Integer">
+		SELECT ele_id AS eleId FROM drs_element_pool WHERE del_flag='0' 
+		<if test=" id!=0 ">
+			AND id=#{id}
+		</if>
+	</select>
+	
+	
+	 <!-- 根据同义词去数据元池进行模糊查找 -->
+	<select id="queryEleListById" resultType="ElementPool">
+		
+		SELECT 
+		<include refid="elementPoolColumns" />
+		FROM drs_element_pool a
+		<include refid="elementPoolJoins" />
+		WHERE a.del_flag='0' AND
+		<foreach item="elepool" collection="eslList" open="(" separator=" or "
+			close=")">
+			a.name_cn LIKE #{elepool.sqlName}
+		</foreach>
+		
+	</select>
+	
+	
+	<!-- 公共数据元池-添加公共信息项 -->
+	<update id="updateToPub">
+		UPDATE drs_element_pool SET public_id =1 
+		WHERE id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</update>
+
+	
+
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.standard.dao.ElementSameDao">
+
+	<sql id="elementSameColumns">
+		a.id, 
+		a.name,
+		a.levels,
+		a.parent_id AS "parentId",
+		a.company_id AS "companyId",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+	
+	<sql id="elementSameJoins">
+    	LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+	
+	<!-- 查询全部数据池 -->
+	<select id="findAll" resultType="ElementSame">
+		SELECT
+		<include refid="elementSameColumns"/>
+		FROM drs_element_same a
+		<include refid="elementSameJoins"/>
+		<where>
+			a.del_flag = 0
+			<if test="name != null and name !=''">
+				AND a.name LIKE CONCAT('%',#{name},'%')
+			</if>
+			<if test="parentId != null and parentId != 0">
+				AND a.parent_id = #{parentId}
+			</if>
+			<if test="levels != null and levels != 0">
+				AND a.levels = #{levels}
+			</if>
+		</where>
+		ORDER BY a.update_date
+	</select>
+	
+	
+	<!-- 根据一级同义词查找同义词 -->
+	<select id="queryAllList" resultType="ElementSame">
+		SELECT
+			<include refid="elementSameColumns"/>
+		FROM drs_element_same a
+		<include refid="elementSameJoins"/>
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+	
+	
+	<!-- 根据一级同义词查找同义词 -->
+	<select id="queryListById" resultType="ElementSame">
+		SELECT
+			<include refid="elementSameColumns"/>
+		FROM drs_element_same a
+		<include refid="elementSameJoins"/>
+		WHERE a.del_flag = '0'
+		AND a.parent_id=#{id}
+	</select>
+	
+
+</mapper>

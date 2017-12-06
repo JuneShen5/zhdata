@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.AttributeDao">
+
+	<sql id="attributeColumns">
+		a.id,
+		a.type AS "type",
+		a.name_En AS "nameEn",
+		a.name_Cn AS "nameCn",
+		a.is_require AS "isRequire",
+		a.input_type AS "inputType",
+		a.valid_type AS "validType",
+		a.input_length AS "inputLength",
+		a.input_value AS "inputValue",
+		a.is_show AS "isShow",
+		a.search_type AS "searchType",
+		a.sort,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag"
+	</sql>
+
+	<!-- 根据编号获得属性 -->
+	<select id="get" resultType="Attribute">
+		SELECT
+		<include refid="attributeColumns" />
+		FROM drs_attribute a
+		<where>
+			a.id = #{id}
+		</where>
+	</select>
+
+	<!-- 查询全部属性 -->
+	<select id="queryList" resultType="Attribute">
+		SELECT
+		<include refid="attributeColumns" />
+		FROM drs_attribute a
+		WHERE
+			a.del_flag = #{DEL_FLAG_NORMAL} AND a.type =#{type}
+		    <if test="nameCn != null and nameCn != ''">
+		    AND a.name_cn LIKE CONCAT('%',#{nameCn},'%')
+			</if>
+		
+		ORDER BY a.id
+	</select>
+</mapper>

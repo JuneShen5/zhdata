@@ -1,0 +1,93 @@
+/* 资源概览---标签页样式 */
+.toolbar{
+	border: solid 1px #d1dbe5;
+    /*display: flex;*/
+    margin-top: 20px;
+}
+.toolbar-tag-top{
+    background-color: #eef1f6;
+    border-bottom: 1px solid #d1dbe5;
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+}
+.toolbar-tag-top>span {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+.toolbar-tag-top>span:hover{
+    background-color: #c2cad4;
+}
+.toolbar-tag-top>.active{
+    background: #fff;
+    cursor: default;
+    border-bottom: solid 1px #fff;
+    margin: -1px 0;
+}
+.toolbar-tag-top>.active:hover{
+    background-color: #fff;
+}
+#tagList{
+	/*width: 85%;*/
+}
+#deper{
+    padding: 2% 0;
+    list-style: none;
+}
+.deper ul{
+	position: relative;
+    border: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.deper li {
+    padding-left: 0;
+    font-size: 14px;
+    color: #aaa;
+    margin: 10px 0;
+    font-family: 'SimHei';
+    font-weight: 100;
+    padding-left: 15px;
+}
+.deper span {
+    width: 100%;
+    padding-right: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #666;
+    background-color: #fff;
+    text-align: left;
+    font-weight: 300;
+}
+.deper span i {
+    color: #f00;
+    font-size: 12px;
+    font-style: normal;
+    position: relative;
+    color: #fff;
+    background: #f00;
+    text-align: center;
+    display: inline-block;
+    border-radius: 20px;
+    padding: 1px 5px;
+    margin-right: 5px;
+    top: -8px;
+    right: 4px;
+}
+.deper blockquote{
+	position: relative;
+    border: none;
+    margin: 0;
+}
+.deper blockquote:before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #3367a8;
+    position: absolute;
+    top: 17px;
+    left: 5px;
+}

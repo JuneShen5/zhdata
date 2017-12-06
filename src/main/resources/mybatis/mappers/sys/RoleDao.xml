@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.sys.dao.RoleDao">
+	<resultMap id="roleResult" type="Role">
+		<id property="id" column="id" />
+		<result property="companyId" column="companyId" />
+		<result property="companyName" column="companyName" />
+		<result property="name" column="name" />
+		<result property="enname" column="enname" />
+		<result property="remarks" column="remarks" />
+		<result property="useable" column="useable" />
+		<collection property="menuList" ofType="Menu">
+			<id property="id" column="menuList.id" />
+			<result property="name" column="menuList.name" />
+		</collection>
+		
+	</resultMap>
+	
+	
+
+	<sql id="roleColumns">
+		a.id,
+		a.company_id AS "companyId",
+		a.name,
+		a.enname,
+		a.useable,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+
+	<sql id="roleJoins">
+		LEFT JOIN sys_company c ON c.id = a.company_id
+    	LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
+		
+	
+	</sql>
+
+	<!-- 查询总数 -->
+	<select id="getCount" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM sys_role a
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL}  -->
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE CONCAT('%',#{name},'%')
+			</if>
+		</where>
+	</select>
+
+	<!-- 根据编号获得角色 -->
+	<select id="get" resultType="Role">
+		SELECT
+		<include refid="roleColumns" />
+		FROM sys_role a
+		<include refid="roleJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	
+	<!-- 保存关联表 -->
+	<insert id="saveRelation">
+		INSERT INTO sys_role_menu(role_id, menu_id) values
+		<foreach collection="menuList" item="menu" separator=",">
+			(#{id}, #{menu.id}) 
+			
+		</foreach>
+	</insert>
+	
+	<!-- 删除关联表 -->
+	<delete id="deleteRelation">
+		DELETE FROM sys_role_menu WHERE role_id = #{id}
+	</delete>
+	
+	
+	<!-- 根据角色删除关联表 -->
+	<delete id="deletByRoleId">
+		 DELETE FROM sys_role_menu WHERE role_id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+         
+	</delete>
+	
+	<select id="findList" resultMap="roleResult">
+		SELECT 
+			<include refid="roleColumns" />
+		,
+		rm.menu_id AS "menuList.id",
+		m.name AS "menuList.name"
+		FROM (select * from sys_role 
+		<where>
+			del_flag = #{page.params.delFlag}
+			<if test="role.name != null and role.name != ''">
+				AND name LIKE CONCAT('%',#{role.name},'%')
+			</if>
+		</where>
+		order by
+		#{page.params.orderByClause} limit #{page.startRow}, #{page.endRow}) a
+		
+		LEFT JOIN
+		sys_company c ON c.id = a.company_id
+		LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
+		LEFT JOIN sys_menu m ON m.id = rm.menu_id
+		
+	</select>
+
+	<!-- <select id="findList" resultMap="roleResult">
+		SELECT
+		<include refid="roleColumns" />
+		,
+		rm.menu_id AS "menuList.id",
+		m.name AS "menuList.name"
+		FROM (select * from sys_role WHERE del_flag = #{params.delFlag} order by
+		#{params.orderByClause} limit #{startRow}, #{endRow}) a
+		LEFT JOIN
+		sys_company c ON c.id = a.company_id
+		LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
+		LEFT JOIN sys_menu m ON m.id = rm.menu_id
+		
+	</select>
+	 -->
+	
+	<select id="findAll" resultMap="roleResult">
+		SELECT
+		<include refid="roleColumns" />
+		,
+		rm.menu_id AS "menuList.id",
+		m.name AS "menuList.name"
+		FROM sys_role a
+		LEFT JOIN
+		sys_company c ON c.id = a.company_id
+		LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
+		LEFT JOIN sys_menu m ON m.id = rm.menu_id
+		WHERE a.del_flag = #{params.delFlag}
+	</select>
+	
+	<select id="findAllList" resultMap="roleResult">
+		SELECT
+		<include refid="roleColumns" />
+		,
+		rm.menu_id AS "menuList.id",
+		m.name AS "menuList.name"
+		FROM sys_role a
+		LEFT JOIN
+		sys_company c ON c.id = a.company_id
+		LEFT JOIN sys_role_menu rm ON rm.role_id = a.id
+		LEFT JOIN sys_menu m ON m.id = rm.menu_id
+		WHERE a.del_flag = #{delFlag}
+	</select>
+</mapper>

@@ -1,0 +1,10 @@
+.tabs-container {}
+.tabs-container .tabs {padding: 0;margin: 0;background-color: #eef1f6;}
+.tabs-container .tabs .tabs-item {color:#666;position: relative;padding: 0 16px;height: 40px;box-sizing: border-box;line-height: 42px;display: inline-block;list-style: none;font-size: 14px;color: #8391a5;}
+.tabs-container .tabs .tabs-item.active {background-color: #fff;}
+.tabs-container .tabs .tabs-item:hover {color: #333;}
+.tabs-container .tabs .tabs-item:hover, .tabs-container .tabs .tabs-item:focus {text-decoration: none;}
+.tabs-container .tabs .tabs-item i {position: relative;font-size: 12px;width: 14px;height: 14px;vertical-align: middle;line-height: 15px;top: -1px;right: -5px;border-radius: 50%;text-align: center;}
+.tabs-container .tabs .tabs-item i:hover{background-color: #97a8be;color: #fff}
+.tabs-container .tabs-content .tab-pane + .tab-pane {display: none;}
+.tabs-container .tab-iframe-container {height: calc(100vh - 125px);}

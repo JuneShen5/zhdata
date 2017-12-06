@@ -1,0 +1,241 @@
+package com.govmade.zhdata.module.drs.pojo;
+
+import java.util.List;
+
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.google.common.collect.Lists;
+import com.govmade.zhdata.common.persistence.BasePo;
+
+@Table(name = "drs_information")
+public class Information extends BasePo<Information> {
+
+    private static final long serialVersionUID = 1L;
+
+    private Integer companyId;
+
+    private Integer systemId;
+
+    private String nameEn; //信息资源代码
+
+    private String nameCn;
+    
+    private String tbName;
+
+    private Integer isOpen;//是否向社会开放
+    
+    private Integer openType;
+
+    private Integer shareType;
+    
+    private Integer shareMode;//共享方式
+    
+    private Integer shareCondition;//共享条件
+
+    private Integer infoType1;
+
+    private Integer infoType2;
+
+    private Integer isAudit;
+
+    private String info; // 信息资源属性
+    
+    private String code; //信息资源提供方代码
+    
+    private String reason; //信息资源提供方代码
+    
+
+    @Transient
+    private String companyName;
+
+    @Transient
+    private String systemName;
+
+    @Transient
+    private String elementIds;
+
+    @Transient
+    private List<Element> elementList = Lists.newArrayList(); // 拥有数据元列表
+    
+    @Transient
+    private Integer count;
+
+    public Information() {
+        super();
+    }
+
+    public Integer getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
+
+    public Integer getSystemId() {
+        return systemId;
+    }
+
+    public void setSystemId(Integer systemId) {
+        this.systemId = systemId;
+    }
+
+    
+    
+    public String getTbName() {
+        return tbName;
+    }
+
+    public void setTbName(String tbName) {
+        this.tbName = tbName;
+    }
+
+    public String getNameEn() {
+        return nameEn;
+    }
+
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
+    }
+
+    public String getNameCn() {
+        return nameCn;
+    }
+
+    public void setNameCn(String nameCn) {
+        this.nameCn = nameCn;
+    }
+
+    public Integer getOpenType() {
+        return openType;
+    }
+
+    public void setOpenType(Integer openType) {
+        this.openType = openType;
+    }
+
+    public Integer getShareType() {
+        return shareType;
+    }
+
+    public void setShareType(Integer shareType) {
+        this.shareType = shareType;
+    }
+
+    public Integer getInfoType1() {
+        return infoType1;
+    }
+
+    public void setInfoType1(Integer infoType1) {
+        this.infoType1 = infoType1;
+    }
+
+    public Integer getInfoType2() {
+        return infoType2;
+    }
+
+    public void setInfoType2(Integer infoType2) {
+        this.infoType2 = infoType2;
+    }
+
+
+    public Integer getIsAudit() {
+		return isAudit;
+	}
+
+	public void setIsAudit(Integer isAudit) {
+		this.isAudit = isAudit;
+	}
+
+	public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getSystemName() {
+        return systemName;
+    }
+
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
+    }
+
+    public String getElementIds() {
+        return elementIds;
+    }
+
+    public void setElementIds(String elementIds) {
+        this.elementIds = elementIds;
+    }
+
+    public List<Element> getElementList() {
+        return elementList;
+    }
+
+    public void setElementList(List<Element> elementList) {
+        this.elementList = elementList;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public Integer getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public Integer getShareMode() {
+        return shareMode;
+    }
+
+    public void setShareMode(Integer shareMode) {
+        this.shareMode = shareMode;
+    }
+
+    public Integer getShareCondition() {
+        return shareCondition;
+    }
+
+    public void setShareCondition(Integer shareCondition) {
+        this.shareCondition = shareCondition;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+    
+    
+    
+}

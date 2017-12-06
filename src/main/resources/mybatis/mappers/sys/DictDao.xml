@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.sys.dao.DictDao">
+	
+    <sql id="dictColumns">
+    	a.id,
+    	a.pid,
+    	a.value,
+    	a.label,
+    	a.type,
+		a.sort,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag"
+    </sql>
+    
+    <sql id="dictJoins">
+    
+    </sql>
+    
+	<!-- 根据编号获得字典 -->
+	<select id="get" resultType="Dict" useCache="false">
+		SELECT
+			<include refid="dictColumns"/>
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<!-- 查询全部字典 -->
+	<select id="findAll" resultType="Dict" useCache="false">
+		SELECT
+			<include refid="dictColumns"/>
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL} -->
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="label != null and label != ''">
+				AND a.label LIKE CONCAT('%',#{label},'%')
+			</if>
+		</where>
+		ORDER BY a.id
+	</select>
+	
+	<select id="getOpenType" resultType="java.util.Map">
+		SELECT
+			a.value ,
+			a.label
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.del_flag =0
+			AND a.type='open_type'
+		</where>
+		ORDER BY a.value
+	</select>
+	
+	<select id="getShareType" resultType="java.util.Map">
+		SELECT
+			a.value,
+			a.label
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.del_flag =0
+			AND a.type='share_type'
+		</where>
+		ORDER BY a.value
+	</select>
+	
+	<select id="getDataType" resultType="java.util.Map">
+		SELECT
+			a.value,
+			a.label
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.del_flag =0
+			AND a.type='data_type'
+		</where>
+		ORDER BY a.value
+	</select>
+	
+	<select id="getObjectType" resultType="java.util.Map">
+		SELECT
+			a.value,
+			a.label
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.del_flag =0
+			AND a.type='object_type'
+		</where>
+		ORDER BY a.value
+	</select>
+	
+	<select id="getSiteLevel" resultType="java.util.Map">
+		SELECT
+			a.value ,
+			a.label
+		FROM sys_dict a
+		<include refid="dictJoins"/>
+		<where>
+			a.del_flag =0
+			AND a.type='site_level'
+		</where>
+		ORDER BY a.value
+	</select>
+	
+	
+	<!-- 根据字段的value获取label值 -->
+	<select id="queryDictByValue" resultType="Dict" >
+	  SELECT * FROM sys_dict WHERE type='data_type' AND `value`=#{value} AND del_flag='0'
+	</select>
+	
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.RequireDao">
+
+	<sql id="requireColumns">
+		a.id,
+		a.code,
+		a.name,
+		a.data_name AS "dataName",
+		a.company_id AS "companyId",
+		a.type,
+		a.purpose,
+		a.period,
+		a.create_by AS "createById",
+		a.create_date AS "createDate",
+		a.update_by AS "updateById",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+
+    <sql id="requireJoins">
+		LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+
+
+	<!-- 根据条件查询需求目录 -->
+	<select id="queryAllList" resultType="Require">
+		SELECT
+		<include refid="requireColumns" />
+		FROM drs_require a
+		<include refid="requireJoins" />
+		<where>
+			a.del_flag = #{require.delFlag}
+			<if test="require.name != null and require.name != ''">
+				AND a.name LIKE CONCAT('%',#{require.name},'%')
+			</if>
+		</where>
+		ORDER BY a.id DESC
+	</select>
+	
+</mapper>

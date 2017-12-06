@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.sys.dao.CompanyDao">
+
+	<sql id="companyColumns">
+		a.id,
+		a.site_id AS "siteId",
+		a.name,
+		a.code,
+		a.address,
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		s.name AS "siteName"
+	</sql>
+
+	<sql id="companyJoins">
+		LEFT JOIN sys_site s ON s.id = a.site_id
+    </sql>
+	
+	<!-- 根据编号获得单位-->
+	<select id="get" resultType="Company">
+		SELECT
+			<include refid="companyColumns"/>
+		FROM sys_company a
+		<include refid="companyJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	
+	<!-- 查询全部单位 -->
+	<select id="findAll" resultType="Company">
+		SELECT
+			<include refid="companyColumns"/>
+		FROM sys_company a
+		<include refid="companyJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="name != null and name != ''">
+				AND a.name LIKE CONCAT('%',#{name},'%')
+			</if>
+		</where>
+		ORDER BY a.id
+	</select>
+	
+	
+	<select id="queryCompany" resultType="Company">
+		SELECT a.id,a.name,COUNT(a.company_id) AS count 
+		FROM (SELECT c.id,c.name, i.company_id FROM sys_company c 
+		LEFT JOIN drs_information i ON i.company_id=c.id AND i.del_flag='0'
+		<if test="isAudit == 1">
+			 AND i.is_audit=#{isAudit}
+		</if>
+		WHERE c.del_flag= #{company.delFlag}) a
+	     GROUP BY a.id;
+	</select>
+	
+		   <!-- 添加多条数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		INSERT INTO sys_company
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
+</mapper>

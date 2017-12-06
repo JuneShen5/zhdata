@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.InformationDao">
+
+	<resultMap id="informationResult" type="Information">
+        <id property="id" column="id" />
+        <result property="companyName" column="companyName" />
+        <result property="companyId" column="companyId" />
+		<result property="systemId" column="systemId" />
+		<result property="nameEn" column="nameEn" />
+		<result property="nameCn" column="nameCn" />
+		<result property="code" column="code" />
+		<result property="isOpen" column="isOpen" />
+        <result property="openType" column="openType" />
+        <result property="shareType" column="shareType" />
+        <result property="shareMode" column="shareMode" />
+        <result property="shareCondition" column="shareCondition" />
+		<result property="infoType1" column="infoType1" />
+        <result property="infoType2" column="infoType2" />
+		<result property="isAudit" column="isAudit" />
+		<result property="reason" column="reason" />
+		<result property="tbName" column="tbName" />
+        <result property="info" column="info" />
+        <result property="remarks" column="remarks" />
+        <collection property="elementList" ofType="Element">
+            <id property="id" column="elementList.id" />
+            <result property="idCode" column="elementList.idCode" />
+            <result property="nameCn" column="elementList.nameCn" />
+            <result property="nameEn" column="elementList.nameEn" />
+            <result property="label" column="elementList.label" />
+            <result property="len" column="elementList.len" />
+            <result property="objectType" column="elementList.objectType" />
+            <result property="dataLabel" column="elementList.dataLabel" />
+            <result property="isDict" column="elementList.isDict" />
+            <result property="shareType" column="elementList.shareType" />
+            <result property="shareCondition" column="elementList.shareCondition" />
+            <result property="shareMode" column="elementList.shareMode" />
+            <result property="isOpen" column="elementList.isOpen" />
+            <result property="openType" column="elementList.openType" />
+            <result property="updateCycle" column="elementList.updateCycle" />
+            <result property="dataType" column="elementList.dataType" />
+             <result property="dataTypen" column="elementList.dataTypen" />
+            <result property="dataTypeName" column="elementList.dataTypeName" />
+            <result property="remarks" column="elementList.remarks" />
+            <result property="sort" column="elementList.sort" />
+            <result property="companyName" column="elementList.companyName" />
+            <result property="companyId" column="elementList.companyId" />
+        </collection>
+    </resultMap>
+    
+	<sql id="informationColumns">
+		a.id,
+		a.company_id AS "companyId",
+		a.system_id AS "systemId",
+		a.name_en AS "nameEn",
+		a.name_cn AS "nameCn",
+		a.code,
+		a.is_open AS "isOpen",
+		a.open_type AS "openType",
+		a.share_type AS "shareType",
+		a.share_mode AS "shareMode",
+		a.share_condition AS "shareCondition",
+		a.info_type1 AS "infoType1",
+		a.info_type2 AS	"infoType2",
+		a.is_audit AS "isAudit",
+		a.tb_name AS "tbName",
+		a.reason,
+		JSON_UNQUOTE(a.info) as "info",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+	</sql>
+	
+    <sql id="shareOpen">
+        a.id,
+        a.name_en AS "nameEn",
+		a.name_cn AS "nameCn",
+		a.code,
+		a.open_type AS "openType",
+		a.share_type AS "shareType",
+		a.info_type1 AS "infoType1",
+		a.info_type2 AS	"infoType2",
+		a.is_audit AS "isAudit",
+		JSON_UNQUOTE(a.info) as "info",
+		a.del_flag AS "delFlag"
+    </sql>
+    
+    
+	<sql id="informationJoins">
+		LEFT JOIN drs_info_element ie ON ie.info_id=a.id
+		LEFT JOIN drs_element e ON ie.element_id=e.id
+	</sql>
+
+	<!-- 查询全部信息资源清单 -->
+	<select id="findAll" resultType="Information">
+		SELECT
+		<include refid="informationColumns" />
+		FROM drs_information a
+		<include refid="informationJoins" />
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		ORDER BY a.id
+	</select>
+
+	<!-- 查询总数 -->
+	<select id="getCount" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM
+		drs_information a
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+	</select>
+
+	<!-- 根据机构查询信息资源清单 -->
+	<select id="findByCompanyId" resultType="Information">
+		SELECT
+		<include refid="informationColumns" />
+		FROM drs_information a
+		<include refid="informationJoins" />
+		WHERE a.del_flag = #{info.delFlag} AND a.company_id =#{info.companyId}
+		ORDER BY a.id
+	</select>
+	
+	
+	<!-- 根据基础类等查询总数 -->
+	<select id="queryCount" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM
+		drs_information a
+		WHERE 
+			a.del_flag =#{info.delFlag}
+		<if test="info.companyId != null and info.companyId  !=0" >
+				AND a.company_id =#{info.companyId}
+			</if>
+		<if test="info.infoType1 != null and info.infoType1  !=0" >
+				AND a.info_type1 =#{info.infoType1}
+			</if>
+			<if test="info.infoType2  != null and info.infoType2  !=0" >
+				AND a.info_type2 =#{info.infoType2}
+			</if> 
+	</select>
+	
+	<!-- 根据基础类等查询信息资源清单 -->
+	<select id="queryInfoList" resultType="Information">
+		SELECT
+		<include refid="informationColumns" />
+		FROM drs_information a
+		WHERE
+			a.del_flag =#{info.delFlag}
+			<if test="info.infoType1 != null and info.infoType1  !=0" >
+				AND a.info_type1 =#{info.infoType1 }
+			</if>
+			<if test="info.infoType2  != null and info.infoType2  !=0" >
+				AND a.info_type2 =#{info.infoType2}
+			</if> 
+		ORDER BY a.id
+	</select>
+	
+	<!-- 查询条件总数 -->
+	<select id="getSearchCount" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM
+		drs_information a
+		WHERE 
+		a.del_flag = 0
+		<foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='nameEn'" >
+                    AND name_en like '%${value}%'
+                </if>
+				<if test="key=='nameCn'" >
+                    AND name_cn like '%${value}%'
+                </if>
+				<if test="key=='isAudit'" >
+                    AND is_audit = '${value}'
+                </if>
+                <if test="key=='companyId'" >
+                    AND company_id = '${value}'
+                </if>
+                <if test="key=='infoType1'" >
+                    AND info_type1 = '${value}'
+                </if>
+                 <if test="key=='infoType2'" >
+                    AND info_type2 = '${value}'
+                </if>
+                <if test="key=='shareType'" >
+                    and share_type = '${value}'
+                </if>
+                <if test="key=='openType'" >
+                    and open_type = '${value}'
+                </if>
+               <!--  <if test="key!='name'"> 
+                    AND json_extract(info,'$."${key}"') like '%#{value}%'
+                </if>  -->
+            </if>
+        </foreach>
+	</select>
+
+	<!-- 根据条件查询 -->
+    <select id="queryListByPage" resultMap="informationResult">
+        SELECT
+        <include refid="informationColumns" />
+        ,
+        e.id AS "elementList.id",
+        LPAD(e.id,7,'0') AS "elementList.idCode",
+        e.name_cn AS "elementList.nameCn",
+        e.name_en AS "elementList.nameEn",
+        e.label AS "elementList.label",
+        e.len AS "elementList.len",
+        e.object_type AS "elementList.objectType",
+        e.data_label AS "elementList.dataLabel",
+        e.is_dict AS "elementList.isDict",
+        e.share_type AS "elementList.shareType",
+        e.share_condition AS "elementList.shareCondition",
+        e.share_mode AS "elementList.shareMode",
+        e.is_open AS "elementList.isOpen",
+        e.open_type AS "elementList.openType",
+        e.update_cycle AS "elementList.updateCycle",
+        e.data_type AS "elementList.dataType",
+        e.data_typen AS "elementList.dataTypen",
+        e.remarks AS "elementList.remarks",
+        e.sort AS "elementList.sort",
+        c1.name AS "elementList.companyName",
+        e.company_id AS "elementList.companyId",
+        d.label AS "elementList.dataTypeName"
+        FROM (SELECT * FROM drs_information
+        WHERE
+        del_flag = 0
+        <foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='nameEn'" >
+                    AND name_en like '%${value}%'
+                </if>
+				<if test="key=='nameCn'" >
+                    AND name_cn like '%${value}%'
+                </if>
+				<if test="key=='isAudit'" >
+                    AND is_audit = '${value}'
+                </if>
+                <if test="key=='companyId'" >
+                    AND company_id = '${value}'
+                </if>
+                <if test="key=='infoType1'" >
+                    AND info_type1 = '${value}'
+                </if>
+                 <if test="key=='infoType2'" >
+                    AND info_type2 = '${value}'
+                </if>
+                <if test="key=='shareType'" >
+                    AND share_type = '${value}'
+                </if>
+                <if test="key=='openType'" >
+                    AND open_type = '${value}'
+                </if>
+               <!--  <if test="key!='name'"> 
+                    and json_extract(info,'$."${key}"') like '%#{value}%'
+                </if>  -->
+            </if>
+        </foreach>
+        <if test="page.isPage==true">
+        LIMIT #{page.startRow}, #{page.endRow}
+        </if> 
+        ) a
+        LEFT JOIN sys_company c ON c.id = a.company_id
+        LEFT JOIN drs_info_element ie ON ie.info_id=a.id
+        LEFT JOIN drs_element e ON ie.element_id=e.id
+        LEFT JOIN sys_company c1 ON c1.id = e.company_id
+        LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
+        ORDER BY a.id
+    </select>
+	
+	<!-- 保存关联表 -->
+	<insert id="saveRelation">
+		INSERT INTO drs_info_element(info_id, element_id) values
+		<foreach collection="elementList" item="element" separator=",">
+			(#{id}, #{element.id})
+
+		</foreach>
+	</insert>
+
+	<!-- 删除关联表 -->
+	<delete id="deleteRelation">
+		DELETE FROM drs_info_element WHERE info_id = #{id}
+	</delete>
+
+	<select id="getInfoElementById" resultMap="informationResult" parameterType="java.lang.Integer">
+		SELECT
+		<include refid="informationColumns" />
+		,
+		e.id AS "elementList.id",
+		LPAD(e.id,7,'0') as "elementList.idCode",
+		e.name_cn AS "elementList.nameCn",
+		e.name_en AS "elementList.nameEn",
+		e.source AS "elementList.source",
+		e.label AS "elementList.label",
+		e.len AS "elementList.len",
+		e.object_type AS "elementList.objectType",
+        e.data_label AS "elementList.dataLabel",
+        e.is_dict AS "elementList.isDict",
+        e.share_type AS "elementList.shareType",
+        e.share_condition AS "elementList.shareCondition",
+        e.share_mode AS "elementList.shareMode",
+        e.is_open AS "elementList.isOpen",
+        e.open_type AS "elementList.openType",
+        e.update_cycle AS "elementList.updateCycle",
+		e.data_type AS "elementList.dataType",
+		e.data_typen AS "elementList.dataTypen",
+		e.remarks AS "elementList.remarks",
+		e.sort AS "elementList.sort",
+		e.company_id AS "elementList.companyId"
+		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id} order by id) ie
+		LEFT JOIN drs_information a ON ie.info_id = a.id
+		LEFT JOIN drs_element e ON e.id	= ie.element_id
+	</select>
+	
+	
+	<update id="saveTable" parameterType="String"> 
+		${tableSQL}
+	</update>
+	
+	<delete id="delTab" parameterType="String">
+		${dropSQL}
+	</delete>
+	
+	<select id="findElementById" resultType="Element" parameterType="java.lang.Integer">
+		SELECT 
+		e.id,
+		LPAD(e.id,7,'0') AS "idCode",
+		e.name_en AS "nameEn",
+		e.name_cn AS "nameCn",
+		e.label AS "elementList.label"
+		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id}) ie LEFT JOIN  drs_element e ON e.id = ie.element_id
+	</select>
+	
+	<select id="findMAX" resultType="int" parameterType="Information">
+		SELECT MAX(id) FROM drs_information
+		</select>
+	
+	  <!-- 添加多条数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		INSERT INTO drs_information
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
+	
+	
+	<!-- 根据共享类型查找信息资源的总数 -->
+	<select id="queryInfoByshareType" resultType="Integer">
+	  SELECT COUNT(*) FROM drs_information WHERE json_extract(info,'$.gongxiangleixing') = #{shareType} AND company_id=#{companyId} AND del_flag='0'
+	</select>
+	
+	
+	
+	
+	<!-- 查找共享的数量 -->
+	<select id="shareCount" resultType="Integer">
+	SELECT COUNT(id) FROM drs_information WHERE share_type='2' AND del_flag='0'
+	</select>
+	
+	<select id="openCount" resultType="Integer">
+	SELECT COUNT(id) FROM drs_information WHERE open_type='1' AND del_flag='0'
+	</select>
+	
+	
+	<!-- 删除关联表 -->
+	<delete id="deleteInfoEle">
+		 DELETE FROM drs_info_element WHERE info_id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+	
+
+	
+	<!-- 根据信息资源ID查找关联的部门 -频率分析部门数量-->
+	<select id="queryCompCount" resultType="Information">
+	
+	SELECT a.company_id AS companyId ,COUNT(a.company_id) AS count 
+	FROM
+	(SELECT * FROM drs_information  WHERE id IN (SELECT info_id FROM drs_info_element WHERE element_id=#{id}) AND del_flag='0')a 
+	GROUP BY a.company_id
+	</select>
+	
+	
+	<!-- 根据信息项ID查找信息资源 -->
+	<select id="queryInfoByEleId" resultType="Information">
+		
+		SELECT a.id,a.name_cn As nameCn,a.company_id AS companyId
+		FROM drs_information a 
+		LEFT JOIN drs_info_element ie ON ie.info_id=a.id 
+		WHERE ie.element_id=#{id} AND a.del_flag=0
+	</select>
+	
+	
+	<!-- 根据数据元池的信息项ID查找关联的信息资源 -->
+	<select id="queryElePoolById" resultType="Information">
+		SELECT distinct 
+		<include refid="informationColumns" />
+		FROM drs_information a 
+		LEFT JOIN sys_company c ON c.id = a.company_id
+		LEFT JOIN drs_info_element ie ON ie.info_id =a.id 
+ 		LEFT JOIN drs_element_pool el ON el.ele_id=ie.element_id WHERE el.id IN 
+ 		<foreach collection="elIds" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</select>
+	
+	<!-- 数据表生成信息资源-保存关联关系 -->
+	<insert id="relationSave">
+		INSERT INTO drs_info_element(info_id, element_id) values
+		<foreach collection="elIds" item="eleId" separator=",">
+			(#{id}, #{eleId})
+
+		</foreach>
+	</insert>
+	
+	<update id="updateAllAudit">
+	  UPDATE drs_information SET is_audit = 1 
+	  WHERE drs_information.del_flag = 0
+	</update>
+	
+</mapper>

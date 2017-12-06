@@ -1,0 +1,77 @@
+label-primary, 
+.badge-primary {
+	background-color: #069ddb;
+}
+.btn-primary {
+	border-color: #069ddb !important;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus, 
+.btn-primary:active,
+.btn-primary.active, 
+.open .dropdown-toggle.btn-primary {
+	background-color: rgba(6,157,219,.9) !important;
+	border-color: rgba(6,157,219,.9) !important;
+}
+
+.tabsNav .nav a.current {
+	background-color: #069ddb !important;
+}
+
+.layui-layer-btn .layui-layer-btn0 {
+	background-color: #069ddb !important;
+	border-color: #069ddb !important;
+}
+
+.form-control:focus, .single-line:focus {
+	border-color: #069ddb !important;
+}
+
+.chosen-container .chosen-results li.highlighted {
+	background-color: #069ddb !important;;
+	color: #fff !important;;
+}
+
+#tagTop .red {
+	background: #069ddb !important;;
+	border-color: #069ddb !important;;
+}
+
+.webuploader-container .webuploader-pick {
+	background: #069ddb !important;
+}
+
+.checkbox-success input[type="checkbox"]:checked+label::before,
+	.checkbox-success input[type="radio"]:checked+label::before {
+	background-color: #069ddb !important;
+	border-color: #069ddb !important;
+}
+
+.small-box.box-1 .icon-container {
+	background-color: #069ddb !important;
+}
+
+.small-box.box-1 {
+	background-color: #069ddb !important;
+}
+
+.small-box.box-2 .icon-container {
+	background-color: #069ddb !important;
+}
+
+.small-box.box-2 {
+	background-color: #069ddb !important;
+}
+
+.com-count {
+	background-color: #069ddb !important;
+}
+
+.com-count .badge {
+	background-color: #fff !important;
+}
+
+.label-info, .badge-info {
+	background-color: #069ddb !important;
+}

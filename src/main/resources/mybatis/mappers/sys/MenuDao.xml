@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.sys.dao.MenuDao">
+
+	<sql id="menuColumns">
+		a.id,
+		a.parent_id AS "parentId",
+		a.name,
+		a.sort,
+		a.href,
+		a.target,
+		a.image,
+		a.is_show AS "isShow",
+		a.permission,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		p.name AS "parentName"
+	</sql>
+	
+	<sql id="menutitle">
+	a.name
+	</sql>
+	
+	<sql id="menuJoins">
+		LEFT JOIN sys_menu p ON p.id = a.parent_id
+    </sql>
+
+
+	<select id="selectByUserId" resultType="Menu">
+		SELECT DISTINCT
+		<include refid="menuColumns" />
+		 FROM sys_menu a 
+		 LEFT JOIN sys_menu p ON p.id = a.parent_id
+		LEFT JOIN sys_role_menu rm ON rm.menu_id=a.id 
+		JOIN sys_role r ON r.id=rm.role_id  AND r.useable='1'
+		JOIN sys_user u ON u.role_id=r.id AND u.id= #{userId}
+		WHERE
+		a.del_flag = '0' AND r.del_flag ='0'
+		AND u.del_flag ='0'
+		ORDER BY a.sort
+	</select>
+
+	
+	<select id="findAll" resultType="Menu">
+		SELECT
+			<include refid="menuColumns"/>
+		FROM sys_menu a
+		<include refid="menuJoins"/>
+		WHERE a.del_flag = '0' 
+		<!-- AND a.is_show ='1' -->
+		ORDER BY a.sort
+	</select>
+	
+	<select id="queryLogByUri" resultType="String">
+		SELECT
+			<include refid="menutitle"/>
+		FROM sys_menu a
+		
+		WHERE a.href =#{href} AND a.del_flag = '0'
+	</select>
+	
+	<!-- 根据菜单删除关联表 -->
+	<delete id="deletByMenuId">
+		 DELETE FROM sys_role_menu WHERE menu_id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+	
+	<!-- 根据菜单删除父级及子级 -->
+	<delete id="deleteByIds">
+		 DELETE FROM sys_menu WHERE id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+
+
+	<!-- 保存关联表 -->
+	<insert id="saveRoleMenuRation">
+		INSERT INTO sys_role_menu(role_id, menu_id) values
+			(#{roleId}, #{menuId}) 
+			
+	</insert>
+	
+	<!-- 根据菜单ID删除关联表 -->
+	<delete id="deleteRationByMenuId">
+		 DELETE FROM sys_role_menu WHERE menu_id =#{id}
+	</delete>
+
+</mapper>

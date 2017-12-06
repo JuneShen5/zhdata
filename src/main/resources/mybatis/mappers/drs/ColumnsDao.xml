@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.ColumnsDao">
+	<sql id="columnsColumns">
+		a.id,
+		a.name_en AS "nameEn",
+		a.name_cn AS "nameCn",
+		a.tb_id AS "tbId",
+		a.to_element AS "toElement",
+		a.type AS "type",
+		a.length AS "length",
+		a.is_key AS "isKey",
+		a.create_date AS "createDate",
+		a.create_by AS "createBy",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		a.ele_id AS "eleId"
+	</sql>
+
+    <sql id="columnsJoins">
+    
+	</sql>
+
+	<!-- 根据编号获得属性 -->
+	<select id="get" resultType="Columns">
+		SELECT
+		<include refid="columnsColumns" />
+		FROM drs_columns a
+	<!-- 	<include refid="columnsJoins" /> -->
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- 查询全部属性 -->
+	<select id="findAll" resultType="Columns">
+		SELECT
+		<include refid="columnsColumns" />,
+		t.name_en AS "tbName"
+		FROM drs_columns a
+		LEFT JOIN drs_tables t ON t.id=a.tb_id
+		<!-- <include refid="columnsJoins" /> -->
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="nameCn != null and nameCn != ''">
+				AND a.name_cn LIKE CONCAT('%',#{nameCn},'%')
+			</if>
+			<if test="nameEn != null and nameEn != ''">
+				AND a.name_en LIKE CONCAT('%',#{nameEn},'%')
+			</if>
+			<if test="tbId != null and tbId != ''">
+				AND t.id = #{tbId}
+			</if>
+		</where>
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL} -->
+		ORDER BY a.update_date DESC
+	</select>
+	
+	<!-- 数据同步到信息项 -->
+	<insert id="columsToElement">
+	 	INSERT INTO drs_element (
+		name_cn,
+		name_en,
+		data_type,
+		len,
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks
+	 	) SELECT 
+	 	name_cn,
+		name_en,
+		type, 
+		length, 
+		create_by,
+		create_date,
+		update_by,
+		update_date,
+		remarks
+ 		FROM drs_columns 
+ 		<where>
+			del_flag = 0
+			AND to_element=0
+			<if test="columns.id!= null and columns.id != ''">
+				AND id = #{columns.id}
+			</if>
+		</where>
+	</insert>
+	
+	<select id="queryCheckList" resultType="Columns">
+		SELECT id FROM drs_columns WHERE ele_id IN (SELECT ie.element_id FROM drs_info_element ie WHERE ie.info_id=#{infoId})
+		 AND del_flag='0'
+	</select>
+	
+	
+	<!-- 更新数据字段将ele_id设置为0 -->
+	<update id="updateCol">
+		UPDATE drs_columns SET ele_id=0
+    	<if test=" idList !=null and idList.size() >0 ">
+    	WHERE ele_id IN 
+    	<foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+        </if>
+	</update>
+</mapper>

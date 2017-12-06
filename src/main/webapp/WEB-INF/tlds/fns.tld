@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+
+	<description>JSTL 1.1 functions library</description>
+	<display-name>JSTL functions sys</display-name>
+	<tlib-version>1.1</tlib-version>
+	<short-name>fns</short-name>
+	<uri>http://java.sun.com/jsp/jstl/functionss</uri>
+
+	<!-- SysUtils -->
+	<function>
+		<description>获取字典对象列表</description>
+		<name>getDictList</name>
+		<function-class>com.govmade.zhdata.common.utils.SysUtils</function-class>
+		<function-signature>java.util.List getDictList(java.lang.String)</function-signature>
+		<example>${fns:getDictList(type)}</example>  
+	</function>
+
+
+	<function>
+		<description>获取通用对象列表</description>
+		<name>getList</name>
+		<function-class>com.govmade.zhdata.common.utils.SysUtils</function-class>
+		<function-signature>java.util.List getList(java.lang.String)</function-signature>
+		<example>${fns:getList(type)}</example>  
+
+	</function>
+	
+	<function>
+		<description>根据当前用户获取部门对象</description>
+		<name>queryCompanyName</name>
+		<function-class>com.govmade.zhdata.common.utils.SysUtils</function-class>
+		<function-signature>java.lang.String queryCompanyName()</function-signature>
+		<example>${fns:queryCompanyName()}</example>  
+	</function>
+	
+	<function>
+		<description>根据当前用户获取角色对象</description>
+		<name>queryRoleName</name>
+		<function-class>com.govmade.zhdata.common.utils.SysUtils</function-class>
+		<function-signature>java.lang.String queryRoleName()</function-signature>
+		<example>${fns:queryRoleName()}</example>  
+	</function>
+	
+	<function>
+		<description>获取信息资源分类对象列表</description>
+		<name>getInfoSortByParentId</name>
+		<function-class>com.govmade.zhdata.common.utils.SysUtils</function-class>
+		<function-signature>java.util.List getInfoSortByParentId(java.lang.Integer)</function-signature>
+		<example>${fns:getInfoSortByParentId(parentId)}</example>  
+
+	</function>
+	
+	<!-- DrsUtils -->
+	<function>
+		<description>获取自定义表单属性</description>
+		<name>getAttList</name>
+		<function-class>com.govmade.zhdata.common.utils.DrsUtils</function-class>
+		<function-signature>java.util.List getAttList(java.lang.Integer)</function-signature>
+		<example>${fns:getAttList(typeId)}</example>  
+	</function>
+	
+	<function>
+		<description>获取URL参数</description>
+		<name>getParam</name>
+		<function-class>com.govmade.zhdata.common.utils.DrsUtils</function-class>
+		<function-signature>Integer getParam(java.lang.String)</function-signature>
+		<example>${fns:getParam(type)}</example>  
+	</function>
+	
+	<function>
+		<description>获取通用对象列表</description>
+		<name>getDrList</name>
+		<function-class>com.govmade.zhdata.common.utils.DrsUtils</function-class>
+		<function-signature>java.util.List getDrList(java.lang.String)</function-signature>
+		<example>${fns:getDrList(type)}</example>  
+
+	</function>
+	
+	  
+	<!-- UserUtils -->
+	<function>
+		<description>获取当前用户对象</description>
+		<name>getCurrentUser</name>
+		<function-class>com.govmade.zhdata.common.utils.UserUtils</function-class>
+		<function-signature>com.govmade.zhdata.modules.sys.vo.UserVo getCurrentUser()</function-signature>
+		<example>${fns:getCurrentUser()}</example>
+	</function>
+	
+	
+	
+</taglib>
+  
+  

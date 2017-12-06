@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.InfoSortDao">
+
+	<sql id="infosortColumns">
+		a.id,
+		a.parent_id AS "parentId",
+		a.name,
+		a.code,
+		a.sort,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		p.name AS "parentName"
+	</sql>
+	
+	<sql id="infosortJoins">
+		LEFT JOIN drs_info_sort p ON p.id = a.parent_id
+    </sql>
+
+
+<!-- 	<select id="findAll" resultType="InfoSort">
+		SELECT
+			<include refid="infosortColumns"/>
+		FROM drs_info_sort a
+		ORDER BY a.update_date
+	</select> -->
+	
+	<select id="findAll" resultType="InfoSort">
+		SELECT
+			<include refid="infosortColumns"/>
+		FROM drs_info_sort a
+		<include refid="infosortJoins"/>
+		WHERE a.del_flag = '0'
+		ORDER BY a.update_date
+	</select>
+	
+	
+	<!-- 根据菜单删除父级及子级 -->
+	<delete id="deleteByIds">
+		 DELETE FROM drs_info_sort WHERE id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
+	
+	<!-- 资源目录-根据主题类等查询 -->
+	<select id="queryListByPid" resultType="InfoSort">
+	SELECT a.id,a.parent_id AS parentId,a.name,COUNT(a.info_type2) AS count
+	FROM(SELECT s.id,s.parent_id,s.name,i.info_type2 FROM drs_info_sort s
+	LEFT JOIN drs_information i ON i.info_type2 =s.id AND i.del_flag='0'
+	WHERE s.parent_id=#{id} AND s.del_flag='0')a 
+	GROUP BY a.id
+	
+	</select>
+	
+	<!-- <select id="queryListByPid" resultType="InfoSort">
+	SELECT a.id,a.parent_id AS parentId,a.name,COUNT(a.info_type#{type}) AS count
+	FROM(SELECT s.id,s.parent_id,s.name,i.info_type#{type} FROM drs_info_sort s
+	LEFT JOIN drs_information i ON i.info_type#{type} =s.id AND i.del_flag='0'
+	WHERE s.parent_id=#{id} AND s.del_flag='0')a 
+	GROUP BY a.id
+	
+	</select> -->
+
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.TablesDao">
+
+	<resultMap id="tablesResult" type="Tables">
+		<id property="id" column="id" />
+		<result property="dbId" column="dbId" />
+		<result property="nameEn" column="nameEn" />
+		<result property="nameCn" column="nameCn" />
+		<result property="dbName" column="dbName" />
+		<result property="remarks" column="remarks" />
+		<collection property="colList" ofType="Columns">
+			<id property="id" column="colList.id" />
+			<result property="nameEn" column="colList.nameEn" />
+		</collection>
+		
+	</resultMap>
+	
+	<sql id="tablesColumns">
+		a.id,
+		a.db_id AS "dbId",
+		a.name_en AS "nameEn",
+		a.name_cn AS "nameCn",
+		a.create_date AS "createDate",
+		a.create_by AS "createBy",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		a.info_id AS "infoId"
+	</sql>
+
+    <sql id="tablesJoins">
+    
+	</sql>
+
+	<!-- 根据编号获得属性 -->
+	<select id="get" resultType="Dbs">
+		SELECT
+		<include refid="tablesColumns" />
+		FROM drs_tables a
+	<!-- 	<include refid="tablesJoins" /> -->
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- 查询全部属性 -->
+	<select id="findAll" resultType="Tables">
+		SELECT
+		<include refid="tablesColumns" />,
+		d.name_en AS "dbName"
+		FROM drs_tables a
+		LEFT JOIN drs_dbs d ON d.id=a.db_id
+		<!-- <include refid="tablesJoins" /> -->
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="nameCn != null and nameCn != ''">
+				AND a.name_cn LIKE CONCAT('%',#{nameCn},'%')
+			</if>
+			<if test="dbName != null and dbName != ''">
+				AND d.name_en LIKE CONCAT('%',#{dbName},'%')
+			</if>
+			<if test="nameEn != null and nameEn != ''">
+				AND a.name_en LIKE CONCAT('%',#{nameEn},'%')
+			</if>
+		</where>
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL} -->
+		ORDER BY a.update_date DESC
+	</select>
+	
+	
+	<select id="queryTbCols" resultMap="tablesResult">
+		SELECT 
+		<include refid="tablesColumns" />
+		,
+		c.id AS "colList.id" ,
+		c.name_en AS "colList.nameEn" ,
+		d.name_cn AS "dbName"
+		FROM drs_tables a 
+		LEFT JOIN drs_columns c ON c.tb_id=a.id AND c.del_flag='0'
+		LEFT JOIN drs_dbs d ON d.id=a.db_id
+		WHERE a.db_id=#{id} AND a.del_flag='0'
+	</select>
+	
+	
+	<!-- 更新数据表将info_id设置为0 -->
+	<update id="updateTabs">
+		UPDATE drs_tables SET info_id=0 
+    	<if test=" idList !=null and idList.size() >0 ">
+    	WHERE info_id IN 
+    	<foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+        </if>
+	</update>
+	
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.DbsDao">
+	<sql id="dbsColumns">
+		a.id,
+		a.sys_id AS "sysId",
+		a.company_id AS "companyId",
+		a.name_en AS "nameEn",
+		a.name_cn AS "nameCn",
+		a.create_date AS "createDate",
+		a.create_by AS "createBy",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag"
+	</sql>
+
+    <sql id="dbsJoins">
+    
+	</sql>
+
+	<!-- 根据编号获得属性 -->
+	<select id="get" resultType="Dbs">
+		SELECT
+		<include refid="dbsColumns" />
+		FROM drs_dbs a
+		<include refid="dbsJoins" />
+		WHERE a.id = #{id}
+	</select>
+
+	<!-- 查询全部属性 -->
+	<select id="findAll" resultType="Dbs">
+		SELECT
+		<include refid="dbsColumns" />,
+		c.name AS "companyName",
+		s.name_cn AS "sysName"
+		FROM drs_dbs a
+		LEFT JOIN sys_company c ON c.id=a.company_id
+		LEFT JOIN drs_systems s ON s.id=a.sys_id
+		<include refid="dbsJoins" />
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+			<if test="nameCn != null and nameCn != ''">
+				AND a.name_cn LIKE CONCAT('%',#{nameCn},'%')
+			</if>
+			<if test="companyId != null and companyId != ''">
+				AND a.company_id = #{companyId}
+			</if>
+		</where>
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL} -->
+		ORDER BY a.update_date DESC
+	</select>
+	
+	<!-- 保存数据库 -->
+	<!-- <insert id="saveDbs">
+		INSERT INTO drs_dbs(
+			id,
+			sys_id, 
+			company_id,
+			name_en,
+			name_cn,
+			create_date,
+			create_by,
+			update_by,
+			update_date,
+			remarks,
+			del_flag 
+		) VALUES (
+			#{id},
+			#{sysId},
+			#{companyId},
+			#{nameEn},
+			#{nameCn},
+			#{createDate},
+			#{createBy},
+			#{updateBy},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+		
+	</insert> -->
+	   <!-- 添加多条数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		INSERT INTO drs_dbs
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
+</mapper>
