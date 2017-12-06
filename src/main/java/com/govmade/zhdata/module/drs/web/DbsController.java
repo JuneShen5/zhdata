@@ -42,7 +42,7 @@ import com.govmade.zhdata.module.drs.service.DbsService;
 import com.govmade.zhdata.module.drs.service.ElementService;
 import com.govmade.zhdata.module.drs.service.InformationService;
 import com.govmade.zhdata.module.drs.service.TablesService;
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.User;
+import com.govmade.zhdata.module.sys.pojo.User;
 
 @Controller
 @RequestMapping(value="/assets")
