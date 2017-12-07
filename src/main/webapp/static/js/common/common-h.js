@@ -39,10 +39,7 @@ var TableInit = function(tableOption,btnOption) {
 
             // 得到查询的参数
             queryParams : function (params) {
-                /*$("#searchFor").parents(".form-group").find("input").each(function (index, item) {
-                    obj[$(this).attr("sName")] = $(this).val();
-                });*/
-                $(toolbar).find(".form-control").each(function (index, item) {
+                $(tableOption.toolbar).find(".form-control").each(function (index, item) {
                     if ($(this).attr("sName") !== undefined) {
                         tableOption.obj[$(this).attr("sName")] = $(this).val();
                     }
@@ -288,6 +285,9 @@ var TableInit = function(tableOption,btnOption) {
         } catch (e) {}
         thisLayerForm.find(".select-chosen").prop("disabled", false);
         thisLayerForm.find(".select-chosen").trigger("chosen:updated");
+        thisLayerForm.find("select").each(function () {
+            $(this).removeAttr("disabled");
+        });
         thisLayerForm.find('.i-checks').iCheck('enable');
         // 将表单验证去掉
         thisLayerForm.validate().resetForm();
@@ -336,6 +336,9 @@ var TableInit = function(tableOption,btnOption) {
         // 判断select
         thisLayerForm.find(".select-chosen").prop("disabled", true);
         thisLayerForm.find(".select-chosen").trigger("chosen:updated");
+        thisLayerForm.find("select").each(function () {
+            $(this).attr("disabled","disabled");
+        });
         setTimeout(function(){
             thisLayerForm.find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
             thisLayerForm.find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");

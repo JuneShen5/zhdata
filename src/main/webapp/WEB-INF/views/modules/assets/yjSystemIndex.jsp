@@ -21,7 +21,7 @@
                                        class="form-control col-sm-8">
                                 <div class="input-group-btn col-sm-4">
                                     <button type="button" id="searchFor"
-                                            onclick="$('#systemTable').bootstrapTable('refresh');"
+                                            onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
                                     <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
@@ -60,7 +60,7 @@
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
                                 <th data-field="dwmc">责任部门</th>
-                                <th data-field="Score" data-formatter="initTableButton">操作</th>
+                                <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
                     </table>
@@ -76,27 +76,16 @@
                         <h1>
                             部门已建政务信息系统调查表
                         </h1>
-                        <!--<form>
-                            <table class="table" id="mainTable">
-                                <thead>
-                                    <tr>
-                                        <th data-field="itemType" data-valign="middle" data-class="col-sm-1 column-head-position">类别</th>
-                                        <th data-field="itemName" data-valign="middle" data-class="col-sm-2">项目名称</th>
-                                        <th data-field="itemContent">项目详情</th>
-                                    </tr>
-                                </thead>
-                            </table>
-                        </form>-->
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <!-- 系统名称 -->
                             <fieldset>
                                 <legend>系统名称</legend>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="sysName" class=" control-label">政务信息系统名称</label>
+                                        <label class=" control-label">政务信息系统名称</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="sysName" placeholder="请输入政务信息系统名称">
+                                        <input type="text" class="form-control" name="xtmc" placeholder="请输入政务信息系统名称" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -105,83 +94,83 @@
                                 <legend>基本信息</legend>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_1" class="control-label">审批部门</label>
+                                        <label class="control-label">审批部门</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_1" placeholder="请输入审批部门">
+                                        <input type="text" class="form-control" name="spbm" placeholder="请输入审批部门" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_2" class="control-label">审批时间</label>
+                                        <label class="control-label">审批时间</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control datepicker" id="fieldsetInput2_2" readonly="readonly" placeholder="请选择审批时间">
+                                        <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="请选择审批时间" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title column-title-multiple">
-                                        <label for="fieldsetInput2_3" class="control-label">业务功能</label>
+                                        <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea id="fieldsetInput2_3" class="form-control" rows="3"></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_4" class="control-label">建设单位</label>
+                                        <label class="control-label">建设单位</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_4" placeholder="请输入建设单位">
+                                        <input type="text" class="form-control" name="jsdwmc" placeholder="请输入建设单位" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_5_1" class="control-label">联系人<br>(姓名/手机)</label>
+                                        <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_5_1" placeholder="请输入姓名">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_5_2" placeholder="请输入手机号">
+                                        <input type="text" class="form-control form-input-inline" name="jsdwlxr" placeholder="请输入姓名" required>
+                                        <input type="text" class="form-control form-input-inline" name="jsdwlxdh" placeholder="请输入手机号" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_6" class="control-label">承建单位</label>
+                                        <label class="control-label">承建单位</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_6" placeholder="请输入承建单位">
+                                        <input type="text" class="form-control" name="cjdwmc" placeholder="请输入承建单位" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_7_1" class="control-label">联系人<br>(姓名/手机)</label>
+                                        <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_7_1" placeholder="请输入姓名">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_7_2" placeholder="请输入手机号">
+                                        <input type="text" class="form-control form-input-inline" name="cjdwlxr" placeholder="请输入姓名" required>
+                                        <input type="text" class="form-control form-input-inline" name="cjdwlxdh" placeholder="请输入手机号" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_8" class="control-label">运维单位</label>
+                                        <label class="control-label">运维单位</label>
                                     </div>
                                     <div class="col-sm-5">
-                                        <input type="text" class="form-control" id="fieldsetInput2_8" placeholder="请输入运维单位">
+                                        <input type="text" class="form-control" name="ywdwmc" placeholder="请输入运维单位" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_9_1" class="control-label">联系人<br>(姓名/手机)</label>
+                                        <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_9_1" placeholder="请输入姓名">
-                                        <input type="text" class="form-control form-input-inline" id="fieldsetInput2_9_2" placeholder="请输入手机号">
+                                        <input type="text" class="form-control form-input-inline" name="ywdwlxr" placeholder="请输入姓名" required>
+                                        <input type="text" class="form-control form-input-inline" name="ywdwlxdh" placeholder="请输入手机号" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_10" class="control-label">建成时间</label>
+                                        <label class="control-label">建成时间</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control datepicker" id="fieldsetInput2_10" readonly="readonly" placeholder="请选择建成时间">
+                                        <input type="text" class="form-control datepicker" name="jcsj" readonly="readonly" placeholder="请选择建成时间" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_11" class="control-label">运维合同签署到期时间</label>
+                                        <label class="control-label">运维合同签署到期时间</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control datepicker" id="fieldsetInput2_11" readonly="readonly" placeholder="请选择到期时间">
+                                        <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="请选择到期时间" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -189,22 +178,22 @@
                                         <label class="control-label">资金</label>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_12" class="control-label">建设金额：</label>
+                                        <label class="control-label">建设金额：</label>
                                     </div>
                                     <div class="col-sm-3 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_12" placeholder="请输入建设金额（单位：万元）">
+                                        <input type="text" class="form-control" name="jsje" placeholder="请输入建设金额（单位：万元）" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_13" class="control-label">资金来源</label>
+                                        <label class="control-label">资金来源</label>
                                     </div>
                                     <div class="col-sm-3 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_13" placeholder="请输入资金来源">
+                                        <input type="text" class="form-control" name="zjly" placeholder="请输入资金来源" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_14" class="control-label">建设方式</label>
+                                        <label class="control-label">建设方式</label>
                                     </div>
                                     <div class="col-sm-2 column-content">
-                                        <select class="form-control" id="fieldsetInput2_14">
+                                        <select class="form-control" name="jsfs" required>
                                             <option value="">请选择</option>
                                             <option value="1">自建（自有产权）</option>
                                             <option value="2">购买服务（无产权）</option>
@@ -216,22 +205,22 @@
                                         <label class="control-label">运维</label>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_15" class="control-label">年度运维金额：</label>
+                                        <label class="control-label">年度运维金额：</label>
                                     </div>
                                     <div class="col-sm-3 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_15" placeholder="请输入年度运维金额（单位：万元）">
+                                        <input type="text" class="form-control" name="ndywje" placeholder="请输入年度运维金额（单位：万元）" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_16" class="control-label">资金来源</label>
+                                        <label class="control-label">资金来源</label>
                                     </div>
                                     <div class="col-sm-3 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput2_16" placeholder="请输入资金来源">
+                                        <input type="text" class="form-control" name="ywzjly" placeholder="请输入资金来源" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_17" class="control-label">运维方式</label>
+                                        <label class="control-label">运维方式</label>
                                     </div>
                                     <div class="col-sm-2 column-content">
-                                        <select class="form-control" id="fieldsetInput2_17">
+                                        <select class="form-control" name="ywfs" required>
                                             <option value="">请选择</option>
                                             <option value="1">自主运维</option>
                                             <option value="2">外包服务</option>
@@ -240,10 +229,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_18" class="control-label">系统类别</label>
+                                        <label class="control-label">系统类别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput2_18">
+                                        <select class="form-control" name="xtlb" required>
                                             <option value="">请选择</option>
                                             <option value="1">应用层系统</option>
                                             <option value="2">应用支撑层系统</option>
@@ -257,10 +246,10 @@
                                 <legend>僵尸系统信息</legend>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput3_1" class="control-label">是否为僵尸信息系统</label>
+                                        <label class="control-label">是否为僵尸信息系统</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput3_1">
+                                        <select class="form-control" name="sfjsxt" required>
                                             <option value="">请选择</option>
                                             <option value="1">否</option>
                                             <option value="2">是（如是僵尸系统下表内容无需填写）</option>
@@ -269,18 +258,18 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput3_2" class="control-label">使用对象</label>
+                                        <label class="control-label">使用对象</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput3_2" placeholder="请输入使用对象">
+                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput3_3" class="control-label">业务功能</label>
+                                        <label class="control-label">使用频度</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput3_3" placeholder="请输入业务功能">
+                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -289,18 +278,18 @@
                                 <legend>系统整合信息</legend>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_1" class="control-label">部署位置</label>
+                                        <label class="control-label">部署位置</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_1" placeholder="请输入部署位置">
+                                        <input type="text" class="form-control" name="bswz" placeholder="请输入部署位置" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_2" class="control-label">涉密分类</label>
+                                        <label class="control-label">涉密分类</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput4_2">
+                                        <select class="form-control" name="smfl" required>
                                             <option value="">请选择</option>
                                             <option value="1">涉密</option>
                                             <option value="2">非涉密</option>
@@ -309,10 +298,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_3" class="control-label">业务功能</label>
+                                        <label class="control-label">安全级别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput4_3">
+                                        <select class="form-control" name="aqjb" required>
                                             <option value="">请选择</option>
                                             <option value="1">三级</option>
                                             <option value="2">二级</option>
@@ -322,18 +311,18 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_4" class="control-label">系统已接入的网络类型</label>
+                                        <label class="control-label">系统已接入的网络类型</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_4" placeholder="请输入系统已接入的网络类型">
+                                        <input type="text" class="form-control" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_5" class="control-label">使用范围</label>
+                                        <label class="control-label">使用范围</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput4_5">
+                                        <select class="form-control" name="syfw" required>
                                             <option value="">请选择</option>
                                             <option value="1">单位内部</option>
                                             <option value="2">国家垂直</option>
@@ -346,10 +335,10 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_6" class="control-label">是否与其他系统对接</label>
+                                        <label class="control-label">是否与其他系统对接</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput4_6">
+                                        <select class="form-control" name="sfyqtxtdj" required>
                                             <option value="">请选择</option>
                                             <option value="1">是，对接省政务信息信息共享平台</option>
                                             <option value="2">是，对接其他系统</option>
@@ -359,65 +348,65 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_7" class="control-label">虚拟化部署</label>
+                                        <label class="control-label">虚拟化部署</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <select class="form-control" id="fieldsetInput4_7">
+                                        <select class="form-control" name="sfxnhbs" required>
                                             <option value="">请选择</option>
                                             <option value="1">是</option>
                                             <option value="2">否</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_8" class="control-label">软件厂商名称</label>
+                                        <label class="control-label">软件厂商名称</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_8" placeholder="虚拟化软件厂商名">
+                                        <input type="text" class="form-control" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title column-title-multiple">
-                                        <label for="fieldsetInput4_9" class="control-label">数据备份</label>
+                                        <label class="control-label">数据备份</label>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_10" class="control-label">是否备份</label>
+                                        <label class="control-label">是否备份</label>
                                     </div>
                                     <div class="col-sm-4 column-content">
-                                        <select class="form-control" id="fieldsetInput4_9">
+                                        <select class="form-control" name="sfybf" required>
                                             <option value="">请选择</option>
                                             <option value="1">是</option>
                                             <option value="2">否</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_10" class="control-label">数据备份方式</label>
+                                        <label class="control-label">数据备份方式</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <select class="form-control" id="fieldsetInput4_10">
+                                        <select class="form-control" name="bffs" required>
                                             <option value="">请选择</option>
                                             <option value="1">本地</option>
                                             <option value="2">异地</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_11" class="control-label">备份点位置</label>
+                                        <label class="control-label">备份点位置</label>
                                     </div>
                                     <div class="col-sm-4 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_11" placeholder="备份点位置">
+                                        <input type="text" class="form-control" name="bfdwz" placeholder="备份点位置" required>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_12" class="control-label">数据备份量</label>
+                                        <label class="control-label">数据备份量</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_12" placeholder="数据备份量（GB）">
+                                        <input type="text" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_13" class="control-label">应用容灾</label>
+                                        <label class="control-label">应用容灾</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" id="fieldsetInput4_13">
+                                        <select class="form-control" name="yyrz" required>
                                             <option value="">请选择</option>
                                             <option value="1">是</option>
                                             <option value="2">否</option>
@@ -426,38 +415,38 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_14" class="control-label">是否申请暂缓整合</label>
+                                        <label class="control-label">是否申请暂缓整合</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <select class="form-control" id="fieldsetInput4_14">
+                                        <select class="form-control" name="sfsqzhzh" required>
                                             <option value="">请选择</option>
                                             <option value="1">是</option>
                                             <option value="2">否</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_15" class="control-label">暂缓整合原因说明</label>
+                                        <label class="control-label">暂缓整合原因说明</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_15" placeholder="备份点位置">
+                                        <input type="text" class="form-control" name="zhzhyy" placeholder="备份点位置" required>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_16" class="control-label">升级需求</label>
+                                        <label class="control-label">升级需求</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <select class="form-control" id="fieldsetInput4_16">
+                                        <select class="form-control" name="sjxq" required>
                                             <option value="">请选择</option>
                                             <option value="1">无</option>
                                             <option value="2">有</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_17" class="control-label">升级需求详细说明</label>
+                                        <label class="control-label">升级需求详细说明</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_17" placeholder="升级需求详细说明">
+                                        <input type="text" class="form-control" name="sjxqsm" placeholder="升级需求详细说明" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -466,20 +455,20 @@
                                 <legend>备注与说明</legend>
                                 <div class="form-group">
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput5_1" class="control-label">备注</label>
+                                        <label class="control-label">备注</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea id="fieldsetInput5_1" class="form-control" rows="3"></textarea>
+                                        <textarea name="remarks" class="form-control" rows="3" required></textarea>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <!--<div class="form-group">
                                     <div class="col-sm-1 column-title">
                                         <label for="fieldsetInput5_2" class="control-label">使用对象</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput5_2" placeholder="请输入使用对象">
+                                        <input type="text" class="form-control" name="fieldsetInput5_2" placeholder="请输入使用对象">
                                     </div>
-                                </div>
+                                </div>-->
                             </fieldset>
                         </form>
                     </div>
@@ -491,25 +480,6 @@
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script src="${ctxStatic}/js/common/common-h.js"></script>
     <script>
-        <%--var tableId = '#yjSystemTable';--%>
-        <%--var layerId = '#layer_form';--%>
-        <%--var formId = '#mainForm'; //form id--%>
-        <%--var toolbar = '#toolbar';--%>
-        <%--var url = '${ctx}/assets/yjSystem/';--%>
-        <%--var obj = {--%>
-        <%--};--%>
-        <%--var editTitle = "已建系统修改";--%>
-        <%--var detailTitle = "已建系统详情";--%>
-        <%--// 时间插件--%>
-        <%--$('.datepicker').datepicker({--%>
-            <%--todayBtn: "linked",--%>
-            <%--keyboardNavigation: false,--%>
-            <%--forceParse: false,--%>
-            <%--calendarWeeks: true,--%>
-            <%--autoclose: true,--%>
-            <%--todayHighlight:true--%>
-        <%--});--%>
-
 
         // 1.设置Table参数和表格按钮
         var mainTableOption = {
@@ -541,8 +511,31 @@
             dataTableId: '',
             submitUrl: '${ctx}/assets/yjSystem/save'
         };
+        // 新增
         function openAdd() {
             $().layerSetting('openAdd', options);
+        }
+
+        function datailRow(id) {
+            options['button'] = [];
+            options.dataTableId = id;
+//            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
+            $().layerSetting('openDetail', options);
+        }
+        function editRow(id) {
+            options['button'] = 'default';
+            options.dataTableId = id;
+//            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
+            $().layerSetting('openEdit', options);
+        }
+        function deleteRow(id) {
+            var deleteOptions = {
+                onlyConfirm: true,
+                submitUrl: '${ctx}/catalog/yjSystem/delete',
+                dataTable: '#yjSystemTable',
+                dataTableId: id
+            };
+            $().layerSetting('deleteRow', deleteOptions);
         }
     </script>
 
