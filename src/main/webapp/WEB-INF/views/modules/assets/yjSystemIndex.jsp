@@ -1,74 +1,74 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <title>表格</title>
         <%@ include file="/WEB-INF/views/include/head.jsp"%>
-        <style>
-            .verticle-mode-l {
-                width: 16px;
-                font-size: 16px;
-                word-wrap: break-word;
-                line-height: 1.2em;
-                margin: 0 auto;
-            }
-            .column-head-position{
-                position: relative!important;
-            }
-            .form-horizontal .form-group{
-                margin: 0;
-            }
-            .main-form{
-                border: solid 1px #e4eaec;
-            }
-            .main-form .control-label{
-                padding: 0;
-                text-align: center;
-                line-height: 1.2em;
-                display: table-cell;
-                vertical-align: middle;
-            }
-            .main-form .form-group {
-                display: flex;
-                align-items: stretch;
-                flex-wrap: wrap;
-                border-bottom: solid 1px #e4eaec;
-            }
-            .main-form fieldset{
-                text-align: center;
-            }
-            .main-form fieldset>legend{
-                margin-bottom: 0;
-                border-bottom: solid 1px #e4eaec;
-                background-color: #e4eaec;
-            }
-            .column-title{
-                padding: 0;
-                height: 40px;
-                display: table;
-            }
-            .column-content{
-                padding-top: 3px;
-                padding-bottom: 3px;
-            }
-            .form-contact{
-                font-size: 0;
-            }
-            .form-input-inline{
-                display: inline-block;
-                width: 50%;
-                font-size: 14px;
-            }
-            .border{
-                border: 1px solid #ddd;
-            }
-        </style>
+        <link href="${ctxStatic}/css/style-add.css" rel="stylesheet" />
     </head>
 
-    <body>
-        <header>123</header>
+    <body class="white-bg">
+        <div class="wrapper wrapper-content animated fadeInRight">
+            <div class="ibox float-e-margins">
+                <!-- <div class="ibox-title">信息系统普查</div> -->
+                <div class="ibox-content">
+                    <div id="toolbar">
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <input id="sName" sName="xtmc" type="text" placeholder="输入信息系统名称"
+                                       class="form-control col-sm-8">
+                                <div class="input-group-btn col-sm-4">
+                                    <button type="button" id="searchFor"
+                                            onclick="$('#systemTable').bootstrapTable('refresh');"
+                                            class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
+                                    <button type="button" id="searchMoreFor"
+                                            onclick="$('.search-list').slideToggle();"
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="text-center">
+                                    <a data-toggle="modal" class="btn btn-green"
+                                       onclick="openLayer('系统清单新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
+                                    <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
+                                    <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
+                                    <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
+                                    <button class="btn btn-blue other-url" type="button" id="272" url="${ctx}/settings/attribute?type=1" name="信息系统配置"><i class='fa fa-cog'></i> 配置</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="search-list" style="display: none;">
+                            <div class="check-search" style="display: inline-block;margin-right: 20px;">
+                                <label class="">责任部门：</label>
+                                <div class="check-search-item" style="width:200px;display: inline-block;">
+                                    <select type="text" sName="companyId" class="form-control search-chosen select-chosen">
+                                        <option value="">全部</option>
+                                        <c:forEach var="company" items="${fns:getList('company')}">
+                                            <option value="${company.id}">${company.name}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                    <table id="yjSystemTable">
+                        <thead>
+                            <tr>
+                                <th data-checkbox="true"></th>
+                                <th data-field="id">序号</th>
+                                <th data-field="xtmc">信息系统名称</th>
+                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="Score" data-formatter="initTableButton">操作</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- 弹框 -->
+        <div id="layer_form" style="display: none" class="ibox-content" >
         <div class="main">
             <div class="container">
                 <div class="row">
@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-1 column-title">
+                                    <div class="col-sm-1 column-title column-title-multiple">
                                         <label for="fieldsetInput2_3" class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
@@ -133,7 +133,7 @@
                                         <input type="text" class="form-control" id="fieldsetInput2_4" placeholder="请输入建设单位">
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_5_1" class="control-label">联系人<br>（姓名/手机）</label>
+                                        <label for="fieldsetInput2_5_1" class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
                                         <input type="text" class="form-control form-input-inline" id="fieldsetInput2_5_1" placeholder="请输入姓名">
@@ -148,7 +148,7 @@
                                         <input type="text" class="form-control" id="fieldsetInput2_6" placeholder="请输入承建单位">
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_7_1" class="control-label">联系人<br>（姓名/手机）</label>
+                                        <label for="fieldsetInput2_7_1" class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
                                         <input type="text" class="form-control form-input-inline" id="fieldsetInput2_7_1" placeholder="请输入姓名">
@@ -163,7 +163,7 @@
                                         <input type="text" class="form-control" id="fieldsetInput2_8" placeholder="请输入运维单位">
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_9_1" class="control-label">联系人<br>（姓名/手机）</label>
+                                        <label for="fieldsetInput2_9_1" class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
                                     <div class="col-sm-5 form-contact column-content">
                                         <input type="text" class="form-control form-input-inline" id="fieldsetInput2_9_1" placeholder="请输入姓名">
@@ -178,7 +178,7 @@
                                         <input type="text" class="form-control datepicker" id="fieldsetInput2_10" readonly="readonly" placeholder="请选择建成时间">
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput2_11" class="control-label">运维合同签署的到期时间</label>
+                                        <label for="fieldsetInput2_11" class="control-label">运维合同签署到期时间</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
                                         <input type="text" class="form-control datepicker" id="fieldsetInput2_11" readonly="readonly" placeholder="请选择到期时间">
@@ -369,14 +369,14 @@
                                         </select>
                                     </div>
                                     <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput4_8" class="control-label">虚拟化部署</label>
+                                        <label for="fieldsetInput4_8" class="control-label">软件厂商名称</label>
                                     </div>
                                     <div class="col-sm-5 column-content">
-                                        <input type="text" class="form-control" id="fieldsetInput4_8" placeholder="虚拟化软件厂商名称">
+                                        <input type="text" class="form-control" id="fieldsetInput4_8" placeholder="虚拟化软件厂商名">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-1 column-title">
+                                    <div class="col-sm-1 column-title column-title-multiple">
                                         <label for="fieldsetInput4_9" class="control-label">数据备份</label>
                                     </div>
                                     <div class="col-sm-1 column-title">
@@ -399,7 +399,7 @@
                                             <option value="2">异地</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-1 col-sm-offset-1 column-title">
+                                    <div class="col-sm-1 column-title">
                                         <label for="fieldsetInput4_11" class="control-label">备份点位置</label>
                                     </div>
                                     <div class="col-sm-4 column-content">
@@ -486,234 +486,19 @@
                 </div>
             </div>
         </div>
-        <footer>321</footer>
+        </div>
 
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script>
-        $(function () {
-            var itemType = ['<div class="verticle-mode-l">基本信息</div>','<div class="verticle-mode-l">僵尸系统信息</div>','<div class="verticle-mode-l">系统整合信息</div>'];
-            var itemData = [{
-                itemType: '政务信息系统名称',
-                itemName: '政务信息系统名称',
-                itemContent: inputFormatter('input1')
-            },{
-                itemType: itemType[0],
-                itemName: '审批部门',
-                itemContent: inputFormatter('input2')
-            },{
-                itemType: itemType[0],
-                itemName: '审批时间',
-                itemContent: dateFormatter('input3')
-            },{
-                itemType: itemType[0],
-                itemName: '业务功能',
-                itemContent: inputFormatter('input4')
-            },{
-                itemType: itemType[0],
-                itemName: '建设单位',
-                itemContent: inputFormatter('input5')
-            },{
-                itemType: itemType[0],
-                itemName: '承建单位',
-                itemContent: inputFormatter('input6')
-            },{
-                itemType: itemType[0],
-                itemName: '运维单位',
-                itemContent: inputFormatter('input7')
-            },{
-                itemType: itemType[0],
-                itemName: '建成时间',
-                itemContent: dateFormatter('input8')
-            },{
-                itemType: itemType[0],
-                itemName: '资金与运维',
-                itemContent: '-'
-            },{
-                itemType: itemType[0],
-                itemName: '系统类别',
-                itemContent: selectFormatter('input10', ['应用层系统','应用支撑层系统','基础设施层系统'])
-            },{
-                itemType: itemType[1],
-                itemName: '是否为僵尸信息系统',
-                itemContent: '-'
-            },{
-                itemType: itemType[1],
-                itemName: '使用对象',
-                itemContent: '-'
-            },{
-                itemType: itemType[1],
-                itemName: '使用频度',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '系统部署位置',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '涉密分类',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '信息安全等保级别',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '系统已接入的网络类型',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '是否与其他系统对接',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '虚拟化部署',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '数据备份',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '应用容灾',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '是否申请暂缓整合',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '暂缓整合说明原因',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '升级需求',
-                itemContent: '-'
-            },{
-                itemType: itemType[2],
-                itemName: '升级需求详细说明',
-                itemContent: '-'
-            },{
-                itemType: '备注',
-                itemName: '备注',
-                itemContent: '-'
-            },{
-                itemType: '说明',
-                itemName: '说明',
-                itemContent: '说明'
-            }];
-            $('#mainTable').bootstrapTable({
-                data: itemData,
-                classes: 'table',
-                showHeader: false,
-                onLoadSuccess: function(){  //加载成功时执行
-                    // 时间插件
-                    $('.datepicker').datepicker({
-                        todayBtn: "linked",
-                        keyboardNavigation: false,
-                        forceParse: false,
-                        calendarWeeks: true,
-                        autoclose: true,
-                        todayHighlight:true
-                    });
-                }
-            });
-            mergeCells(itemData, "itemType", 1, $('#mainTable'));
-        });
-
-        /**
-         * 操作区域表单输入框设置
-         * @param data  原始数据（在服务端完成排序）
-         * @param fieldName 合并属性名称
-         * @param colspan   合并列
-         * @param target    目标表格对象
-         */
-        function inputFormatter(idName, frontLabel, backLabel) {
-            idName = arguments[0]?arguments[0]:'';
-            frontLabel = arguments[1]?arguments[1]:'';
-            backLabel = arguments[2]?arguments[2]:'';
-            var html = '';
-            html += '<div class="form-group">';
-            if (frontLabel === '' && backLabel === ''){
-                html += '<div class="col-sm-12">';
-                html += '<input type="text" class="form-control" id="firstname" placeholder="请输入名字">';
-                html += '</div>';
-            }else if (frontLabel !== '' && backLabel === ''){
-                html += '<label for="'+idName+'" class="col-sm-2 control-label">'+frontLabel+'</label>';
-                html += '<div class="col-sm-10">';
-                html += '<input type="text" class="form-control" id="'+idName+'" placeholder="请输入'+frontLabel+'">';
-                html += '</div>';
-            }else if(frontLabel === '' && backLabel !== ''){
-                html += '<div class="col-sm-10">';
-                html += '<input type="text" class="form-control" id="'+idName+'" placeholder="请输入'+backLabel+'">';
-                html += '</div>';
-                html += '<label for="'+idName+'" class="col-sm-2 control-label">'+backLabel+'</label>';
-            }else if(frontLabel !== '' && backLabel !== ''){
-                html += '<label for="'+idName+'" class="col-sm-2 control-label">'+frontLabel+'</label>';
-                html += '<div class="col-sm-8">';
-                html += '<input type="text" class="form-control" id="'+idName+'" placeholder="请输入'+frontLabel+'">';
-                html += '</div>';
-                html += '<label for="'+idName+'" class="col-sm-2 control-label">'+backLabel+'</label>';
-            }
-            html += '</div>';
-            return html;
-        }
-        function dateFormatter(idName) {
-            var html = '';
-            html += '<div class="form-group">'
-            html += '<div class="col-sm-12">'
-            html += '<input type="text" id="'+idName+'" class="form-control datepicker" readonly="readonly" placeholder="请选择日期">'
-            html += '</div></div>';
-            return html;
-        }
-        function selectFormatter(idName, selectData) {
-            var html = '';
-            html += '<div class="form-group">';
-            html += '<select id="'+idName+'" class="form-control">';
-            html += '<option value=0>请选择</option>';
-            $.each(selectData, function (index, optionData) {
-                html += '<option value="'+(index+1)+'">'+optionData+'</option>';
-            });
-            html += '</select>';
-            html += '</div>';
-            return html;
-        }
-
-        /**
-         * 合并单元格
-         * @param data  原始数据（在服务端完成排序）
-         * @param fieldName 合并属性名称
-         * @param colspan   合并列
-         * @param target    目标表格对象
-         */
-        function mergeCells(data,fieldName,colspan,target){
-            //声明一个map计算相同属性值在data对象出现的次数和
-            var sortMap = {};
-            for(var i = 0 ; i < data.length ; i++){
-                for(var prop in data[i]){
-                    if(prop == fieldName){
-                        var key = data[i][prop];
-                        if(sortMap.hasOwnProperty(key)){
-                            sortMap[key] = sortMap[key] * 1 + 1;
-                        } else {
-                            sortMap[key] = 1;
-                        }
-                        break;
-                    }
-                }
-            }
-            for(var prop in sortMap){
-//                console.log(prop,sortMap[prop])
-            }
-            var index = 0;
-            for(var prop in sortMap){
-                var count = sortMap[prop] * 1;
-                $(target).bootstrapTable('mergeCells',{index:index, field:fieldName, colspan: colspan, rowspan: count}); // 合并相同行
-                index += count;
-            }
-            $(target).bootstrapTable('mergeCells',{index:0, field:'itemType', colspan: 2, rowspan: 1}); // 合并相同列
-            $(target).bootstrapTable('mergeCells',{index:data.length-2, field:'itemType', colspan: 2, rowspan: 1}); // 合并说明列
-            $(target).bootstrapTable('mergeCells',{index:data.length-1, field:'itemType', colspan: 3, rowspan: 1}); // 合并说明列
-        }
+        var tableId = '#yjSystemTable';
+        var layerId = '#layer_form';
+        var formId = '#mainForm'; //form id
+        var toolbar = '#toolbar';
+        var url = '${ctx}/assets/yjSystem/';
+        var obj = {
+        };
+        var editTitle = "已建系统修改";
+        var detailTitle = "已建系统详情";
         // 时间插件
         $('.datepicker').datepicker({
             todayBtn: "linked",
@@ -724,5 +509,7 @@
             todayHighlight:true
         });
     </script>
+
+    <script src="${ctxStatic}/js/common/common.js"></script>
     </body>
 </html>

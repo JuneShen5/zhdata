@@ -91,3 +91,55 @@
     top: 17px;
     left: 5px;
 }
+
+
+/* 信息系统表格样式 */
+.form-horizontal .form-group{
+    margin: 0;
+}
+.main-form{
+    border: solid 1px #e4eaec;
+}
+.main-form .control-label{
+    padding: 0;
+    text-align: center;
+    line-height: 1.2em;
+    display: table-cell;
+    vertical-align: middle;
+}
+.main-form .form-group {
+    /*display: flex;*/
+    /*align-items: stretch;*/
+    /*flex-wrap: wrap;*/
+    border-bottom: solid 1px #e4eaec;
+}
+.main-form fieldset{
+    text-align: center;
+}
+.main-form fieldset>legend{
+    margin-bottom: 0;
+    border-bottom: solid 1px #e4eaec;
+    background-color: #e4eaec;
+}
+.column-title{
+    padding: 0 3px;
+    height: 40px;
+    display: table;
+    border-right: solid 1px #e4eaec;
+    background-color: #fafafa;
+}
+.column-title-multiple{
+    height: 80px;
+}
+.column-content{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.form-contact{
+    font-size: 0;
+}
+.form-input-inline{
+    display: inline-block;
+    width: 50%;
+    font-size: 14px;
+}
