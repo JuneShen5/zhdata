@@ -37,6 +37,8 @@ public class MenuController {
         return ResponseEntity.ok(list);
     }
     
+    
+    
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(Menu menu) throws Exception {
         try {
