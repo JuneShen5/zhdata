@@ -74,7 +74,7 @@
                 <div class="row">
                     <div class="col-md-12 column">
                         <h1>
-                            部门已建政务信息系统调查表
+                            部门拟建政务信息系统调查表
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
