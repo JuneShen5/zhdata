@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <div class="text-center">
                                     <a data-toggle="modal" class="btn btn-green"
-                                       onclick="openLayer('系统清单新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
+                                       onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
                                     <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
@@ -489,27 +489,62 @@
         </div>
 
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
+    <script src="${ctxStatic}/js/common/common-h.js"></script>
     <script>
-        var tableId = '#yjSystemTable';
-        var layerId = '#layer_form';
-        var formId = '#mainForm'; //form id
-        var toolbar = '#toolbar';
-        var url = '${ctx}/assets/yjSystem/';
-        var obj = {
+        <%--var tableId = '#yjSystemTable';--%>
+        <%--var layerId = '#layer_form';--%>
+        <%--var formId = '#mainForm'; //form id--%>
+        <%--var toolbar = '#toolbar';--%>
+        <%--var url = '${ctx}/assets/yjSystem/';--%>
+        <%--var obj = {--%>
+        <%--};--%>
+        <%--var editTitle = "已建系统修改";--%>
+        <%--var detailTitle = "已建系统详情";--%>
+        <%--// 时间插件--%>
+        <%--$('.datepicker').datepicker({--%>
+            <%--todayBtn: "linked",--%>
+            <%--keyboardNavigation: false,--%>
+            <%--forceParse: false,--%>
+            <%--calendarWeeks: true,--%>
+            <%--autoclose: true,--%>
+            <%--todayHighlight:true--%>
+        <%--});--%>
+
+
+        // 1.设置Table参数和表格按钮
+        var mainTableOption = {
+            tableId: 'yjSystemTable',
+            url: '${ctx}/assets/yjSystem/list',
+            toolbar: 'toolbar',
+            pageNumber: 1,
+            pageSize: 10,
+            obj: {}
         };
-        var editTitle = "已建系统修改";
-        var detailTitle = "已建系统详情";
-        // 时间插件
-        $('.datepicker').datepicker({
-            todayBtn: "linked",
-            keyboardNavigation: false,
-            forceParse: false,
-            calendarWeeks: true,
-            autoclose: true,
-            todayHighlight:true
-        });
+        var mainTableBtnOption = {
+            btnNeed: 'default'
+        };
+        // 2.初始化Table
+        // 最外层table
+        var mainTable = new TableInit(mainTableOption,mainTableBtnOption);
+        mainTable.Init();
+        var mainTableBtn = function (value, row, element) {
+            return mainTable.InitButton(row);
+        };
+
+        // 3.初始化弹框
+        var options = {
+            title: '新增',
+            containerSize: ['90%','90%'],
+            container: '#layer_form',
+            button: 'default',
+            dataTable: '#yjSystemTable',
+            dataTableId: '',
+            submitUrl: '${ctx}/assets/yjSystem/save'
+        };
+        function openAdd() {
+            $().layerSetting('openAdd', options);
+        }
     </script>
 
-    <script src="${ctxStatic}/js/common/common.js"></script>
     </body>
 </html>
