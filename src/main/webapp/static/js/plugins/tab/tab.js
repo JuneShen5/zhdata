@@ -45,7 +45,7 @@
 	  name = name.replace("?", "");
       name = name.replace("=", "");
       name = name.replace("&", "");
-      name = name.replace('yjdata', "");
+      name = name.replace('zhdata', "");
       var panelHtml = '<div class="tab-pane tab-iframe-container">' +
 				      '<iframe class="J_iframe ' + name + '" name="iframe0" width="100%" height="100%" src=' +content + ' frameborder="0" seamless></iframe>' + 
 				      '</div>';
