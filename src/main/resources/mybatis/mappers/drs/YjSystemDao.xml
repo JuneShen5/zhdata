@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.YjSystemDao">
+
+      <sql id="YjSystemColumns">
+      a.id,
+      a.dwmc,
+      a.xtmc,
+      a.spbm,
+      a.spsj,
+      a.ywgn,
+      a.jsdwmc,
+      a.jsdwlxr,
+      a.jsdwlxdh,
+      a.cjdwmc,
+      a.cjdwlxr,
+      a.cjdwlxdh,
+      a.ywdwmc,
+      a.ywdwlxr,
+      a.ywdwlxdh,
+      a.jcsj,
+      a.ywhtqsdqsj,
+      a.jsje,
+      a.zjly,
+      a.jsfs,
+      a.ndywje,
+      a.ywzjly,
+      a.ywfs,
+      a.xtlb,
+      a.sfjsxt,
+      a.sydx,
+      a.sypd,
+      a.bswz,
+      a.smfl,
+      a.aqjb,
+      a.yjrwllx,
+      a.syfw,
+      a.sfyqtxtdj,
+      a.djqtxtmc,
+      a.sfxnhbs,
+      a.xnhrjmc,
+      a.sfybf,
+      a.bffs,
+      a.bfdwz,
+      a.sjbfl,
+      a.yyrz,
+      a.sfsqzhzh,
+      a.zhzhyy,
+      a.sjxq,
+      a.sjxqsm,
+      a.create_by AS "createBy",
+	  a.create_date AS "createDate",
+      a.update_by AS "updateBy",
+	  a.update_date AS "updateDate",
+	  a.remarks,
+	  a.del_flag AS "delFlag"      
+      
+      </sql>
+      
+      <select id="queryAllList" resultType="YjSystems">
+      SELECT
+      <include refid="YjSystemColumns" />
+      FROM drs_system_yijian a
+      <where>
+      a.del_flag = #{yjSystems.delFlag}
+      <if test="yjSystems.xtmc != null and yjSystems.xtmc != ''">
+      AND a.xtmc LIKE CONCAT('%',#{yjSystems.xtmc},'%')
+      </if>
+	 </where>
+	 ORDER BY a.id DESC
+	</select>
+	
+	
+</mapper>      
