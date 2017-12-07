@@ -485,7 +485,7 @@
         // 1.设置Table参数和表格按钮
         var mainTableOption = {
             tableId: 'yjSystemTable',
-            url: '${ctx}/assets/yjSystem/list',
+            url: '${ctx}/assets/zjSystem/list',
             toolbar: 'toolbar',
             pageNumber: 1,
             pageSize: 10,
@@ -510,7 +510,7 @@
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
-            submitUrl: '${ctx}/assets/yjSystem/save'
+            submitUrl: '${ctx}/assets/zjSystem/save'
         };
         // 新增
         function openAdd() {
@@ -532,7 +532,7 @@
         function deleteRow(id) {
             var deleteOptions = {
                 onlyConfirm: true,
-                submitUrl: '${ctx}/assets/yjSystem/delete',
+                submitUrl: '${ctx}/assets/zjSystem/delete',
                 dataTable: '#yjSystemTable',
                 dataTableId: id
             };

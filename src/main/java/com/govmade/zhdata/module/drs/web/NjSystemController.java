@@ -12,38 +12,38 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.github.pagehelper.PageInfo;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
-import com.govmade.zhdata.module.drs.pojo.YjSystems;
-import com.govmade.zhdata.module.drs.service.YjSystemService;
+import com.govmade.zhdata.module.drs.pojo.NjSystems;
+import com.govmade.zhdata.module.drs.service.NjSystemService;
 
 @Controller
-@RequestMapping(value = "assets/yjSystem")
-public class YjSystemController {
-
-	@RequestMapping(method = RequestMethod.GET)
-	public String toYjSystem() {
-		return "modules/assets/yjSystemIndex";
-	}
+@RequestMapping(value = "assets/njSystem")
+public class NjSystemController {
 	
+	@RequestMapping(method = RequestMethod.GET)
+	public String toNjSystem() {
+		return "modules/assets/njSystemIndex";
+	}
+   
 	@Autowired
-	private YjSystemService yjSystemService;
+	private NjSystemService njSystemService;
 	
 	/**
-	 * 已建系统查询
+	 * 拟建系统查询
 	 * @param page
 	 * @return
 	*/
 	@RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseEntity<Page<YjSystems>> queryAllList(Page<YjSystems> page) {
+    public ResponseEntity<Page<NjSystems>> queryAllList(Page<NjSystems> page) {
     	
     	
         try {
-            PageInfo<YjSystems> pageInfo = yjSystemService.queryAllList(page);
+            PageInfo<NjSystems> pageInfo = njSystemService.queryAllList(page);
             
-            List<YjSystems> yjSystemsList = pageInfo.getList();
+            List<NjSystems> njSystemsList = pageInfo.getList();
             
-            Page<YjSystems> resPage = new Page<YjSystems>();
+            Page<NjSystems> resPage = new Page<NjSystems>();
             resPage.setTotal(pageInfo.getTotal());
-            resPage.setRows(yjSystemsList);
+            resPage.setRows(njSystemsList);
             
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
@@ -54,19 +54,19 @@ public class YjSystemController {
     }
 	
 	/**
-	 * 已建系统保存，修改
-	 * @param yjSystems
+	 * 拟建系统保存，修改
+	 * @param njSystems
 	 * @return
 	*/
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(YjSystems yjSystems){
+    public ResponseEntity<String> save(NjSystems njSystems){
         try {
-            if (yjSystems.getId()==null) {
-               yjSystems.preInsert();
-               this.yjSystemService.saveSelective(yjSystems);
+            if (njSystems.getId()==null) {
+               njSystems.preInsert();
+               this.njSystemService.saveSelective(njSystems);
            }else {
-                yjSystems.preUpdate();
-                this.yjSystemService.updateSelective(yjSystems);
+                njSystems.preUpdate();
+                this.njSystemService.updateSelective(njSystems);
             }
             return ResponseEntity.ok(Global.INSERT_SUCCESS);
         } catch (Exception e) {
@@ -76,14 +76,14 @@ public class YjSystemController {
     }
 	
 	/**
-	 * 已建系统删除
+	 * 拟建系统删除
 	 * @param ids
 	 * @return 
 	*/
 	@RequestMapping(value = "delete", method = RequestMethod.POST)
     public ResponseEntity<String> delete(String ids){
         try {
-            this.yjSystemService.deleteByIds(ids);
+            this.njSystemService.deleteByIds(ids);
             return ResponseEntity.ok(Global.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
