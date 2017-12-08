@@ -112,6 +112,17 @@
     /*align-items: stretch;*/
     /*flex-wrap: wrap;*/
     border-bottom: solid 1px #e4eaec;
+    display: inline-block;
+    padding: 0;
+}
+.main-form .form-control{
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    margin-top: 0;
+}
+.main-form textarea.form-control{
+    height: 74px;
 }
 .main-form fieldset{
     text-align: center;
@@ -121,19 +132,39 @@
     border-bottom: solid 1px #e4eaec;
     background-color: #e4eaec;
 }
+.main-form .form-border-left{
+    border-left: solid 1px #e4eaec;
+}
+.main-form .form-border-bottom{
+    border-bottom: solid 1px #e4eaec;
+}
+.main-form .form-border-nobottom{
+    border-bottom: none;
+}
+.main-form span.help-block{
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    margin-top: 0;
+}
+.main-form .has-error .column-content{
+    background-color: rgba(169,68,66,.1);
+}
 .column-title{
     padding: 0 3px;
     height: 40px;
     display: table;
     border-right: solid 1px #e4eaec;
-    background-color: #fafafa;
+    background-color: #f2f2f2;
 }
 .column-title-multiple{
     height: 80px;
 }
 .column-content{
+    position: relative;
     padding-top: 3px;
     padding-bottom: 3px;
+    padding-left: 0;
 }
 .form-contact{
     font-size: 0;
