@@ -35,7 +35,6 @@
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
                                     <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
-                                    <button class="btn btn-blue other-url" type="button" id="272" url="${ctx}/settings/attribute?type=1" name="信息系统配置"><i class='fa fa-cog'></i> 配置</button>
                                 </div>
                             </div>
                         </div>
@@ -129,9 +128,15 @@
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
-                                    <div class="col-sm-10 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" name="jsdwlxr" placeholder="请输入姓名" required>
-                                        <input type="text" class="form-control form-input-inline" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content">
+                                            <input type="text" class="form-control" name="jsdwlxr" placeholder="请输入姓名" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content form-border-left">
+                                            <input type="text" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -146,9 +151,15 @@
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
-                                    <div class="col-sm-10 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" name="cjdwlxr" placeholder="请输入姓名" required>
-                                        <input type="text" class="form-control form-input-inline" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content">
+                                            <input type="text" class="form-control" name="cjdwlxr" placeholder="请输入姓名" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content form-border-left">
+                                            <input type="text" class="form-control" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -163,9 +174,15 @@
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
-                                    <div class="col-sm-10 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" name="ywdwlxr" placeholder="请输入姓名" required>
-                                        <input type="text" class="form-control form-input-inline" name="ywdwlxdh" placeholder="请输入手机号" required>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content">
+                                            <input type="text" class="form-control" name="ywdwlxr" placeholder="请输入姓名" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content form-border-left">
+                                            <input type="text" class="form-control" name="ywdwlxdh" placeholder="请输入手机号" required>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -255,12 +272,7 @@
                                         <label class="control-label">系统类别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="xtlb" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">应用层系统</option>
-                                            <option value="2">应用支撑层系统</option>
-                                            <option value="3">基础设施层系统</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="xtlb" placeholder="请输入系统类别" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -356,17 +368,25 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">是否与其他系统对接</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select class="form-control" name="sfyqtxtdj" required>
                                             <option value="">请选择</option>
                                             <option value="1">是，对接省政务信息信息共享平台</option>
                                             <option value="2">是，对接其他系统</option>
                                             <option value="3">否，无对接</option>
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">对接其它系统名称</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" class="form-control" name="djqtxtmc" placeholder="请输入对接其它系统名称" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -397,7 +417,7 @@
                                         <div class="col-sm-2 column-title form-border-bottom">
                                             <label class="control-label">是否备份</label>
                                         </div>
-                                        <div class="col-sm-10 column-content">
+                                        <div class="col-sm-10 column-content form-border-bottom">
                                             <select class="form-control" name="sfybf" required>
                                                 <option value="">请选择</option>
                                                 <option value="1">是</option>
@@ -409,7 +429,7 @@
                                         <div class="col-sm-2 column-title form-border-left form-border-bottom">
                                             <label class="control-label">备份方式</label>
                                         </div>
-                                        <div class="col-sm-10 column-content">
+                                        <div class="col-sm-10 column-content form-border-bottom">
                                             <select class="form-control" name="bffs" required>
                                                 <option value="">请选择</option>
                                                 <option value="1">本地</option>
@@ -554,6 +574,7 @@
         }
         // 详情
         function datailRow(id) {
+            options.title = '详情';
             options['button'] = [];
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
@@ -561,6 +582,7 @@
         }
         // 修改
         function editRow(id) {
+            options.title = '修改';
             options['button'] = 'default';
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
