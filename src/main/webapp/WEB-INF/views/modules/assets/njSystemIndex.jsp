@@ -92,13 +92,14 @@
                                     <div class="col-sm-4 column-title form-border-left">
                                         <label class="control-label">涉密分类</label>
                                     </div>
-                                    <div class="col-sm-8 column-content">
-                                        <select class="form-control" name="smfl" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">涉密</option>
-                                            <option value="2">非涉密</option>
-                                        </select>
-                                    </div>
+	                                    <div class="col-sm-8 column-content">
+	                                        <select name="smfl" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
+	                                    </div>
                                 </div>
                             </fieldset>
                             <!-- 基本信息 -->
@@ -143,12 +144,12 @@
                                         <label class="control-label">资金来源</label>
                                     </div>
                                     <div class="col-sm-9 form-contact column-content">
-                                        <select class="form-control" name="zjly" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">财政资金</option>
-                                            <option value="2">专项资金</option>
-                                            <option value="3">自筹资金</option>
-                                        </select>
+                                        <select name="zjly" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -156,11 +157,12 @@
                                         <label class="control-label">资金到位情况</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
-                                        <select class="form-control" name="zjdwqk" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">已到位</option>
-                                            <option value="2">未到位</option>
-                                        </select>
+                                        <select name="zjdwqk" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
 
@@ -170,11 +172,7 @@
                                         <label class="control-label">建设方式</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select class="form-control" name="jsfs" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">自建（自有产权）</option>
-                                            <option value="2">购买服务（无产权）</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="jsfs" placeholder="请输入建设方式" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -183,12 +181,12 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content">
-                                            <input type="text" class="form-control" name="jsdwlxr" placeholder="请输入姓名" required>
+                                            <input type="text" class="form-control" name="lxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" name="lxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
@@ -210,11 +208,12 @@
                                         <label class="control-label">建设紧迫程度</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select class="form-control" name="jsjpcd" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">否</option>
-                                            <option value="2">是（如是暂缓下表内容无需填写）</option>
-                                        </select>
+                                        <select name="jsjpcd" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">

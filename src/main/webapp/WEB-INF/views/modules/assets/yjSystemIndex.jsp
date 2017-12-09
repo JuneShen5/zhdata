@@ -226,11 +226,12 @@
                                             <label class="control-label">建设方式</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <select class="form-control" name="jsfs" required>
-                                                <option value="">请选择</option>
-                                                <option value="1">自建（自有产权）</option>
-                                                <option value="2">购买服务（无产权）</option>
-                                            </select>
+                                            <select name="jsfs" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                         </div>
                                     </div>
                                 </div>
@@ -259,11 +260,12 @@
                                             <label class="control-label">运维方式</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <select class="form-control" name="ywfs" required>
-                                                <option value="">请选择</option>
-                                                <option value="1">自主运维</option>
-                                                <option value="2">外包服务</option>
-                                            </select>
+                                            <select name="ywfs" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('operational_way')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                         </div>
                                     </div>
                                 </div>
@@ -284,11 +286,12 @@
                                         <label class="control-label">是否为僵尸信息系统</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="sfjsxt" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">否</option>
-                                            <option value="2">是（如是僵尸系统下表内容无需填写）</option>
-                                        </select>
+                                        <select name="sfjsxt" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -324,11 +327,12 @@
                                         <label class="control-label">涉密分类</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="smfl" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">涉密</option>
-                                            <option value="2">非涉密</option>
-                                        </select>
+                                        <select name="smfl" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -336,12 +340,12 @@
                                         <label class="control-label">安全级别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="aqjb" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">三级</option>
-                                            <option value="2">二级</option>
-                                            <option value="3">未定级</option>
-                                        </select>
+                                        <select name="aqjb" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('security_level')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -357,15 +361,12 @@
                                         <label class="control-label">使用范围</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="syfw" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">单位内部</option>
-                                            <option value="2">国家垂直</option>
-                                            <option value="3">覆盖省级</option>
-                                            <option value="4">覆盖省市</option>
-                                            <option value="5">覆盖省县</option>
-                                            <option value="6">覆盖省县以下</option>
-                                        </select>
+                                        <select name="syfw" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('usable_range')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -373,12 +374,12 @@
                                         <label class="control-label">是否与其他系统对接</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select class="form-control" name="sfyqtxtdj" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">是，对接省政务信息信息共享平台</option>
-                                            <option value="2">是，对接其他系统</option>
-                                            <option value="3">否，无对接</option>
-                                        </select>
+                                        <select name="sfyqtxtdj" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -394,11 +395,12 @@
                                         <label class="control-label">虚拟化部署</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select class="form-control" name="sfxnhbs" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="2">否</option>
-                                        </select>
+                                        <select name="sfxnhbs" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -418,11 +420,12 @@
                                             <label class="control-label">是否备份</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
-                                            <select class="form-control" name="sfybf" required>
-                                                <option value="">请选择</option>
-                                                <option value="1">是</option>
-                                                <option value="2">否</option>
-                                            </select>
+                                            <select name="sfybf" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6 form-border-nobottom">
@@ -430,11 +433,12 @@
                                             <label class="control-label">备份方式</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
-                                            <select class="form-control" name="bffs" required>
-                                                <option value="">请选择</option>
-                                                <option value="1">本地</option>
-                                                <option value="2">异地</option>
-                                            </select>
+                                            <select name="bffs" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
@@ -459,11 +463,12 @@
                                         <label class="control-label">应用容灾</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="yyrz" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="2">否</option>
-                                        </select>
+                                        <select name="yyrz" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -471,11 +476,12 @@
                                         <label class="control-label">是否申请暂缓整合</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="sfsqzhzh" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="2">否</option>
-                                        </select>
+                                        <select name="sfsqzhzh" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -491,11 +497,12 @@
                                         <label class="control-label">升级需求</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select class="form-control" name="sjxq" required>
-                                            <option value="">请选择</option>
-                                            <option value="1">无</option>
-                                            <option value="2">有</option>
-                                        </select>
+                                        <select name="sjxq" class="select-chosen" required>
+							                    <option value=""></option>
+							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
+								                 <option value="${dict.value}">${dict.label}</option>
+							               </c:forEach>
+						                   </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
