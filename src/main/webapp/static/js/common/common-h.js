@@ -264,6 +264,7 @@ var TableInit = function(tableOption,btnOption) {
             validClass: "help-block m-b-none"
         });
     };
+    // 重置表单
     LayerEvent.prototype.resetLayerForm = function (status) {
         var thisLayerForm = $(this.options.container).find('form');
 

@@ -34,7 +34,7 @@
                                        onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
-                                    <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
+                                    <button class="btn btn-yellow" type="button" onclick="deleteBatch();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 </div>
                             </div>
                         </div>
@@ -104,7 +104,7 @@
                                     </div>
                                     <div class="col-sm-8 column-content">
                                         <select name="smfl" class="form-control" required>
-                                            <option value="">请选择</option>
+                                            <option value="">== 请选择 ==</option>
                                              <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
                                              <option value="${dict.value}">${dict.label}</option>
                                        </c:forEach>
@@ -155,7 +155,7 @@
                                     </div>
                                     <div class="col-sm-9 form-contact column-content">
                                         <select name="zjly" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -168,7 +168,7 @@
                                     </div>
                                     <div class="col-sm-9 column-content">
                                         <select name="zjdwqk" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -219,7 +219,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsjpcd" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -347,13 +347,29 @@
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
             $().layerSetting('openEdit', options);
         }
+        var deleteOptions = {
+            onlyConfirm: true,
+            submitUrl: '${ctx}/assets/njSystem/delete',
+            dataTable: '#yjSystemTable'
+        };
         function deleteRow(id) {
-            var deleteOptions = {
-                onlyConfirm: true,
-                submitUrl: '${ctx}/assets/njSystem/delete',
-                dataTable: '#yjSystemTable',
-                dataTableId: id
-            };
+            deleteOptions.dataTableId = id;
+            $().layerSetting('deleteRow', deleteOptions);
+        }
+
+        //批量删除
+        function deleteBatch() {
+            var delData = $(deleteOptions.dataTable).bootstrapTable('getSelections');
+            if (delData.length == 0) {
+                layer.msg("请至少选择一项数据");
+                return;
+            }
+            var ids = new Array();
+            $.each(delData, function (index, item) {
+                ids.push(item.id);
+            })
+            ids = JSON.stringify(ids);
+            deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
             $().layerSetting('deleteRow', deleteOptions);
         }
 

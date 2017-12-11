@@ -167,7 +167,7 @@
                                     </div>
                                     <div class="col-sm-10 form-contact column-content">
                                         <select name="zjly" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -193,7 +193,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="dqjsjd" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_stage')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -207,7 +207,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="jsfs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -300,7 +300,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsxmjpcd" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('project_urgency')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -351,7 +351,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="bswz" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('deploy_location')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -365,7 +365,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="smfl" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -379,7 +379,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="aqjb" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('security_level')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -402,7 +402,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="syfw" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('usable_range')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -416,7 +416,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="sfyqtxtdj" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -438,7 +438,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="sfxnhbs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -464,7 +464,7 @@
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -477,7 +477,7 @@
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="bffs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -508,7 +508,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="yyrz" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -522,7 +522,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="xthxjh" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('follow-up')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -625,6 +625,21 @@
                 dataTable: '#yjSystemTable',
                 dataTableId: id
             };
+            $().layerSetting('deleteRow', deleteOptions);
+        }
+        //批量删除
+        function deleteBatch() {
+            var delData = $(deleteOptions.dataTable).bootstrapTable('getSelections');
+            if (delData.length == 0) {
+                layer.msg("请至少选择一项数据");
+                return;
+            }
+            var ids = new Array();
+            $.each(delData, function (index, item) {
+                ids.push(item.id);
+            })
+            ids = JSON.stringify(ids);
+            deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
             $().layerSetting('deleteRow', deleteOptions);
         }
     </script>
