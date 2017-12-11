@@ -608,6 +608,17 @@
             $().layerSetting('deleteRow', deleteOptions);
         }
 
+        $(function () {
+            // 是否为僵尸系统相关表设置
+            $('select[name="sfjsxt"]').on('change', function () {
+                if ($(this).val() === '0'){
+                    $('input[name="sydx"],input[name="sypd"]').prop('required',false).closest('.form-group').removeClass('has-error has-success');
+                }else {
+                    $('input[name="sydx"],input[name="sypd"]').prop('required',true);
+                }
+                $(options.container).validate().form()
+            });
+        });
     </script>
 
     </body>
