@@ -226,8 +226,8 @@
                                             <label class="control-label">建设方式</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <select name="jsfs" class="select-chosen" required>
-							                    <option value=""></option>
+                                            <select name="jsfs" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -260,8 +260,8 @@
                                             <label class="control-label">运维方式</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <select name="ywfs" class="select-chosen" required>
-							                    <option value=""></option>
+                                            <select name="ywfs" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('operational_way')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -286,8 +286,8 @@
                                         <label class="control-label">是否为僵尸信息系统</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="sfjsxt" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="sfjsxt" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -327,8 +327,8 @@
                                         <label class="control-label">涉密分类</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="smfl" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="smfl" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -340,8 +340,8 @@
                                         <label class="control-label">安全级别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="aqjb" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="aqjb" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('security_level')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -361,8 +361,8 @@
                                         <label class="control-label">使用范围</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="syfw" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="syfw" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('usable_range')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -374,8 +374,8 @@
                                         <label class="control-label">是否与其他系统对接</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select name="sfyqtxtdj" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="sfyqtxtdj" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -395,8 +395,8 @@
                                         <label class="control-label">虚拟化部署</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select name="sfxnhbs" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="sfxnhbs" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -420,8 +420,8 @@
                                             <label class="control-label">是否备份</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
-                                            <select name="sfybf" class="select-chosen" required>
-							                    <option value=""></option>
+                                            <select name="sfybf" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -433,8 +433,8 @@
                                             <label class="control-label">备份方式</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
-                                            <select name="bffs" class="select-chosen" required>
-							                    <option value=""></option>
+                                            <select name="bffs" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -463,8 +463,8 @@
                                         <label class="control-label">应用容灾</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="yyrz" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="yyrz" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -476,8 +476,8 @@
                                         <label class="control-label">是否申请暂缓整合</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="sfsqzhzh" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="sfsqzhzh" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -497,8 +497,8 @@
                                         <label class="control-label">升级需求</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <select name="sjxq" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="sjxq" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>

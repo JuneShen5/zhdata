@@ -93,8 +93,8 @@
                                         <label class="control-label">涉密分类</label>
                                     </div>
 	                                    <div class="col-sm-8 column-content">
-	                                        <select name="smfl" class="select-chosen" required>
-							                    <option value=""></option>
+	                                        <select name="smfl" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -144,8 +144,8 @@
                                         <label class="control-label">资金来源</label>
                                     </div>
                                     <div class="col-sm-9 form-contact column-content">
-                                        <select name="zjly" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="zjly" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -157,8 +157,8 @@
                                         <label class="control-label">资金到位情况</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
-                                        <select name="zjdwqk" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="zjdwqk" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -208,8 +208,8 @@
                                         <label class="control-label">建设紧迫程度</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <select name="jsjpcd" class="select-chosen" required>
-							                    <option value=""></option>
+                                        <select name="jsjpcd" class="form-control" required>
+							                    <option value="">请选择</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -346,6 +346,13 @@
             };
             $().layerSetting('deleteRow', deleteOptions);
         }
+
+        // 是否紧迫性相关表设置
+//        $('select[name="jsjpcd"]').on('change', function () {
+//           if ($(this).val() === '' || $(this).val() === '0'){
+//               $('input[name="xtjcsjyq"],njxtyj,jsyqmb,required,ygsygm')
+//           }
+//        });
     </script>
 
     </body>
