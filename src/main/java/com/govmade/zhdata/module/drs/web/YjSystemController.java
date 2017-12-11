@@ -19,52 +19,53 @@ import com.govmade.zhdata.module.drs.service.YjSystemService;
 @RequestMapping(value = "assets/yjSystem")
 public class YjSystemController {
 
-	@RequestMapping(method = RequestMethod.GET)
-	public String toYjSystem() {
-		return "modules/assets/yjSystemIndex";
-	}
-	
-	@Autowired
-	private YjSystemService yjSystemService;
-	
-	/**
-	 * 已建系统查询
-	 * @param page
-	 * @return
-	*/
-	@RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(method = RequestMethod.GET)
+    public String toYjSystem() {
+        return "modules/assets/yjSystemIndex";
+    }
+
+    @Autowired
+    private YjSystemService yjSystemService;
+
+    /**
+     * 已建系统查询
+     * 
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<Page<YjSystems>> queryAllList(Page<YjSystems> page) {
-    	
-    	
+
         try {
             PageInfo<YjSystems> pageInfo = yjSystemService.queryAllList(page);
-            
+
             List<YjSystems> yjSystemsList = pageInfo.getList();
-            
+
             Page<YjSystems> resPage = new Page<YjSystems>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(yjSystemsList);
-            
+
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        
+
     }
-	
-	/**
-	 * 已建系统保存，修改
-	 * @param yjSystems
-	 * @return
-	*/
-	@RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(YjSystems yjSystems){
+
+    /**
+     * 已建系统保存，修改
+     * 
+     * @param yjSystems
+     * @return
+     */
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public ResponseEntity<String> save(YjSystems yjSystems) {
         try {
-            if (yjSystems.getId()==null) {
-               yjSystems.preInsert();
-               this.yjSystemService.saveSelective(yjSystems);
-           }else {
+            if (yjSystems.getId() == null) {
+                yjSystems.preInsert();
+                this.yjSystemService.saveSelective(yjSystems);
+            } else {
                 yjSystems.preUpdate();
                 this.yjSystemService.updateSelective(yjSystems);
             }
@@ -74,14 +75,15 @@ public class YjSystemController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
-	
-	/**
-	 * 已建系统删除
-	 * @param ids
-	 * @return 
-	*/
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ResponseEntity<String> delete(String ids){
+
+    /**
+     * 已建系统删除
+     * 
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public ResponseEntity<String> delete(String ids) {
         try {
             this.yjSystemService.deleteByIds(ids);
             return ResponseEntity.ok(Global.DELETE_SUCCESS);
