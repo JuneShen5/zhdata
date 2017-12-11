@@ -82,6 +82,14 @@
                                 <legend>系统名称</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title">
+                                        <label class=" control-label">单位名称</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" class="form-control" name="dwmc" placeholder="请输入单位名称" required>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-2 column-title">
                                         <label class=" control-label">政务信息系统名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
