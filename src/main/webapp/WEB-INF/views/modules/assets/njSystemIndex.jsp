@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="form-group col-sm-9">
                                     <div class="col-sm-2 column-title">
-                                        <label class=" control-label">政务信息系统名称</label>
+                                        <label class=" control-label">政务信息系统名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xtmc" placeholder="请输入政务信息系统名称" required>
