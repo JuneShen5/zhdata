@@ -10,6 +10,7 @@
 
 <%-- <script	src="${ctxStatic}/js/plugins/validform/Validform_v5.3.2.js"></script> --%>
 <script	src="${ctxStatic}/js/plugins/validate/jquery.validate.js"></script>
+<script	src="${ctxStatic}/js/plugins/validate/additional-methods.js"></script>
 <script	src="${ctxStatic}/js/plugins/validate/messages_zh.min.js"></script>
 <script	src="${ctxStatic}/js/plugins/bootstrap-table/bootstrap-table.js"></script>
 <script	src="${ctxStatic}/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>

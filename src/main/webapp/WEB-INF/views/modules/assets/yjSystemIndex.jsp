@@ -72,7 +72,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 column">
-                        <h1>
+                        <h1 class="form-main-title">
                             部门已建政务信息系统调查表
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
@@ -135,7 +135,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" isMobile="true" name="jsdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" isMobile="true" name="cjdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="ywdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" isMobile="true" name="ywdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
@@ -210,7 +210,7 @@
                                             <label class="control-label">建设金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
-                                            <input type="text" class="form-control" name="jsje" placeholder="单位:万元" required>
+                                            <input type="text" digits="true" class="form-control" name="jsje" placeholder="单位:万元" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -243,7 +243,7 @@
                                             <label class="control-label">运维金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
-                                            <input type="text" class="form-control" name="ndywje" placeholder="单位:万元" required>
+                                            <input type="text" digits="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -450,7 +450,7 @@
                                             <label class="control-label">数据备份量</label>
                                         </div>
                                         <div class="col-sm-10 column-content">
-                                            <input type="text" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
+                                            <input type="text" digits="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
                                         </div>
                                     </div>
                                 </div>
@@ -515,7 +515,7 @@
                                         <label class="control-label">备注</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="remarks" class="form-control" rows="3" required></textarea>
+                                        <textarea name="remarks" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <!--<div class="form-group">
@@ -561,7 +561,7 @@
         // 3.初始化弹框
         var options = {
             title: '新增',
-            containerSize: ['90%','90%'],
+            containerSize: ['90%','96%'],
             container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
@@ -598,6 +598,7 @@
             };
             $().layerSetting('deleteRow', deleteOptions);
         }
+
     </script>
 
     </body>

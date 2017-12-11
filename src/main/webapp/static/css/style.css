@@ -7717,3 +7717,6 @@ blockquote:nth-child(1) {
 .linkagesel-select-list .chosen-container {
 	margin-bottom: 10px;
 }
+.fa-x{
+	display: none;
+}

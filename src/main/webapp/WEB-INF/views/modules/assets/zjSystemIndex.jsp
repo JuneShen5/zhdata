@@ -72,7 +72,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 column">
-                        <h1>
+                        <h1 class="form-main-title">
                             部门在建政务信息系统调查表
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
@@ -138,7 +138,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" isMobile="true" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
@@ -148,7 +148,7 @@
                                         <label class="control-label">预算/合同金额</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="xtjsys" placeholder="请输入建设单位" required>
+                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="系统建设预算/合同金额" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -219,9 +219,15 @@
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">联系人<br>(姓名/手机)</label>
                                     </div>
-                                    <div class="col-sm-10 form-contact column-content">
-                                        <input type="text" class="form-control form-input-inline" name="cjdwlxr" placeholder="请输入姓名" required>
-                                        <input type="text" class="form-control form-input-inline" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content">
+                                            <input type="text" class="form-control" name="cjdwlxr" placeholder="请输入姓名" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                        <div class="form-contact column-content form-border-left">
+                                            <input type="text" isMobile="true" class="form-control" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -280,11 +286,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-3">
-                                    <div class="col-sm-4 column-title">
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">紧迫程度</label>
                                     </div>
-                                    <div class="col-sm-8 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select class="form-control" name="jsxmjpcd" required>
                                             <option value="">请选择</option>
                                             <option value="1">高</option>
@@ -293,7 +299,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-9">
+                                <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">紧迫程度简要说明</label>
                                     </div>
@@ -482,7 +488,7 @@
                                             <label class="control-label">数据备份量</label>
                                         </div>
                                         <div class="col-sm-10 column-content">
-                                            <input type="text" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
+                                            <input type="text" digits="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
                                         </div>
                                     </div>
                                 </div>
@@ -507,8 +513,8 @@
                                     <div class="col-sm-11 column-content">
                                         <select class="form-control" name="xthxjh" required>
                                             <option value="">请选择</option>
-                                            <option value="1">是</option>
-                                            <option value="2">否</option>
+                                            <option value="1">继续建设</option>
+                                            <option value="2">可以暂缓</option>
                                         </select>
                                     </div>
                                 </div>
@@ -529,7 +535,7 @@
                                         <label class="control-label">备注</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="remarks" class="form-control" rows="3" required></textarea>
+                                        <textarea name="remarks" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <!--<div class="form-group">

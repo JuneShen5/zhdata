@@ -72,14 +72,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 column">
-                        <h1>
-                            部门已建政务信息系统调查表
+                        <h1 class="form-main-title">
+                            部门拟建政务信息系统调查表
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
                             <!-- 系统名称 -->
                             <fieldset>
                                 <legend>系统名称</legend>
+                                <div class="clearfix">
                                 <div class="form-group col-sm-9">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">政务信息系统名称</label>
@@ -99,6 +100,7 @@
                                             <option value="2">非涉密</option>
                                         </select>
                                     </div>
+                                </div>
                                 </div>
                             </fieldset>
                             <!-- 基本信息 -->
@@ -130,12 +132,13 @@
                                     </div>
                                 </div>
 
+                                <div class="clearfix">
                                 <div class="form-group col-sm-4">
                                     <div class="col-sm-3 column-title">
                                         <label class="control-label">系统建设预算</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
-                                        <input type="text" class="form-control" name="xtjsys" placeholder="请输入建设单位" required>
+                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="请输入建设预算" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
@@ -163,8 +166,9 @@
                                         </select>
                                     </div>
                                 </div>
+                                </div>
 
-
+                                <div class="clearfix">
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">建设方式</label>
@@ -188,9 +192,10 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" isMobile="true" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
 
                                 <div class="form-group col-sm-12">
@@ -266,7 +271,7 @@
                                         <label class="control-label">备注</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="remarks" class="form-control" rows="3" required></textarea>
+                                        <textarea name="remarks" class="form-control" rows="3"></textarea>
                                     </div>
                                 </div>
                                 <!--<div class="form-group">
