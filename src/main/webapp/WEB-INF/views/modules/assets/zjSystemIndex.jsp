@@ -23,9 +23,9 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                    <button type="button" id="searchMoreFor"
+                                   <!--  <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,7 +58,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
-                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="ywgn">业务功能</th>
+                                <th data-field="spbm">审批部门</th>
+                                <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
@@ -114,7 +116,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请描述系统功能、使用效益等"  required></textarea>
                                     </div>
                                 </div>
 
@@ -145,10 +147,10 @@
 
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">预算/合同金额</label>
+                                        <label class="control-label">系统建设预算/合同金额（万元）</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="系统建设预算/合同金额" required>
+                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="系统建设预算/合同金额（万元）" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -248,7 +250,7 @@
 
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">维保到期日期</label>
+                                        <label class="control-label">合同签署的维保到期日期</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="请选择维保到期日期" required>
@@ -271,7 +273,7 @@
                                         <label class="control-label">项目建设立项依据</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="xtjsyj" placeholder="请输入项目建设立项依据" required>
+                                        <input type="text" class="form-control" name="xtjsyj" placeholder="请输入项目建设立项依据，如国家政策、需求" required>
                                     </div>
                                 </div>
 
@@ -280,13 +282,13 @@
                                         <label class="control-label">建设预期目标</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标" required>
+                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">紧迫程度</label>
+                                        <label class="control-label">建设项目的紧迫程度</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsxmjpcd" class="form-control" required>
@@ -319,7 +321,7 @@
                                         <label class="control-label">预估使用规模</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="ygsygm" placeholder="请输入预估使用规模" required>
+                                        <input type="text" class="form-control" name="ygsygm" placeholder="请输入预估使用规模（注册用户数/个）" required>
                                     </div>
                                 </div>
 
@@ -379,7 +381,7 @@
 
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">计划接入网络类型</label>
+                                        <label class="control-label">系统计划接入网络类型</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <input type="text" class="form-control" name="jhjrwllx" placeholder="计划接入网络类型" required>
@@ -437,7 +439,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">软件厂商名</label>
+                                        <label class="control-label">虚拟化软件厂商名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
@@ -450,12 +452,12 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="col-sm-2 column-title form-border-bottom">
-                                            <label class="control-label">是否备份</label>
+                                            <label class="control-label">是否有备份</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
 							                    <option value="">请选择</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
 						                   </select>
@@ -484,7 +486,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 form-border-nobottom">
                                         <div class="col-sm-2 column-title form-border-left">
-                                            <label class="control-label">数据备份量</label>
+                                            <label class="control-label">数据备份量（GB）</label>
                                         </div>
                                         <div class="col-sm-10 column-content">
                                             <input type="text" digits="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
@@ -508,7 +510,7 @@
 
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统后续建设</label>
+                                        <label class="control-label">系统后续计划</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="xthxjh" class="form-control" required>
@@ -524,7 +526,7 @@
                                         <label class="control-label">系统继续建设原因</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="xtjxjsyy" class="form-control" rows="3" required></textarea>
+                                        <textarea name="xtjxjsyy" class="form-control" rows="3" placeholder="说明继续建设的必要性、对接要求等" required></textarea>
                                     </div>
                                 </div>
                             </fieldset>

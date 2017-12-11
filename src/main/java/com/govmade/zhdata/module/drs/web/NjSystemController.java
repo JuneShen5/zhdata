@@ -18,53 +18,54 @@ import com.govmade.zhdata.module.drs.service.NjSystemService;
 @Controller
 @RequestMapping(value = "assets/njSystem")
 public class NjSystemController {
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public String toNjSystem() {
-		return "modules/assets/njSystemIndex";
-	}
-   
-	@Autowired
-	private NjSystemService njSystemService;
-	
-	/**
-	 * 拟建系统查询
-	 * @param page
-	 * @return
-	*/
-	@RequestMapping(value = "list", method = RequestMethod.GET)
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String toNjSystem() {
+        return "modules/assets/njSystemIndex";
+    }
+
+    @Autowired
+    private NjSystemService njSystemService;
+
+    /**
+     * 拟建系统查询
+     * 
+     * @param page
+     * @return
+     */
+    @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<Page<NjSystems>> queryAllList(Page<NjSystems> page) {
-    	
-    	
+
         try {
             PageInfo<NjSystems> pageInfo = njSystemService.queryAllList(page);
-            
+
             List<NjSystems> njSystemsList = pageInfo.getList();
-            
+
             Page<NjSystems> resPage = new Page<NjSystems>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(njSystemsList);
-            
+
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        
+
     }
-	
-	/**
-	 * 拟建系统保存，修改
-	 * @param njSystems
-	 * @return
-	*/
-	@RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(NjSystems njSystems){
+
+    /**
+     * 拟建系统保存，修改
+     * 
+     * @param njSystems
+     * @return
+     */
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    public ResponseEntity<String> save(NjSystems njSystems) {
         try {
-            if (njSystems.getId()==null) {
-               njSystems.preInsert();
-               this.njSystemService.saveSelective(njSystems);
-           }else {
+            if (njSystems.getId() == null) {
+                njSystems.preInsert();
+                this.njSystemService.saveSelective(njSystems);
+            } else {
                 njSystems.preUpdate();
                 this.njSystemService.updateSelective(njSystems);
             }
@@ -74,14 +75,15 @@ public class NjSystemController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
-	
-	/**
-	 * 拟建系统删除
-	 * @param ids
-	 * @return 
-	*/
-	@RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ResponseEntity<String> delete(String ids){
+
+    /**
+     * 拟建系统删除
+     * 
+     * @param ids
+     * @return
+     */
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public ResponseEntity<String> delete(String ids) {
         try {
             this.njSystemService.deleteByIds(ids);
             return ResponseEntity.ok(Global.DELETE_SUCCESS);

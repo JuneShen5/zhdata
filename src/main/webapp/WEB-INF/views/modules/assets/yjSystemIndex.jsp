@@ -23,9 +23,9 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                    <button type="button" id="searchMoreFor"
+                             <!--        <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,7 +58,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
-                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="ywgn">业务功能</th>
+                                <th data-field="spbm">审批部门</th>
+                                <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
@@ -113,7 +115,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请量化描述系统功能、使用效果等" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -241,7 +243,7 @@
                                     </div>
                                     <div class="form-group col-sm-3 form-border-nobottom">
                                         <div class="col-sm-4 column-title">
-                                            <label class="control-label">运维金额</label>
+                                            <label class="control-label">年度运维金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
                                             <input type="text" digits="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
@@ -299,7 +301,7 @@
                                         <label class="control-label">使用对象</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象" required>
+                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象，如政府单位内部，注册用户数_个" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -307,7 +309,7 @@
                                         <label class="control-label">使用频度</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度" required>
+                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度，如每月系统使用用户量" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -316,10 +318,10 @@
                                 <legend>系统整合信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">部署位置</label>
+                                        <label class="control-label">系统部署位置</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="bswz" placeholder="请输入部署位置" required>
+                                        <input type="text" class="form-control" name="bswz" placeholder="请输入系统部署位置" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -337,7 +339,7 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">安全级别</label>
+                                        <label class="control-label">信息安全登保级别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="aqjb" class="form-control" required>
@@ -405,7 +407,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">软件厂商名</label>
+                                        <label class="control-label">虚拟化软件厂商名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
@@ -417,12 +419,12 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="col-sm-2 column-title form-border-bottom">
-                                            <label class="control-label">是否备份</label>
+                                            <label class="control-label">是否有备份</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
 							                    <option value="">请选择</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
 						                   </select>
@@ -510,7 +512,7 @@
                                         <label class="control-label">升级需求详细说明</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="sjxqsm" class="form-control" rows="3"></textarea>
+                                        <textarea name="sjxqsm" class="form-control" rows="3" placeholder="请说明升级后功能、覆盖面、性能、对接等要求"></textarea>
                                     </div>
                                 </div>
                             </fieldset>

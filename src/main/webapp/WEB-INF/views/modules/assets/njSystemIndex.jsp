@@ -23,9 +23,9 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                    <button type="button" id="searchMoreFor"
+                                   <!--  <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -58,7 +58,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
-                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="ywgn">业务功能</th>
+                                <th data-field="spbm">审批部门</th>
+                                <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
@@ -127,7 +129,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请描述系统功能，使用效果等" required></textarea>
                                     </div>
                                 </div>
 
@@ -226,10 +228,10 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">依据/紧迫性</label>
+                                        <label class="control-label">拟建系统依据/紧迫性</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="njxtyj" placeholder="依据/紧迫性" required>
+                                        <input type="text" class="form-control" name="njxtyj" placeholder="拟建系统依据/紧迫性" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -237,7 +239,7 @@
                                         <label class="control-label">建设预期目标</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标" required>
+                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
