@@ -582,7 +582,7 @@
         // 3.初始化弹框
         var options = {
             title: '新增',
-            containerSize: ['90%','90%'],
+            containerSize: ['90%','96%'],
             container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',

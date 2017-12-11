@@ -311,7 +311,7 @@
         // 3.初始化弹框
         var options = {
             title: '新增',
-            containerSize: ['90%','90%'],
+            containerSize: ['90%','96%'],
             container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
@@ -347,12 +347,17 @@
             $().layerSetting('deleteRow', deleteOptions);
         }
 
-        // 是否紧迫性相关表设置
-//        $('select[name="jsjpcd"]').on('change', function () {
-//           if ($(this).val() === '' || $(this).val() === '0'){
-//               $('input[name="xtjcsjyq"],njxtyj,jsyqmb,required,ygsygm')
-//           }
-//        });
+        $(function () {
+            // 是否紧迫性相关表设置
+            $('select[name="jsjpcd"]').on('change', function () {
+                if ($(this).val() === '0'){
+                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',false).closest('.form-group').removeClass('has-error has-success');
+                }else {
+                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',true);
+                }
+                $(options.container).validate().form()
+            });
+        });
     </script>
 
     </body>
