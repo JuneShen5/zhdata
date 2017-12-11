@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>广州珠海资源普查系统</title>
+<title>珠海市资源普查系统</title>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static" />
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -40,7 +40,7 @@
     <div class="login-wrapper register-page">
       <div class="title">
     		<img class="logo" src="${ctxStatic}/images/skin/skin-1/dnalogo.png"/>
-           广州珠海资源普查系统
+           珠海市资源普查系统
     	</div>
       <div class="login-box clearfix">
         <!--<div class="pull-left register-page-case content-left">
