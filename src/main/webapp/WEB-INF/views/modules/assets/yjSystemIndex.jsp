@@ -34,7 +34,7 @@
                                        onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
-                                    <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
+                                    <button class="btn btn-yellow" type="button" onclick="deleteBatch();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 </div>
                             </div>
                         </div>
@@ -205,7 +205,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">运维合同签署到期时间</label>
+                                        <label class="control-label">合同签署到期时间</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="请选择到期时间" required>
@@ -360,7 +360,7 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统已接入的网络类型</label>
+                                        <label class="control-label">已接入的网络类型</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <input type="text" class="form-control" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
@@ -606,13 +606,13 @@
             $().layerSetting('openEdit', options);
         }
         // 删除
+        var deleteOptions = {
+            onlyConfirm: true,
+            submitUrl: '${ctx}/assets/yjSystem/delete',
+            dataTable: '#yjSystemTable'
+        };
         function deleteRow(id) {
-            var deleteOptions = {
-                onlyConfirm: true,
-                submitUrl: '${ctx}/assets/yjSystem/delete',
-                dataTable: '#yjSystemTable',
-                dataTableId: id
-            };
+            deleteOptions.dataTableId = id;
             $().layerSetting('deleteRow', deleteOptions);
         }
 
