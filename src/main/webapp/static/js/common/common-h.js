@@ -154,7 +154,7 @@ var TableInit = function(tableOption,btnOption) {
     // 确认弹框
     LayerEvent.prototype.initConfirm = function () {
         var that = this;
-        var layeConfirm = layer.confirm('您确定要删除么？!', {
+        var layeConfirm = layer.confirm('您确定要删除么？', {
             btn : [ '确定', '取消' ]
         },  function(index, layero) {
             $.post(that.options.submitUrl, {ids : that.options.dataTableId}, function(data) {

@@ -79,9 +79,9 @@
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
-                            <!-- 系统名称 -->
+                            <!-- 系统信息 -->
                             <fieldset>
-                                <legend>系统名称</legend>
+                                <legend>系统信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">单位名称</label>

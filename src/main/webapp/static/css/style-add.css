@@ -94,6 +94,10 @@
 
 
 /* 信息系统表格样式 */
+.main > .container{
+    width: 100%;
+}
+
 .form-horizontal .form-group{
     margin: 0;
 }

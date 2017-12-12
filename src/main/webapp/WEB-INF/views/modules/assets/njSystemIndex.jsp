@@ -79,9 +79,9 @@
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
-                            <!-- 系统名称 -->
+                            <!-- 系统信息 -->
                             <fieldset>
-                                <legend>系统名称</legend>
+                                <legend>系统信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title" style="width: 117px;">
                                         <label class=" control-label">单位名称</label>
@@ -92,7 +92,7 @@
                                 </div>
                                 <div class="form-group col-sm-9">
                                     <div class="col-sm-2 column-title">
-                                        <label class=" control-label">政务信息系统名</label>
+                                        <label class=" control-label">政务信息系统名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xtmc" placeholder="请输入政务信息系统名称" required>
@@ -146,7 +146,7 @@
                                         <label class="control-label">系统建设预算</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
-                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="请输入建设预算" required>
+                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
