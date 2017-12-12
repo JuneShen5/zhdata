@@ -1009,6 +1009,6 @@ $.validator.addMethod("hasNoSpace", function(value, element) {
     $.validator.addMethod("isNonnegative", function(value, element) {
         var nonnegative = /^\d+(\.{0,1}\d+){0,1}$/;
         return this.optional(element) || nonnegative.test( value );
-    }, "<i class='fa fa-times-circle'></i> 只能为正数");
+    }, "<i class='fa fa-times-circle'></i> 正数");
 
 }));

@@ -143,7 +143,7 @@
 
                                 <div class="form-group col-sm-4">
                                     <div class="col-sm-3 column-title">
-                                        <label class="control-label">系统建设预算</label>
+                                        <label class="control-label">系统建设<br>预算</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
                                         <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <div class="col-sm-3 column-title">
-                                        <label class="control-label">资金到位情况</label>
+                                        <label class="control-label">资金到位<br>情况</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
                                         <select name="zjdwqk" class="form-control" required>
@@ -215,7 +215,7 @@
                                 <legend>系统建设必要性</legend>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设紧迫程度</label>
+                                        <label class="control-label">建设紧迫<br>程度</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsjpcd" class="form-control" required>
@@ -244,7 +244,7 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">建设预期目标</label>
+                                        <label class="control-label">建设预期<br>目标</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
@@ -252,7 +252,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">预估使用对象</label>
+                                        <label class="control-label">预估使用<br>对象</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="预估使用对象" required>
@@ -260,7 +260,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">预估使用规模</label>
+                                        <label class="control-label">预估使用<br>规模</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsygm" placeholder="预估使用规模" required>

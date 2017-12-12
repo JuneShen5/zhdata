@@ -251,7 +251,7 @@
                                     </div>
                                     <div class="form-group col-sm-3 form-border-nobottom">
                                         <div class="col-sm-4 column-title">
-                                            <label class="control-label">年度运维金额</label>
+                                            <label class="control-label">年度运维<br>金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
                                             <input type="text" isNonnegative="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
@@ -326,7 +326,7 @@
                                 <legend>系统整合信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统部署位置</label>
+                                        <label class="control-label">系统部署<br>位置</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="请输入系统部署位置" required>
@@ -426,10 +426,10 @@
                                         <label class="control-label">数据备份</label>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-2 column-title form-border-bottom">
+                                        <div class="col-sm-3 column-title form-border-bottom">
                                             <label class="control-label">是否有备份</label>
                                         </div>
-                                        <div class="col-sm-10 column-content form-border-bottom">
+                                        <div class="col-sm-9 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
@@ -452,10 +452,10 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-2 column-title">
+                                        <div class="col-sm-3 column-title">
                                             <label class="control-label">备份点位置</label>
                                         </div>
-                                        <div class="col-sm-10 column-content">
+                                        <div class="col-sm-9 column-content">
                                             <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置" required>
                                         </div>
                                     </div>
