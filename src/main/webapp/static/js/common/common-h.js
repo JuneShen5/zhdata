@@ -88,9 +88,10 @@ var TableInit = function(tableOption,btnOption) {
         };
         return oTableInit;
     };
-(function () {
+;(function () {
     // 弹框初始化及相关方法
-    var LayerEvent = function(options) {
+    var LayerEvent = function(ele, options) {
+        this.$element = ele;
         this.options = $.extend({}, LayerEvent.DEFAULTS, options);
         this.init();
     };
@@ -100,7 +101,6 @@ var TableInit = function(tableOption,btnOption) {
         containerSize: ['90%','96%'],
         scrollbar: false,
         button: 'default',
-        container: undefined,
         onlyConfirm: false,
         submitHandle: false,
         submitUrl: ''
@@ -128,6 +128,7 @@ var TableInit = function(tableOption,btnOption) {
             btnText.push(btns.text);
             btnFunction.push(btns.event);
         });
+        // console.log(this.$element);
         layer.open({
             title: this.options.title,
             type : this.options.type,
@@ -137,7 +138,7 @@ var TableInit = function(tableOption,btnOption) {
             btn : btnText,
             yes : function(index, layero) {
                 btnFunction[0];
-                $(that.options.container).find('form').submit();
+                that.$element.find('form').submit();
             },
             end : function() {
                 btnFunction[1];
@@ -145,7 +146,7 @@ var TableInit = function(tableOption,btnOption) {
                 //                    $(data.formId).resetForm();
                 //                    endMethod(data.formId, "close");
             },
-            content : $(this.options.container)
+            content : this.$element
         });
         this.initFormPlugins();
 //                this.validate();
@@ -266,7 +267,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     // 重置表单
     LayerEvent.prototype.resetLayerForm = function (status) {
-        var thisLayerForm = $(this.options.container).find('form');
+        var thisLayerForm = this.$element.find('form');
 
         console.log(thisLayerForm);
         // 当弹框被关闭的时候将所有加上的属性移除掉
@@ -317,7 +318,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     // 禁用form表单
     LayerEvent.prototype.forbiddenForm = function () {
-        var thisLayerForm = $(this.options.container).find('form');
+        var thisLayerForm = this.$element.find('form');
         // 然后将所有表单中的选项做一个禁选中操作
         thisLayerForm.find("input").each(function () {
             $(this).attr("disabled","disabled");
@@ -444,7 +445,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.validate = function () {
         var that = this;
-        $(this.options.container).find('form').validate({
+        this.$element.find('form').validate({
             ignore: ":hidden:not(select,input)",
             submitHandler: function(form){
                 console.log(that.options.submitHandle);
@@ -459,7 +460,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
-        $(that.options.container).find('form').ajaxSubmit({
+        that.$element.find('form').ajaxSubmit({
             url : that.options.submitUrl,
             type : 'post',
             success : function(data){
@@ -508,12 +509,16 @@ var TableInit = function(tableOption,btnOption) {
     // 命名空间
     $.fn.layerSetting = function (option) {
         if (typeof option === 'string') {
-            var layerEvent = new LayerEvent(Array.prototype.slice.call(arguments, 1)[0]);
-            return layerEvent[option].apply(layerEvent);
+            if ($.inArray(option, allowedMethods) < 0) {
+                throw new Error("Unknown method: " + option);
+            }else {
+                var layerEvent = new LayerEvent(this, Array.prototype.slice.call(arguments, 1)[0]);
+                return layerEvent[option].apply(layerEvent);
+            }
         } else if (typeof option === 'object' || !option) {
             var layerEvent2 = new LayerEvent(option);
         } else {
-            $.error('Method ' + option + ' does not exist on jQuery.tooltip');
+            $.error('参数错误');
         }
     };
     $.fn.layerSetting.methods = allowedMethods;

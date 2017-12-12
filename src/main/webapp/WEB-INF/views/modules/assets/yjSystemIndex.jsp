@@ -579,7 +579,6 @@
         var options = {
             title: '新增',
             containerSize: ['90%','96%'],
-            container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
@@ -587,7 +586,10 @@
         };
         // 新增
         function openAdd() {
-            $().layerSetting('openAdd', options);
+            options.title = '新增';
+            options['button'] = 'default';
+            options.dataTableId = '';
+            $('#layer_form').layerSetting('openAdd', options);
         }
         // 详情
         function datailRow(id) {
@@ -595,7 +597,7 @@
             options['button'] = [];
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openDetail', options);
+            $('#layer_form').layerSetting('openDetail', options);
         }
         // 修改
         function editRow(id) {
@@ -603,7 +605,7 @@
             options['button'] = 'default';
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openEdit', options);
+            $('#layer_form').layerSetting('openEdit', options);
         }
         // 删除
         var deleteOptions = {
@@ -613,7 +615,7 @@
         };
         function deleteRow(id) {
             deleteOptions.dataTableId = id;
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
 
         //批量删除
@@ -626,10 +628,10 @@
             var ids = new Array();
             $.each(delData, function (index, item) {
                 ids.push(item.id);
-            })
+            });
             ids = JSON.stringify(ids);
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
         $(function () {
             // 是否为僵尸系统相关表设置

@@ -322,7 +322,6 @@
         var options = {
             title: '新增',
             containerSize: ['90%','96%'],
-            container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
@@ -330,7 +329,10 @@
         };
         // 新增
         function openAdd() {
-            $().layerSetting('openAdd', options);
+            options.title = '新增';
+            options['button'] = 'default';
+            options.dataTableId = '';
+            $('#layer_form').layerSetting('openAdd', options);
         }
 
         function datailRow(id) {
@@ -338,14 +340,14 @@
             options['button'] = [];
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openDetail', options);
+            $('#layer_form').layerSetting('openDetail', options);
         }
         function editRow(id) {
             options.title = '修改';
             options['button'] = 'default';
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openEdit', options);
+            $('#layer_form').layerSetting('openEdit', options);
         }
         var deleteOptions = {
             onlyConfirm: true,
@@ -354,7 +356,7 @@
         };
         function deleteRow(id) {
             deleteOptions.dataTableId = id;
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
 
         //批量删除
@@ -370,7 +372,7 @@
             })
             ids = JSON.stringify(ids);
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
 
         $(function () {
@@ -381,7 +383,7 @@
                 }else {
                     $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',true);
                 }
-                $(options.container).validate().form()
+                $('#layer_form').validate().form()
             });
         });
     </script>
