@@ -330,6 +330,9 @@
         };
         // 新增
         function openAdd() {
+            options.title = '新增';
+            options['button'] = 'default';
+            options.dataTableId = '';
             $().layerSetting('openAdd', options);
         }
 
