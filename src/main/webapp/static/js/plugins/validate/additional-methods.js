@@ -565,7 +565,12 @@ $.validator.addMethod("letterswithbasicpunc", function(value, element) {
 $.validator.addMethod("mobileNL", function(value, element) {
 	return this.optional(element) || /^((\+|00(\s|\s?\-\s?)?)31(\s|\s?\-\s?)?(\(0\)[\-\s]?)?|0)6((\s|\s?\-\s?)?[0-9]){8}$/.test(value);
 }, "Please specify a valid mobile number");
-
+//检测手机号是否正确
+$.validator.addMethod("isMobile", function(value, element) {
+	var length = value.length;
+	var regPhone = /^1([3578]\d|4[57])\d{8}$/;
+	return this.optional(element) || ( length == 11 && regPhone.test( value ) );
+}, "<i class='fa fa-times-circle'></i> 格式错误");
 /* For UK phone functions, do the following server side processing:
  * Compare original input with this RegEx pattern:
  * ^\(?(?:(?:00\)?[\s\-]?\(?|\+)(44)\)?[\s\-]?\(?(?:0\)?[\s\-]?\(?)?|0)([1-9]\d{1,4}\)?[\s\d\-]+)$
