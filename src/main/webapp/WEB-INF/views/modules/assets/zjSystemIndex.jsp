@@ -79,9 +79,9 @@
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
-                            <!-- 系统名称 -->
+                            <!-- 系统信息 -->
                             <fieldset>
-                                <legend>系统名称</legend>
+                                <legend>系统信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">单位名称</label>
@@ -593,7 +593,6 @@
         var options = {
             title: '新增',
             containerSize: ['90%','96%'],
-            container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
@@ -604,7 +603,7 @@
             options.title = '新增';
             options['button'] = 'default';
             options.dataTableId = '';
-            $().layerSetting('openAdd', options);
+            $('#layer_form').layerSetting('openAdd', options);
         }
 
         function datailRow(id) {
@@ -612,14 +611,14 @@
             options['button'] = [];
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openDetail', options);
+            $('#layer_form').layerSetting('openDetail', options);
         }
         function editRow(id) {
             options.title = '修改';
             options['button'] = 'default';
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openEdit', options);
+            $('#layer_form').layerSetting('openEdit', options);
         }
         var deleteOptions = {
             onlyConfirm: true,
@@ -628,7 +627,7 @@
         };
         function deleteRow(id) {
             deleteOptions.dataTableId = id;
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
         //批量删除
         function deleteBatch() {
@@ -643,7 +642,7 @@
             })
             ids = JSON.stringify(ids);
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
     </script>
 

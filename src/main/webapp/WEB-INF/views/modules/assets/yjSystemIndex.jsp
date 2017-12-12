@@ -79,9 +79,9 @@
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
-                            <!-- 系统名称 -->
+                            <!-- 系统信息 -->
                             <fieldset>
-                                <legend>系统名称</legend>
+                                <legend>系统信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">单位名称</label>
@@ -579,7 +579,6 @@
         var options = {
             title: '新增',
             containerSize: ['90%','96%'],
-            container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
@@ -590,7 +589,7 @@
             options.title = '新增';
             options['button'] = 'default';
             options.dataTableId = '';
-            $().layerSetting('openAdd', options);
+            $('#layer_form').layerSetting('openAdd', options);
         }
         // 详情
         function datailRow(id) {
@@ -598,7 +597,7 @@
             options['button'] = [];
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openDetail', options);
+            $('#layer_form').layerSetting('openDetail', options);
         }
         // 修改
         function editRow(id) {
@@ -606,7 +605,7 @@
             options['button'] = 'default';
             options.dataTableId = id;
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
-            $().layerSetting('openEdit', options);
+            $('#layer_form').layerSetting('openEdit', options);
         }
         // 删除
         var deleteOptions = {
@@ -616,7 +615,7 @@
         };
         function deleteRow(id) {
             deleteOptions.dataTableId = id;
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
 
         //批量删除
@@ -629,10 +628,10 @@
             var ids = new Array();
             $.each(delData, function (index, item) {
                 ids.push(item.id);
-            })
+            });
             ids = JSON.stringify(ids);
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
-            $().layerSetting('deleteRow', deleteOptions);
+            $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
         $(function () {
             // 是否为僵尸系统相关表设置
