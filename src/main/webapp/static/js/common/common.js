@@ -552,6 +552,7 @@ function loadLinkageSel (data) {
 
 // 导出
 function exportData() {
+	rowName();//重新点开时，吧勾选的重新复制一遍
 	layer.open({
 		type : 1,
 		title : '确认要导出用户数据吗？',
@@ -572,6 +573,8 @@ function exportData() {
 
 // 导入
 function importData() {
+	$("#file-message").html("");//清空上次上传后的提示信息
+	$("#message").html("");
 var importDataLayer	= layer.open({
 		type : 1,
 		title : '导入数据',

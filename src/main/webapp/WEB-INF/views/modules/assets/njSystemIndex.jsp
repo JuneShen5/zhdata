@@ -75,7 +75,7 @@
                 <div class="row">
                     <div class="col-md-12 column">
                         <h1 class="form-main-title">
-                            部门拟建政务信息系统调查表
+                        	部门拟建政务信息系统调查表
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
@@ -332,7 +332,7 @@
             options.title = '新增';
             options['button'] = 'default';
             options.dataTableId = '';
-            $('#layer_form').layerSetting('openAdd', options);
+            $().layerSetting('openAdd', options);
         }
 
         function datailRow(id) {
