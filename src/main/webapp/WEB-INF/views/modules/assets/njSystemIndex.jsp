@@ -332,7 +332,7 @@
             options.title = '新增';
             options['button'] = 'default';
             options.dataTableId = '';
-            $().layerSetting('openAdd', options);
+            $('#layer_form').layerSetting('openAdd', options);
         }
 
         function datailRow(id) {
