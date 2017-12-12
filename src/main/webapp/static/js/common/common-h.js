@@ -97,7 +97,7 @@ var TableInit = function(tableOption,btnOption) {
     LayerEvent.DEFAULTS = {
         title: '未命名弹出框',
         type: 1,
-        containerSize: ['100%','100%'],
+        containerSize: ['90%','96%'],
         scrollbar: false,
         button: 'default',
         container: undefined,
@@ -264,6 +264,7 @@ var TableInit = function(tableOption,btnOption) {
             validClass: "help-block m-b-none"
         });
     };
+    // 重置表单
     LayerEvent.prototype.resetLayerForm = function (status) {
         var thisLayerForm = $(this.options.container).find('form');
 

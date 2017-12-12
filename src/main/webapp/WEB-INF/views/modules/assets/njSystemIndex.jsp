@@ -23,9 +23,9 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                    <button type="button" id="searchMoreFor"
+                                   <!--  <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -34,7 +34,7 @@
                                        onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
-                                    <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
+                                    <button class="btn btn-yellow" type="button" onclick="deleteBatch();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
-                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="ywgn">业务功能</th>
+                                <th data-field="spbm">审批部门</th>
+                                <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
@@ -80,9 +82,17 @@
                             <!-- 系统名称 -->
                             <fieldset>
                                 <legend>系统名称</legend>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-2 column-title" style="width: 117px;">
+                                        <label class=" control-label">单位名称</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" class="form-control" name="dwmc" placeholder="请输入单位名称" required>
+                                    </div>
+                                </div>
                                 <div class="form-group col-sm-9">
                                     <div class="col-sm-2 column-title">
-                                        <label class=" control-label">政务信息系统名称</label>
+                                        <label class=" control-label">政务信息系统名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xtmc" placeholder="请输入政务信息系统名称" required>
@@ -92,14 +102,14 @@
                                     <div class="col-sm-4 column-title form-border-left">
                                         <label class="control-label">涉密分类</label>
                                     </div>
-	                                    <div class="col-sm-8 column-content">
-	                                        <select name="smfl" class="form-control" required>
-							                    <option value="">请选择</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-	                                    </div>
+                                    <div class="col-sm-8 column-content">
+                                        <select name="smfl" class="form-control" required>
+                                            <option value="">== 请选择 ==</option>
+                                             <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
+                                             <option value="${dict.value}">${dict.label}</option>
+                                       </c:forEach>
+                                       </select>
+                                    </div>
                                 </div>
                             </fieldset>
                             <!-- 基本信息 -->
@@ -127,7 +137,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请描述系统功能，使用效果等" required></textarea>
                                     </div>
                                 </div>
 
@@ -145,7 +155,7 @@
                                     </div>
                                     <div class="col-sm-9 form-contact column-content">
                                         <select name="zjly" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -158,7 +168,7 @@
                                     </div>
                                     <div class="col-sm-9 column-content">
                                         <select name="zjdwqk" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -209,7 +219,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsjpcd" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -226,10 +236,10 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">依据/紧迫性</label>
+                                        <label class="control-label">拟建系统依据/紧迫性</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="njxtyj" placeholder="依据/紧迫性" required>
+                                        <input type="text" class="form-control" name="njxtyj" placeholder="拟建系统依据/紧迫性" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -237,7 +247,7 @@
                                         <label class="control-label">建设预期目标</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标" required>
+                                        <input type="text" class="form-control" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -311,7 +321,7 @@
         // 3.初始化弹框
         var options = {
             title: '新增',
-            containerSize: ['90%','90%'],
+            containerSize: ['90%','96%'],
             container: '#layer_form',
             button: 'default',
             dataTable: '#yjSystemTable',
@@ -337,22 +347,43 @@
 //            var row = $(options.dataTable).bootstrapTable('getRowByUniqueId', id);
             $().layerSetting('openEdit', options);
         }
+        var deleteOptions = {
+            onlyConfirm: true,
+            submitUrl: '${ctx}/assets/njSystem/delete',
+            dataTable: '#yjSystemTable'
+        };
         function deleteRow(id) {
-            var deleteOptions = {
-                onlyConfirm: true,
-                submitUrl: '${ctx}/assets/njSystem/delete',
-                dataTable: '#yjSystemTable',
-                dataTableId: id
-            };
+            deleteOptions.dataTableId = id;
             $().layerSetting('deleteRow', deleteOptions);
         }
 
-        // 是否紧迫性相关表设置
-//        $('select[name="jsjpcd"]').on('change', function () {
-//           if ($(this).val() === '' || $(this).val() === '0'){
-//               $('input[name="xtjcsjyq"],njxtyj,jsyqmb,required,ygsygm')
-//           }
-//        });
+        //批量删除
+        function deleteBatch() {
+            var delData = $(deleteOptions.dataTable).bootstrapTable('getSelections');
+            if (delData.length == 0) {
+                layer.msg("请至少选择一项数据");
+                return;
+            }
+            var ids = new Array();
+            $.each(delData, function (index, item) {
+                ids.push(item.id);
+            })
+            ids = JSON.stringify(ids);
+            deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
+            $().layerSetting('deleteRow', deleteOptions);
+        }
+
+        $(function () {
+            // 是否紧迫性相关表设置
+            $('select[name="jsjpcd"]').on('change', function () {
+                if ($(this).val() === '0'){
+                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',false).closest('.form-group').removeClass('has-error has-success');
+                }else {
+                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',true);
+                }
+                $(options.container).validate().form()
+            });
+        });
     </script>
 
     </body>

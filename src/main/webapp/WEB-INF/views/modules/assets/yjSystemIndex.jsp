@@ -23,9 +23,9 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                    <button type="button" id="searchMoreFor"
+                             <!--        <button type="button" id="searchMoreFor"
                                             onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button>
+                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -34,7 +34,7 @@
                                        onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                     <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
-                                    <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
+                                    <button class="btn btn-yellow" type="button" onclick="deleteBatch();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,9 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="xtmc">信息系统名称</th>
-                                <th data-field="dwmc">责任部门</th>
+                                <th data-field="ywgn">业务功能</th>
+                                <th data-field="spbm">审批部门</th>
+                                <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
@@ -80,6 +82,14 @@
                             <!-- 系统名称 -->
                             <fieldset>
                                 <legend>系统名称</legend>
+                                <div class="form-group col-sm-12">
+                                    <div class="col-sm-2 column-title">
+                                        <label class=" control-label">单位名称</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" class="form-control" name="dwmc" placeholder="请输入单位名称" required>
+                                    </div>
+                                </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">政务信息系统名称</label>
@@ -113,7 +123,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" required></textarea>
+                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请量化描述系统功能、使用效果等" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -195,7 +205,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">运维合同签署到期时间</label>
+                                        <label class="control-label">合同签署到期时间</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="请选择到期时间" required>
@@ -227,7 +237,7 @@
                                         </div>
                                         <div class="col-sm-9 column-content">
                                             <select name="jsfs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -241,7 +251,7 @@
                                     </div>
                                     <div class="form-group col-sm-3 form-border-nobottom">
                                         <div class="col-sm-4 column-title">
-                                            <label class="control-label">运维金额</label>
+                                            <label class="control-label">年度运维金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
                                             <input type="text" digits="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
@@ -261,7 +271,7 @@
                                         </div>
                                         <div class="col-sm-9 column-content">
                                             <select name="ywfs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('operational_way')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -287,7 +297,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="sfjsxt" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -299,7 +309,7 @@
                                         <label class="control-label">使用对象</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象" required>
+                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象，如政府单位内部，注册用户数_个" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -307,7 +317,7 @@
                                         <label class="control-label">使用频度</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度" required>
+                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度，如每月系统使用用户量" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -316,10 +326,10 @@
                                 <legend>系统整合信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">部署位置</label>
+                                        <label class="control-label">系统部署位置</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="bswz" placeholder="请输入部署位置" required>
+                                        <input type="text" class="form-control" name="bswz" placeholder="请输入系统部署位置" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -328,7 +338,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="smfl" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -337,11 +347,11 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">安全级别</label>
+                                        <label class="control-label">信息安全登保级别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="aqjb" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('security_level')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -350,7 +360,7 @@
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统已接入的网络类型</label>
+                                        <label class="control-label">已接入的网络类型</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <input type="text" class="form-control" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
@@ -362,7 +372,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="syfw" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('usable_range')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -375,7 +385,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="sfyqtxtdj" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -396,7 +406,7 @@
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="sfxnhbs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -405,7 +415,7 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">软件厂商名</label>
+                                        <label class="control-label">虚拟化软件厂商名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
@@ -417,12 +427,12 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="col-sm-2 column-title form-border-bottom">
-                                            <label class="control-label">是否备份</label>
+                                            <label class="control-label">是否有备份</label>
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
-							                    <option value="">请选择</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+							                    <option value="">== 请选择 ==</option>
+							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
 						                   </select>
@@ -434,7 +444,7 @@
                                         </div>
                                         <div class="col-sm-10 column-content form-border-bottom">
                                             <select name="bffs" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -464,7 +474,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="yyrz" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -477,7 +487,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="sfsqzhzh" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -498,7 +508,7 @@
                                     </div>
                                     <div class="col-sm-11 column-content">
                                         <select name="sjxq" class="form-control" required>
-							                    <option value="">请选择</option>
+							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
 								                 <option value="${dict.value}">${dict.label}</option>
 							               </c:forEach>
@@ -510,7 +520,7 @@
                                         <label class="control-label">升级需求详细说明</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="sjxqsm" class="form-control" rows="3"></textarea>
+                                        <textarea name="sjxqsm" class="form-control" rows="3" placeholder="请说明升级后功能、覆盖面、性能、对接等要求"></textarea>
                                     </div>
                                 </div>
                             </fieldset>
@@ -596,16 +606,42 @@
             $().layerSetting('openEdit', options);
         }
         // 删除
+        var deleteOptions = {
+            onlyConfirm: true,
+            submitUrl: '${ctx}/assets/yjSystem/delete',
+            dataTable: '#yjSystemTable'
+        };
         function deleteRow(id) {
-            var deleteOptions = {
-                onlyConfirm: true,
-                submitUrl: '${ctx}/assets/yjSystem/delete',
-                dataTable: '#yjSystemTable',
-                dataTableId: id
-            };
+            deleteOptions.dataTableId = id;
             $().layerSetting('deleteRow', deleteOptions);
         }
 
+        //批量删除
+        function deleteBatch() {
+            var delData = $(deleteOptions.dataTable).bootstrapTable('getSelections');
+            if (delData.length == 0) {
+                layer.msg("请至少选择一项数据");
+                return;
+            }
+            var ids = new Array();
+            $.each(delData, function (index, item) {
+                ids.push(item.id);
+            })
+            ids = JSON.stringify(ids);
+            deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
+            $().layerSetting('deleteRow', deleteOptions);
+        }
+        $(function () {
+            // 是否为僵尸系统相关表设置
+            $('select[name="sfjsxt"]').on('change', function () {
+                if ($(this).val() === '0'){
+                    $('input[name="sydx"],input[name="sypd"]').prop('required',false).closest('.form-group').removeClass('has-error has-success');
+                }else {
+                    $('input[name="sydx"],input[name="sypd"]').prop('required',true);
+                }
+                $(options.container).validate().form()
+            });
+        });
     </script>
 
     </body>
