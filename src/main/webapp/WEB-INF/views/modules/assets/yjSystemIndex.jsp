@@ -87,7 +87,7 @@
                                         <label class=" control-label">单位名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="dwmc" placeholder="请输入单位名称" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -95,7 +95,7 @@
                                         <label class=" control-label">政务信息系统名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="xtmc" placeholder="请输入政务信息系统名称" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -107,7 +107,7 @@
                                         <label class="control-label">审批部门</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="spbm" placeholder="请输入审批部门" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -123,7 +123,7 @@
                                         <label class="control-label">业务功能</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <textarea name="ywgn" class="form-control" rows="3" placeholder="请量化描述系统功能、使用效果等" required></textarea>
+                                        <textarea name="ywgn" class="form-control" hasNoSpace="true" rows="3" placeholder="请量化描述系统功能、使用效果等" required></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -131,7 +131,7 @@
                                         <label class="control-label">建设单位</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="jsdwmc" placeholder="请输入建设单位" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="jsdwmc" placeholder="请输入建设单位" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content">
-                                            <input type="text" class="form-control" name="jsdwlxr" placeholder="请输入姓名" required>
+                                            <input type="text" class="form-control" hasNoSpace="true" name="jsdwlxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
@@ -154,7 +154,7 @@
                                         <label class="control-label">承建单位</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="cjdwmc" placeholder="请输入承建单位" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="请输入承建单位" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -163,7 +163,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content">
-                                            <input type="text" class="form-control" name="cjdwlxr" placeholder="请输入姓名" required>
+                                            <input type="text" class="form-control" hasNoSpace="true" name="cjdwlxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
@@ -177,7 +177,7 @@
                                         <label class="control-label">运维单位</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="ywdwmc" placeholder="请输入运维单位" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="ywdwmc" placeholder="请输入运维单位" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -186,7 +186,7 @@
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
                                         <div class="form-contact column-content">
-                                            <input type="text" class="form-control" name="ywdwlxr" placeholder="请输入姓名" required>
+                                            <input type="text" class="form-control" hasNoSpace="true" name="ywdwlxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
@@ -220,7 +220,7 @@
                                             <label class="control-label">建设金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
-                                            <input type="text" digits="true" class="form-control" name="jsje" placeholder="单位:万元" required>
+                                            <input type="text" isNonnegative="true" class="form-control" name="jsje" placeholder="单位:万元" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -228,7 +228,7 @@
                                             <label class="control-label">资金来源</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <input type="text" class="form-control" name="zjly" placeholder="请输入资金来源" required>
+                                            <input type="text" class="form-control" hasNoSpace="true" name="zjly" placeholder="请输入资金来源" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -251,10 +251,10 @@
                                     </div>
                                     <div class="form-group col-sm-3 form-border-nobottom">
                                         <div class="col-sm-4 column-title">
-                                            <label class="control-label">年度运维金额</label>
+                                            <label class="control-label">年度运维<br>金额</label>
                                         </div>
                                         <div class="col-sm-8 column-content">
-                                            <input type="text" digits="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
+                                            <input type="text" isNonnegative="true" class="form-control" name="ndywje" placeholder="单位:万元" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -262,7 +262,7 @@
                                             <label class="control-label">资金来源</label>
                                         </div>
                                         <div class="col-sm-9 column-content">
-                                            <input type="text" class="form-control" name="ywzjly" placeholder="请输入资金来源" required>
+                                            <input type="text" class="form-control" hasNoSpace="true" name="ywzjly" placeholder="请输入资金来源" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-4 form-border-nobottom">
@@ -284,7 +284,7 @@
                                         <label class="control-label">系统类别</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="xtlb" placeholder="请输入系统类别" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -309,7 +309,7 @@
                                         <label class="control-label">使用对象</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sydx" placeholder="请输入使用对象，如政府单位内部，注册用户数_个" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="sydx" placeholder="请输入使用对象，如政府单位内部，注册用户数_个" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -317,7 +317,7 @@
                                         <label class="control-label">使用频度</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="sypd" placeholder="请输入使用频度，如每月系统使用用户量" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="sypd" placeholder="请输入使用频度，如每月系统使用用户量" required>
                                     </div>
                                 </div>
                             </fieldset>
@@ -326,10 +326,10 @@
                                 <legend>系统整合信息</legend>
                                 <div class="form-group col-sm-12">
                                     <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统部署位置</label>
+                                        <label class="control-label">系统部署<br>位置</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="bswz" placeholder="请输入系统部署位置" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="请输入系统部署位置" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -363,7 +363,7 @@
                                         <label class="control-label">已接入的网络类型</label>
                                     </div>
                                     <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -397,7 +397,7 @@
                                         <label class="control-label">对接其它系统名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="djqtxtmc" placeholder="请输入对接其它系统名称" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="djqtxtmc" placeholder="请输入对接其它系统名称" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
@@ -418,7 +418,7 @@
                                         <label class="control-label">虚拟化软件厂商名</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -426,10 +426,10 @@
                                         <label class="control-label">数据备份</label>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-2 column-title form-border-bottom">
+                                        <div class="col-sm-3 column-title form-border-bottom">
                                             <label class="control-label">是否有备份</label>
                                         </div>
-                                        <div class="col-sm-10 column-content form-border-bottom">
+                                        <div class="col-sm-9 column-content form-border-bottom">
                                             <select name="sfybf" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
@@ -452,11 +452,11 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-2 column-title">
+                                        <div class="col-sm-3 column-title">
                                             <label class="control-label">备份点位置</label>
                                         </div>
-                                        <div class="col-sm-10 column-content">
-                                            <input type="text" class="form-control" name="bfdwz" placeholder="备份点位置" required>
+                                        <div class="col-sm-9 column-content">
+                                            <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置" required>
                                         </div>
                                     </div>
                                     <div class="form-group col-sm-6 form-border-nobottom">
@@ -464,7 +464,7 @@
                                             <label class="control-label">数据备份量</label>
                                         </div>
                                         <div class="col-sm-10 column-content">
-                                            <input type="text" digits="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
+                                            <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
                                         </div>
                                     </div>
                                 </div>

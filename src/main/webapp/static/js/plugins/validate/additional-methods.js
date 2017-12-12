@@ -1000,11 +1000,15 @@ $.validator.addMethod("ziprange", function(value, element) {
 	return this.optional(element) || /^90[2-5]\d\{2\}-\d{4}$/.test(value);
 }, "Your ZIP-code must be in the range 902xx-xxxx to 905xx-xxxx");
 
-
 //检测头尾不能有空格
-$.validator.addMethod("hasSpace", function(value, element) {
-	var noSpace = /^[^ ]+[\s\S]*[^ ]+$/;
+$.validator.addMethod("hasNoSpace", function(value, element) {
+	var noSpace = /^\S+(\s+\S+)*$/;
 	return this.optional(element) || noSpace.test( value );
 }, "<i class='fa fa-times-circle'></i> 前后不能有空格");
+	//检测非负数
+    $.validator.addMethod("isNonnegative", function(value, element) {
+        var nonnegative = /^\d+(\.{0,1}\d+){0,1}$/;
+        return this.optional(element) || nonnegative.test( value );
+    }, "<i class='fa fa-times-circle'></i> 正数");
 
 }));
