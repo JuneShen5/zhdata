@@ -146,7 +146,7 @@
                                         <label class="control-label">系统建设预算</label>
                                     </div>
                                     <div class="col-sm-9 column-content">
-                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
+                                        <input type="text" digits="true" class="form-control" name="xtjsys" placeholder="请输入系统建设预算（万元）" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
