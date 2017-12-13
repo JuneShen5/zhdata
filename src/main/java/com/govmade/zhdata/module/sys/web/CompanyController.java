@@ -1,6 +1,7 @@
 package com.govmade.zhdata.module.sys.web;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +32,8 @@ import com.govmade.zhdata.common.utils.excel.ExportExcelData;
 import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
 import com.govmade.zhdata.common.utils.excel.ImportExcelData;
 import com.govmade.zhdata.module.sys.pojo.Company;
-import com.govmade.zhdata.module.sys.pojo.Site;
+import com.govmade.zhdata.module.sys.pojo.Menu;
 import com.govmade.zhdata.module.sys.service.CompanyService;
-import com.govmade.zhdata.module.sys.service.SiteService;
 
 @Controller
 @RequestMapping(value = "settings/company")
@@ -43,21 +43,25 @@ public class CompanyController {
     private CompanyService companyService;
 
     @Autowired
-    private SiteService siteService;
+   // private SiteService siteService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String toCompany() {
         return "modules/settings/companyIndex";
     }
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
+    /**
+     * 
+     * 查询部门列表
+     * 
+     * @param page
+     * @return
+     */
+    /*@RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<Page<Company>> list(Page<Company> page) {
         try {
             PageInfo<Company> pageInfo = companyService.findAll(page);
             List<Company> companyList = pageInfo.getList();
-            /*if (companyList.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-            }*/
             Page<Company> resPage = new Page<Company>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(companyList);
@@ -67,8 +71,26 @@ public class CompanyController {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }*/
+    
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ResponseEntity<List<Company>> list(Company company) {
+        try {
+            List<Company> comList=this.companyService.queryAllList(company);
+            return ResponseEntity.ok(comList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
-
+    
+    /**
+     * 新增部门
+     * 
+     * @param company
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(Company company) throws Exception {
         try {
@@ -87,17 +109,56 @@ public class CompanyController {
 
     }
 
+    
+    /**
+     * 删除部门
+     * 
+     * @param ids
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public ResponseEntity<String> delete(String ids) throws Exception {
         try {
-            companyService.deleteByIds(ids);
-            return ResponseEntity.ok(Global.HANDLE_SUCCESS);
+            String[] array = StringUtil.split(ids, ',');
+              List<String> idList = new ArrayList<String>(Arrays.asList(array));
+              List<String> list=Lists.newArrayList();
+              for (int i = 0; i < array.length; i++) {
+                  findAllSubNode(Integer.valueOf(array[i]), list);
+              }
+              idList.addAll(list);
+              
+            //this.companyService.deleteByIds(ids);
+            this.companyService.deleteByIds(idList);
+            return ResponseEntity.ok(Global.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(Global.HANDLE_SUCCESS);
+            throw new Exception(Global.DELETE_ERROR);
         }
     }
 
+    
+    
+    /**
+     * 根据父级查询子级
+     * 
+     * @param parentId
+     * @param list
+     */
+    private void findAllSubNode(Integer parentId,List<String> list){
+        Company record =new Company();
+        record.setParentId(Integer.valueOf(parentId));
+        List<Company> companies=this.companyService.queryListByWhere(record);
+        if (companies!=null) {
+          //  List<Menu> menus=this.menuService.queryListByWhere(record);
+            for (Company c : companies) {
+                list.add(c.getId().toString());
+                 findAllSubNode(c.getId(),list);
+            }
+        }
+    }
+    
+    
     /**
      * 下载导入机构数据模板
      * 
@@ -145,10 +206,10 @@ public class CompanyController {
         Object[] objs = null;
         for (int i = 0; i < companies.size(); i++) {
             Company company = companies.get(i);
-            Site site = siteService.queryById(company.getSiteId());
+           // Site site = siteService.queryById(company.getSiteId());
             objs = new Object[rowName.length];
             objs[0] = i;
-            objs[1] = site.getName();
+          //  objs[1] = site.getName();
             /*objs[2] = company.getNumber();*/
             objs[3] = company.getName();
             objs[4] = company.getCode();

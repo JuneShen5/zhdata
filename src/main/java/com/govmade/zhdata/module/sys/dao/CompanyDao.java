@@ -10,10 +10,14 @@ import com.govmade.zhdata.module.sys.pojo.Company;
 
 public interface CompanyDao extends BaseDao<Company> {
 
-    List<Company> queryCompany(Company company);
+    public List<Company> queryCompany(Company company);
 
-    List<Company> queryCompany(@Param("company")Company company, @Param("isAudit")Integer isAudit);
+    public List<Company> queryCompany(@Param("company")Company company, @Param("isAudit")Integer isAudit);
 
-    void saveAll(@Param("dataList") List<Map<String, String>> dataList);
+    public void saveAll(@Param("dataList") List<Map<String, String>> dataList);
+
+    public void deleteByIds(List<String> idList);
+
+    public List<Company> queryAllList(@Param("company")Company company);
 
 }

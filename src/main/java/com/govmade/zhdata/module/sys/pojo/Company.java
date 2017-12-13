@@ -5,21 +5,24 @@ import javax.persistence.Transient;
 
 import com.govmade.zhdata.common.persistence.BasePo;
 
-@Table(name = "sys_company")
+@Table(name = "sys_company2")
 public class Company extends BasePo<Company> {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer siteId; // 班子ID
-
-    @Transient
-    private String siteName; // 政府班子
+    private Integer parentId; // 父级
 
     private String name; // 名称
 
-    private String code; // 代码
+    private String code; // 部门编码
 
     private String address; // 地址
+
+    private Integer sort; // 排序
+
+    private Integer type; // 机构类型
+
+    private Integer level; //级别
 
     @Transient
     private Integer count;
@@ -28,31 +31,36 @@ public class Company extends BasePo<Company> {
         super();
     }
 
-	public Company(Integer siteId, String name, String code,
-			String address, String remarks) {
-		super();
-		this.siteId = siteId;
-		this.name = name;
-		this.code = code;
-		this.address = address;
-		this.remarks = remarks;
-	}
-
-
-	public Integer getSiteId() {
-        return siteId;
+    public Integer getParentId() {
+        return parentId;
     }
 
-    public void setSiteId(Integer siteId) {
-        this.siteId = siteId;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
 
-    public String getSiteName() {
-        return siteName;
+    public Integer getSort() {
+        return sort;
     }
 
-    public void setSiteName(String siteName) {
-        this.siteName = siteName;
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 
     public String getCode() {
@@ -71,7 +79,6 @@ public class Company extends BasePo<Company> {
         this.name = name;
     }
 
-
     public String getAddress() {
         return address;
     }
@@ -80,11 +87,9 @@ public class Company extends BasePo<Company> {
         this.address = address;
     }
 
-
     public Integer getCount() {
         return count;
     }
-
 
     public void setCount(Integer count) {
         this.count = count;

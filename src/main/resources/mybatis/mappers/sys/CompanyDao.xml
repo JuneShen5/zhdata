@@ -4,28 +4,29 @@
 
 	<sql id="companyColumns">
 		a.id,
-		a.site_id AS "siteId",
+		a.parent_id AS "parentId",
 		a.name,
 		a.code,
 		a.address,
+		a.sort,
+		a.type,
+		a.level,
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks,
-		a.del_flag AS "delFlag",
-		s.name AS "siteName"
+		a.del_flag AS "delFlag"
 	</sql>
 
 	<sql id="companyJoins">
-		LEFT JOIN sys_site s ON s.id = a.site_id
     </sql>
 	
 	<!-- 根据编号获得单位-->
 	<select id="get" resultType="Company">
 		SELECT
 			<include refid="companyColumns"/>
-		FROM sys_company a
+		FROM sys_company2 a
 		<include refid="companyJoins"/>
 		WHERE a.id = #{id}
 	</select>
@@ -35,7 +36,7 @@
 	<select id="findAll" resultType="Company">
 		SELECT
 			<include refid="companyColumns"/>
-		FROM sys_company a
+		FROM sys_company2 a
 		<include refid="companyJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
@@ -47,9 +48,22 @@
 	</select>
 	
 	
+	
+	<!-- 查询全部机构 -->
+	<select id="queryAllList" resultType="Company">
+		SELECT
+			<include refid="companyColumns"/>
+		FROM sys_company2 a
+		<where>
+			a.del_flag =0
+		</where>
+		ORDER BY a.sort
+	</select>
+	
+	
 	<select id="queryCompany" resultType="Company">
 		SELECT a.id,a.name,COUNT(a.company_id) AS count 
-		FROM (SELECT c.id,c.name, i.company_id FROM sys_company c 
+		FROM (SELECT c.id,c.name, i.company_id FROM sys_company2 c 
 		LEFT JOIN drs_information i ON i.company_id=c.id AND i.del_flag='0'
 		<if test="isAudit == 1">
 			 AND i.is_audit=#{isAudit}
@@ -60,7 +74,7 @@
 	
 		   <!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
-		INSERT INTO sys_company
+		INSERT INTO sys_company2
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">
 			${field}
@@ -74,4 +88,13 @@
 			</foreach>
 		</foreach>
 	</insert>
+	
+	
+	<!-- 根据机构删除父级及子级 -->
+	<delete id="deleteByIds">
+		 DELETE FROM sys_company2 WHERE id IN 
+        <foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</delete>
 </mapper>

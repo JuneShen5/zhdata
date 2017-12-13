@@ -29,6 +29,12 @@ public class MenuController {
         return "modules/settings/menuIndex";
     }
     
+    /**
+     * 查询菜单
+     * 
+     * @param menu
+     * @return
+     */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<List<Menu>> list(Menu menu) {
         
@@ -38,7 +44,13 @@ public class MenuController {
     }
     
     
-    
+    /**
+     * 新增菜单
+     * 
+     * @param menu
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(Menu menu) throws Exception {
         try {
@@ -59,6 +71,13 @@ public class MenuController {
     
     
     
+    /**
+     * 删除菜单
+     * 
+     * @param ids
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     public ResponseEntity<String> delete(String ids) throws Exception {
         try {
@@ -82,12 +101,14 @@ public class MenuController {
             if (this.menuService.deleteByIds(idList) > 0) {
                 this.menuService.deletByMenuId(idList);
             }
-            return ResponseEntity.ok(Global.HANDLE_SUCCESS);
+            return ResponseEntity.ok(Global.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(Global.HANDLE_ERROR);
+            throw new Exception(Global.DELETE_ERROR);
         }
     }
+    
+    
     
     /**
      * 根据父级查询子级
@@ -98,8 +119,9 @@ public class MenuController {
     private void findAllSubNode(Integer parentId,List<String> list){
         Menu record =new Menu();
         record.setParentId(Integer.valueOf(parentId));
-        if (this.menuService.queryListByWhere(record)!=null) {
-            List<Menu> menus=this.menuService.queryListByWhere(record);
+        List<Menu> menus=this.menuService.queryListByWhere(record);
+        if (menus!=null) {
+          //  List<Menu> menus=this.menuService.queryListByWhere(record);
             for (Menu m : menus) {
                 list.add(m.getId().toString());
                  findAllSubNode(m.getId(),list);

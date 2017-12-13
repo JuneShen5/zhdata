@@ -60,7 +60,7 @@ public class CompanyService extends BaseService<Company>{
      * @param ids
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+   /* @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -72,7 +72,7 @@ public class CompanyService extends BaseService<Company>{
         Criteria criteria = example.createCriteria();
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(company, example);
-    }
+    }*/
 
     public List<Company> queryCompany(Integer isAudit) {
         List<Company> companies=this.companyDao.queryCompany(new Company(),isAudit);
@@ -82,6 +82,15 @@ public class CompanyService extends BaseService<Company>{
     /*批量添加用户（excel导入）*/
     public void saveAll(List<Map<String,String>> dataList) {
         companyDao.saveAll(dataList);
+    }
+
+    public void deleteByIds(List<String> idList) {
+        this.companyDao.deleteByIds(idList);
+        
+    }
+
+    public List<Company> queryAllList(Company company) {
+        return this.companyDao.queryAllList(company);
     }
     
 }
