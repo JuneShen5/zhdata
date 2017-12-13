@@ -93,7 +93,7 @@
 			<div class="form-group tooltip-demo">
 				<label class="col-sm-3 control-label">部门名称：</label>
 				<div class="col-sm-7">
-					<input type="text" name="name" class="form-control" rangelength="[1, 10]" required>
+					<input type="text" name="name" class="form-control" rangelength="[1, 30]" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
