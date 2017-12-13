@@ -258,10 +258,10 @@
 
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">签署的维保到期日期</label>
+                                        <label class="control-label">合同签署维保到期时间</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="请选择维保到期日期" required>
+                                        <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="请选择合同签署维保到期时间" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">

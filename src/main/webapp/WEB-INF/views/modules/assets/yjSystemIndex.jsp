@@ -205,10 +205,10 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">合同签署到期时间</label>
+                                        <label class="control-label">运维合同签署到期时间</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="请选择到期时间" required>
+                                        <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="请选择运维合同签署到期时间" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -415,10 +415,10 @@
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">虚拟化软件厂商名</label>
+                                        <label class="control-label">虚拟化软件厂商名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="xnhrjmc" placeholder="虚拟化软件厂商名" required>
+                                        <input type="text" class="form-control" hasNoSpace="true" name="xnhrjmc" placeholder="虚拟化软件厂商名称" required>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
@@ -461,7 +461,7 @@
                                     </div>
                                     <div class="form-group col-sm-6 form-border-nobottom">
                                         <div class="col-sm-2 column-title form-border-left">
-                                            <label class="control-label">数据备份量</label>
+                                            <label class="control-label">数据备份量<br>（GB）</label>
                                         </div>
                                         <div class="col-sm-10 column-content">
                                             <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
