@@ -128,7 +128,6 @@ var TableInit = function(tableOption,btnOption) {
             btnText.push(btns.text);
             btnFunction.push(btns.event);
         });
-        // console.log(this.$element);
         layer.open({
             title: this.options.title,
             type : this.options.type,
@@ -143,13 +142,12 @@ var TableInit = function(tableOption,btnOption) {
             end : function() {
                 btnFunction[1];
                 that.resetLayerForm("close");
-                //                    $(data.formId).resetForm();
-                //                    endMethod(data.formId, "close");
+//                    $(data.formId).resetForm();
+//                    endMethod(data.formId, "close");
             },
             content : this.$element
         });
         this.initFormPlugins();
-//                this.validate();
     };
     // 确认弹框
     LayerEvent.prototype.initConfirm = function () {
@@ -455,6 +453,8 @@ var TableInit = function(tableOption,btnOption) {
                 }
             }
         });
+        // 打开弹框验证
+        this.$element.find('form').validate().form();
     };
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
