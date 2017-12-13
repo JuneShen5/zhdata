@@ -268,8 +268,6 @@ var TableInit = function(tableOption,btnOption) {
     // 重置表单
     LayerEvent.prototype.resetLayerForm = function (status) {
         var thisLayerForm = this.$element.find('form');
-
-        console.log(thisLayerForm);
         // 当弹框被关闭的时候将所有加上的属性移除掉
         thisLayerForm.find("input").each(function () {
             $(this).removeAttr("disabled");
@@ -522,6 +520,10 @@ var TableInit = function(tableOption,btnOption) {
         }
     };
     $.fn.layerSetting.methods = allowedMethods;
+
+    $(document).on('click', '[data-click-event=add]', function () {
+
+    });
 
 })(jQuery);
 

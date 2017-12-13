@@ -82,7 +82,7 @@
                             <!-- 系统信息 -->
                             <fieldset>
                                 <legend>系统信息</legend>
-                                <div class="form-group col-sm-12">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">单位名称</label>
                                     </div>
@@ -90,7 +90,7 @@
                                         <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">政务信息系统名称</label>
                                     </div>
@@ -102,7 +102,7 @@
                             <!-- 基本信息 -->
                             <fieldset>
                                 <legend>基本信息</legend>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">审批部门</label>
                                     </div>
@@ -110,7 +110,8 @@
                                         <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">审批时间</label>
                                     </div>
@@ -119,49 +120,45 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title column-title-multiple">
                                         <label class="control-label">业务功能</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <textarea name="ywgn" class="form-control" hasNoSpace="true" rows="3" placeholder="请描述系统功能、使用效益等"  required></textarea>
                                     </div>
                                 </div>
 
-
                                 <div class="form-group col-sm-6">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设单位</label>
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人姓名</label>
                                     </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="jsdwmc" placeholder="请输入建设单位" required>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">联系人<br>(姓名/手机)</label>
-                                    </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content">
                                             <input type="text" class="form-control" hasNoSpace="true" name="jsdwlxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人手机号</label>
+                                    </div>
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" isMobile="true" class="form-control" name="jsdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" isMobile="true" name="jsdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设预算/合同金额</label>
+                                        <label class="control-label">建设预算/合同金额<br>（万元）</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="系统建设预算/合同金额（万元）" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">资金来源</label>
                                     </div>
@@ -175,11 +172,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">系统类别</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
                                     </div>
                                 </div>
@@ -187,11 +184,11 @@
                             <!-- 项目建设状态 -->
                             <fieldset>
                                 <legend>项目建设状态</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">系统当前建设阶段</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="dqjsjd" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_stage')}">
@@ -201,11 +198,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">建设方式</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="jsfs" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
@@ -215,7 +212,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">承建单位</label>
                                     </div>
@@ -223,31 +220,38 @@
                                         <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="请输入承建单位" required>
                                     </div>
                                 </div>
+
                                 <div class="form-group col-sm-6">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">联系人<br>(姓名/手机)</label>
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人姓名</label>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content">
                                             <input type="text" class="form-control" hasNoSpace="true" name="cjdwlxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人手机号</label>
+                                    </div>
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
-                                            <input type="text" isMobile="true" class="form-control" name="cjdwlxdh" placeholder="请输入手机号" required>
+                                            <input type="text" class="form-control" isMobile="true" name="cjdwlxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">合同签署<br>时间</label>
+                                        <label class="control-label">合同签署时间</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control datepicker" name="htqssj" readonly="readonly" placeholder="请选择合同签署时间" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">合同约定完成时间</label>
                                     </div>
@@ -256,7 +260,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">合同签署维保到期时间</label>
                                     </div>
@@ -264,7 +268,8 @@
                                         <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="请选择合同签署维保到期时间" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">已付合同金额或比例</label>
                                     </div>
@@ -276,25 +281,25 @@
                             <!-- 项目建设必要性说明 -->
                             <fieldset>
                                 <legend>项目建设必要性说明</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">项目建设立项依据</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="xtjsyj" placeholder="请输入项目建设立项依据，如国家政策、需求" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
-                                        <label class="control-label">建设预期<br>目标</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">建设预期目标</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">建设项目的紧迫程度</label>
                                     </div>
@@ -307,7 +312,8 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">紧迫程度简要说明</label>
                                     </div>
@@ -316,28 +322,29 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">预估使用<br>对象</label>
+                                        <label class="control-label">预估使用对象</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="请输入预估使用对象" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">预估使用<br>规模</label>
+                                        <label class="control-label">预估使用规模</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsygm" placeholder="请输入预估使用规模（注册用户数/个）" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title form-border-left">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">原计划投入使用时间</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control datepicker" name="yjhtrsysj" readonly="readonly" placeholder="原计划投入使用时间" required>
                                     </div>
                                 </div>
@@ -345,11 +352,11 @@
                             <!-- 系统整合信息 -->
                             <fieldset>
                                 <legend>系统整合信息</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统部署<br>位置</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">系统部署位置</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="bswz" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('deploy_location')}">
@@ -359,11 +366,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">涉密分类</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="smfl" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
@@ -373,11 +380,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">信息安全等保级别</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="aqjb" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('security_level')}">
@@ -387,20 +394,20 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">计划接入网络类型</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">使用范围</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="syfw" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('usable_range')}">
@@ -410,7 +417,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">是否与其他系统对接</label>
                                     </div>
@@ -423,7 +430,7 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">对接其它系统名称</label>
                                     </div>
@@ -432,7 +439,7 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">虚拟化部署</label>
                                     </div>
@@ -445,7 +452,7 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">虚拟化软件厂商名称</label>
                                     </div>
@@ -454,59 +461,54 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
-                                        <label class="control-label">数据备份</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-bottom">
+                                        <label class="control-label">数据是否有备份</label>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-3 column-title form-border-bottom">
-                                            <label class="control-label">是否有备份</label>
-                                        </div>
-                                        <div class="col-sm-9 column-content form-border-bottom">
-                                            <select name="sfybf" class="form-control" required>
-							                    <option value="">== 请选择 ==</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-                                        </div>
+                                    <div class="col-sm-10 column-content form-border-bottom">
+                                        <select name="sfybf" class="form-control" required>
+                                            <option value="">== 请选择 ==</option>
+                                             <c:forEach var="dict" items="${fns:getDictList('is_have')}">
+                                             <option value="${dict.value}">${dict.label}</option>
+                                       </c:forEach>
+                                       </select>
                                     </div>
-                                    <div class="form-group col-sm-6 form-border-nobottom">
-                                        <div class="col-sm-2 column-title form-border-left form-border-bottom">
-                                            <label class="control-label">备份方式</label>
-                                        </div>
-                                        <div class="col-sm-10 column-content form-border-bottom">
-                                            <select name="bffs" class="form-control" required>
-							                    <option value="">== 请选择 ==</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-left form-border-bottom">
+                                        <label class="control-label">数据备份方式</label>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
-                                        <div class="col-sm-3 column-title">
-                                            <label class="control-label">备份点位置</label>
-                                        </div>
-                                        <div class="col-sm-9 column-content">
-                                            <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置" required>
-                                        </div>
+                                    <div class="col-sm-10 column-content form-border-bottom">
+                                        <select name="bffs" class="form-control" required>
+                                            <option value="">== 请选择 ==</option>
+                                             <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
+                                             <option value="${dict.value}">${dict.label}</option>
+                                       </c:forEach>
+                                       </select>
                                     </div>
-                                    <div class="form-group col-sm-6 form-border-nobottom">
-                                        <div class="col-sm-2 column-title form-border-left">
-                                            <label class="control-label">数据备份量<br>（GB）</label>
-                                        </div>
-                                        <div class="col-sm-10 column-content">
-                                            <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">数据备份点位置</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-left">
+                                        <label class="control-label">数据备份量（GB）</label>
+                                    </div>
+                                    <div class="col-sm-10 column-content">
+                                        <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）" required>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">应用容灾</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="yyrz" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('is_have')}">
@@ -516,11 +518,11 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
-                                        <label class="control-label">系统后续<br>计划</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">系统后续计划</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="xthxjh" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('follow-up')}">
@@ -529,34 +531,26 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title column-title-multiple">
                                         <label class="control-label">系统继续建设原因</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
-                                        <textarea name="xtjxjsyy" class="form-control" rows="3" placeholder="说明继续建设的必要性、对接要求等"></textarea>
+                                    <div class="col-sm-10 column-content">
+                                        <textarea name="xtjxjsyy" class="form-control" hasNoSpace="true" rows="3" placeholder="说明继续建设的必要性、对接要求等" required></textarea>
                                     </div>
                                 </div>
                             </fieldset>
                             <!-- 备注与说明 -->
                             <fieldset>
                                 <legend>备注与说明</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title column-title-multiple">
                                         <label class="control-label">备注</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
-                                        <textarea name="remarks" class="form-control" rows="3"></textarea>
+                                    <div class="col-sm-10 column-content">
+                                        <textarea name="remarks" class="form-control" hasNoSpace="true" rows="3" required></textarea>
                                     </div>
                                 </div>
-                                <!--<div class="form-group">
-                                    <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput5_2" class="control-label">使用对象</label>
-                                    </div>
-                                    <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="fieldsetInput5_2" placeholder="请输入使用对象">
-                                    </div>
-                                </div>-->
                             </fieldset>
                         </form>
                     </div>

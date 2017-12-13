@@ -23,9 +23,6 @@
                                     <button type="button" id="searchFor"
                                             onclick="$('#yjSystemTable').bootstrapTable('refresh');"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-                                   <!--  <button type="button" id="searchMoreFor"
-                                            onclick="$('.search-list').slideToggle();"
-                                            class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
                                 </div>
                             </div>
                             <div class="form-group">
@@ -75,22 +72,22 @@
                 <div class="row">
                     <div class="col-md-12 column">
                         <h1 class="form-main-title">
-                        	部门拟建政务信息系统调查表
+                        	部门拟建政务信息系统调查表12
                         </h1>
                         <form role="form" id="mainForm" class="form-horizontal main-form">
                             <input type="text" name="id" class="hide">
                             <!-- 系统信息 -->
                             <fieldset>
                                 <legend>系统信息</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-2 column-title" style="width: 121px;">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class=" control-label">单位名称</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-9">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class=" control-label">政务信息系统名称</label>
                                     </div>
@@ -98,11 +95,11 @@
                                         <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-3">
-                                    <div class="col-sm-4 column-title form-border-left">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">涉密分类</label>
                                     </div>
-                                    <div class="col-sm-8 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="smfl" class="form-control" required>
                                             <option value="">== 请选择 ==</option>
                                              <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
@@ -115,7 +112,7 @@
                             <!-- 基本信息 -->
                             <fieldset>
                                 <legend>基本信息</legend>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">审批部门</label>
                                     </div>
@@ -123,7 +120,7 @@
                                         <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">审批时间</label>
                                     </div>
@@ -132,28 +129,28 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title column-title-multiple">
                                         <label class="control-label">业务功能</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <textarea name="ywgn" class="form-control" hasNoSpace="true" rows="3" placeholder="请描述系统功能，使用效果等" required></textarea>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-4">
-                                    <div class="col-sm-3 column-title">
-                                        <label class="control-label">系统建设<br>预算</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">系统建设预算（万元）</label>
                                     </div>
-                                    <div class="col-sm-9 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-4">
-                                    <div class="col-sm-3 column-title form-border-left">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">资金来源</label>
                                     </div>
-                                    <div class="col-sm-9 form-contact column-content">
+                                    <div class="col-sm-10 form-contact column-content">
                                         <select name="zjly" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
@@ -162,11 +159,11 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-4">
-                                    <div class="col-sm-3 column-title">
-                                        <label class="control-label">资金到位<br>情况</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">资金到位情况</label>
                                     </div>
-                                    <div class="col-sm-9 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <select name="zjdwqk" class="form-control" required>
 							                    <option value="">== 请选择 ==</option>
 							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
@@ -177,7 +174,7 @@
                                 </div>
 
 
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
                                         <label class="control-label">建设方式</label>
                                     </div>
@@ -186,26 +183,31 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">联系人<br>(姓名/手机)</label>
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人姓名</label>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content">
                                             <input type="text" class="form-control" hasNoSpace="true" name="lxr" placeholder="请输入姓名" required>
                                         </div>
                                     </div>
-                                    <div class="form-group col-sm-5 form-border-nobottom">
+                                </div>
+                                <div class="form-group col-sm-6">
+                                    <div class="col-sm-4 column-title form-border-left">
+                                        <label class="control-label">联系人手机号</label>
+                                    </div>
+                                    <div class="col-sm-8 form-border-nobottom">
                                         <div class="form-contact column-content form-border-left">
                                             <input type="text" isMobile="true" class="form-control" name="lxdh" placeholder="请输入手机号" required>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">系统类别</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
                                     </div>
                                 </div>
@@ -213,9 +215,9 @@
                             <!-- 系统建设必要性 -->
                             <fieldset>
                                 <legend>系统建设必要性</legend>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设紧迫<br>程度</label>
+                                        <label class="control-label">建设紧迫程度</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <select name="jsjpcd" class="form-control" required>
@@ -226,7 +228,7 @@
 						                   </select>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
                                         <label class="control-label">系统建设时间要求</label>
                                     </div>
@@ -234,33 +236,33 @@
                                         <input type="text" class="form-control datepicker" name="xtjcsjyq" readonly="readonly" placeholder="请选择时间" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
                                         <label class="control-label">拟建系统依据/紧迫性</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="njxtyj" placeholder="拟建系统依据/紧迫性" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title">
-                                        <label class="control-label">建设预期<br>目标</label>
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title">
+                                        <label class="control-label">建设预期目标</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
+                                    <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title">
-                                        <label class="control-label">预估使用<br>对象</label>
+                                        <label class="control-label">预估使用对象</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="预估使用对象" required>
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
+                                <div class="form-group">
                                     <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">预估使用<br>规模</label>
+                                        <label class="control-label">预估使用规模</label>
                                     </div>
                                     <div class="col-sm-10 column-content">
                                         <input type="text" class="form-control" hasNoSpace="true" name="ygsygm" placeholder="预估使用规模" required>
@@ -270,22 +272,14 @@
                             <!-- 备注与说明 -->
                             <fieldset>
                                 <legend>备注与说明</legend>
-                                <div class="form-group col-sm-12">
-                                    <div class="col-sm-1 column-title column-title-multiple">
+                                <div class="form-group">
+                                    <div class="col-sm-2 column-title column-title-multiple">
                                         <label class="control-label">备注</label>
                                     </div>
-                                    <div class="col-sm-11 column-content">
-                                        <textarea name="remarks" class="form-control" rows="3"></textarea>
+                                    <div class="col-sm-10 column-content">
+                                        <textarea name="remarks" hasNoSpace="true" class="form-control" rows="3" required></textarea>
                                     </div>
                                 </div>
-                                <!--<div class="form-group">
-                                    <div class="col-sm-1 column-title">
-                                        <label for="fieldsetInput5_2" class="control-label">使用对象</label>
-                                    </div>
-                                    <div class="col-sm-11 column-content">
-                                        <input type="text" class="form-control" name="fieldsetInput5_2" placeholder="请输入使用对象">
-                                    </div>
-                                </div>-->
                             </fieldset>
                         </form>
                     </div>

@@ -92,9 +92,43 @@
     left: 5px;
 }
 
-
-/* 信息系统表格样式 */
+/* 信息系统表格样式-normal */
 .main > .container{
+    width: 100%;
+}
+.form-horizontal .form-group{
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+.main-form .form-control{
+    background-color: transparent;
+    box-shadow: none;
+}
+.main-form textarea{
+    min-height: 34px;
+    resize: vertical;
+}
+.main-form .form-control[disabled],.main-form fieldset[disabled] .form-control{
+    cursor: default;
+}
+.form-main-title{
+    text-align: center;
+}
+.main-form .control-label{
+    padding: 0;
+    line-height: 1.2em;
+}
+.column-title{
+    padding-left: 0;
+    padding-right: 5px;
+    line-height: 34px;
+    text-align: right;
+}
+
+/* 信息系统表格样式-normal */
+
+/* 信息系统表格样式-new */
+/*.main > .container{
     width: 100%;
 }
 
@@ -115,9 +149,6 @@
     vertical-align: middle;
 }
 .main-form .form-group {
-    /*display: flex;*/
-    /*align-items: stretch;*/
-    /*flex-wrap: wrap;*/
     border-bottom: solid 1px #e4eaec;
     display: inline-block;
     padding: 0;
@@ -160,12 +191,7 @@
 }
 .main-form .has-error .column-content{
     background-color: rgba(255,240,245,.7);
-    /*border: solid 1px #ed5565;*/
 }
-/*.main-form .has-error .column-title{*/
-    /*border-left: solid 3px #ed5565;*/
-    /*padding-left: 1px;*/
-/*}*/
 .column-title{
     padding: 0 3px;
     height: 40px;
@@ -189,4 +215,5 @@
     display: inline-block;
     width: 50%;
     font-size: 14px;
-}
+}*/
+/* 信息系统表格样式-new */
