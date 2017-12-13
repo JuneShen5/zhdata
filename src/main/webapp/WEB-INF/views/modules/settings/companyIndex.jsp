@@ -82,6 +82,7 @@
 <div id="layer_form" style="display: none;" class="ibox-content">
 		<form id="eform" class="form-horizontal" type="post">
 			<input type="text" id="id" name="id" class="hide">
+			<input type="text" id="level" name="level" class="hide">
 			<div class="form-group">
 				<label class="col-sm-3 control-label">上级机构：</label>
 				<div class="col-sm-7">
@@ -221,7 +222,8 @@
 
     // 新增功能
 	function menuAdd() {
-        ztreeAddMenu(1,'珠海市');
+        ztreeAddMenu(1, 0, '珠海市');
+        
     }
     /**
      * 查询数据
@@ -256,7 +258,7 @@
      */
     function formatHandle(treeNode) {
         var htmlStr = '';
-        htmlStr += '<div class="btn-group"><button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button><button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button><button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button></div>'
+        htmlStr += '<div class="btn-group"><button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',' + treeNode.level + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button><button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button><button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button></div>'
         return htmlStr;
     }
     
@@ -277,7 +279,8 @@
     startZtree()
  	
  	// 添加子机构
- 	function ztreeAddMenu (id, name) {
+ 	function ztreeAddMenu (id, level, name) {
+    	$('input[name=level]').val(level + 1)
     	openLayer("添加子级机构");
 		$("#citySelId").val(id);
 		if (name == "null") {
