@@ -16,7 +16,7 @@ public interface CompanyDao extends BaseDao<Company> {
 
     public void saveAll(@Param("dataList") List<Map<String, String>> dataList);
 
-    public void deleteByIds(List<String> idList);
+    public void deleteByIds(@Param("idList")List<String> idList);
 
     public List<Company> queryAllList(@Param("company")Company company);
 

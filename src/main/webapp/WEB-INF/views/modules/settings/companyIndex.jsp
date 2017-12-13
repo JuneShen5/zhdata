@@ -13,7 +13,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0" />
 <style>
 #tableMain .ztree div.diy:nth-of-type(1) {
-    width: 25%;
+    width: 45%;
 }
 
 #tableMain .ztree div.diy:nth-of-type(2) {
@@ -29,7 +29,7 @@
 }
 
 #tableMain .ztree div.diy:last-of-type {
-    width: 35%;
+    width: 30%;
 }
 #tableMain .ztree div.diy{
 	height: 44px;
