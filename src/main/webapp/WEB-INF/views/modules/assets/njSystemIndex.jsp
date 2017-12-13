@@ -67,225 +67,210 @@
         </div>
         <!-- 弹框 -->
         <div id="layer_form" style="display: none" class="ibox-content" >
-        <div class="main">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12 column">
-                        <h1 class="form-main-title">
-                        	部门拟建政务信息系统调查表12
-                        </h1>
-                        <form role="form" id="mainForm" class="form-horizontal main-form">
-                            <input type="text" name="id" class="hide">
-                            <!-- 系统信息 -->
-                            <fieldset>
-                                <legend>系统信息</legend>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class=" control-label">单位名称</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class=" control-label">政务信息系统名称</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">涉密分类</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <select name="smfl" class="form-control" required>
-                                            <option value="">== 请选择 ==</option>
-                                             <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
-                                             <option value="${dict.value}">${dict.label}</option>
-                                       </c:forEach>
-                                       </select>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <!-- 基本信息 -->
-                            <fieldset>
-                                <legend>基本信息</legend>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">审批部门</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">审批时间</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="请选择审批时间" required>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title column-title-multiple">
-                                        <label class="control-label">业务功能</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <textarea name="ywgn" class="form-control" hasNoSpace="true" rows="3" placeholder="请描述系统功能，使用效果等" required></textarea>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">系统建设预算（万元）</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">资金来源</label>
-                                    </div>
-                                    <div class="col-sm-10 form-contact column-content">
-                                        <select name="zjly" class="form-control" required>
-							                    <option value="">== 请选择 ==</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">资金到位情况</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <select name="zjdwqk" class="form-control" required>
-							                    <option value="">== 请选择 ==</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-                                    </div>
-                                </div>
-
-
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设方式</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="jsfs" placeholder="请输入建设方式" required>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <div class="col-sm-4 column-title form-border-left">
-                                        <label class="control-label">联系人姓名</label>
-                                    </div>
-                                    <div class="col-sm-8 form-border-nobottom">
-                                        <div class="form-contact column-content">
-                                            <input type="text" class="form-control" hasNoSpace="true" name="lxr" placeholder="请输入姓名" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-6">
-                                    <div class="col-sm-4 column-title form-border-left">
-                                        <label class="control-label">联系人手机号</label>
-                                    </div>
-                                    <div class="col-sm-8 form-border-nobottom">
-                                        <div class="form-contact column-content form-border-left">
-                                            <input type="text" isMobile="true" class="form-control" name="lxdh" placeholder="请输入手机号" required>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">系统类别</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <!-- 系统建设必要性 -->
-                            <fieldset>
-                                <legend>系统建设必要性</legend>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设紧迫程度</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <select name="jsjpcd" class="form-control" required>
-							                    <option value="">== 请选择 ==</option>
-							                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
-								                 <option value="${dict.value}">${dict.label}</option>
-							               </c:forEach>
-						                   </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">系统建设时间要求</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control datepicker" name="xtjcsjyq" readonly="readonly" placeholder="请选择时间" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">拟建系统依据/紧迫性</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="njxtyj" placeholder="拟建系统依据/紧迫性" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">建设预期目标</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title">
-                                        <label class="control-label">预估使用对象</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="预估使用对象" required>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title form-border-left">
-                                        <label class="control-label">预估使用规模</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <input type="text" class="form-control" hasNoSpace="true" name="ygsygm" placeholder="预估使用规模" required>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <!-- 备注与说明 -->
-                            <fieldset>
-                                <legend>备注与说明</legend>
-                                <div class="form-group">
-                                    <div class="col-sm-2 column-title column-title-multiple">
-                                        <label class="control-label">备注</label>
-                                    </div>
-                                    <div class="col-sm-10 column-content">
-                                        <textarea name="remarks" hasNoSpace="true" class="form-control" rows="3" required></textarea>
-                                    </div>
-                                </div>
-                            </fieldset>
-                        </form>
+            <form role="form" id="mainForm" class="form-horizontal main-form">
+                <input type="text" name="id" class="hide">
+                <!-- 系统信息 -->
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class=" control-label">单位名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class=" control-label">政务信息系统名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">涉密分类</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="smfl" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                 <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
+                                 <option value="${dict.value}">${dict.label}</option>
+                           </c:forEach>
+                           </select>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- 基本信息 -->
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">审批部门</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">审批时间</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="请选择审批时间" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title column-title-multiple">
+                            <label class="control-label">业务功能</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <textarea name="ywgn" class="form-control" hasNoSpace="true" rows="3" placeholder="请描述系统功能，使用效果等" required></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">系统建设预算（万元）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">资金来源</label>
+                        </div>
+                        <div class="col-sm-7 form-contact column-content">
+                            <select name="zjly" class="form-control" required>
+                                    <option value="">== 请选择 ==</option>
+                                     <c:forEach var="dict" items="${fns:getDictList('capital_source')}">
+                                     <option value="${dict.value}">${dict.label}</option>
+                               </c:forEach>
+                               </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">资金到位情况</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="zjdwqk" class="form-control" required>
+                                    <option value="">== 请选择 ==</option>
+                                     <c:forEach var="dict" items="${fns:getDictList('fully_funded')}">
+                                     <option value="${dict.value}">${dict.label}</option>
+                               </c:forEach>
+                               </select>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">建设方式</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="jsfs" placeholder="请输入建设方式" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">联系人姓名</label>
+                        </div>
+                        <div class="col-sm-7 form-border-nobottom">
+                            <div class="form-contact column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="lxr" placeholder="请输入姓名" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">联系人手机号</label>
+                        </div>
+                        <div class="col-sm-7 form-border-nobottom">
+                            <div class="form-contact column-content form-border-left">
+                                <input type="text" isMobile="true" class="form-control" name="lxdh" placeholder="请输入手机号" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">系统类别</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- 系统建设必要性 -->
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">建设紧迫程度</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="jsjpcd" class="form-control" required>
+                                    <option value="">== 请选择 ==</option>
+                                     <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                     <option value="${dict.value}">${dict.label}</option>
+                               </c:forEach>
+                               </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">系统建设时间要求</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control datepicker" name="xtjcsjyq" readonly="readonly" placeholder="请选择时间" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">拟建系统依据/紧迫性</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="njxtyj" placeholder="拟建系统依据/紧迫性" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">建设预期目标</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设预期目标，如经济效益、民生效益等" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">预估使用对象</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="预估使用对象" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title form-border-left">
+                            <label class="control-label">预估使用规模</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ygsygm" placeholder="预估使用规模" required>
+                        </div>
+                    </div>
+                </fieldset>
+                <!-- 备注与说明 -->
+                <fieldset>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title column-title-multiple">
+                            <label class="control-label">备注</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <textarea name="remarks" hasNoSpace="true" class="form-control" rows="3" required></textarea>
+                        </div>
+                    </div>
+                </fieldset>
+            </form>
         </div>
 
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
@@ -315,7 +300,7 @@
         // 3.初始化弹框
         var options = {
             title: '新增',
-            containerSize: ['90%','96%'],
+            containerSize: ['100%','100%'],
             button: 'default',
             dataTable: '#yjSystemTable',
             dataTableId: '',
@@ -368,18 +353,6 @@
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
             $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
-
-        $(function () {
-            // 是否紧迫性相关表设置
-            $('select[name="jsjpcd"]').on('change', function () {
-                if ($(this).val() === '0'){
-                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',false).closest('.form-group').removeClass('has-error has-success');
-                }else {
-                    $('input[name="xtjcsjyq"],input[name="njxtyj"],input[name="jsyqmb"],input[name="ygsydx"],input[name="ygsygm"]').prop('required',true);
-                }
-                $('#layer_form').validate().form()
-            });
-        });
     </script>
 
     </body>
