@@ -339,7 +339,7 @@ public class AssetsStatController {
         }
         //map1.put("data", list);
         Page<Map<String, Object>> resPage = new Page<Map<String, Object>>();
-        resPage.setTotal((long) list.size());
+        resPage.setTotal((long) companylList.size());
         resPage.setRows(list);
         return ResponseEntity.ok(resPage);
         
