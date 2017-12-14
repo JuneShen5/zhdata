@@ -14,7 +14,7 @@
 
 <!-- 添加子级菜单的上级菜单 -->
 <div id="" class="company_tree" style="display:none; position: absolute;">
-	<ul id="menuTree" class="ztree" style="margin-top:0; width:100%; height: 300px;"></ul>
+	<ul id="" class="ztree company_tree_ul" style="margin-top:0; width:100%; height: 300px;"></ul>
 </div>
 
 <!-- [if !IE]> -->
@@ -55,7 +55,7 @@
 	var menuTree;
 	
  	function childQuery (data) {
- 		$.fn.zTree.init($("#menuTree"), menuSetting, data);
+ 		$.fn.zTree.init($(".company_tree_ul"), menuSetting, data);
 		menuTree = $.fn.zTree.getZTreeObj("menuTree");
 		menuTree.expandAll(true);
  	};
