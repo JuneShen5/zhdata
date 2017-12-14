@@ -156,12 +156,15 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">所属机构：</label>
 				<div class="col-sm-7">
-					<select name="companyId" class="select-chosen" required>
+					<%-- <select name="companyId" class="select-chosen" required>
 						<option value=""></option>
 						<c:forEach var="company" items="${fns:getList('company')}">
 							<option value="${company.id}">${company.name}</option>
 						</c:forEach>
-					</select>
+					</select> --%>
+					<input id="citySelId" name="companyId" class="form-control hide" type="text">
+					<input id="citySel" name="companyName" class="form-control" type="text" ReadOnly />
+					<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 				</div>
 			</div>
 		</form>
@@ -196,12 +199,15 @@
 			<div class="form-group">
 				<label class="col-sm-4 control-label">所属机构：</label>
 				<div class="col-sm-7">
-					<select name="companyId" class="select-chosen" required>
+					<%-- <select name="companyId" class="select-chosen" required>
 						<option value=""></option>
 						<c:forEach var="company" items="${fns:getList('company')}">
 							<option value="${company.id}">${company.name}</option>
 						</c:forEach>
-					</select>
+					</select> --%>
+					<input id="citySelId" name="companyId" class="form-control hide" type="text">
+					<input id="citySel" name="companyName" class="form-control" type="text" ReadOnly />
+					<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 				</div>
 			</div>
 			<div class="form-group">
