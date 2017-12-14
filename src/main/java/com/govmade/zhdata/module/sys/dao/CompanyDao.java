@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.govmade.zhdata.common.persistence.BaseDao;
+import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.module.sys.pojo.Company;
 
 public interface CompanyDao extends BaseDao<Company> {
@@ -19,5 +20,7 @@ public interface CompanyDao extends BaseDao<Company> {
     public void deleteByIds(@Param("idList")List<String> idList);
 
     public List<Company> queryAllList(@Param("company")Company company);
+
+    public List<Company> queryListById(@Param("page")Page<Company> page, @Param("idList")List<String> idList);
 
 }

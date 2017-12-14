@@ -63,6 +63,26 @@
 		ORDER BY a.sort
 	</select>
 	
+	<!-- 根据机构ID查询机构 -->
+	<select id="queryListById" resultType="Company">
+		SELECT
+			<include refid="companyColumns"/>
+		FROM sys_company a
+		<include refid="companyJoins"/>
+		<where>
+			a.del_flag =0
+			<if test=" idList !=null and idList.size() >0 ">
+    			AND a.id IN 
+    			<foreach collection="idList" item="id" open="("  close=")" separator=",">
+          		  #{id}
+       			 </foreach>
+       		</if>
+		</where>
+		ORDER BY a.sort
+		LIMIT ${page.startRow}, ${page.endRow}
+	</select>
+	
+	
 	
 	<select id="queryCompany" resultType="Company">
 		SELECT a.id,a.name,COUNT(a.company_id) AS count 
@@ -75,7 +95,8 @@
 	     GROUP BY a.id;
 	</select>
 	
-		   <!-- 添加多条数据 -->
+	
+	<!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
 		INSERT INTO sys_company
 		<foreach collection="dataList[0]" index="field" item="fieldVal"

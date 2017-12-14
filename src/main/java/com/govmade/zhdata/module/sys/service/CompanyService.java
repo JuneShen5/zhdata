@@ -92,5 +92,11 @@ public class CompanyService extends BaseService<Company>{
     public List<Company> queryAllList(Company company) {
         return this.companyDao.queryAllList(company);
     }
+
+    public List<Company> queryListById(Page<Company> page, String companyIds) {
+        String[] array = StringUtil.split(companyIds, ',');
+        List<String> idList = Arrays.asList(array);
+        return this.companyDao.queryListById(page,idList);
+    }
     
 }

@@ -106,7 +106,6 @@ public class InformationController {
         List<Integer> comList=Lists.newArrayList();
         comList.add(companyId);
         findAllSubNode(companyId, comList);
-        System.out.println("comList===="+comList);
         if (roleId!=1) {
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
@@ -124,7 +123,6 @@ public class InformationController {
                 map.put("id", s.getId());
                 map.put("companyId", s.getCompanyId());
                 map.put("companyName", s.getCompanyName());
-                System.out.println("companyName==="+ s.getCompanyName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
                 map.put("tbName", s.getTbName());
