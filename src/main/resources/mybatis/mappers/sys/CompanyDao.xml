@@ -63,6 +63,23 @@
 		ORDER BY a.sort
 	</select>
 	
+	<select id="queryTotal" resultType="Integer">
+		SELECT
+		COUNT(1)
+		FROM
+		sys_company a
+		<where>
+			a.del_flag =0 AND a.type NOT IN(1,2)
+			<if test=" idList !=null and idList.size() >0 ">
+    			AND a.id IN 
+    			<foreach collection="idList" item="id" open="("  close=")" separator=",">
+          		  #{id}
+       			 </foreach>
+       		</if>
+		</where>
+		
+		</select>
+		
 	<!-- 根据机构ID查询机构 -->
 	<select id="queryListById" resultType="Company">
 		SELECT
@@ -70,7 +87,7 @@
 		FROM sys_company a
 		<include refid="companyJoins"/>
 		<where>
-			a.del_flag =0
+			a.del_flag =0 AND a.type NOT IN(1,2)
 			<if test=" idList !=null and idList.size() >0 ">
     			AND a.id IN 
     			<foreach collection="idList" item="id" open="("  close=")" separator=",">
@@ -91,7 +108,7 @@
 		<if test="isAudit == 1">
 			 AND i.is_audit=#{isAudit}
 		</if>
-		WHERE c.del_flag= #{company.delFlag}) a
+		WHERE c.del_flag= #{company.delFlag} AND c.type NOT IN (1,2)) a
 	     GROUP BY a.id;
 	</select>
 	

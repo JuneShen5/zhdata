@@ -23,4 +23,6 @@ public interface CompanyDao extends BaseDao<Company> {
 
     public List<Company> queryListById(@Param("page")Page<Company> page, @Param("idList")List<String> idList);
 
+    public Integer queryTotal(@Param("page")Page<Company> page, @Param("idList")List<String> idList);
+
 }

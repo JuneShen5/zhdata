@@ -229,7 +229,7 @@ public class AssetsStatController {
     @RequestMapping(value="ass/queryCountList",method=RequestMethod.GET)
     public ResponseEntity<Page<Map<String, Object>>> list(Page<Company> page,String companyIds) {
         
-        page = this.companyService.getPageForSearch(page);
+       // page = this.companyService.getPageForSearch(page);
         
        /* Map<String, Object> map1=Maps.newHashMap();
         
@@ -258,10 +258,12 @@ public class AssetsStatController {
         */
         
         
-        Company company=new Company();
-        company.setDelFlag(Global.DEL_FLAG_NORMAL);
+        /*Company company=new Company();
+        company.setDelFlag(Global.DEL_FLAG_NORMAL);*/
         //List<Company> companylList=this.companyMapper.select(company);
         
+        page.startPage();
+        Integer total=this.companyService.queryTotal(page,companyIds);
         List<Company> companylList=this.companyService.queryListById(page,companyIds);
         List<Map<String, Object>> list=Lists.newArrayList();
         
@@ -339,7 +341,7 @@ public class AssetsStatController {
         }
         //map1.put("data", list);
         Page<Map<String, Object>> resPage = new Page<Map<String, Object>>();
-        resPage.setTotal((long) companylList.size());
+        resPage.setTotal((long) total);
         resPage.setRows(list);
         return ResponseEntity.ok(resPage);
         

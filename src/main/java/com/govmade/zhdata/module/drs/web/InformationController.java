@@ -110,7 +110,7 @@ public class InformationController {
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
             //map.put("companyId", companyId);
-            map.put("companyId", comList);
+            map.put("companyIds", comList);
             page.setParams(map);
         }
         

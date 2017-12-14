@@ -11,6 +11,7 @@ import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
@@ -94,9 +95,30 @@ public class CompanyService extends BaseService<Company>{
     }
 
     public List<Company> queryListById(Page<Company> page, String companyIds) {
-        String[] array = StringUtil.split(companyIds, ',');
-        List<String> idList = Arrays.asList(array);
-        return this.companyDao.queryListById(page,idList);
+        
+        if (null == companyIds){
+            List<String> idList=Lists.newArrayList();
+            return this.companyDao.queryListById(page,idList);
+        }else {
+            String[] array = StringUtil.split(companyIds, ',');
+            List<String> idList = Arrays.asList(array);
+            return this.companyDao.queryListById(page,idList);
+        }
+       
+       
+    }
+
+    public Integer queryTotal(Page<Company> page, String companyIds) {
+       
+        if (null == companyIds){
+            List<String> idList=Lists.newArrayList();
+            return this.companyDao.queryTotal(page,idList);
+        }else {
+            String[] array = StringUtil.split(companyIds, ',');
+            List<String> idList = Arrays.asList(array);
+            return this.companyDao.queryTotal(page,idList);
+        }
+       
     }
     
 }
