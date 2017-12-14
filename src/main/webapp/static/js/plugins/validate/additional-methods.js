@@ -1006,9 +1006,26 @@ $.validator.addMethod("hasNoSpace", function(value, element) {
 	return this.optional(element) || noSpace.test( value );
 }, "<i class='fa fa-times-circle'></i> 前后不能有空格");
 	//检测非负数
-    $.validator.addMethod("isNonnegative", function(value, element) {
-        var nonnegative = /^\d+(\.{0,1}\d+){0,1}$/;
-        return this.optional(element) || nonnegative.test( value );
-    }, "<i class='fa fa-times-circle'></i> 正数");
+$.validator.addMethod("isNonnegative", function(value, element) {
+    var nonnegative = /^\d+(\.{0,1}\d+){0,1}$/;
+    return this.optional(element) || nonnegative.test( value );
+}, "<i class='fa fa-times-circle'></i> 正数");
+// 远程验证
+$.validator.addMethod("remoted", function(value, element) {
+	var result = false;
+	var data = {};
+	data[$('input.remoted').attr('name')] = $('input.remoted').val();
+	data.id = $('input.remoted').closest('form').find('input[name=id]').val();
+	$.ajax({
+		url: $('input.remoted').attr('remoteUrl'),
+		async: false,
+		data: data,
+		success: function (res) {
+			console.log("验证")
+			result = res;
+		}
+	})
+    return result;
+}, $.validator.format("存在此条数据"));
 
 }));
