@@ -3,11 +3,17 @@
 <%--<%@ include file="/WEB-INF/views/include/head.jsp"%>--%>
 <link rel="stylesheet" href="${ctxStatic}/css/plugins/ztree/ztree.css" />
 
-<!-- <input id="citySelId" name="companyId" class="form-control hide" type="text">
-<input id="citySel" name="companyName" class="form-control" type="text" ReadOnly /> -->
+<style>
+.company_tree {
+   background-color: #fff;
+    border: 1px solid #eee;
+    max-height: 300px;
+    overflow: auto;
+}
+</style>
 
 <!-- 添加子级菜单的上级菜单 -->
-<div id="menuContent" class="menuContent" style="display:none; position: absolute;">
+<div id="" class="company_tree" style="display:none; position: absolute;">
 	<ul id="menuTree" class="ztree" style="margin-top:0; width:100%; height: 300px;"></ul>
 </div>
 
@@ -87,17 +93,16 @@
 	$("#citySel").click(function () {
 		console.log("部门")
 		var cityOffset = $("#citySel").offset();
-		// $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + "px"}).slideDown("fast");
-		// $("#menuContent").css({left:cityOffset.left + "px", top: "50px"}).slideDown("fast");
-		$("#menuContent").css({zIndex: 10000, width: '100%'}).slideDown("fast");
+		$(this).siblings(".company_tree").css({zIndex: 10000, width: '100%'}).slideDown("fast");
 		$("body").bind("mousedown", onBodyDown);
 	})
 	function hideMenu() {
-		$("#menuContent").fadeOut("fast");
+		$(".company_tree").fadeOut("fast");
 		$("body").unbind("mousedown", onBodyDown);
 	}
 	function onBodyDown(event) {
-		if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+		console.log("event: ", event)
+		if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.className == "company_tree" || $(event.target).parents(".company_tree").length>0)) {
 			hideMenu();
 		}
 	}
