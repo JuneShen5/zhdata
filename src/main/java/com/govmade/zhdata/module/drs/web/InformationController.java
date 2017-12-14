@@ -103,10 +103,13 @@ public class InformationController {
         
         Integer roleId=UserUtils.getCurrentUser().getRoleId();
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        List<Integer> comList=Lists.newArrayList();
+        findAllSubNode(companyId, comList);
         if (roleId!=1) {
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
-            map.put("companyId", companyId);
+            //map.put("companyId", companyId);
+            map.put("companyId", comList);
             page.setParams(map);
         }
         
@@ -154,6 +157,28 @@ public class InformationController {
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+    
+    
+    /**
+     * 根据父级查询子级
+     * 
+     * @param parentId
+     * @param list
+     */
+    public void findAllSubNode(Integer companyId, List<Integer> comList) {
+        Company record =new Company();
+        record.setParentId(Integer.valueOf(companyId));
+        List<Company> companies=this.companyService.queryListByWhere(record);
+        if (companies!=null) {
+          //  List<Menu> menus=this.menuService.queryListByWhere(record);
+            for (Company c : companies) {
+                comList.add(c.getId());
+                 findAllSubNode(c.getId(),comList);
+            }
+        }
+        
+    }
+
 
     /**
      * 新增信息资源清单

@@ -243,7 +243,11 @@
                     AND is_audit = '${value}'
                 </if>
                 <if test="key=='companyId'" >
-                    AND company_id = '${value}'
+                <!--     AND company_id = '${value}' -->
+                	AND company_id IN 
+     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
+         			   #{id}
+        			</foreach>
                 </if>
                 <if test="key=='infoType1'" >
                     AND info_type1 = '${value}'

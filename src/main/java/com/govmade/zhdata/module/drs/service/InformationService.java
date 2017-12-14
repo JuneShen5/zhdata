@@ -94,7 +94,7 @@ public class InformationService extends BaseService<Information> {
 
     public void updateInformation(Information info) {
         try {
-            if (this.updateSelective(info) > 0 && info.getElementList().size() > 0) {
+            if (this.updateSelective(info) > 0) {
                 this.infoDao.deleteRelation(info);
                 this.infoDao.saveRelation(info);
             }
@@ -249,5 +249,6 @@ public class InformationService extends BaseService<Information> {
         return this.infoMapper.selectCount(record);
     }
 
+    
 
 }

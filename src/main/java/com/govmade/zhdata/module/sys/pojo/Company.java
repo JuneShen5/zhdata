@@ -5,7 +5,7 @@ import javax.persistence.Transient;
 
 import com.govmade.zhdata.common.persistence.BasePo;
 
-@Table(name = "sys_company2")
+@Table(name = "sys_company")
 public class Company extends BasePo<Company> {
 
     private static final long serialVersionUID = 1L;

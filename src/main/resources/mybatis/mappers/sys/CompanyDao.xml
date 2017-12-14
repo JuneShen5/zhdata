@@ -26,7 +26,7 @@
 	<select id="get" resultType="Company">
 		SELECT
 			<include refid="companyColumns"/>
-		FROM sys_company2 a
+		FROM sys_company a
 		<include refid="companyJoins"/>
 		WHERE a.id = #{id}
 	</select>
@@ -36,7 +36,7 @@
 	<select id="findAll" resultType="Company">
 		SELECT
 			<include refid="companyColumns"/>
-		FROM sys_company2 a
+		FROM sys_company a
 		<include refid="companyJoins"/>
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
@@ -53,7 +53,7 @@
 	<select id="queryAllList" resultType="Company">
 		SELECT
 			<include refid="companyColumns"/>
-		FROM sys_company2 a
+		FROM sys_company a
 		<where>
 			a.del_flag =0
 		</where>
@@ -63,7 +63,7 @@
 	
 	<select id="queryCompany" resultType="Company">
 		SELECT a.id,a.name,COUNT(a.company_id) AS count 
-		FROM (SELECT c.id,c.name, i.company_id FROM sys_company2 c 
+		FROM (SELECT c.id,c.name, i.company_id FROM sys_company c 
 		LEFT JOIN drs_information i ON i.company_id=c.id AND i.del_flag='0'
 		<if test="isAudit == 1">
 			 AND i.is_audit=#{isAudit}
@@ -74,7 +74,7 @@
 	
 		   <!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
-		INSERT INTO sys_company2
+		INSERT INTO sys_company
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">
 			${field}
@@ -92,7 +92,7 @@
 	
 	<!-- 根据机构删除父级及子级 -->
 	<delete id="deleteByIds">
-		 DELETE FROM sys_company2 WHERE id IN 
+		 DELETE FROM sys_company WHERE id IN 
         <foreach collection="idList" item="id" open="("  close=")" separator=",">
             #{id}
         </foreach>
