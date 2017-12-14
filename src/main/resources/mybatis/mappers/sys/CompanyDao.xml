@@ -16,10 +16,12 @@
 		a.update_by AS "updateBy.id",
 		a.update_date AS "updateDate",
 		a.remarks,
-		a.del_flag AS "delFlag"
+		a.del_flag AS "delFlag",
+		p.name AS "parentName"
 	</sql>
 
 	<sql id="companyJoins">
+		LEFT JOIN sys_company p ON p.id = a.parent_id
     </sql>
 	
 	<!-- 根据编号获得单位-->
@@ -54,6 +56,7 @@
 		SELECT
 			<include refid="companyColumns"/>
 		FROM sys_company a
+		<include refid="companyJoins"/>
 		<where>
 			a.del_flag =0
 		</where>

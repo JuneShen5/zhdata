@@ -139,6 +139,8 @@ public class SysUtils {
     public static String queryCompanyName() {
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         Company company = sysUtils.companyService.queryById(companyId);
+        System.out.println("companyId====="+companyId);
+        System.out.println("companyName===="+company.getName());
         return company.getName();
     }
     

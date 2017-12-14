@@ -11,6 +11,9 @@ public class Company extends BasePo<Company> {
     private static final long serialVersionUID = 1L;
 
     private Integer parentId; // 父级
+    
+    @Transient
+    private String parentName; // 父级名称
 
     private String name; // 名称
 
@@ -94,4 +97,14 @@ public class Company extends BasePo<Company> {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+    public String getParentName() {
+        return parentName;
+    }
+
+    public void setParentName(String parentName) {
+        this.parentName = parentName;
+    }
+    
+    
 }
