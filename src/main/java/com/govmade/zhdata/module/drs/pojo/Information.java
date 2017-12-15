@@ -45,6 +45,9 @@ public class Information extends BasePo<Information> {
     
     private String reason; //信息资源提供方代码
     
+    @Transient
+    private Integer isAuthorize; //是否需要数据权限控制 0为否 1为是
+    
 
     @Transient
     private String companyName;
@@ -234,6 +237,14 @@ public class Information extends BasePo<Information> {
 
     public void setReason(String reason) {
         this.reason = reason;
+    }
+
+    public Integer getIsAuthorize() {
+        return isAuthorize;
+    }
+
+    public void setIsAuthorize(Integer isAuthorize) {
+        this.isAuthorize = isAuthorize;
     }
     
     

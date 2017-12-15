@@ -106,7 +106,7 @@ public class InformationController {
         List<Integer> comList=Lists.newArrayList();
         comList.add(companyId);
         findAllSubNode(companyId, comList);
-        if (roleId!=1) {
+        if (roleId!=1&& information.getIsAuthorize()==1) {
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
             //map.put("companyId", companyId);

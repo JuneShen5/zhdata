@@ -82,6 +82,13 @@
           		  #{id}
        			 </foreach>
        		</if>
+       		 <foreach collection="page.params" index="key" item="value" separator="" >
+            	<if test="value != null and value !=''" >
+                <if test="key=='nameCn'" >
+                    AND a.name like '%${value}%'
+                </if>
+               </if>
+             </foreach>
 		</where>
 		
 		</select>

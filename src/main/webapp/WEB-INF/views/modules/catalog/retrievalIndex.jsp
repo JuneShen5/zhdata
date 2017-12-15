@@ -183,12 +183,15 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">资源所在部门：</label>
 				<div class="col-sm-7">
-					<select name="companyId" class="select-chosen" required>
+					<%-- <select name="companyId" class="select-chosen" required>
 						 <option value=""></option>
 						<c:forEach var="company" items="${fns:getList('company')}">
 							<option value="${company.id}">${company.name}</option>
 						</c:forEach> 
-					</select>
+					</select> --%>
+					<input id="" name="companyId" class="form-control citySelId hide" type="text">
+					<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required/>
+					<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 				</div>
 			</div>
 			<div class="form-group">
@@ -270,6 +273,7 @@
     var url = '${ctx}/catalog/information/';
     var obj = {
         isAudit : 1,
+        isAuthorize:1
     };
     var editTitle = "共享开放修改";
     var detailTitle = "资源目录详情";

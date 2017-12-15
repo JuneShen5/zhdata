@@ -32,6 +32,8 @@ public class Page<T> {
     private Long total;// 总记录数
 
     private List<T> rows;// 对应的当前页记录
+    
+   // private Integer isAuthorize; //是否需要数据权限控制 0为否 1为是
 
     public Page() {
 
@@ -146,4 +148,5 @@ public class Page<T> {
         this.startRow = pageNum > 0 ? (pageNum - 1) * pageSize : 0;
         this.endRow =  pageSize;
     }
+
 }
