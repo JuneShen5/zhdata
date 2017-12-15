@@ -179,6 +179,12 @@ h3 {
 			url:'${ctx}/panel/ass/queryCountList',
 			dataType: 'json',
 			type:'get',
+            data: {
+                pageNum: 1,
+                pageSize: 6,
+                obj: JSON.stringify({'name': ''}),
+                companyIds: ''
+            },
 			success: function (data) {
                 axisChart.hideLoading();
 				var chartData1 = {
@@ -188,7 +194,7 @@ h3 {
 					data2: [],
 					data3: []
 				};
-				$.each(data.data,function (index,pItem) {
+				$.each(data.rows,function (index,pItem) {
 				    $('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect1'));
 					chartData1.companyName.unshift(pItem.companyName);
 					chartData1.data1.unshift(pItem.sCount);
@@ -244,23 +250,23 @@ h3 {
 					},
 					yAxis: {
 						type: 'category',
-						data: chartData1.companyName.slice(-5)
+						data: chartData1.companyName
 					},
 					series: [
 						{
 							name: chartData1.sourceName[0],
 							type: 'bar',
-							data: chartData1.data1.slice(-5)
+							data: chartData1.data1
 						},
 						{
 							name: chartData1.sourceName[1],
 							type: 'bar',
-							data: chartData1.data2.slice(-5)
+							data: chartData1.data2
 						},
 						{
 							name: chartData1.sourceName[2],
 							type: 'bar',
-							data: chartData1.data3.slice(-5)
+							data: chartData1.data3
 						}
 					]
 				};

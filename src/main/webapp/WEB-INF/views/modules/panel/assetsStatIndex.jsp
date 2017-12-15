@@ -325,7 +325,7 @@ ul, li {
                         data: {
                             pageNum: num,
                             pageSize: 6,
-                            obj: JSON.stringify({'name': ''}),
+                            obj: JSON.stringify({'nameCn': ''}),
                             companyIds: ''
                         },
                         success: function (data) {
@@ -357,7 +357,7 @@ ul, li {
                         }
                     });
                 }
-                $('#pageInfo').html('总共 <strong>' + pageNum + '</strong> 页，当前第 <strong>' + num + '</strong> 页');
+                $('#pageInfo').html('总共 <strong>' + totalCounts + '</strong> 个部门，总共 <strong>' + pageNum + '</strong> 页，当前第 <strong>' + num + '</strong> 页');
             }
         });
     }
