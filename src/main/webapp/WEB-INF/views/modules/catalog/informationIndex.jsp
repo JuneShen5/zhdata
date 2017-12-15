@@ -301,7 +301,7 @@
 		var url = '${ctx}/catalog/information/';
 		var tableCheckBoxs = true;
 		var obj = {
-			
+
 		};
 		var editTitle = "信息资源修改";
 		var detailTitle = "信息资源详情";

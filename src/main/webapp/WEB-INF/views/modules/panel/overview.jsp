@@ -42,7 +42,7 @@
 }
 
 .echarts {
-	height: 240px;
+	height: 300px;
 }
 .box-wrapper {
   margin-bottom: 10px;
@@ -83,6 +83,9 @@ h3 {
 	padding-top: 1px;
 	float: right;
 }
+.item-wrapper .select-area>.bootstrap-select{
+	max-width: 600px;
+}
 .bootstrap-select button{
 	background-color: #fff;
 	color: #444444;
@@ -99,7 +102,7 @@ h3 {
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="item-wrapper">
-								<h3 class="title" style="display: inline-block;">排行榜</h3>
+								<h3 class="title" style="display: inline-block;">部门资源概览</h3>
 								<div class="select-area" style="display: none">
 									<select id="chartSelect1" name="chartSelect1" class="" multiple data-width="fit">
 									</select>
@@ -146,9 +149,12 @@ h3 {
 					<div class="row">
 						<div class="col-sm-12">
               				<div class="item-wrapper">
-	  							<h3 class="title" style="display: inline-block;">各部门资源数据对比（信息系统、信息项、信息资源、基础资源、主题资源）</h3>
-								<select id="chartSelect2" name="chartSelect2" data-max-options="7" class="" multiple data-width="fit" style="display: none">
-								</select>
+	  							<h3 class="title" style="display: inline-block;">各部门资源数据对比</h3>
+								<div class="select-area" style="display: none">
+									<select id="chartSelect2" name="chartSelect2" class="" multiple data-width="fit">
+									</select>
+									<button id="selectBtn2" class="btn btn-primary">确认</button>
+								</div>
 	  							<div class="ibox float-e-margins">
 	  								<div class="ibox-content">
 	  									<div class="echarts" id="main4"></div>
@@ -173,8 +179,27 @@ h3 {
     // 部门资源
 	// 获取数据
 	$(function () {
-        var axisChart = echarts.init(document.getElementById("main1"));
-        axisChart.showLoading();
+        var axisChart1 = echarts.init(document.getElementById("main1"));
+        var axisChart2 = echarts.init(document.getElementById("main4"));
+        axisChart1.showLoading();
+        axisChart2.showLoading();
+        // 获取下拉框数据
+        $.ajax({
+            url:'${ctx}/settings/company/list',
+            dataType: 'json',
+            type:'get',
+            data: {
+                types: "1,2"
+            },
+            success: function (data) {
+                $.each(data,function (index,selectItem) {
+                    $('<option></option>').val(selectItem.id).text(selectItem.name).appendTo($('#chartSelect1'));
+                    $('<option></option>').val(selectItem.id).text(selectItem.name).appendTo($('#chartSelect2'));
+                });
+			}
+		});
+
+        // 获取柱状图数据
 		$.ajax({
 			url:'${ctx}/panel/ass/queryCountList',
 			dataType: 'json',
@@ -186,7 +211,10 @@ h3 {
                 companyIds: ''
             },
 			success: function (data) {
-                axisChart.hideLoading();
+                $('.select-area').show();
+                axisChart1.hideLoading();
+                axisChart2.hideLoading();
+                // 排行榜图形设置-begin
 				var chartData1 = {
 					companyName: [],
 					sourceName: ['信息系统数目','信息项数目','信息资源数目'],
@@ -194,29 +222,24 @@ h3 {
 					data2: [],
 					data3: []
 				};
+				var selectedId1 = [];
 				$.each(data.rows,function (index,pItem) {
-				    $('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect1'));
 					chartData1.companyName.unshift(pItem.companyName);
 					chartData1.data1.unshift(pItem.sCount);
 					chartData1.data2.unshift(pItem.eCount);
 					chartData1.data3.unshift(pItem.iCount);
+					selectedId1.push(pItem.companyId);
 				});
-//                if (data.data.length>5){
-//                    chartData1.companyName = chartData1.companyName.slice(-5);
-//                    chartData1.data1 = chartData1.data1.slice(-5);
-//                    chartData1.data2 = chartData1.data2.slice(-5);
-//                    chartData1.data3 = chartData1.data3.slice(-5);
-//                }
-                $('#chartSelect1').val([0,1,2,3,4]).addClass('selectpicker').selectpicker({
-                    maxOptions: 7,
-                    maxOptionsText: '最多选择7个显示项！',
+                $('#chartSelect1').val(selectedId1).addClass('selectpicker').selectpicker({
+                    maxOptions: 10,
+                    maxOptionsText: '最多选择10个显示项！',
                     dropdownAlignRight: 'auto',
                     liveSearch: true
-				});
-                $('.select-area').show();
-				var axisoption = {
+                });
+				var axisoption1 = {
 					title: {
-						text: '部门资源概览',
+                        show: false,
+						text: '部门资源概览'
 //						subtext: '数据截取（信息系统、信息项、信息资源）'
 					},
 					tooltip: {
@@ -270,13 +293,180 @@ h3 {
 						}
 					]
 				};
-				axisChart.setOption(axisoption);
-				$(window).resize(axisChart.resize);
-
+                axisChart1.setOption(axisoption1);
+				$(window).resize(axisChart1.resize);
+				// 部门选择展示按钮1
 				$('#selectBtn1').on('click', function () {
                     var selectedItems = $('#chartSelect1').val();
-                    console.log(a);
+                    var ids = '';
+                    axisChart1.showLoading();
+                    $.each(selectedItems, function (index, item) {
+                        if (index === selectedItems.length-1){
+                            ids += item;
+						}else{
+                            ids += item + ',';
+						}
+                    });
+                    $.ajax({
+                        url:'${ctx}/panel/ass/queryCountList',
+                        dataType: 'json',
+                        type:'get',
+                        data: {
+                            pageNum: 1,
+                            pageSize: selectedItems.length,
+                            obj: JSON.stringify({'name': ''}),
+                            companyIds: ids
+                        },
+                        success: function (data) {
+                            axisChart1.hideLoading();
+                            chartData1.companyName=[];
+                            chartData1.data1=[];
+                            chartData1.data2=[];
+                            chartData1.data3=[];
+                            $.each(data.rows,function (index,pItem) {
+                                chartData1.companyName.unshift(pItem.companyName);
+                                chartData1.data1.unshift(pItem.sCount);
+                                chartData1.data2.unshift(pItem.eCount);
+                                chartData1.data3.unshift(pItem.iCount);
+                            });
+                            axisoption1.yAxis.data = chartData1.companyName;
+                            axisoption1.series[0].data = chartData1.data1;
+                            axisoption1.series[1].data = chartData1.data2;
+                            axisoption1.series[2].data = chartData1.data3;
+                            axisChart1.setOption(axisoption1, true);
+                        }
+                    });
                 });
+                // 排行榜图形设置-end
+
+                // 各部门资源数据对比图形设置-begin
+                var chartData4 = {
+                    companyName: [],
+                    sourceName: ['信息系统','信息项','信息资源','基础资源','主题资源'],
+                    data: []
+                };
+                var selectedId2 = [];
+                $.each(data.rows,function (index,pItem) {
+                    var dataInit = {};
+                    var dataIndex = "data" + (index+1);
+                    var dataArr = [];
+                    chartData4.companyName.push(pItem.companyName);
+                    dataArr.push(pItem.sCount);
+                    dataArr.push(pItem.eCount);
+                    dataArr.push(pItem.iCount);
+                    dataArr.push(pItem.iCount1);
+                    dataArr.push(pItem.iCount2);
+                    dataInit['name'] = pItem.companyName;
+                    dataInit['type'] = 'bar';
+                    dataInit['data'] = dataArr;
+                    chartData4.data.push(dataInit);
+                    selectedId2.push(pItem.companyId);
+                });
+                $('#chartSelect2').val(selectedId2).addClass('selectpicker').selectpicker({
+                    maxOptions: 10,
+                    maxOptionsText: '最多选择10个显示项！',
+                    dropdownAlignRight: 'auto',
+                    liveSearch: true
+                });
+                var axisoption2 = {
+                    title: {
+                        show: false,
+                        text: '各部门资源数据对比',
+                        subtext: ''
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'shadow'
+                        }
+                    },
+                    toolbox: {
+                        show: true,
+                        orient: 'vertical',
+                        feature : {
+                            dataView : {show: true, readOnly: false},
+                            magicType: {show: true, type: ['line', 'bar']},
+                            restore : {show: true},
+                            saveAsImage : {show: true}
+                        },
+                        iconStyle: {
+                            normal: {
+                                textPosition: 'left'
+                            }
+                        },
+                        right: '.8%'
+                    },
+                    legend: {
+                        data: chartData4.companyName
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    color: ['#A878C0','#6ABD78','#30C0C0','#FFC078','#0090D8','#f17c67','#fdb933','#C7FFEC'],
+                    xAxis: {
+                        type: 'category',
+                        data: chartData4.sourceName
+                    },
+                    yAxis: {
+                        type: 'value',
+                        boundaryGap: [0, 0.01]
+                    },
+                    series: chartData4.data
+                };
+                axisChart2.setOption(axisoption2);
+                $(window).resize(axisChart2.resize);
+
+                // 部门选择展示按钮2
+                $('#selectBtn2').on('click', function () {
+                    var selectedItems = $('#chartSelect2').val();
+                    var ids = '';
+                    axisChart2.showLoading();
+                    $.each(selectedItems, function (index, item) {
+                        if (index === selectedItems.length-1){
+                            ids += item;
+                        }else{
+                            ids += item + ',';
+                        }
+                    });
+                    $.ajax({
+                        url:'${ctx}/panel/ass/queryCountList',
+                        dataType: 'json',
+                        type:'get',
+                        data: {
+                            pageNum: 1,
+                            pageSize: selectedItems.length,
+                            obj: JSON.stringify({'name': ''}),
+                            companyIds: ids
+                        },
+                        success: function (data) {
+                            axisChart2.hideLoading();
+                            chartData4.companyName = [];
+                            chartData4.data = [];
+                            $.each(data.rows,function (index,pItem) {
+                                var dataInit = {};
+                                var dataIndex = "data" + (index+1);
+                                var dataArr = [];
+                                chartData4.companyName.push(pItem.companyName);
+                                dataArr.push(pItem.sCount);
+                                dataArr.push(pItem.eCount);
+                                dataArr.push(pItem.iCount);
+                                dataArr.push(pItem.iCount1);
+                                dataArr.push(pItem.iCount2);
+                                dataInit['name'] = pItem.companyName;
+                                dataInit['type'] = 'bar';
+                                dataInit['data'] = dataArr;
+                                chartData4.data.push(dataInit);
+                            });
+                            axisoption2.legend.data = chartData4.companyName;
+                            axisoption2.series = chartData4.data;
+                            axisChart2.setOption(axisoption2, true);
+                        }
+                    });
+				});
+                // 各部门资源数据对比图形设置-end
 			}
 		});
     });
@@ -442,97 +632,103 @@ h3 {
     });
     // 资源分类
     // 获取数据
-	$(function () {
-        var axisChart = echarts.init(document.getElementById("main4"));
-        axisChart.showLoading();
-		$.ajax({
-			url:'${ctx}/panel/ass/queryCountList',
-			dataType: 'json',
-			type:'get',
-			success: function (data) {
-                axisChart.hideLoading();
-				var chartData4 = {
-					companyName: [],
-					sourceName: ['信息系统','信息项','信息资源','基础资源','主题资源'],
-					data: []
-				};
-				$.each(data.data,function (index,pItem) {
-                    $('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect2'));
-				    var dataInit = {};
-					var dataIndex = "data" + (index+1);
-					var dataArr = [];
-                    chartData4.companyName.push(pItem.companyName);
-                    dataArr.push(pItem.sCount);
-                    dataArr.push(pItem.eCount);
-                    dataArr.push(pItem.iCount);
-                    dataArr.push(pItem.iCount1);
-                    dataArr.push(pItem.iCount2);
-                    dataInit['name'] = pItem.companyName;
-                    dataInit['type'] = 'bar';
-                    dataInit['data'] = dataArr;
-                    chartData4.data.push(dataInit);
-				});
-                if (data.data.length>5){
-                    chartData4.companyName = chartData4.companyName.slice(0,5);
-                    chartData4.data = chartData4.data.slice(0,5);
-                }
-                $('#chartSelect2').addClass('selectpicker').selectpicker({
-                    maxOptionsText: '最多选择7个显示项！'
-                }).show();
-				var axisoption = {
-					title: {
-					    show: false,
-						text: ' ',
-						subtext: '各部门资源数据对比'
-					},
-					tooltip: {
-						trigger: 'axis',
-						axisPointer: {
-							type: 'shadow'
-						}
-					},
-					toolbox: {
-						show: true,
-                        orient: 'vertical',
-						feature : {
-							dataView : {show: true, readOnly: false},
-							magicType: {show: true, type: ['line', 'bar']},
-							restore : {show: true},
-							saveAsImage : {show: true}
-						},
-						iconStyle: {
-							normal: {
-                                textPosition: 'left'
-                            }
-                        },
-                        right: '.8%'
-					},
-					legend: {
-						data: chartData4.companyName
-					},
-					grid: {
-						left: '3%',
-						right: '4%',
-						bottom: '3%',
-						containLabel: true
-					},
-					color: ['#A878C0','#6ABD78','#30C0C0','#FFC078','#0090D8','#f17c67','#fdb933','#C7FFEC'],
-					xAxis: {
-						type: 'category',
-						data: chartData4.sourceName
-					},
-					yAxis: {
-						type: 'value',
-						boundaryGap: [0, 0.01]
-					},
-					series: chartData4.data
-				};
-				axisChart.setOption(axisoption);
-				$(window).resize(axisChart.resize);
+	<%--$(function () {--%>
+        <%--var axisChart = echarts.init(document.getElementById("main4"));--%>
+        <%--axisChart.showLoading();--%>
+		<%--$.ajax({--%>
+			<%--url:'${ctx}/panel/ass/queryCountList',--%>
+			<%--dataType: 'json',--%>
+			<%--type:'get',--%>
+			<%--data: {--%>
+                <%--pageNum: 1,--%>
+                <%--pageSize: 6,--%>
+                <%--obj: JSON.stringify({'name': ''}),--%>
+                <%--companyIds: ''--%>
+            <%--},--%>
+			<%--success: function (data) {--%>
+                <%--axisChart.hideLoading();--%>
+				<%--var chartData4 = {--%>
+					<%--companyName: [],--%>
+					<%--sourceName: ['信息系统','信息项','信息资源','基础资源','主题资源'],--%>
+					<%--data: []--%>
+				<%--};--%>
+				<%--$.each(data.rows,function (index,pItem) {--%>
+                    <%--$('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect2'));--%>
+				    <%--var dataInit = {};--%>
+					<%--var dataIndex = "data" + (index+1);--%>
+					<%--var dataArr = [];--%>
+                    <%--chartData4.companyName.push(pItem.companyName);--%>
+                    <%--dataArr.push(pItem.sCount);--%>
+                    <%--dataArr.push(pItem.eCount);--%>
+                    <%--dataArr.push(pItem.iCount);--%>
+                    <%--dataArr.push(pItem.iCount1);--%>
+                    <%--dataArr.push(pItem.iCount2);--%>
+                    <%--dataInit['name'] = pItem.companyName;--%>
+                    <%--dataInit['type'] = 'bar';--%>
+                    <%--dataInit['data'] = dataArr;--%>
+                    <%--chartData4.data.push(dataInit);--%>
+				<%--});--%>
+                <%--if (data.data.length>5){--%>
+                    <%--chartData4.companyName = chartData4.companyName.slice(0,5);--%>
+                    <%--chartData4.data = chartData4.data.slice(0,5);--%>
+                <%--}--%>
+                <%--$('#chartSelect2').addClass('selectpicker').selectpicker({--%>
+                    <%--maxOptionsText: '最多选择7个显示项！'--%>
+                <%--}).show();--%>
+				<%--var axisoption2 = {--%>
+					<%--title: {--%>
+					    <%--show: false,--%>
+						<%--text: ' ',--%>
+						<%--subtext: '各部门资源数据对比'--%>
+					<%--},--%>
+					<%--tooltip: {--%>
+						<%--trigger: 'axis',--%>
+						<%--axisPointer: {--%>
+							<%--type: 'shadow'--%>
+						<%--}--%>
+					<%--},--%>
+					<%--toolbox: {--%>
+						<%--show: true,--%>
+                        <%--orient: 'vertical',--%>
+						<%--feature : {--%>
+							<%--dataView : {show: true, readOnly: false},--%>
+							<%--magicType: {show: true, type: ['line', 'bar']},--%>
+							<%--restore : {show: true},--%>
+							<%--saveAsImage : {show: true}--%>
+						<%--},--%>
+						<%--iconStyle: {--%>
+							<%--normal: {--%>
+                                <%--textPosition: 'left'--%>
+                            <%--}--%>
+                        <%--},--%>
+                        <%--right: '.8%'--%>
+					<%--},--%>
+					<%--legend: {--%>
+						<%--data: chartData4.companyName--%>
+					<%--},--%>
+					<%--grid: {--%>
+						<%--left: '3%',--%>
+						<%--right: '4%',--%>
+						<%--bottom: '3%',--%>
+						<%--containLabel: true--%>
+					<%--},--%>
+					<%--color: ['#A878C0','#6ABD78','#30C0C0','#FFC078','#0090D8','#f17c67','#fdb933','#C7FFEC'],--%>
+					<%--xAxis: {--%>
+						<%--type: 'category',--%>
+						<%--data: chartData4.sourceName--%>
+					<%--},--%>
+					<%--yAxis: {--%>
+						<%--type: 'value',--%>
+						<%--boundaryGap: [0, 0.01]--%>
+					<%--},--%>
+					<%--series: chartData4.data--%>
+				<%--};--%>
+				<%--axisChart.setOption(axisoption2);--%>
+				<%--$(window).resize(axisChart.resize);--%>
 
-			}
-		});
-    });
+			<%--}--%>
+		<%--});--%>
+    <%--});--%>
 </script>
 </html>
 
