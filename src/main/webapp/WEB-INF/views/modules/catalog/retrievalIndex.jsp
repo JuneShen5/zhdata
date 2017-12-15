@@ -384,7 +384,9 @@
         });
         $("#departmentSelect").on("click",".department-select>li",function () {
             obj[$(this).attr("sName")] = parseInt($(this).attr("data-sName"));
+            obj['isAuthorize'] = 0;
             $(tableId).bootstrapTable('refresh');
+            obj['isAuthorize'] = 1;
             delete obj[$(this).attr("sName")];
             $("#departmentSelect").hide(500);
         });
