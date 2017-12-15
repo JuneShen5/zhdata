@@ -19,7 +19,7 @@ public interface CompanyDao extends BaseDao<Company> {
 
     public void deleteByIds(@Param("idList")List<String> idList);
 
-    public List<Company> queryAllList(@Param("company")Company company);
+    public List<Company> queryAllList(@Param("company")Company company, @Param("idList")List<String> idList);
 
     public List<Company> queryListById(@Param("page")Page<Company> page, @Param("idList")List<String> idList);
 

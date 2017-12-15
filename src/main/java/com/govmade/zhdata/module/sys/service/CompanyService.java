@@ -91,7 +91,16 @@ public class CompanyService extends BaseService<Company>{
     }
 
     public List<Company> queryAllList(Company company) {
-        return this.companyDao.queryAllList(company);
+        String types=company.getTypes();
+        if (null == types) {
+            List<String> idList=Lists.newArrayList();
+            return this.companyDao.queryAllList(company,idList);
+        }else {
+            String[] array = StringUtil.split(types, ',');
+            List<String> idList = Arrays.asList(array);
+            return this.companyDao.queryAllList(company,idList);
+        }
+       
     }
 
     public List<Company> queryListById(Page<Company> page, String companyIds) {

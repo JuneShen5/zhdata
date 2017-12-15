@@ -26,6 +26,9 @@ public class Company extends BasePo<Company> {
     private Integer type; // 机构类型
 
     private Integer level; //级别
+    
+    @Transient
+    private String types; //类型
 
     @Transient
     private Integer count;
@@ -105,6 +108,16 @@ public class Company extends BasePo<Company> {
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
+
+    public String getTypes() {
+        return types;
+    }
+
+    public void setTypes(String types) {
+        this.types = types;
+    }
+    
+    
     
     
 }

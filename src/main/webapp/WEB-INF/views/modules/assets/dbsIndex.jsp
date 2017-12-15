@@ -162,8 +162,8 @@
 							<option value="${company.id}">${company.name}</option>
 						</c:forEach>
 					</select> --%>
-					<input id="citySelId" name="companyId" class="form-control hide" type="text">
-					<input id="citySel" name="companyName" class="form-control" type="text" ReadOnly />
+					<input id="" name="companyId" class="form-control citySelId hide" type="text">
+					<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required/>
 					<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 				</div>
 			</div>
@@ -205,8 +205,8 @@
 							<option value="${company.id}">${company.name}</option>
 						</c:forEach>
 					</select> --%>
-					<input id="citySelId" name="companyId" class="form-control hide" type="text">
-					<input id="citySel" name="companyName" class="form-control" type="text" ReadOnly />
+					<input id="" name="companyId" class="form-control citySelId hide" type="text">
+					<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required/>
 					<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 				</div>
 			</div>
