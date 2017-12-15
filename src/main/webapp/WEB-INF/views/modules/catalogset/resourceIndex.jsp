@@ -365,7 +365,8 @@
 			nameCn : $('#sName').val(),
 			companyId : 1,
 			infoType1 : "",
-			infoType2 : ""
+			infoType2 : "",
+			isAuthorize:0
 		};
 	var listData = new Array();
 	var detailTitle = "信息项详情";

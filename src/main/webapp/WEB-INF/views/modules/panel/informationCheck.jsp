@@ -198,7 +198,9 @@
 		var formId = '#eform'; //form id
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
-		var obj = {};
+		var obj = {
+			isAuthorize:1
+		};
 
         var editTitle = "信息资源修改";
         var detailTitle = "待办事宜详情";

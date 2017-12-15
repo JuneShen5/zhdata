@@ -140,7 +140,8 @@
     var url = '${ctx}/catalogset/shareOpen/';
     var obj = {
         shareType : '',
-		openType : ''
+		openType : '',
+		isAuthorize:0
     };
     var editTitle = "共享开放修改";
     var detailTitle = "共享开放详情";
