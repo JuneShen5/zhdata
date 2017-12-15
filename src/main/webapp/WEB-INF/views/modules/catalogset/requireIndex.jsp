@@ -69,7 +69,7 @@
 					<input type="text" name="dataName" class="form-control" required>
 				</div>
 			</div>
-			<div class="form-group">
+			<%-- <div class="form-group">
 				<label class="col-sm-3 control-label">资源所在部门：</label>
 				<div class="col-sm-7">
 					<select name="companyId" class="select-chosen" required>
@@ -79,7 +79,21 @@
 						</c:forEach> 
 					</select>
 				</div>
+			</div> --%>
+			
+			
+			<div class="form-group">
+			<label class="col-sm-3 control-label">资源所在部门：</label>
+			
+				
+					<div class="col-sm-7">
+						<input id="" name="companyId" class="form-control citySelId hide" type="text">
+						<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required />
+						<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+						
+					</div>
 			</div>
+			
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息资源格式：</label>
 				<div class="col-sm-7">
