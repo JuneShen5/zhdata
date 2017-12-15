@@ -14,7 +14,7 @@
 
 <!-- 添加子级菜单的上级菜单 -->
 <div id="" class="company_tree" style="display:none; position: absolute;">
-	<ul id="" class="ztree company_tree_ul" style="margin-top:0; width:100%; height: 300px;"></ul>
+	<ul id="menuTree" class="ztree company_tree_ul" style="margin-top:0; width:100%; height: 300px;"></ul>
 </div>
 
 <!-- [if !IE]> -->
@@ -76,6 +76,7 @@
 	}
 
 	function onCheck(e, treeId, treeNode) {
+		console.log("e: ", e)
 		nodes = menuTree.getCheckedNodes(true),
 		v = "";
 		id = "";
@@ -84,15 +85,16 @@
 			id = nodes[i].id;
 		}
 		if (v.length > 0 ) v = v.substring(0, v.length-1);
-		$("#citySel").val(v);
-		$("#citySelId").val(id);
+		$(e.currentTarget).closest('.company_tree').siblings(".citySel").val(v);
+		$(e.currentTarget).closest('.company_tree').siblings(".citySelId").val(id);
 		console.log("v: ", v);
 		hideMenu();
 	}
 
-	$("#citySel").click(function () {
+	$(".citySel").click(function () {
+		console.log("this: ", $(this))
 		console.log("部门")
-		var cityOffset = $("#citySel").offset();
+		var cityOffset = $(".citySel").offset();
 		$(this).siblings(".company_tree").css({zIndex: 10000, width: '100%'}).slideDown("fast");
 		$("body").bind("mousedown", onBodyDown);
 	})
@@ -102,7 +104,7 @@
 	}
 	function onBodyDown(event) {
 		console.log("event: ", event)
-		if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.className == "company_tree" || $(event.target).parents(".company_tree").length>0)) {
+		if (!(event.target.id == "menuBtn" || event.target.className == "citySel" || event.target.className == "company_tree" || $(event.target).parents(".company_tree").length>0)) {
 			hideMenu();
 		}
 	}
