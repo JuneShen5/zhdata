@@ -61,13 +61,19 @@
  	};
  	
  	$(function () {
- 		$.ajax({url: "/zhdata/settings/company/list", success: function(data) {
-    		ztreeData = data;
-            $.each(data, function (index, item) {
-            	item.pId = item.parentId
-            })
-            childQuery(data)
-        }})
+ 		$.ajax({
+ 			url: "/zhdata/settings/company/list", 
+ 			data: {
+ 				types: "1,2"
+ 			},
+ 			success: function(data) {
+	    		ztreeData = data;
+	            $.each(data, function (index, item) {
+	            	item.pId = item.parentId
+	            })
+	            childQuery(data)
+ 			}
+ 		})
  	})
 
 	function onClick(e, treeId, treeNode) {
@@ -85,8 +91,10 @@
 			id = nodes[i].id;
 		}
 		if (v.length > 0 ) v = v.substring(0, v.length-1);
-		$(e.currentTarget).closest('.company_tree').siblings(".citySel").val(v);
-		$(e.currentTarget).closest('.company_tree').siblings(".citySelId").val(id);
+		var $ulDiv = $(e.currentTarget).closest('.company_tree');
+		$ulDiv.siblings(".citySel").val(v);
+		$ulDiv.siblings(".citySelId").val(id);
+		$ulDiv.siblings(".citySel").blur();
 		console.log("v: ", v);
 		hideMenu();
 	}
