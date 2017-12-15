@@ -5,6 +5,7 @@
 <html lang="en">
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
+	<link href="${ctxStatic}/js/plugins/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet">
 <style>
 .tabsNav .item {
   margin-bottom: 20px;
@@ -77,6 +78,18 @@ h3 {
 .blue-color {
   background-color: #4194cf;
 }
+.item-wrapper .select-area{
+	display: inline-block;
+	padding-top: 1px;
+	float: right;
+}
+.bootstrap-select button{
+	background-color: #fff;
+	color: #444444;
+}
+.dropdown-menu>li>a{
+	margin: 0 4px;
+}
 </style>
 <body class="skin-1">
 	<div class="wrapper animated fadeInRight">
@@ -86,7 +99,12 @@ h3 {
 					<div class="row">
 						<div class="col-sm-12">
 							<div class="item-wrapper">
-								<h3 class="title">排行榜</h3>
+								<h3 class="title" style="display: inline-block;">排行榜</h3>
+								<div class="select-area" style="display: none">
+									<select id="chartSelect1" name="chartSelect1" class="" multiple data-width="fit">
+									</select>
+									<button id="selectBtn1" class="btn btn-primary">确认</button>
+								</div>
 								<div class="ibox float-e-margins">
 									<div class="ibox-content echarts-name">
 										<div class="echarts" id="main1"></div>
@@ -128,7 +146,9 @@ h3 {
 					<div class="row">
 						<div class="col-sm-12">
               				<div class="item-wrapper">
-	  							<h3 class="title">各部门资源数据对比（信息系统、信息项、信息资源、基础资源、主题资源）</h3>
+	  							<h3 class="title" style="display: inline-block;">各部门资源数据对比（信息系统、信息项、信息资源、基础资源、主题资源）</h3>
+								<select id="chartSelect2" name="chartSelect2" data-max-options="7" class="" multiple data-width="fit" style="display: none">
+								</select>
 	  							<div class="ibox float-e-margins">
 	  								<div class="ibox-content">
 	  									<div class="echarts" id="main4"></div>
@@ -147,6 +167,8 @@ h3 {
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script src="${ctxStatic}/js/plugins/echarts/echarts.js"></script>
 <script src="${ctxStatic}/js/plugins/echarts/echarts-wordcloud.min.js"></script>
+<script	src="${ctxStatic}/js/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script	src="${ctxStatic}/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
 <script>
     // 部门资源
 	// 获取数据
@@ -167,11 +189,25 @@ h3 {
 					data3: []
 				};
 				$.each(data.data,function (index,pItem) {
+				    $('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect1'));
 					chartData1.companyName.unshift(pItem.companyName);
 					chartData1.data1.unshift(pItem.sCount);
 					chartData1.data2.unshift(pItem.eCount);
 					chartData1.data3.unshift(pItem.iCount);
 				});
+//                if (data.data.length>5){
+//                    chartData1.companyName = chartData1.companyName.slice(-5);
+//                    chartData1.data1 = chartData1.data1.slice(-5);
+//                    chartData1.data2 = chartData1.data2.slice(-5);
+//                    chartData1.data3 = chartData1.data3.slice(-5);
+//                }
+                $('#chartSelect1').val([0,1,2,3,4]).addClass('selectpicker').selectpicker({
+                    maxOptions: 7,
+                    maxOptionsText: '最多选择7个显示项！',
+                    dropdownAlignRight: 'auto',
+                    liveSearch: true
+				});
+                $('.select-area').show();
 				var axisoption = {
 					title: {
 						text: '部门资源概览',
@@ -208,32 +244,33 @@ h3 {
 					},
 					yAxis: {
 						type: 'category',
-						data: chartData1.companyName
+						data: chartData1.companyName.slice(-5)
 					},
 					series: [
 						{
 							name: chartData1.sourceName[0],
 							type: 'bar',
-							data: chartData1.data1
+							data: chartData1.data1.slice(-5)
 						},
 						{
 							name: chartData1.sourceName[1],
 							type: 'bar',
-							data: chartData1.data2
+							data: chartData1.data2.slice(-5)
 						},
 						{
 							name: chartData1.sourceName[2],
 							type: 'bar',
-							data: chartData1.data3
+							data: chartData1.data3.slice(-5)
 						}
 					]
 				};
 				axisChart.setOption(axisoption);
 				$(window).resize(axisChart.resize);
 
-
-//				pieChart.setOption(pieoption);
-//				$(window).resize(pieChart.resize);
+				$('#selectBtn1').on('click', function () {
+                    var selectedItems = $('#chartSelect1').val();
+                    console.log(a);
+                });
 			}
 		});
     });
@@ -414,6 +451,7 @@ h3 {
 					data: []
 				};
 				$.each(data.data,function (index,pItem) {
+                    $('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect2'));
 				    var dataInit = {};
 					var dataIndex = "data" + (index+1);
 					var dataArr = [];
@@ -428,11 +466,18 @@ h3 {
                     dataInit['data'] = dataArr;
                     chartData4.data.push(dataInit);
 				});
+                if (data.data.length>5){
+                    chartData4.companyName = chartData4.companyName.slice(0,5);
+                    chartData4.data = chartData4.data.slice(0,5);
+                }
+                $('#chartSelect2').addClass('selectpicker').selectpicker({
+                    maxOptionsText: '最多选择7个显示项！'
+                }).show();
 				var axisoption = {
 					title: {
 					    show: false,
 						text: ' ',
-						subtext: '各部门资源数据对比（信息系统、信息项、信息资源、基础资源、主题资源）'
+						subtext: '各部门资源数据对比'
 					},
 					tooltip: {
 						trigger: 'axis',

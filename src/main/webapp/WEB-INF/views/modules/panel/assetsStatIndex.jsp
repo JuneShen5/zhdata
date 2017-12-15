@@ -148,16 +148,22 @@ ul, li {
 			</div>
 			<div class="search-container form-inline clearfix" style="display: none;">
 				<div class="form-group">
-					<select class="form-control col-sm-8">
-						<option value="">全部</option>
-					</select>
+					<input class="form-control col-sm-8 search-input" placeholder="请输入部门名称" />
 					<div class="input-group-btn col-sm-4">
 						<button class="btn btn-primary search-btn">搜索</button>
 					</div>
 				</div>
 			</div>
 			<div class="box-info-container clearfix">
-			</div>
+			<%--</div>--%>
+			<%--<div class="loading-area">--%>
+				<%--<div class="pswp__preloader__icn">--%>
+					<%--<div class="pswp__preloader__cut">--%>
+						<%--<div class="pswp__preloader__donut"></div>--%>
+					<%--</div>--%>
+				<%--</div>--%>
+				<%--<p>载入中...</p>--%>
+			<%--</div>--%>
 		</div>
 	</div>
 
@@ -170,37 +176,49 @@ ul, li {
 	  		content: '载入中...'
 		});
 		$.ajax({
+            url: "${ctx}/panel/ass/queryCount",
+            type: 'get',
+            success: function (data) {
+                layer.close(layer.index);
+                $('.search-container').show();
+                // 拼接顶部信息资源统计
+                var topHtml1 = '<div class="col-sm-4" style="padding: 0 10px;">';
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息项总数 : <em>';
+                topHtml1 += data.eleCount + " 个 ";
+                topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>信息资源总数 : <em>';
+                topHtml1 += data.infoCount + " 个 ";
+                topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-blue"><i class="fa fa-server"></i></div><div class="content top-penal"><p>部门总数 : <em>';
+                topHtml1 += data.compCount + " 个 ";
+                topHtml1 += '</em></p></div></div></div>';
+                $(".statistics-box").append(topHtml1);
+            }
+		});
+		$.ajax({
 			url: "${ctx}/panel/ass/queryCountList",
 			type: 'get',
+			data: {
+                pageNum: 1,
+                pageSize: 6,
+                obj: JSON.stringify({'name': ''}),
+                companyIds: ''
+			},
 			success: function (data) {
-				layer.close(layer.index);
-				$('.search-container').show();
-				// 拼接顶部信息资源统计
-				var topHtml1 = '<div class="col-sm-4" style="padding: 0 10px;">';
-					topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息项总数 : <em>';
-					topHtml1 += data.eleCount + " 个 ";
-					topHtml1 += '</em></p></div></div></div>';
-					topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
-					topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>信息资源总数 : <em>';
-					topHtml1 += data.infoCount + " 个 ";
-					topHtml1 += '</em></p></div></div></div>';
-					topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
-					topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-blue"><i class="fa fa-server"></i></div><div class="content top-penal"><p>部门总数 : <em>';
-					topHtml1 += data.compCount + " 个 ";
-					topHtml1 += '</em></p></div></div></div>';
-				$(".statistics-box").append(topHtml1);
 
                 // 设置分页参数
                 var pageSize = 6; // 只需要设置每页显示数目
                 // 分页相关设置
-                var totalCounts = data.data.length;
+                var totalCounts = data.total;
                 var pageNum = Math.ceil(totalCounts/pageSize);
 				// 拼接部门详细资源
-                $("<div></div>").addClass("box-info-select clearfix").attr("data-page-index",0).appendTo($(".box-info-container"));
-				for (var i=0;i<pageNum;i++){
-                    $("<div></div>").addClass("box-info clearfix").attr("data-page-index",i).appendTo($(".box-info-container")).hide();
-                }
-				$.each(data.data, function(index,dataList){
+//                $("<div></div>").addClass("box-info-select clearfix").attr("data-page-index",0).appendTo($(".box-info-container"));
+//				for (var i=0;i<pageNum;i++){
+                    $("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
+//                }
+				$.each(data.rows, function(index,dataList){
 				    var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
 				    $('.search-container').find('select').append(searchHtml);
 					var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
@@ -213,7 +231,7 @@ ul, li {
 						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
 						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
 						listHtml += '</ul></div></div></div>';
-				    $(".box-info[data-page-index='"+parseInt(index/pageSize)+"']").append(listHtml);
+				    $(".box-info").append(listHtml);
 				});
                 paginatorInit(pageSize,totalCounts,pageNum);
 			}
@@ -221,25 +239,46 @@ ul, li {
 
 		// 选择资源条目
 		$('.search-btn').on('click', function () {
-			var thisValue = $('.search-container').find('select').val();
-            // 设置分页参数
-            var pageSize = 6; // 只需要设置每页显示数目
-            $('.box-info-select').empty();
-			if (thisValue !== ''){
-                var totalCounts = $('.panel-container[data-item-id='+thisValue+']').length;
-                $('.panel-container').hide();
-//                $('.panel-container[data-item-id='+thisValue+']').show();
-                // 分页相关设置
-                var pageNum = Math.ceil(totalCounts/pageSize);
-                $('.panel-container[data-item-id='+thisValue+']').each(function (index) {
-					$(this).clone().show().appendTo($(".box-info-select[data-page-index='"+parseInt(index/pageSize)+"']"));
-                });
-			}else {
-                var totalCounts = $('.panel-container').length;
-                var pageNum = Math.ceil(totalCounts/pageSize);
-                $('.panel-container').show();
-			}
-            paginatorInit(pageSize,totalCounts,pageNum);
+			var thisValue = $('.search-container').find('.search-input').val();
+
+
+            $.ajax({
+                url: "${ctx}/panel/ass/queryCountList",
+                type: 'get',
+                data: {
+                    pageNum: 1,
+                    pageSize: 6,
+                    obj: JSON.stringify({'nameCn': thisValue}),
+                    companyIds: ''
+                },
+                success: function (data) {
+                    $(".box-info").empty();
+
+                    // 设置分页参数
+                    var pageSize = 6; // 只需要设置每页显示数目
+                    // 分页相关设置
+                    var totalCounts = data.total;
+                    var pageNum = Math.ceil(totalCounts/pageSize);
+                    // 拼接部门详细资源
+                    $.each(data.rows, function(index,dataList){
+                        var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
+                        $('.search-container').find('select').append(searchHtml);
+                        var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
+                        listHtml += '<div class="panel panel-default  panel-item">';
+                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.companyName + '</div>';
+                        listHtml += '<div class="panel-body content"><ul>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息系统数量：</p><p class="col-xs-4 text-left"><span>'+dataList.sCount+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息项数量：</p><p class="col-xs-4 text-left"><span>'+dataList.eCount+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
+                        listHtml += '</ul></div></div></div>';
+                        $(".box-info").append(listHtml);
+                    });
+
+                    paginatorInit(pageSize,totalCounts,pageNum);
+                }
+            });
         });
 	});
 
@@ -262,8 +301,43 @@ ul, li {
                 if (type==="init"){
                     $(".box-info[data-page-index='0']").show();
                 }else{
-                    $(".box-info").hide();
-                    $(".box-info[data-page-index='"+(num-1)+"']").show();
+
+                    $.ajax({
+                        url: "${ctx}/panel/ass/queryCountList",
+                        type: 'get',
+                        data: {
+                            pageNum: num,
+                            pageSize: 6,
+                            obj: JSON.stringify({'name': ''}),
+                            companyIds: ''
+                        },
+                        success: function (data) {
+                            $(".box-info").empty();
+
+                            // 设置分页参数
+                            var pageSize = 6; // 只需要设置每页显示数目
+                            // 分页相关设置
+                            var totalCounts = data.total;
+                            var pageNum = Math.ceil(totalCounts/pageSize);
+                            // 拼接部门详细资源
+                            $.each(data.rows, function(index,dataList){
+                                var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
+                                $('.search-container').find('select').append(searchHtml);
+                                var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
+                                listHtml += '<div class="panel panel-default  panel-item">';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.companyName + '</div>';
+                                listHtml += '<div class="panel-body content"><ul>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息系统数量：</p><p class="col-xs-4 text-left"><span>'+dataList.sCount+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息项数量：</p><p class="col-xs-4 text-left"><span>'+dataList.eCount+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
+                                listHtml += '</ul></div></div></div>';
+                                $(".box-info").append(listHtml);
+                            });
+//                            paginatorInit(pageSize,totalCounts,pageNum);
+                        }
+                    });
                 }
                 $('#pageInfo').html('总共 <strong>' + pageNum + '</strong> 页，当前第 <strong>' + num + '</strong> 页');
             }
