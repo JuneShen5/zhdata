@@ -138,6 +138,23 @@ ul, li {
 .box-info-container .panel-item{
 	margin: 15px 10px;
 }
+.loading-area{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+	background-color: rgba(255,255,255,.7);
+	text-align: center;
+	padding-top: 200px;
+}
+.loading-area p{
+	margin-top: 10px;
+	font-size: 16px;
+	cursor: default;
+}
+.pswp__preloader__icn{
+	margin-left: 48%;
+}
 </style>
 <body class="white-bg-bg skin-7">
 	<div class="wrapper wrapper-content animated fadeInRight">
@@ -155,31 +172,31 @@ ul, li {
 				</div>
 			</div>
 			<div class="box-info-container clearfix">
-			<%--</div>--%>
-			<%--<div class="loading-area">--%>
-				<%--<div class="pswp__preloader__icn">--%>
-					<%--<div class="pswp__preloader__cut">--%>
-						<%--<div class="pswp__preloader__donut"></div>--%>
-					<%--</div>--%>
-				<%--</div>--%>
-				<%--<p>载入中...</p>--%>
-			<%--</div>--%>
+				<!-- 加载动画 -->
+				<div class="loading-area" style="display: none;">
+					<div class="pswp__preloader__icn">
+						<div class="pswp__preloader__cut">
+							<div class="pswp__preloader__donut"></div>
+						</div>
+					</div>
+					<p>载入中...</p>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script type="text/javascript">
 	$(function(){
-		layer.open({
-			type: 3,
-	  		title: '等待载入',
-	  		content: '载入中...'
-		});
+//		layer.open({
+//			type: 3,
+//	  		title: '等待载入',
+//	  		content: '载入中...'
+//		});
 		$.ajax({
             url: "${ctx}/panel/ass/queryCount",
             type: 'get',
             success: function (data) {
-                layer.close(layer.index);
                 $('.search-container').show();
                 // 拼接顶部信息资源统计
                 var topHtml1 = '<div class="col-sm-4" style="padding: 0 10px;">';
@@ -191,12 +208,13 @@ ul, li {
                 topHtml1 += data.infoCount + " 个 ";
                 topHtml1 += '</em></p></div></div></div>';
                 topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-blue"><i class="fa fa-server"></i></div><div class="content top-penal"><p>部门总数 : <em>';
-                topHtml1 += data.compCount + " 个 ";
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-blue"><i class="fa fa-server"></i></div><div class="content top-penal top-company-count"><p>部门总数 : <em>';
+                topHtml1 += "- 个 ";
                 topHtml1 += '</em></p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
             }
 		});
+        $('.loading-area').show();
 		$.ajax({
 			url: "${ctx}/panel/ass/queryCountList",
 			type: 'get',
@@ -207,17 +225,16 @@ ul, li {
                 companyIds: ''
 			},
 			success: function (data) {
-
+//                layer.close(layer.index);
+//				$('.loading-area').hide();
                 // 设置分页参数
                 var pageSize = 6; // 只需要设置每页显示数目
                 // 分页相关设置
                 var totalCounts = data.total;
                 var pageNum = Math.ceil(totalCounts/pageSize);
 				// 拼接部门详细资源
-//                $("<div></div>").addClass("box-info-select clearfix").attr("data-page-index",0).appendTo($(".box-info-container"));
-//				for (var i=0;i<pageNum;i++){
+				$('.top-company-count').find('em').text(data.total + ' 个');
                     $("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
-//                }
 				$.each(data.rows, function(index,dataList){
 				    var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
 				    $('.search-container').find('select').append(searchHtml);
@@ -240,8 +257,7 @@ ul, li {
 		// 选择资源条目
 		$('.search-btn').on('click', function () {
 			var thisValue = $('.search-container').find('.search-input').val();
-
-
+            $('.loading-area').show();
             $.ajax({
                 url: "${ctx}/panel/ass/queryCountList",
                 type: 'get',
@@ -252,6 +268,7 @@ ul, li {
                     companyIds: ''
                 },
                 success: function (data) {
+                    $('.loading-area').hide();
                     $(".box-info").empty();
 
                     // 设置分页参数
@@ -301,7 +318,7 @@ ul, li {
                 if (type==="init"){
                     $(".box-info[data-page-index='0']").show();
                 }else{
-
+                    $('.loading-area').show();
                     $.ajax({
                         url: "${ctx}/panel/ass/queryCountList",
                         type: 'get',
@@ -312,6 +329,7 @@ ul, li {
                             companyIds: ''
                         },
                         success: function (data) {
+                            $('.loading-area').hide();
                             $(".box-info").empty();
 
                             // 设置分页参数
