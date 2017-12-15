@@ -233,13 +233,21 @@
 		
 		function updateCount () {
 			$.ajax({
-				url: '${ctx}/catalog/information/auditCount',
+				url: '${ctx}/catalog/information/list',
 				data: {
-					isAudit: 0
+					pageNum:1,
+					pageSize:6,
+					obj:JSON.stringify({isAudit: 0,
+						isAuthorize:1,
+						nameCn:"",
+						nameEn:""
+						}),
+					companyIds:""
+					
 				},
 				success: function (res) {
-					$('#message_number').text(res);
-					$('#message_count').text(res);
+					$('#message_number').text(res.total);
+					$('#message_count').text(res.total);
 				}
 			})
 		}

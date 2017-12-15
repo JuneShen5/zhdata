@@ -92,7 +92,7 @@ public class CompanyController {
      * @throws Exception
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(Company company) throws Exception {
+    public ResponseEntity<String> save(Company company){
         try {
             if (null == company.getId()) {
                 company.preInsert();
@@ -104,9 +104,8 @@ public class CompanyController {
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(Global.HANDLE_ERROR);
         }
-
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
     
@@ -118,7 +117,7 @@ public class CompanyController {
      * @throws Exception
      */
     @RequestMapping(value = "delete", method = RequestMethod.POST)
-    public ResponseEntity<String> delete(String ids) throws Exception {
+    public ResponseEntity<String> delete(String ids){
         try {
             String[] array = StringUtil.split(ids, ',');
               List<String> idList = new ArrayList<String>(Arrays.asList(array));
@@ -133,8 +132,9 @@ public class CompanyController {
             return ResponseEntity.ok(Global.DELETE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new Exception(Global.DELETE_ERROR);
+           // throw new Exception(Global.DELETE_ERROR);
         }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
 
     
