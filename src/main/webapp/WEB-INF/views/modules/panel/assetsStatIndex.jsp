@@ -226,7 +226,7 @@ ul, li {
 			},
 			success: function (data) {
 //                layer.close(layer.index);
-//				$('.loading-area').hide();
+				$('.loading-area').hide();
                 // 设置分页参数
                 var pageSize = 6; // 只需要设置每页显示数目
                 // 分页相关设置
