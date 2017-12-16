@@ -2,6 +2,7 @@ package com.govmade.zhdata.module.drs.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.module.drs.dao.NjSystemDao;
 import com.govmade.zhdata.module.drs.mapper.NjSystemMapper;
 import com.govmade.zhdata.module.drs.pojo.NjSystems;
+
 
 
 @Service
@@ -42,6 +44,11 @@ public class NjSystemService extends BaseService<NjSystems>{
         List<NjSystems> list = njSystemDao.queryAllList(njSystems);
         return new PageInfo<NjSystems>(list);
     }
+	
+        public List<NjSystems> queryForExport() {
+            NjSystems njSystems = new NjSystems();
+            return njSystemDao.queryAllList(njSystems);
+	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
@@ -56,4 +63,9 @@ public class NjSystemService extends BaseService<NjSystems>{
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(njSystems, example);
     }
+        //保存多条数据
+        @Override
+        public void saveAll(List<Map<String,String>> dataList) {
+            njSystemDao.saveAll(dataList);
+        }
 }

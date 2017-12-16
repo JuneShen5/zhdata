@@ -30,6 +30,8 @@ public class Attribute extends BasePo<Attribute> {
     private String searchType;
 
     private Integer sort;
+    
+    private Integer isCore;
 
     public Attribute() {
         super();
@@ -127,4 +129,13 @@ public class Attribute extends BasePo<Attribute> {
     public void setSort(Integer sort) {
         this.sort = sort;
     }
+
+    public Integer getIsCore() {
+        return isCore;
+    }
+
+    public void setIsCore(Integer isCore) {
+        this.isCore = isCore;
+    }
+    
 }

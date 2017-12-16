@@ -14,20 +14,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.CipherUtil;
-import com.govmade.zhdata.common.utils.MapUtil;
-import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
-import com.govmade.zhdata.common.utils.excel.ExportExcelData;
-import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
-import com.govmade.zhdata.common.utils.excel.ImportExcelData;
 import com.govmade.zhdata.module.sys.pojo.User;
 import com.govmade.zhdata.module.sys.service.UserService;
 
@@ -169,103 +161,5 @@ public class UserController {
     }
     
     
-    /**
-     * 导出数据
-     * @param page
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "exportData", method = RequestMethod.POST)
-    public void exportData(Page<User> page,HttpServletRequest request,HttpServletResponse response){
-        page.setIsPage(false);
-        String [] rowName =  page.getObj().split(",");; //头部
-        
-        page.setObj("{\"name\":\"\"}"); //查询的时候有用所以这样整了一下
-        PageInfo<User> pageInfo = userService.findAll(page);
-        List<User> userList = pageInfo.getList();
-        
-//        List<Systems> sList=this.systemService.queryList(page);
-        List<Map<String, Object>> infoList = Lists.newArrayList();
-        for(User user:userList){
-            infoList.add(MapUtil.beanToMap(user));
-        }
-        
-        //获取实体数据
-        try {
-            String chTableName ="用户管理";
-            String enTableName ="用户管理";
-//           String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-            ExportExcelData exportExcel = new ExportExcelData(chTableName,enTableName,rowName,infoList,response);
-           exportExcel.export();
-           } catch (Exception e1) {
-               e1.printStackTrace();
-           }
-    }
-    
-    /**
-     * 导出数据模板
-     * @param id 
-     * @param name 文件中文名
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "downloadTemplate", method = RequestMethod.POST)
-    public void downloadTemplate(Page<User> page,HttpServletRequest request,HttpServletResponse response){
-        page.setIsPage(false);
-        List<Map<String, Object>> infoList = Lists.newArrayList();
-        String [] rowName =  page.getObj().split(",");; //头部
-        //获取实体数据
-        try {
-            String chTableName ="用户管理模板";
-            String enTableName ="用户管理模板";
-//           String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-            ExportExcelTemplate exportExcel = new ExportExcelTemplate(chTableName,enTableName,rowName,infoList,response);
-           exportExcel.export();
-           } catch (Exception e1) {
-               e1.printStackTrace();
-           }
-    }
-    
-    //导入数据
-    @RequestMapping(value ="importData" , method = RequestMethod.POST)
-    public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request,String code) {
-        try {
-            ImportExcelData importExcel = new ImportExcelData(file,0,0);
-            Map<String, String> titleAndAttribute = new HashMap<String, String>();
-            List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
-            List<Map<String, String>> resolurdDtaList = new ArrayList<Map<String,String>>();
-            boolean is = true;
-            int commitRow = 500; //读取多少返回一次
-            int startRow = 3;  //开始读取的行
-            while(is){
-                dataList = importExcel.uploadAndRead(titleAndAttribute,startRow,commitRow);
-                startRow = startRow+commitRow;
-                if(dataList.size()!=0){
-                    for(Map<String, String> map :dataList){
-                        Map<String, String> dataMap = new HashMap<String, String>();
-                        for (String k : map.keySet())
-                        {
-                            System.out.println("k:"+k);
-                            System.out.println( map.get(k));
-                           String _k = StringUtil.toUnderScoreCase(k);
-                           dataMap.put(_k, map.get(k));
-                        }
-                        String salt=CipherUtil.createSalt();
-                        dataMap.put("password", CipherUtil.createPwdEncrypt("abc123456", salt));
-                        dataMap.put("salt",salt);
-                        resolurdDtaList.add(dataMap);
-                    }
-                    
-                    this.userService.saveAll(resolurdDtaList); 
-                }
-                if(dataList.size()<commitRow || dataList.size()==0){
-                    is=false; 
-                }
-            }
-            return ResponseEntity.ok(Global.IMPORT_SUCCESS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Global.IMPORT_ERROR);
-    }
+   
 }
