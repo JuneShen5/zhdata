@@ -237,8 +237,8 @@ ul, li {
 						listHtml += '<div class="panel panel-default  panel-item">';
 						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
 						listHtml += '<div class="panel-body content"><ul>';
-						 listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">单位名称：</p><p class="col-xs-4 text-left"><span>'+dataList.dwmc+'</span></p></li>';
-                         listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">年度运维金额：</p><p class="col-xs-4 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
+						 listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                         listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
 						listHtml += '</ul></div></div></div>';
 				    $(".box-info").append(listHtml);
 				});
@@ -275,8 +275,8 @@ ul, li {
                         listHtml += '<div class="panel panel-default  panel-item">';
                         listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
                         listHtml += '<div class="panel-body content"><ul>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">单位名称：</p><p class="col-xs-4 text-left"><span>'+dataList.dwmc+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">年度运维金额：</p><p class="col-xs-4 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
                         listHtml += '</ul></div></div></div>';
                         $(".box-info").append(listHtml);
                     });
@@ -332,8 +332,8 @@ ul, li {
                                 listHtml += '<div class="panel panel-default  panel-item">';
                                 listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
                                 listHtml += '<div class="panel-body content"><ul>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">单位名称：</p><p class="col-xs-4 text-left"><span>'+dataList.dwmc+'</span></p></li>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">年度运维金额：</p><p class="col-xs-4 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
     
                                 listHtml += '</ul></div></div></div>';
                                 $(".box-info").append(listHtml);
