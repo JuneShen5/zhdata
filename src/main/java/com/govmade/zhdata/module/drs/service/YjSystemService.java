@@ -62,7 +62,6 @@ public class YjSystemService extends BaseService<YjSystems>{
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(yjSystems, example);
     }
-	
         //保存多条数据
         @Override
         public void saveAll(List<Map<String,String>> dataList) {

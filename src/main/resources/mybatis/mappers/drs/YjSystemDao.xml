@@ -64,7 +64,7 @@
       <where>
       a.del_flag = #{yjSystems.delFlag}
       <if test="yjSystems.xtmc != null and yjSystems.xtmc != ''">
-      AND a.xtmc LIKE CONCAT('%',#{yjSystems.xtmc},'%')
+       AND a.xtmc LIKE CONCAT('%',#{yjSystems.xtmc},'%')
       </if>
 	 </where>
 	 ORDER BY a.id DESC
@@ -86,4 +86,8 @@
 			</foreach>
 		</foreach>
 	</insert>
+	
+	<select id="queryYwjSum" resultType="Double">
+		select SUM(distinct ndywje) from drs_system_yijian WHERE del_flag=#{DEL_FLAG_NORMAL};
+	</select>
 </mapper>      

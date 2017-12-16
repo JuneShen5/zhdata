@@ -5,451 +5,451 @@ import javax.persistence.Table;
 import com.govmade.zhdata.common.persistence.BasePo;
 
 @Table(name = "drs_system_yijian")
-public class YjSystems extends BasePo<YjSystems>{
-	
-	private static final long serialVersionUID = 1L;
-																		
-	private String dwmc;
-																			
-	private String xtmc;
-																			
-	private String spbm;
-																			
-	private String spsj;
-																			
-	private String ywgn;
-																			
-	private String jsdwmc;
-																			
-	private String jsdwlxr;
-																			
-	private String jsdwlxdh;
-	
+public class YjSystems extends BasePo<YjSystems> {
+
+    private static final long serialVersionUID = 1L;
+
+    private String dwmc;
+
+    private String xtmc;
+
+    private String spbm;
+
+    private String spsj;
+
+    private String ywgn;
+
+    private String jsdwmc;
+
+    private String jsdwlxr;
+
+    private String jsdwlxdh;
+
     private String cjdwmc;
-	
-	private String cjdwlxr;
-	
-	private String cjdwlxdh;
-	
+
+    private String cjdwlxr;
+
+    private String cjdwlxdh;
+
     private String ywdwmc;
-	
-	private String ywdwlxr;
-	
-	private String ywdwlxdh;
-	
-	private String jcsj;
-	
-	private String ywhtqsdqsj;
-	
-	private String jsje;
-	
-	private String zjly;
-	
-	private Integer jsfs;
-	
-	private String ndywje;
-	
-	private String ywzjly;
-	
-	private Integer ywfs;
-	
-	private String xtlb;
-	
-	private Integer sfjsxt;
-	
-	private String sydx;
-	
-	private String sypd;
-	
-	private String bswz;
-	
-	private Integer smfl;
-	
-	private Integer aqjb;
-	
-	private String yjrwllx;
-	
-	private Integer syfw;
-	
-	private Integer sfyqtxtdj;
-	
-	private String djqtxtmc;
-	
-	private Integer sfxnhbs;
-	
-	private String xnhrjmc;
-	
-	private Integer sfybf;
-	
-	private Integer bffs;
-	
-	private String bfdwz;
-	
-	private String sjbfl;
-	
-	private Integer yyrz;
-	
-	private Integer sfsqzhzh;
-	
-	private String zhzhyy;
-	
-	private Integer sjxq;
-	
-	private String sjxqsm;
-
-	public YjSystems() {
-		super();
-	}
-
-	public String getDwmc() {
-		return dwmc;
-	}
-
-	public void setDwmc(String dwmc) {
-		this.dwmc = dwmc;
-	}
-
-	public String getXtmc() {
-		return xtmc;
-	}
-
-	public void setXtmc(String xtmc) {
-		this.xtmc = xtmc;
-	}
-
-	public String getSpbm() {
-		return spbm;
-	}
-
-	public void setSpbm(String spbm) {
-		this.spbm = spbm;
-	}
-
-	public String getSpsj() {
-		return spsj;
-	}
-
-	public void setSpsj(String spsj) {
-		this.spsj = spsj;
-	}
-
-	public String getYwgn() {
-		return ywgn;
-	}
 
-	public void setYwgn(String ywgn) {
-		this.ywgn = ywgn;
-	}
+    private String ywdwlxr;
 
-	public String getJsdwmc() {
-		return jsdwmc;
-	}
+    private String ywdwlxdh;
 
-	public void setJsdwmc(String jsdwmc) {
-		this.jsdwmc = jsdwmc;
-	}
+    private String jcsj;
 
-	public String getJsdwlxr() {
-		return jsdwlxr;
-	}
+    private String ywhtqsdqsj;
 
-	public void setJsdwlxr(String jsdwlxr) {
-		this.jsdwlxr = jsdwlxr;
-	}
+    private String jsje;
 
-	public String getJsdwlxdh() {
-		return jsdwlxdh;
-	}
+    private String zjly;
 
-	public void setJsdwlxdh(String jsdwlxdh) {
-		this.jsdwlxdh = jsdwlxdh;
-	}
+    private Integer jsfs;
 
-	public String getCjdwmc() {
-		return cjdwmc;
-	}
+    private Double ndywje; //年度运维金额（万元）
 
-	public void setCjdwmc(String cjdwmc) {
-		this.cjdwmc = cjdwmc;
-	}
+    private String ywzjly;
 
-	public String getCjdwlxr() {
-		return cjdwlxr;
-	}
+    private Integer ywfs;
 
-	public void setCjdwlxr(String cjdwlxr) {
-		this.cjdwlxr = cjdwlxr;
-	}
+    private String xtlb;
 
-	public String getCjdwlxdh() {
-		return cjdwlxdh;
-	}
+    private Integer sfjsxt;
 
-	public void setCjdwlxdh(String cjdwlxdh) {
-		this.cjdwlxdh = cjdwlxdh;
-	}
+    private String sydx;
 
-	public String getYwdwmc() {
-		return ywdwmc;
-	}
+    private String sypd;
 
-	public void setYwdwmc(String ywdwmc) {
-		this.ywdwmc = ywdwmc;
-	}
+    private String bswz;
 
-	public String getYwdwlxr() {
-		return ywdwlxr;
-	}
+    private Integer smfl;
 
-	public void setYwdwlxr(String ywdwlxr) {
-		this.ywdwlxr = ywdwlxr;
-	}
+    private Integer aqjb;
 
-	public String getYwdwlxdh() {
-		return ywdwlxdh;
-	}
+    private String yjrwllx;
 
-	public void setYwdwlxdh(String ywdwlxdh) {
-		this.ywdwlxdh = ywdwlxdh;
-	}
+    private Integer syfw;
 
-	public String getJcsj() {
-		return jcsj;
-	}
+    private Integer sfyqtxtdj;
 
-	public void setJcsj(String jcsj) {
-		this.jcsj = jcsj;
-	}
+    private String djqtxtmc;
 
-	public String getYwhtqsdqsj() {
-		return ywhtqsdqsj;
-	}
+    private Integer sfxnhbs;
 
-	public void setYwhtqsdqsj(String ywhtqsdqsj) {
-		this.ywhtqsdqsj = ywhtqsdqsj;
-	}
+    private String xnhrjmc;
 
-	public String getJsje() {
-		return jsje;
-	}
+    private Integer sfybf;
 
-	public void setJsje(String jsje) {
-		this.jsje = jsje;
-	}
+    private Integer bffs;
 
-	public String getZjly() {
-		return zjly;
-	}
+    private String bfdwz;
 
-	public void setZjly(String zjly) {
-		this.zjly = zjly;
-	}
+    private String sjbfl;
 
-	public Integer getJsfs() {
-		return jsfs;
-	}
+    private Integer yyrz;
 
-	public void setJsfs(Integer jsfs) {
-		this.jsfs = jsfs;
-	}
+    private Integer sfsqzhzh;
 
-	public String getNdywje() {
-		return ndywje;
-	}
+    private String zhzhyy;
 
-	public void setNdywje(String ndywje) {
-		this.ndywje = ndywje;
-	}
+    private Integer sjxq;
 
-	public String getYwzjly() {
-		return ywzjly;
-	}
+    private String sjxqsm;
 
-	public void setYwzjly(String ywzjly) {
-		this.ywzjly = ywzjly;
-	}
+    public YjSystems() {
+        super();
+    }
 
-	public Integer getYwfs() {
-		return ywfs;
-	}
+    public String getDwmc() {
+        return dwmc;
+    }
 
-	public void setYwfs(Integer ywfs) {
-		this.ywfs = ywfs;
-	}
+    public void setDwmc(String dwmc) {
+        this.dwmc = dwmc;
+    }
 
-	public String getXtlb() {
-		return xtlb;
-	}
+    public String getXtmc() {
+        return xtmc;
+    }
 
-	public void setXtlb(String xtlb) {
-		this.xtlb = xtlb;
-	}
+    public void setXtmc(String xtmc) {
+        this.xtmc = xtmc;
+    }
 
-	public Integer getSfjsxt() {
-		return sfjsxt;
-	}
+    public String getSpbm() {
+        return spbm;
+    }
 
-	public void setSfjsxt(Integer sfjsxt) {
-		this.sfjsxt = sfjsxt;
-	}
+    public void setSpbm(String spbm) {
+        this.spbm = spbm;
+    }
 
-	public String getSydx() {
-		return sydx;
-	}
+    public String getSpsj() {
+        return spsj;
+    }
 
-	public void setSydx(String sydx) {
-		this.sydx = sydx;
-	}
+    public void setSpsj(String spsj) {
+        this.spsj = spsj;
+    }
 
-	public String getSypd() {
-		return sypd;
-	}
+    public String getYwgn() {
+        return ywgn;
+    }
 
-	public void setSypd(String sypd) {
-		this.sypd = sypd;
-	}
+    public void setYwgn(String ywgn) {
+        this.ywgn = ywgn;
+    }
 
-	public String getBswz() {
-		return bswz;
-	}
+    public String getJsdwmc() {
+        return jsdwmc;
+    }
 
-	public void setBswz(String bswz) {
-		this.bswz = bswz;
-	}
+    public void setJsdwmc(String jsdwmc) {
+        this.jsdwmc = jsdwmc;
+    }
 
-	public Integer getSmfl() {
-		return smfl;
-	}
+    public String getJsdwlxr() {
+        return jsdwlxr;
+    }
 
-	public void setSmfl(Integer smfl) {
-		this.smfl = smfl;
-	}
+    public void setJsdwlxr(String jsdwlxr) {
+        this.jsdwlxr = jsdwlxr;
+    }
 
-	public Integer getAqjb() {
-		return aqjb;
-	}
+    public String getJsdwlxdh() {
+        return jsdwlxdh;
+    }
 
-	public void setAqjb(Integer aqjb) {
-		this.aqjb = aqjb;
-	}
+    public void setJsdwlxdh(String jsdwlxdh) {
+        this.jsdwlxdh = jsdwlxdh;
+    }
 
-	public String getYjrwllx() {
-		return yjrwllx;
-	}
+    public String getCjdwmc() {
+        return cjdwmc;
+    }
 
-	public void setYjrwllx(String yjrwllx) {
-		this.yjrwllx = yjrwllx;
-	}
+    public void setCjdwmc(String cjdwmc) {
+        this.cjdwmc = cjdwmc;
+    }
 
-	public Integer getSyfw() {
-		return syfw;
-	}
+    public String getCjdwlxr() {
+        return cjdwlxr;
+    }
 
-	public void setSyfw(Integer syfw) {
-		this.syfw = syfw;
-	}
+    public void setCjdwlxr(String cjdwlxr) {
+        this.cjdwlxr = cjdwlxr;
+    }
 
-	public Integer getSfyqtxtdj() {
-		return sfyqtxtdj;
-	}
+    public String getCjdwlxdh() {
+        return cjdwlxdh;
+    }
 
-	public void setSfyqtxtdj(Integer sfyqtxtdj) {
-		this.sfyqtxtdj = sfyqtxtdj;
-	}
+    public void setCjdwlxdh(String cjdwlxdh) {
+        this.cjdwlxdh = cjdwlxdh;
+    }
 
-	public String getDjqtxtmc() {
-		return djqtxtmc;
-	}
+    public String getYwdwmc() {
+        return ywdwmc;
+    }
 
-	public void setDjqtxtmc(String djqtxtmc) {
-		this.djqtxtmc = djqtxtmc;
-	}
+    public void setYwdwmc(String ywdwmc) {
+        this.ywdwmc = ywdwmc;
+    }
 
-	public Integer getSfxnhbs() {
-		return sfxnhbs;
-	}
+    public String getYwdwlxr() {
+        return ywdwlxr;
+    }
 
-	public void setSfxnhbs(Integer sfxnhbs) {
-		this.sfxnhbs = sfxnhbs;
-	}
+    public void setYwdwlxr(String ywdwlxr) {
+        this.ywdwlxr = ywdwlxr;
+    }
 
-	public String getXnhrjmc() {
-		return xnhrjmc;
-	}
+    public String getYwdwlxdh() {
+        return ywdwlxdh;
+    }
 
-	public void setXnhrjmc(String xnhrjmc) {
-		this.xnhrjmc = xnhrjmc;
-	}
+    public void setYwdwlxdh(String ywdwlxdh) {
+        this.ywdwlxdh = ywdwlxdh;
+    }
 
-	public Integer getSfybf() {
-		return sfybf;
-	}
+    public String getJcsj() {
+        return jcsj;
+    }
 
-	public void setSfybf(Integer sfybf) {
-		this.sfybf = sfybf;
-	}
+    public void setJcsj(String jcsj) {
+        this.jcsj = jcsj;
+    }
 
-	public Integer getBffs() {
-		return bffs;
-	}
+    public String getYwhtqsdqsj() {
+        return ywhtqsdqsj;
+    }
 
-	public void setBffs(Integer bffs) {
-		this.bffs = bffs;
-	}
+    public void setYwhtqsdqsj(String ywhtqsdqsj) {
+        this.ywhtqsdqsj = ywhtqsdqsj;
+    }
 
-	public String getBfdwz() {
-		return bfdwz;
-	}
+    public String getJsje() {
+        return jsje;
+    }
 
-	public void setBfdwz(String bfdwz) {
-		this.bfdwz = bfdwz;
-	}
+    public void setJsje(String jsje) {
+        this.jsje = jsje;
+    }
 
-	public String getSjbfl() {
-		return sjbfl;
-	}
+    public String getZjly() {
+        return zjly;
+    }
 
-	public void setSjbfl(String sjbfl) {
-		this.sjbfl = sjbfl;
-	}
+    public void setZjly(String zjly) {
+        this.zjly = zjly;
+    }
 
-	public Integer getYyrz() {
-		return yyrz;
-	}
+    public Integer getJsfs() {
+        return jsfs;
+    }
 
-	public void setYyrz(Integer yyrz) {
-		this.yyrz = yyrz;
-	}
+    public void setJsfs(Integer jsfs) {
+        this.jsfs = jsfs;
+    }
 
-	public Integer getSfsqzhzh() {
-		return sfsqzhzh;
-	}
+    public Double getNdywje() {
+        return ndywje;
+    }
 
-	public void setSfsqzhzh(Integer sfsqzhzh) {
-		this.sfsqzhzh = sfsqzhzh;
-	}
+    public void setNdywje(Double ndywje) {
+        this.ndywje = ndywje;
+    }
 
-	public String getZhzhyy() {
-		return zhzhyy;
-	}
+    public String getYwzjly() {
+        return ywzjly;
+    }
 
-	public void setZhzhyy(String zhzhyy) {
-		this.zhzhyy = zhzhyy;
-	}
+    public void setYwzjly(String ywzjly) {
+        this.ywzjly = ywzjly;
+    }
 
-	public Integer getSjxq() {
-		return sjxq;
-	}
+    public Integer getYwfs() {
+        return ywfs;
+    }
 
-	public void setSjxq(Integer sjxq) {
-		this.sjxq = sjxq;
-	}
+    public void setYwfs(Integer ywfs) {
+        this.ywfs = ywfs;
+    }
 
-	public String getSjxqsm() {
-		return sjxqsm;
-	}
+    public String getXtlb() {
+        return xtlb;
+    }
 
-	public void setSjxqsm(String sjxqsm) {
-		this.sjxqsm = sjxqsm;
-	}
+    public void setXtlb(String xtlb) {
+        this.xtlb = xtlb;
+    }
+
+    public Integer getSfjsxt() {
+        return sfjsxt;
+    }
+
+    public void setSfjsxt(Integer sfjsxt) {
+        this.sfjsxt = sfjsxt;
+    }
+
+    public String getSydx() {
+        return sydx;
+    }
+
+    public void setSydx(String sydx) {
+        this.sydx = sydx;
+    }
+
+    public String getSypd() {
+        return sypd;
+    }
+
+    public void setSypd(String sypd) {
+        this.sypd = sypd;
+    }
+
+    public String getBswz() {
+        return bswz;
+    }
+
+    public void setBswz(String bswz) {
+        this.bswz = bswz;
+    }
+
+    public Integer getSmfl() {
+        return smfl;
+    }
+
+    public void setSmfl(Integer smfl) {
+        this.smfl = smfl;
+    }
+
+    public Integer getAqjb() {
+        return aqjb;
+    }
+
+    public void setAqjb(Integer aqjb) {
+        this.aqjb = aqjb;
+    }
+
+    public String getYjrwllx() {
+        return yjrwllx;
+    }
+
+    public void setYjrwllx(String yjrwllx) {
+        this.yjrwllx = yjrwllx;
+    }
+
+    public Integer getSyfw() {
+        return syfw;
+    }
+
+    public void setSyfw(Integer syfw) {
+        this.syfw = syfw;
+    }
+
+    public Integer getSfyqtxtdj() {
+        return sfyqtxtdj;
+    }
+
+    public void setSfyqtxtdj(Integer sfyqtxtdj) {
+        this.sfyqtxtdj = sfyqtxtdj;
+    }
+
+    public String getDjqtxtmc() {
+        return djqtxtmc;
+    }
+
+    public void setDjqtxtmc(String djqtxtmc) {
+        this.djqtxtmc = djqtxtmc;
+    }
+
+    public Integer getSfxnhbs() {
+        return sfxnhbs;
+    }
+
+    public void setSfxnhbs(Integer sfxnhbs) {
+        this.sfxnhbs = sfxnhbs;
+    }
+
+    public String getXnhrjmc() {
+        return xnhrjmc;
+    }
+
+    public void setXnhrjmc(String xnhrjmc) {
+        this.xnhrjmc = xnhrjmc;
+    }
+
+    public Integer getSfybf() {
+        return sfybf;
+    }
+
+    public void setSfybf(Integer sfybf) {
+        this.sfybf = sfybf;
+    }
+
+    public Integer getBffs() {
+        return bffs;
+    }
+
+    public void setBffs(Integer bffs) {
+        this.bffs = bffs;
+    }
+
+    public String getBfdwz() {
+        return bfdwz;
+    }
+
+    public void setBfdwz(String bfdwz) {
+        this.bfdwz = bfdwz;
+    }
+
+    public String getSjbfl() {
+        return sjbfl;
+    }
+
+    public void setSjbfl(String sjbfl) {
+        this.sjbfl = sjbfl;
+    }
+
+    public Integer getYyrz() {
+        return yyrz;
+    }
+
+    public void setYyrz(Integer yyrz) {
+        this.yyrz = yyrz;
+    }
+
+    public Integer getSfsqzhzh() {
+        return sfsqzhzh;
+    }
+
+    public void setSfsqzhzh(Integer sfsqzhzh) {
+        this.sfsqzhzh = sfsqzhzh;
+    }
+
+    public String getZhzhyy() {
+        return zhzhyy;
+    }
+
+    public void setZhzhyy(String zhzhyy) {
+        this.zhzhyy = zhzhyy;
+    }
+
+    public Integer getSjxq() {
+        return sjxq;
+    }
+
+    public void setSjxq(Integer sjxq) {
+        this.sjxq = sjxq;
+    }
+
+    public String getSjxqsm() {
+        return sjxqsm;
+    }
+
+    public void setSjxqsm(String sjxqsm) {
+        this.sjxqsm = sjxqsm;
+    }
 }
