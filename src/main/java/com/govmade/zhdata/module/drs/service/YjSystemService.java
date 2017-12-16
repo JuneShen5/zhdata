@@ -57,4 +57,6 @@ public class YjSystemService extends BaseService<YjSystems>{
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(yjSystems, example);
     }
+
+
 }
