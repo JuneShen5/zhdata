@@ -72,8 +72,9 @@
         <div id="layer_form" style="display: none" class="ibox-content" >
             <form role="form" id="mainForm" class="form-horizontal main-form">
                 <input type="text" name="id" class="hide">
-                <!-- 系统信息 -->
+                <!-- 基本信息 -->
                 <fieldset>
+                    <legend>基本信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class=" control-label">单位名称</label>
@@ -90,9 +91,6 @@
                             <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
                         </div>
                     </div>
-                </fieldset>
-                <!-- 基本信息 -->
-                <fieldset>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">审批部门</label>
@@ -296,9 +294,35 @@
                             <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据增长情况（单位：M）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" isNonnegative="true" name="sjzzqk" placeholder="按每月业务发生估算数据增长量（单位：M）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">存量数据年限</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" isNonnegative="true" name="clsjnx" placeholder="数据积累年数，填写数字（X年）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">存量数据有效期</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="clsjyxq" placeholder="五年/十年/永久等" required>
+                        </div>
+                    </div>
                 </fieldset>
                 <!-- 僵尸系统信息 -->
                 <fieldset>
+                    <legend>僵尸系统信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">是否为僵尸信息系统</label>
@@ -333,6 +357,7 @@
                 </fieldset>
                 <!-- 系统整合信息 -->
                 <fieldset>
+                    <legend>系统整合信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">系统部署位置</label>
@@ -539,8 +564,568 @@
                         </div>
                     </div>
                 </fieldset>
+                <!-- 财政要素信息 -->
+                <fieldset>
+                    <legend>财政要素信息</legend>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">年度</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="nd" placeholder="请输入年度" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">区划名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="qhmc" placeholder="请输入区划名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">业务处室名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ywcsmc" placeholder="请输入业务处室名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">预算单位名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ysdwmc" placeholder="请输入预算单位名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">资金性质名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zjxzmc" placeholder="请输入资金性质名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">功能分类名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="gnflmc" placeholder="请输入功能分类名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">项目分类名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="xmflmc" placeholder="请输入项目分类名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">经济分类名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="jjflmc" placeholder="请输入经济分类名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">支付方式名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zffsmc" placeholder="请输入支付方式名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">指标类型名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zblxmc" placeholder="请输入指标类型名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">指标来源名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zblymc" placeholder="请输入指标来源名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">指标分配年度名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zbfpndmc" placeholder="请输入指标分配年度名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">预算项目编码</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ysxmbm" placeholder="请输入预算项目编码" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">预算项目名称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="ysxmmc" placeholder="请输入预算项目名称" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">总指标金额（万元）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" isNonnegative="true" name="zzbje" placeholder="请输入总指标金额（万元）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">可用金额（万元）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" isNonnegative="true" name="kyje" placeholder="请输入可用金额（万元）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">已用金额（万元）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" isNonnegative="true" name="yyje" placeholder="请输入已用金额（万元）" required>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- 信息化管理要素 -->
+                <fieldset>
+                    <legend>信息化管理要素</legend>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">信息化机构人员编制情况</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="xxhjgrybzqk" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">信息化人员技术职称</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="xxhryjszc" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">承担信息化工作的事业单位</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="cdxxhgzdsydw" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">承担信息化工作的内设机构</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="cdxxhgzdnsjg" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">系统情况</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="xtqk" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">系统架构</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="xtjg" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">信息录入方式</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="xxlrfs" placeholder="请输入使用对象，如政府单位内部，注册用户数_个" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">系统信息查看</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="xtxxck" placeholder="系统IP___,账号___,密码___" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">软件架构描述</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="rjjgms" placeholder="前端/中间件/数据库" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据库品牌、版本、运行平台</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="sjkppbbyxpt" placeholder="请输入数据库品牌、版本、运行平台" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据存储方式</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="sjccfs" placeholder="本地本机存储\本地集中存储\异地自行存储\异地集中存储\其他" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据文件大小</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="sjwjdx" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据加密方式</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="sjjmfs" placeholder="对称算法\非对称算法\杂凑算法\其他" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">技术资料</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="jszl" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">数据更新模式</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="sjgxms" placeholder="追加且保留历史数据\追加不保留历史数据\覆盖历史数据\其他" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">外部报送</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="wbbs" placeholder="向上级报送数据\向上级报送报表\向社会公开数据\向社会公开报表\依申请公开数据\其他" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">报送时效</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="bssx" placeholder="实时报送\每日报送\每周报送\每月报送\年末报送\其他" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">机房场地面积（平方米）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="jfcdmj" placeholder="请输入机房场地面积（单位：平方米）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">机柜数量（个）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="jgsl" placeholder="请输入机柜数量（单位：个）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">不间断电源容量（）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="bjddyrl" placeholder="请输入不间断电源容量（）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">租用和托管机柜数量（个）</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zyhtgjgsl" placeholder="请输入租用和托管机柜数量（单位：个）" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">托管在哪个运营商机房，租用面积多大</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="tgzngyysjf" placeholder="运营商机房___,租用面积___" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">机房精密空调</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="jfjmkt" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">机房综合监控系统</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="jfzhjkxt" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">内部局域网终端数</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="nbjywzds" placeholder="请输入内部局域网终端数" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">承载业务系统数量</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="czywxtsl" placeholder="请输入承载业务系统数量" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">电子政务外网终端数</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="dzzwwwzds" placeholder="请输入电子政务外网终端数" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">专网终端数</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="zwzds" placeholder="请输入专网终端数" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">专网连接范围</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="zwljfw" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">与其他网络连接情况</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <select name="yqtwlljqk" class="form-control" required>
+                                <option value="">== 请选择 ==</option>
+                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                    <option value="${dict.value}">${dict.label}</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">存储</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="cc" placeholder="集中式存储,容量：____\分布式存储,容量：____" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-3 column-title">
+                            <label class="control-label">年宽带使用费</label>
+                        </div>
+                        <div class="col-sm-7 column-content">
+                            <input type="text" class="form-control" hasNoSpace="true" name="nkdsyf" placeholder="请输入年宽带使用费" required>
+                        </div>
+                    </div>
+
+                    <!-- 关键设备信息 -->
+                    <fieldset>
+                        <legend>关键设备信息</legend>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">PC服务器品牌数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="pcfwqppsl" placeholder="请输入PC服务器品牌数量" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">操作系统类型数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="czxtlxsl" placeholder="请输入操作系统类型数量" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">小型机品牌数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="xxjppsl" placeholder="请输入小型机品牌数量" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">备份设备数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="bfsbsl" placeholder="请输入备份设备数量" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">网络设备（路由器、交换机）数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="wlsbsl" placeholder="请输入网络设备（路由器、交换机）数量" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">中间件类型和数量</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="zzjlxhsl" placeholder="请输入中间件类型和数量" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">存储容量（TB）</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="ccrl" placeholder="请输入存储容量（单位：TB）" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">实际用量（TB）</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="sjyl" placeholder="请输入实际用量（单位：TB）" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">服务器</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="fwq" placeholder="X86,CPU总核数：_____,内存总容量：____,其他（小型机）：____" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">数据备份频率</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="sjbfpl" placeholder="实时备份\每天备份\每周备份\每月更新\其他" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-3 column-title">
+                                <label class="control-label">应用双活</label>
+                            </div>
+                            <div class="col-sm-7 column-content">
+                                <input type="text" class="form-control" hasNoSpace="true" name="yysh" placeholder="无\有,同城双活选址：____" required>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                </fieldset>
                 <!-- 备注与说明 -->
                 <fieldset>
+                    <legend>备注</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title column-title-multiple">
                             <label class="control-label">备注</label>
