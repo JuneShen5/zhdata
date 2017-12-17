@@ -6,7 +6,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +18,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -22,13 +26,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.common.collect.Maps;
+import com.govmade.zhdata.common.utils.DrsUtils;
+import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.common.utils.SysUtils;
+import com.govmade.zhdata.module.drs.pojo.InfoSort;
+import com.govmade.zhdata.module.drs.pojo.Systems;
+import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.pojo.Dict;
+import com.govmade.zhdata.module.sys.pojo.Menu;
+import com.govmade.zhdata.module.sys.pojo.Role;
+import com.govmade.zhdata.module.sys.pojo.Site;
+
 
 /**
  * SpringMVC 读取Excle工具类
  * @author  cyz
  * @param <T>
  */
-abstract class ImportExcelImpl {
+public class ImportExcelImpl{
     
     //log4j输出
     private Logger log = LoggerFactory.getLogger(ImportExcelImpl.class);
@@ -56,9 +72,18 @@ abstract class ImportExcelImpl {
     protected int startRow = 3;
     
     /**
+     * 控制每次从第几列数据开始读
+     */
+    protected int columnIndex = 1;
+    
+    /**
      * 控制读取多少条后返回
      */
     protected int commitRow = 500;
+    
+    protected Map<String, Map<String,String>> dictMap = null; //存放数据字典
+    
+    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
 
     /**
      * 无参构造
@@ -170,7 +195,7 @@ abstract class ImportExcelImpl {
 	  * @throws Exception
 	  */
     public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute) throws Exception{
-        return readExcelTitle(titleAndAttribute);
+        return readExcel(titleAndAttribute);
     }
 //    abstract  protected List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute) throws Exception;
         
@@ -178,14 +203,15 @@ abstract class ImportExcelImpl {
      * 上传Excle文件、并读取其中数据、返回list数据集合
      * @param titleAndAttribute
      * @param startRow 开始读取的行数
-     * @param commitRow 开始读取的行数
+     * @param commitRow 回滚的行
      * @return List<Map<String, String>>
      * @throws Exception*********
      */
-    public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute,int startRow, int commitRow) throws Exception{
+    public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute,int startRow,int columnIndex, int commitRow) throws Exception{
        this.startRow = startRow;
        this.commitRow = commitRow;
-       return readExcelTitle(titleAndAttribute);
+       this.columnIndex = columnIndex;
+       return readExcel(titleAndAttribute);
     }
 
     /**
@@ -194,81 +220,68 @@ abstract class ImportExcelImpl {
      * @return List<Map<String, String>>
      * @throws Exception
      */
-    abstract protected List<Map<String, String>> readExcelTitle(Map<String, String> titleAndAttribute)throws Exception;
-//    private List<Map<String, String>> readExcelTitle(Map<String, String> titleAndAttribute) throws Exception{
-//        
-//        // 获取标题
-//        Row titelRow = sheet.getRow(headerNum);
-//        /*
-//         * 判断EXCEL是否有数据
-//         */
-//        if (headerNum==sheet.getLastRowNum()) {
-//			return null;
-//		}
-//        Map<Integer, String> attribute = new HashMap<Integer, String>();
-//        if (titleAndAttribute != null) {
-//            for (int columnIndex = 0; columnIndex < titelRow.getLastCellNum(); columnIndex++) {
-//                Cell cell = titelRow.getCell(columnIndex);
-//                if (cell != null) {
-//                    String key = cell.getStringCellValue();
-//                    String value = titleAndAttribute.get(key);
-//                    if (value == null) {
-//                        value = key;
-//                    }
-//                    attribute.put(Integer.valueOf(columnIndex), value);
-//                }
-//            }
-//        } else {
-//            for (int columnIndex = 0; columnIndex < titelRow.getLastCellNum(); columnIndex++) {
-//                Cell cell = titelRow.getCell(columnIndex);
-//                if (cell != null) {
-//                    String key = cell.getStringCellValue();
-//                    attribute.put(Integer.valueOf(columnIndex), key);
-//                }
-//            }
-//        }
-//
-//        return readExcelValue(attribute);
-//        
-//    }
+    private List<Map<String, String>> readExcel(Map<String, String> titleAndAttribute) throws Exception{
+        
+        List<Map<String, String>> resolut = new ArrayList<Map<String, String>>();//存放最终结果
+        Row nameEnRow = sheet.getRow(startRow-2);  //英文名称行
+        Row inputTypeRow = sheet.getRow(startRow-1); //输入框及类型行
+        Map<Integer, String> nameEnMap= Maps.newHashMap(); //存放字段英文名
+        Map<Integer, String> inputTypeMap= Maps.newHashMap(); //存放inputType
+        Map<Integer, String> inputTypeValueMap= Maps.newHashMap();//存放inputTypeValue
+        
+        int lastCellNum = nameEnRow.getLastCellNum(); //总共的列数
+        for(int i=0;i<lastCellNum;i++){
+            nameEnMap.put(i,nameEnRow.getCell(i).getStringCellValue());
+            String[] inputType = inputTypeRow.getCell(i).getStringCellValue().split("_");
+            inputTypeMap.put(i, inputType[0]);
+            if(inputType.length>1){
+                inputTypeValueMap.put(i, inputType[1]);
+            }else{
+                inputTypeValueMap.put(i, "");
+            }
+        }
+        for (int rowIndex = startRow; rowIndex < sheet.getPhysicalNumberOfRows(); rowIndex++) {
+            Row Datarow = sheet.getRow(rowIndex);
+            Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
+            for (int columnIndex = this.columnIndex; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
+                String value =""; //excel每一格读取的值
+                Cell cell = Datarow.getCell(columnIndex);
+                if("".equals(inputTypeMap.get(columnIndex).trim()) ){
+                    continue;  //类型行没有数据直接跳过
+                }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
+                    value = getCellValue(cell);   //没有关联的数据直接获取
+                }else{
+                    //有关联一对一的数据，获取关联的ID
+                    int _rowIndex; //用于记录错误的行和列
+                    int _columnIndex ;
+                    if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
+                        String name = getCellValue(cell);
+                       /* Map<label,value>*/
+                        String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
+                        if(ID==null || ID==""){
+                            _rowIndex = rowIndex+1; 
+                            _columnIndex = columnIndex+1;
+                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
+                        }else{
+                            value = ID;
+                        }
+                    }else{
+                        _rowIndex = rowIndex+1; 
+                        _columnIndex = columnIndex+1;
+                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+                    }
+                }
+                rowMap.put(nameEnMap.get(columnIndex), value);
+            }
+            resolut.add(rowMap);
+            if(resolut.size()%(this.commitRow) == 0){  
+                return resolut; 
+            }
+        }
+        return resolut;
+    }
     
-    /**
-     * 获取Excle中的值
-     * @param attribute
-     * @return List<Map<String, String>>
-     * @throws Exception
-     */
-   // abstract protected List<Map<String, String>> readExcelValue(Map<Integer, String> attribute)throws Exception;
-//    private List<Map<String, String>> readExcelValue(Map<Integer, String> attribute) throws Exception{
-//        List<Map<String, String>> info=new ArrayList<Map<String, String>>();
-//        //获取标题行列数
-//        int titleCellNum = sheet.getRow(0).getLastCellNum();
-//        // 获取值
-//        for (int rowIndex = 1; rowIndex <= sheet.getLastRowNum(); rowIndex++) {
-//            Row row = sheet.getRow(rowIndex);
-//            //log.debug("第--" + rowIndex);
-//            /*
-//             * 获取每一行数据
-//             */
-//            Map<String, String> map= Maps.newHashMap();
-//            for (int columnIndex = 1; columnIndex < titleCellNum; columnIndex++) {//等于1不取第一列数据
-//            	
-//                Cell cell = row.getCell(columnIndex);
-//                
-//                //处理单元格中值得类型
-//                String value = getCellValue(cell);
-//                
-//                String key=attribute.get(Integer.valueOf(columnIndex));
-//                map.put(key, value);
-//            }
-//            info.add(map);
-//            
-//        }
-//        return info;
-//    }
-//    
-    
- 
+   
    /**
     * 获取单元格值
     * @param cell
@@ -302,6 +315,115 @@ abstract class ImportExcelImpl {
             return val;
         }
         return val;
+    }
+    /**
+     *  根据关联的实体数据获取ID值（dict表中不一定全是数字）
+     * @param inputType 输入框类型
+     * @param columTypeValue dict的type
+     * @param data 管理数据的ID值
+     * @return
+     */
+        protected String getTemplateValue(String inputType,String columTypeValue,String name){
+            String inputValue = "";
+            String Id = "";
+            switch(inputType)
+            {
+            case "select":
+                inputValue =  StringUtil.toUnderScoreCase(columTypeValue); //传过来的是大写的驼峰为了避免联动字段出错
+                Id = getSelect(inputValue,name);
+                break;
+            case "dictselect":
+            case "radio":
+            case "check":
+            case "checkbox":
+                if(this.dictMap == null){
+                    getAllDictToList();
+                }
+                inputValue = StringUtil.toUnderScoreCase(columTypeValue);
+                Id = dictMap.get(inputValue).get(name);
+                break;
+            case "companyselect":
+                Company company = new Company();
+                company.setName(name);
+                Id = String.valueOf(SysUtils.getCompany(company).getId());
+                break;
+            case "linkselect":
+//                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
+//                for (InfoSort info : infoSorts) {
+//                    templateValue.put(String.valueOf(info.getId()), info.getName());
+//                }
+                 break; 
+            default:
+                break;
+            }
+            
+            return Id;
+        }
+        
+        /**
+         * select类型的关联数据
+         * @param type dict的type类型
+         * @return
+         */
+        private String getSelect(String type,String name) {
+            String Id = "";
+            if (!StringUtil.isEmpty(type)) {
+                switch (type.trim().toLowerCase()) {
+                case "company":
+                    Company company = new Company();
+                    company.setName(name);
+                    Id = String.valueOf(SysUtils.getCompany(company).getId());
+                    break;
+                case "site":
+                    Site site = new Site();
+                    site.setName(name);
+                    Id = String.valueOf(SysUtils.getSite(site).getId());
+                    break;
+                case "role":
+                    Role role = new Role();
+                    role.setName(name);
+                    Id = String.valueOf(SysUtils.getRole(role).getId());
+                    break;
+                case "menu":
+                    Menu menu = new Menu();
+                    menu.setName(name);
+                    Id = String.valueOf(SysUtils.getMenu(menu).getId());
+                    break;
+                case "sys":
+                    Systems systems = new Systems();
+                    systems.setNameCn(name);
+                    Id = String.valueOf(SysUtils.getSys(systems).getId());
+                    break;
+                default:
+                    break;
+                }
+            }
+            return name;
+        }
+    /**
+     * 查询所有的dict数据并保存
+     * 返回 Map<type, Map<label,value>>
+     */
+    protected void getAllDictToList(){
+        Map<String, Map<String,String>> resultMap = new HashMap<String, Map<String,String>>(); 
+        List<Dict> dictList = SysUtils.getDictList();
+        try{
+            for(Dict dict : dictList){
+                if(resultMap.containsKey(dict.getType())){//map中异常批次已存在，将该数据存放到同一个key（key存放的是异常批次）的map中 
+                    resultMap.get(dict.getType()).put(dict.getLabel(), dict.getValue()); 
+                }else{//map中不存在，新建key，用来存放数据 
+                    Map<String,String> valLabMap = new HashMap<String, String>();
+                    valLabMap.put(dict.getLabel(), dict.getValue());
+                    resultMap.put(dict.getType(), valLabMap); 
+                } 
+
+            } 
+
+            }catch(Exception e){
+            e.printStackTrace();
+            } 
+        this.dictMap = resultMap;
+//        System.out.println("resultMap"+resultMap);
     }
 
 }

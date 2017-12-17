@@ -70,14 +70,24 @@
 	 ORDER BY a.id DESC
 	</select>
 	
+	  <!-- 添加多条数据 -->
+	<insert  id="saveAll"  statementType="STATEMENT" >
+		INSERT INTO drs_system_yijian
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
 	
 	<select id="queryYwjSum" resultType="Double">
 		select SUM(distinct ndywje) from drs_system_yijian WHERE del_flag=#{DEL_FLAG_NORMAL};
 	</select>
-	
-	
-	
-	
-	
-	
 </mapper>      

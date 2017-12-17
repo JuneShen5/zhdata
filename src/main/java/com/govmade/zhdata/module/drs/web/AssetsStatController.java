@@ -96,7 +96,7 @@ public class AssetsStatController {
         }
         Double ywjSum=0.00;
         Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems());
-        if (ywjSum1>0.00) {
+        if (ywjSum1!=null) {
             ywjSum=ywjSum1;
         }
         map.put("ysCount", ysCount);

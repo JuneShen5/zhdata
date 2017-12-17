@@ -19,7 +19,9 @@ public abstract class BaseService<T> {
 
     @Autowired
     private Mapper<T> mapper;
-
+    
+    public void saveAll(List<Map<String,String>> dataList){};
+    
     public int queryConut(T record) {
         return this.mapper.selectCount(record);
     }
@@ -190,4 +192,5 @@ public abstract class BaseService<T> {
         page.setParams(params);
         return page;
 	}
+
 }

@@ -1,13 +1,24 @@
 package com.govmade.zhdata.common.utils.excel;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -15,10 +26,15 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.XSSFDataValidation;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
+import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.alibaba.druid.pool.DruidDataSource;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
@@ -37,7 +53,7 @@ import com.govmade.zhdata.module.sys.pojo.Site;
  * @author cyz 
  * 
  */  
-abstract class ExportExcelImpl {  
+public abstract class ExportExcelImpl{  
 
     //导出文件的名字
     private String fileName;
@@ -45,7 +61,6 @@ abstract class ExportExcelImpl {
     private String title;  
     //导出表的列名  
     protected String[] rowName;
-    
       
     protected List<Map<String, Object>>  dataList = new ArrayList<Map<String, Object>>();  
       
@@ -55,13 +70,16 @@ abstract class ExportExcelImpl {
     
     private OutputStream out = null;
     
-    private String lineSeparator = System.getProperty("line.separator", "\n"); //获取系统换行符 默认为"\n"
-      
-    protected Integer valueStartRow = 3; //开始存数据的行
+//    private String templatePath = "C:\\Users\\chenqi\\Desktop\\";
+    
+    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
     
     protected CellStyle columnTopStyle = null;
     
     protected CellStyle style = null;
+    
+    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
+    
     //构造方法，传入要导出的数据  
     public ExportExcelImpl(String fileName,String title,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response){
         this.fileName = fileName;   //导出的文件名
@@ -71,7 +89,30 @@ abstract class ExportExcelImpl {
         this.response = response;
     }
     
+    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList) throws IOException{
+        this.fileName = fileName;   //导出的文件名
+        this.dataList = dataList;   //查询出来的实体数据
+//        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
+        this.rowName = rowName;
+        this.title = title;       //sheet名
+        File  fi = new File(templatePath+templatFile);
+        InputStream in = new FileInputStream(fi);
+        this.workbook = new XSSFWorkbook(in);
+    }
     
+    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
+        this(fileName, title, rowName,  dataList,response);
+        File  fi = new File(templatePath+templatFile);
+        InputStream in;
+        try {
+            in = new FileInputStream(fi);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("模板文件不存在");
+        }
+        this.workbook = new XSSFWorkbook(in);
+    }
+    
+
     public String[] ChangeRowName(String[] rowName){
       int _i=0;//用于记录第几个是linkselect类型的
       int levalNum = 0;//用于记录联动的层数
@@ -107,210 +148,111 @@ abstract class ExportExcelImpl {
               }
           }
           return _rowName_;
-//          if(_i >0){
-//              String[] a = new String[_i];
-//              String[] b = new String[rowName.length-_i-1];
-//              for(int n=0;n<rowName.length;n++){
-//                  if(n>_i){
-//                    b[n] = rowName[n];
-//                  }else{
-//                    a[n] = rowName[n]; 
-//                  }
-//              }
-//              _rowName_ =ArrayUtils.addAll(ArrayUtils.addAll(a,_rowName),b) ;
-//          }else{
-//             String[] a = new String[rowName.length-1];
-//             for(int n=1;n<=rowName.length;n++){
-//                 a[n-1] = rowName[n]; 
-//             }
-//             _rowName_ =ArrayUtils.addAll(_rowName,a) ;
-//          }
-//          
-//          return _rowName_;
+
       }
         
     }
     
-    
-    
-    
-    
-    //如果有联动表的则对rowName进行改动
-//    public String[] ChangeRowName(String[] rowName){
-//        int _i=0;//用于记录第几个是linkselect类型的
-//        int levalNum = 0;//用于记录联动的层数
-//        String[] _rowName = null;//用于存放新的额数组
-//        for(int i=0;i<rowName.length ;i++){
-//            String columType = rowName[i].split("_")[2];
-//           if("linkselect".equals(columType)){
-//               _i = i;
-//               List<InfoSort> linkselect =  DrsUtils.findInfoArray();
-//               TreeUtil tb = new TreeUtil();
-//               String[][] linkArray = tb.buildListToTree(linkselect);
-//               levalNum = linkArray[0].length;
-//               _rowName = new String[levalNum];
-//               //将值付给_rowName
-//               for(int j=1;j<=levalNum;j++){
-//                   String inputType = "";
-//                   if(j==1){
-//                       inputType = rowName[_i].split("_")[2];
-//                   }else{
-//                       inputType = "input"; //下面的子级当做input以便在导出模板中不出错
-//                   }
-//                   _rowName[j-1] = rowName[_i].split("_")[0]+j+"_"+rowName[_i].split("_")[1]+j+"_"+inputType+"_";
-//               }
-//           }
-//        }
-//        
-//        if(levalNum == 0){
-//            return rowName;
-//        }else{
-//            String[] _rowName_;
-//            if(_i >0){
-//                String[] a = new String[_i];
-//                String[] b = new String[rowName.length-_i-1];
-//                for(int n=0;n<rowName.length;n++){
-//                    if(n>_i){
-//                      b[n] = rowName[n];
-//                    }else{
-//                      a[n] = rowName[n]; 
-//                    }
-//                }
-//                _rowName_ =ArrayUtils.addAll(ArrayUtils.addAll(a,_rowName),b) ;
-//            }else{
-//               String[] a = new String[rowName.length-1];
-//               for(int n=1;n<=rowName.length;n++){
-//                   a[n-1] = rowName[n]; 
-//               }
-//               _rowName_ =ArrayUtils.addAll(_rowName,a) ;
-//            }
-//            
-//            return _rowName_;
-//        }
-//   }
-    
     public void export () throws Exception{
-        
         Workbook createExcel = this.createExcel();
+//        this.out(createExcel);
         this.writeInOutputStream(createExcel);
     }
+    
+    public void out(Workbook createExcel) throws Exception{
+        FileOutputStream out = new FileOutputStream("C:\\Users\\chenqi\\Desktop\\export.xlsx");
+        createExcel.write(out);
+        out.close();
+    }
+    
               
     /* 
      * 导出数据 
      * */  
     public Workbook createExcel() throws Exception{  
-        try{  
-            workbook = new XSSFWorkbook();                    // 创建工作簿对象  
-            XSSFSheet sheet = workbook.createSheet(title);                  // 创建工作表  
-              
-            //sheet样式定义【getColumnTopStyle()/getStyle()均为自定义方法 - 在下面  - 可扩展】  
-            this.columnTopStyle = this.getColumnTopStyle(workbook);//获取列头样式对象  
-            this.style = this.getStyle(workbook);                  //单元格样式对象  
-            
-            // 定义所需列数  
-            int columnNum = rowName.length;  
-           
-            this.exportHead(sheet,columnNum); //导出头部信息
-            
-            this.exportValue(sheet,columnNum);//导出模板或者数据
-            
-            //让列宽随着导出的列长自动适应  
-            for (int colNum = 0; colNum < columnNum; colNum++) {
-                int columnWidth = sheet.getColumnWidth(colNum) / 256;  
-                for (int rowNum = 0; rowNum < sheet.getLastRowNum(); rowNum++) {  
-                    Row currentRow;  
-                    //当前行未被使用过  
-                    if (sheet.getRow(rowNum) == null) {  
-                        currentRow = sheet.createRow(rowNum);  
-                    } else {  
-                        currentRow = sheet.getRow(rowNum);  
-                    }  
-                    if (currentRow.getCell(colNum) != null) {  
-                        Cell currentCell = currentRow.getCell(colNum);  
-                        if (currentCell.getCellType() == Cell.CELL_TYPE_STRING) {
-                            //int length = currentCell.getStringCellValue().getBytes().length;
-                            String stringCellValue = null;
-                            try {
-                                stringCellValue = currentCell.getStringCellValue();
-                            } catch (Exception e) {
-                                continue;
-                            }
-                            int length = stringCellValue==null?50:stringCellValue.getBytes().length;  
-                            
-                            if (columnWidth < length) {  
-                                columnWidth = length;  
-                            }  
-                        }  
-                    }  
-                }  
-                if(colNum == 0){  
-                    sheet.setColumnWidth(colNum, (columnWidth-2) * 256);  
-                }else{  
-                    sheet.setColumnWidth(colNum, (columnWidth+4) * 256);  
-                }  
-            }  
-  
-        }catch(Exception e){  
-            e.printStackTrace();  
-        }
+        XSSFSheet sheet = workbook.getSheetAt(0);
+        //sheet样式定义【getColumnTopStyle()/getStyle()均为自定义方法 - 在下面  - 可扩展】  
+        this.columnTopStyle = this.getColumnTopStyle(workbook);//获取列头样式对象  
+        this.style = this.getStyle(workbook);//单元格样式对象  
+        this.exportHead(sheet); //导出头部信息
+        this.exportValue(sheet); //导出信息
         return workbook;  
-          
     }
     
-    
-   protected void exportHead(XSSFSheet sheet,int columnNum) {
+    /**
+     * 模板输出下拉，实体数据输出数据
+     * @param sheet
+     */
+   protected abstract void exportValue(XSSFSheet sheet);
+   
+   /**
+    * 输出隐藏的那几行
+    * @param sheet
+    */
+   private void exportHead(XSSFSheet sheet){
        
-       for(int m=0;m<valueStartRow;m++){
-           Row rowRowName = sheet.createRow(m); //标题包含三行，第一行是中文，第二行是英文，第三行是类型（二三行隐藏）
-     
-           // 将列头设置到sheet的单元格中  
-           for(int n=0;n<columnNum;n++){
-               Cell  cellRowName = rowRowName.createCell(n);               //创建列头对应个数的单元格  
-               cellRowName.setCellType(Cell.CELL_TYPE_STRING);             //设置列头单元格的数据类型  
-               RichTextString text = new XSSFRichTextString(rowName[n].split("_")[m]);
-//             RichTextString text = new HSSFRichTextString(rowName[n]);  
-               cellRowName.setCellValue(text);                                 //设置列头单元格的值  
-               cellRowName.setCellStyle(columnTopStyle);                       //设置列头单元格样式  
+       int lastRowNum = sheet.getLastRowNum();
+       
+       if(workbook == null){ 
+           int valueStartRow=3;
+           int columnNum = rowName.length;
+           //没有excel模板的头部信息导出
+           for(int m=0;m<valueStartRow;m++){
+               Row rowRowName = sheet.createRow(m); //标题包含三行，第一行是中文，第二行是英文，第三行是类型（二三行隐藏）
+         
+               // 将列头设置到sheet的单元格中  
+               for(int n=0;n<columnNum;n++){
+                   Cell  cellRowName = rowRowName.createCell(n);               //创建列头对应个数的单元格  
+                   cellRowName.setCellType(Cell.CELL_TYPE_STRING);             //设置列头单元格的数据类型  
+                   RichTextString text = new XSSFRichTextString(rowName[n].split("_")[m]);
+//                 RichTextString text = new HSSFRichTextString(rowName[n]);  
+                   cellRowName.setCellValue(text);                                 //设置列头单元格的值  
+                   cellRowName.setCellStyle(columnTopStyle);                       //设置列头单元格样式  
+               }
+//               if(m==1 || m==2){
+//                   Row hiddenRow =  sheet.getRow(m); 
+//                   hiddenRow.setZeroHeight(true);                             //将第二、三行隐藏
+//               }
            }
-           if(m==1 || m==2){
-               Row hiddenRow =  sheet.getRow(m); 
-               hiddenRow.setZeroHeight(true);                             //将第二、三行隐藏
+           
+       }else{
+           Row titelRow = sheet.getRow(lastRowNum); //获取英文字段的行
+           int lastCellNum =  titelRow.getLastCellNum();   //模板中的总列数
+           Map<String,String> rowNameMap = rowNameToMap(); //将rowname 的数组改成MAP形式以便快速和excel中的英文名称对应
+           Row inputTypeRow = sheet.createRow(lastRowNum+1);
+           for (int i = 0; i <lastCellNum; i++) {
+               String nameEn = titelRow.getCell(i).getStringCellValue(); //获取每个英文字段
+               String value =  rowNameMap.get(nameEn); 
+               if(value != null){
+                   inputTypeRow.createCell(i).setCellValue(value);//在下面第二行输入输入框类型的值
+               }else{
+                   inputTypeRow.createCell(i).setCellValue("");//在下面第二行输入输入框类型的值
+               }
+             
            }
        }
+       for(int j=0;j<2;j++){
+           sheet.getRow(lastRowNum+j).setZeroHeight(true);//将行隐藏
+       }
+
        
    }
-    //导出数据的抽象方法 
-    abstract  void exportValue(XSSFSheet sheet,int columnNum);
-    
-    private void elementList(CellStyle columnTopStyle, CellStyle style){
-        XSSFSheet elementEheet = workbook.createSheet("信息项附页");                  // 创建工作表  
-        Row rowRowName = elementEheet.createRow(0);
-        String elementTitle [] = {"信息项ID","信息项名称","备注"};
-        String elementEn [] = {"id","nameCn","label"};
-        //设置标题
-        for(int n=0;n<elementTitle.length;n++){
-            Cell  cellRowName = rowRowName.createCell(n);               //创建列头对应个数的单元格  
-            cellRowName.setCellType(Cell.CELL_TYPE_STRING);             //设置列头单元格的数据类型  
-            cellRowName.setCellValue(elementTitle[n]);                                 //设置列头单元格的值  
-            cellRowName.setCellStyle(columnTopStyle);                       //设置列头单元格样式  
+   
+   /**
+    * 将rowname 的数组改成MAP形式以便快速和excel中的英文名称对应
+    * 因为要根据模板中nameEn的顺序来排序
+    * @return Map<nameEn,input_inputvalue> 
+    */
+    private Map<String,String> rowNameToMap(){
+        Map<String,String> rowNameMap = new HashMap<String,String>();
+        
+        for(int i=0;i<rowName.length;i++){
+            String rowNameCell = rowName[i];
+            int index = rowNameCell.indexOf("_");
+            index = rowNameCell.indexOf("_", index+1); //英文有些最后一个_后面时空的，所有按照第二个_的位置来区分
+            rowNameMap.put(rowNameCell.split("_")[1], rowNameCell.substring(index+1,rowNameCell.length()) );
         }
-        List<Map<String, Object>> elementList = DrsUtils.getElementList();
-        //将查询出的数据设置到sheet对应的单元格中  
-        
-        //设置值
-        for(int i=0;i<elementList.size();i++){
-            
-            Row row = elementEheet.createRow(i+1);//创建所需的行数  
-            
-            for(int j=0; j<elementEn.length; j++){    //j代表列
-                Cell  cell = null;   //设置单元格的数据类型  
-                cell = row.createCell(j,Cell.CELL_TYPE_STRING);  
-                String element = elementList.get(i).get(elementEn[j]).toString();
-                cell.setCellValue(element);               //设置单元格的值  
-                cell.setCellStyle(style);                //设置单元格样式  
-            }  
-        } 
-        
+        return rowNameMap;
     }
     
     public void writeInOutputStream(Workbook workbook) throws Exception{
@@ -412,137 +354,56 @@ abstract class ExportExcelImpl {
       
     } 
     
-//    增加填写说明
-    public void creatRule(){
-        XSSFSheet explainSheet = workbook.createSheet("填写说明");
-        String explain = "信息项导入说明：根据需求从\"信息项附页\"中查询自己所需信息项，然后取其对应ID,若有多个则以\",\"区分（英文逗号）,如：1,2,3"+lineSeparator+
-                         "多选框导入说明：如果示例中填写的是\"多选框\",则取其下拉选项中\"_\"后面数字,若有多个则以\",\"区分（英文逗号）,如：1,2,3"+lineSeparator+
-                         "时间格式：2017-10-1"+lineSeparator+
-                         "建设依据：填写信息系统建设依据，包括具体发布政策文件名字及相关建设方案、批复文件等"+lineSeparator+
-                         "业务事项：系统所服务具体业务，比如办公自动化、行政审批等"+lineSeparator+
-                         "系统用户规模：即系统注册及最终使用用户数据"+lineSeparator+
-                         "数据规模：填写信息系统数据规模（单位为G，填写数字）"+lineSeparator+
-                         "数据增长情况：按每月业务发生估算数据增长量单位M"+lineSeparator+
-                         "建设经费来源：上级配套资金（具体经费来源渠道）；省财政资金（具体经费来源渠道）；市财政资金（具体经费来源渠道）；单位自筹资金（具体经费来源渠道）；其他资金（具体经费来源渠道）"+lineSeparator+
-                         "投资金额：万元，填写数字";
-        Row explainRow = explainSheet.createRow(1);
-        Cell  cellRowName = explainRow.createCell(1);               //创建列头对应个数的单元格  
-        cellRowName.setCellValue(explain);    
-        explainSheet.addMergedRegion(new CellRangeAddress(1,20,1,20));
-        
-    }
+   
     
-    //根据自定义表格样式返回下拉选框内容(放入附页中)
-    protected String[] getTemplateValue(String inputType,int m){
-        String[] templateValue ={};
-        List<String> valueList = Lists.newArrayList();
-        String inputValue = "";
-        switch(inputType)
-        {
-        case "select":
-            inputValue =  StringUtil.toUnderScoreCase(rowName[m].split("_")[3]); //传过来的是大写的驼峰为了避免联动字段出错
-            List<String> selectList = getList(inputValue);
-            for(String select :selectList){
-                valueList.add(select);
-            }
-            templateValue = (String[])valueList.toArray(new String[selectList.size()]);
-            break;
-        case "dictselect":
-            inputValue = StringUtil.toUnderScoreCase(rowName[m].split("_")[3]);
-            List<Dict>  dictList = SysUtils.getDictList(inputValue);
-            for(Dict dict:dictList){
-                valueList.add(dict.getLabel()+"_"+dict.getValue());
-            }
-            templateValue = (String[])valueList.toArray(new String[dictList.size()]);
-            break;
-        case "companyselect":
-            List<Company>  companyList = SysUtils.getCompanyList();
-            for(Company company:companyList){
-                valueList.add(company.getName()+"_"+company.getId());
-            }
-            templateValue = (String[])valueList.toArray(new String[companyList.size()]);
-            break;
-        case "radio":
-            inputValue = StringUtil.toUnderScoreCase(rowName[m].split("_")[3]);
-            List<Dict>  radioList = SysUtils.getDictList(inputValue);
-            for(Dict dict:radioList){
-                valueList.add(dict.getLabel()+"_"+dict.getValue());
-            }
-            templateValue = (String[])valueList.toArray(new String[radioList.size()]);
-            break;
-        case "check":
-            inputValue = StringUtil.toUnderScoreCase(rowName[m].split("_")[3]);
-            List<Dict>  checkList = SysUtils.getDictList(inputValue);
-            for(Dict dict:checkList){
-                valueList.add(dict.getLabel()+"_"+dict.getValue());
-            }
-            templateValue = (String[])valueList.toArray(new String[checkList.size()]);
-            break;
-        case "checkbox":
-            inputValue = StringUtil.toUnderScoreCase(rowName[m].split("_")[3]);
-            List<Dict>  checkbox = SysUtils.getDictList(inputValue);
-            for(Dict dict:checkbox){
-                valueList.add(dict.getLabel()+"_"+dict.getValue());
-            }
-            templateValue = (String[])valueList.toArray(new String[checkbox.size()]);
-            break;    
-            
-        case "linkselect":
-            List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
-           /* List<InfoSort> infoSorts= this.infosortservice.findAll();*/
-//            List<InfoSort>  infoSorts = SysUtils.getInfoSortList();
-            for (InfoSort info : infoSorts) {
-                valueList.add(info.getName()+"_"+info.getId());
-            }
-            templateValue = (String[])valueList.toArray(new String[infoSorts.size()]);
-             break; 
-        default:
-            break;
-        }
-        
-        return templateValue;
-    }
     
-    private List<String> getList(String type) {
-        List<String> list = Lists.newArrayList();
-        if (!StringUtil.isEmpty(type)) {
-            switch (type.trim().toLowerCase()) {
-            case "company":
-                List<Company>  companyList = SysUtils.getCompanyList();
-                for(Company company:companyList){
-                    list.add(company.getName()+"_"+company.getId());
-                }
-                break;
-            case "site":
-                List<Site> siteList = SysUtils.getSiteList();
-                for(Site site:siteList){
-                    list.add(site.getName()+"_"+site.getId());
-                }
-                break;
-            case "role":
-                List<Role>  roleList = SysUtils.getRoleList();
-                for(Role role:roleList){
-                    list.add(role.getName()+"_"+role.getId());
-                }
-                break;
-            case "menu":
-                List<Menu>  menuList = SysUtils.getMenuList();
-                for(Menu menu:menuList){
-                    list.add(menu.getName()+"_"+menu.getId());
-                }
-                break;
-            case "sys":
-                List<Systems>  sysList = SysUtils.getSysList();
-                for(Systems systems:sysList){
-                    list.add(systems.getNameCn()+"_"+systems.getId());
-                }
-                break;
-            default:
-                break;
-            }
-        }
-        return list;
-    }
-    
-
+//    protected void getAllDictToList1(){
+//        Connection conn = null;  
+//        DruidDataSource dataSource = new DruidDataSource();
+//        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+//        dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/zhdata?useUnicode=true&characterEncoding=UTF-8");
+//        dataSource.setUsername("root");
+//        dataSource.setPassword("root");
+//        
+//        try {
+//            conn = dataSource.getConnection();
+//        } catch (SQLException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        
+//        
+//        try {
+//        
+//        String etableNameSql = "select * from sys_dict";
+//        
+//        PreparedStatement stat = conn.prepareStatement(etableNameSql);
+//        
+//        ResultSet rs = stat.executeQuery();
+//        int col = rs.getMetaData().getColumnCount();
+//        ResultSetMetaData rsmd = rs.getMetaData();
+//        Map<String, Map<String,String>> resultMap = new HashMap<String, Map<String,String>>(); 
+//        while (rs.next()) {
+//            for (int i = 1; i <= col; i++) {
+////                String name = rsmd.getColumnName(i);
+////                String value = rs.getString(i);
+//                String type = rs.getString("type");
+//                String value = rs.getString("value");
+//                String label  = rs.getString("label");
+//                if(resultMap.containsKey(type)){//map中异常批次已存在，将该数据存放到同一个key（key存放的是异常批次）的map中 
+//                    resultMap.get(type).put(value,label); 
+//                }else{//map中不存在，新建key，用来存放数据 
+//                    Map<String,String> valLabMap = new HashMap<String, String>();
+//                    valLabMap.put(value, label);
+//                    resultMap.put(type, valLabMap); 
+//                } 
+//            }
+//        }   
+//        System.out.println("resultMap:"+resultMap);
+//        dictMap = resultMap;
+//    }catch (SQLException e) {
+//        // TODO Auto-generated catch block
+//        e.printStackTrace();
+//    }
+//    }
 }  

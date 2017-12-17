@@ -54,6 +54,17 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label">是否核心字段：</label>
+				<div class="col-sm-7">
+					<select name="isCore" class="select-chosen" required>
+						<option value=""></option>
+						<c:forEach var="dict" items="${fns:getDictList('is_core')}">
+							<option value="${dict.value}">${dict.label}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">说明文字：</label>
 				<div class="col-sm-7">
 					<input type="text" name="remarks" class="form-control">

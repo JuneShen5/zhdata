@@ -2,6 +2,7 @@ package com.govmade.zhdata.module.drs.service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,4 +56,15 @@ public class ZjSystemService extends BaseService<ZjSystems>{
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(zjSystems, example);
     }
+	
+        public List<ZjSystems> queryForExport() {
+            ZjSystems zjSystems = new ZjSystems();
+            return zjSystemDao.queryAllList(zjSystems);
+        }
+        
+        //保存多条数据
+        @Override
+        public void saveAll(List<Map<String,String>> dataList) {
+            zjSystemDao.saveAll(dataList);
+        }
 }

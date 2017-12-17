@@ -171,10 +171,10 @@ public class InformationService extends BaseService<Information> {
     }
 
     // 保存多条数据
-    public int saveAll(List<Map<String, Object>> dataList) {
+/*    public int saveAll(List<Map<String, Object>> dataList) {
         int num = infoDao.saveAll(dataList);
         return num;
-    }
+    }*/
 
     public void deleteAll(List<String> idList) {
        

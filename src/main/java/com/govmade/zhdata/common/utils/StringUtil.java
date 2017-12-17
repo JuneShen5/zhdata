@@ -394,4 +394,17 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         result.append(val.substring(1));
         return result.toString();
     }
+    
+    //去除字符串中的空格回车等
+    public static String replaceBlank(String str) {  
+        String dest = "";  
+        if (str!=null) {
+            Pattern p = Pattern.compile("\\s*|\t|\r|\n");  
+            Matcher m = p.matcher(str);  
+            dest = m.replaceAll("");  
+        }else{
+            return "";  
+        }
+        return dest;  
+    }
 }
