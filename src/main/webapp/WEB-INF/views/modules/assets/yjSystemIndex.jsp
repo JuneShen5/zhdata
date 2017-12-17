@@ -374,7 +374,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="smfl" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                 <c:forEach var="dict" items="${fns:getDictList('secret-related ')}">
+                                 <c:forEach var="dict" items="${fns:getDictList('is_secret ')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                  </c:forEach>
                             </select>
@@ -716,7 +716,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="xxhjgrybzqk" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('prepare_condition')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -729,7 +729,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="xxhryjszc" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('technical_titles ')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -742,7 +742,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="cdxxhgzdsydw" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('public_institution')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -755,7 +755,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="cdxxhgzdnsjg" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('inner_organ')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -768,7 +768,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="xtqk" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('system_explorer')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -781,7 +781,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="xtjg" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('system_architecture')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -836,7 +836,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="sjwjdx" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('file_size')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -857,7 +857,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="jszl" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('technical_data')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -934,7 +934,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="jfjmkt" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('is_have')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -947,7 +947,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="jfzhjkxt" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('is_have')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -992,7 +992,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="zwljfw" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('joint_scope')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
@@ -1005,7 +1005,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="yqtwlljqk" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                                <c:forEach var="dict" items="${fns:getDictList('connectivity')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                 </c:forEach>
                             </select>
