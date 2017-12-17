@@ -194,35 +194,30 @@ ul, li {
 //	  		content: '载入中...'
 //		});
 		$.ajax({
-            url: "${ctx}/panel/ass/queryCount",
+            url: "${ctx}/panel/ass/querySum",
             type: 'get',
             success: function (data) {
                 $('.search-container').show();
                 // 拼接顶部信息资源统计
                 var topHtml1 = '<div class="col-sm-4" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息项总数 : <em>';
-                topHtml1 += data.eleCount + " 个 ";
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息系统总数 : <em>';
+                topHtml1 += data.ysCount + " 个 ";
                 topHtml1 += '</em></p></div></div></div>';
                 topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>信息资源总数 : <em>';
-                topHtml1 += data.infoCount + " 个 ";
-                topHtml1 += '</em></p></div></div></div>';
-                topHtml1 += '<div class="col-sm-4" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-blue"><i class="fa fa-server"></i></div><div class="content top-penal top-company-count"><p>部门总数 : <em>';
-                topHtml1 += "- 个 ";
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
+                topHtml1 += data.ywjSum + " 万元 ";
                 topHtml1 += '</em></p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
             }
 		});
         $('.loading-area').show();
 		$.ajax({
-			url: "${ctx}/panel/ass/queryCountList",
+			url: "${ctx}/assets/yjSystem/list",
 			type: 'get',
 			data: {
                 pageNum: 1,
                 pageSize: 6,
-                obj: JSON.stringify({'name': ''}),
-                companyIds: ''
+                obj: JSON.stringify({'xtmc': ''})
 			},
 			success: function (data) {
 //                layer.close(layer.index);
@@ -236,17 +231,14 @@ ul, li {
 				$('.top-company-count').find('em').text(data.total + ' 个');
                     $("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
 				$.each(data.rows, function(index,dataList){
-				    var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
+				    var searchHtml = '<option value="'+dataList.id+'">' + dataList.xtmc + '</option>';
 				    $('.search-container').find('select').append(searchHtml);
-					var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
+					var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
 						listHtml += '<div class="panel panel-default  panel-item">';
-						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.companyName + '</div>';
+						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
 						listHtml += '<div class="panel-body content"><ul>';
-						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息系统数量：</p><p class="col-xs-4 text-left"><span>'+dataList.sCount+'</span></p></li>';
-						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息项数量：</p><p class="col-xs-4 text-left"><span>'+dataList.eCount+'</span></p></li>';
-						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount+'</span></p></li>';
-						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
-						listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
+						 listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                         listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
 						listHtml += '</ul></div></div></div>';
 				    $(".box-info").append(listHtml);
 				});
@@ -259,13 +251,12 @@ ul, li {
 			var thisValue = $('.search-container').find('.search-input').val();
             $('.loading-area').show();
             $.ajax({
-                url: "${ctx}/panel/ass/queryCountList",
+                url: "${ctx}/assets/yjSystem/list",
                 type: 'get',
                 data: {
                     pageNum: 1,
                     pageSize: 6,
-                    obj: JSON.stringify({'nameCn': thisValue}),
-                    companyIds: ''
+                    obj: JSON.stringify({'xtmc': thisValue})
                 },
                 success: function (data) {
                     $('.loading-area').hide();
@@ -278,17 +269,14 @@ ul, li {
                     var pageNum = Math.ceil(totalCounts/pageSize);
                     // 拼接部门详细资源
                     $.each(data.rows, function(index,dataList){
-                        var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
+                        var searchHtml = '<option value="'+dataList.id+'">' + dataList.xtmc + '</option>';
                         $('.search-container').find('select').append(searchHtml);
-                        var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
+                        var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                         listHtml += '<div class="panel panel-default  panel-item">';
-                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.companyName + '</div>';
+                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
                         listHtml += '<div class="panel-body content"><ul>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息系统数量：</p><p class="col-xs-4 text-left"><span>'+dataList.sCount+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息项数量：</p><p class="col-xs-4 text-left"><span>'+dataList.eCount+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                        listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
                         listHtml += '</ul></div></div></div>';
                         $(".box-info").append(listHtml);
                     });
@@ -320,13 +308,12 @@ ul, li {
                 }else{
                     $('.loading-area').show();
                     $.ajax({
-                        url: "${ctx}/panel/ass/queryCountList",
+                        url: "${ctx}/assets/yjSystem/list",
                         type: 'get',
                         data: {
                             pageNum: num,
                             pageSize: 6,
-                            obj: JSON.stringify({'nameCn': ''}),
-                            companyIds: ''
+                            obj: JSON.stringify({'xtmc': ''})
                         },
                         success: function (data) {
                             $('.loading-area').hide();
@@ -339,17 +326,15 @@ ul, li {
                             var pageNum = Math.ceil(totalCounts/pageSize);
                             // 拼接部门详细资源
                             $.each(data.rows, function(index,dataList){
-                                var searchHtml = '<option value="'+dataList.companyId+'">' + dataList.companyName + '</option>';
+                                var searchHtml = '<option value="'+dataListid+'">' + dataList.xtmc + '</option>';
                                 $('.search-container').find('select').append(searchHtml);
-                                var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.companyId+'">';
+                                var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                                 listHtml += '<div class="panel panel-default  panel-item">';
-                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.companyName + '</div>';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.xtmc + '</div>';
                                 listHtml += '<div class="panel-body content"><ul>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息系统数量：</p><p class="col-xs-4 text-left"><span>'+dataList.sCount+'</span></p></li>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息项数量：</p><p class="col-xs-4 text-left"><span>'+dataList.eCount+'</span></p></li>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount+'</span></p></li>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">基础信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount1+'</span></p></li>';
-                                listHtml += '<li class="clearfix"><p class="col-xs-8 text-right">主题信息资源数量：</p><p class="col-xs-4 text-left"><span>'+dataList.iCount2+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">单位名称：</p><p class="col-xs-6 text-left"><span>'+dataList.dwmc+'</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="col-xs-6 text-right">年度运维金额：</p><p class="col-xs-6 text-left"><span>'+dataList.ndywje+' 万元'+'</span></p></li>';
+    
                                 listHtml += '</ul></div></div></div>';
                                 $(".box-info").append(listHtml);
                             });

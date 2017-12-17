@@ -552,10 +552,15 @@
                 </fieldset>
             </form>
         </div>
-
+		<!-- excel导入导出-->
+        <c:set var="type" value="6" />
+		<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script src="${ctxStatic}/js/common/common-h.js"></script>
     <script>
+    
+	    /*导入导出定义的全部变量 */
+		var uploaderServer = "yjSystem";
 
         // 1.设置Table参数和表格按钮
         var mainTableOption = {

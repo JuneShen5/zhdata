@@ -5,6 +5,7 @@
 	<sql id="attributeColumns">
 		a.id,
 		a.type AS "type",
+		a.is_core AS "isCore",
 		a.name_En AS "nameEn",
 		a.name_Cn AS "nameCn",
 		a.is_require AS "isRequire",

@@ -48,7 +48,10 @@ public class AttributeService extends BaseService<Attribute> {
         List<Attribute> list = attributeDao.queryList(attribute);
         return new PageInfo<Attribute>(list);
     }
-
+    
+    public List<Attribute> querAllyList(Attribute attribute) {
+        return attributeDao.queryList(attribute);
+     }
     
     
     public Attribute queryOneu(Attribute entity) {

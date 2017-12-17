@@ -28,7 +28,6 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.common.utils.excel.ExportExcelData;
 import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
-import com.govmade.zhdata.common.utils.excel.ImportExcelData;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.service.SystemService;
 
@@ -181,109 +180,6 @@ public class SystemController {
             e.printStackTrace();
             throw new Exception(Global.HANDLE_ERROR);
         }
-    }
-    
-    /**
-     * 导出数据
-     * @param page
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "exportData", method = RequestMethod.POST)
-    public void exportData(Page<Systems> page,HttpServletRequest request,HttpServletResponse response){
-        page.setIsPage(false);
-        List<Systems> sList=this.systemService.queryList(page);
-        List<Map<String, Object>> infoList = Lists.newArrayList();
-       //将info 的json格式改为map格式
-        for(Systems systems :sList){
-            Map<String, Object> map = new HashMap<String, Object>();
-            map = MapUtil.infoToMap(map,systems.getInfo());
-            map.put("companyId", systems.getCompanyId());
-            map.put("nameCn", systems.getNameCn());
-           /* map.put("nameEn", systems.getNameEn());*/
-            infoList.add(map);
-        }
-        String [] rowName =  page.getObj().split(",");; //头部
-        //获取实体数据
-        try {
-            String chTableName ="信息系统清单";
-            String enTableName ="信息系统清单";
-//           String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-            ExportExcelData exportExcel = new ExportExcelData(chTableName,enTableName,rowName,infoList,response);
-           exportExcel.export();
-           } catch (Exception e1) {
-               e1.printStackTrace();
-           }
-    }
-    
-    /**
-     * 导出数据模板
-     * @param id 
-     * @param name 文件中文名
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value = "downloadTemplate", method = RequestMethod.POST)
-    public void downloadTemplate(Page<Systems> page,HttpServletRequest request,HttpServletResponse response){
-        page.setIsPage(false);
-        List<Map<String, Object>> infoList = Lists.newArrayList();
-        String [] rowName =  page.getObj().split(",");; //头部
-        //获取实体数据
-        try {
-            String chTableName ="信息系统清单模板";
-            String enTableName ="信息系统清单模板";
-//           String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-            ExportExcelTemplate exportExcel = new ExportExcelTemplate(chTableName,enTableName,rowName,infoList,response);
-           exportExcel.export();
-           } catch (Exception e1) {
-               e1.printStackTrace();
-           }
-    }
-    
-    //导入数据
-    @RequestMapping(value ="importData" , method = RequestMethod.POST)
-    public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request,String code) {
-        try {
-            ImportExcelData importExcel = new ImportExcelData(file,0,0);
-            Map<String, String> titleAndAttribute = new HashMap<String, String>();
-            List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
-            List<Map<String, String>> resolurdDtaList = new ArrayList<Map<String,String>>();
-            boolean is = true;
-            int commitRow = 500; //读取多少返回一次
-            int startRow = 3;  //开始读取的行
-            while(is){
-                dataList = importExcel.uploadAndRead(titleAndAttribute,startRow,commitRow);
-                startRow = startRow+commitRow;
-                if(dataList.size()!=0){
-                    for(Map<String, String> map :dataList){
-                        Map<String, String> dataMap = new HashMap<String, String>();
-                        String info="{";
-                        for (String k : map.keySet())
-                        {
-                            if (!(k.trim().equals("id") || k.trim().equals("companyId") || k.trim().equals("nameEn") || k
-                                    .trim().equals("nameCn")|| k.trim().equals("isAudit"))) {
-                                info +=   "\"" + k + "\":\"" + map.get(k) + "\",";
-                            }else{
-                               String _k = StringUtil.toUnderScoreCase(k);
-                               dataMap.put(_k, map.get(k));
-                            }
-                        }
-                        info = info.substring(0, info.length() - 1);
-                        info += "}";
-                        dataMap.put("info", info);
-                        resolurdDtaList.add(dataMap);
-                    }
-                    systemService.saveAll(resolurdDtaList); 
-                }
-                if(dataList.size()<commitRow || dataList.size()==0){
-                    is=false; 
-                }
-            }
-            return ResponseEntity.ok(Global.IMPORT_SUCCESS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Global.IMPORT_ERROR);
     }
     
 }

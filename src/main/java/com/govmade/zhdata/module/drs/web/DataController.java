@@ -23,7 +23,6 @@ import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.excel.ExportExcelData;
 import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
-import com.govmade.zhdata.common.utils.excel.ImportExcelData;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.service.DataService;
@@ -142,93 +141,6 @@ public class DataController {
 
 
     
-    // 这里是放excel的
     
-    /**
-     * 导出数据模板
-     * @param id 
-     * @param name 文件中文名
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value ="exportTemplet" , method = RequestMethod.GET)
-    public void exportTemplet(Integer id ,String code, String name,HttpServletRequest request,HttpServletResponse response) {
-        code="data_"+code;
-        String [] rowName =  getHead(id);
-        /*Map<String, Object> exampleData = new HashMap<String, Object>();*/
-        List<Map<String, Object>>  dataList = new ArrayList<Map<String,Object>>();
-
-        try {
-        String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-        ExportExcelTemplate exportExcel = new ExportExcelTemplate(chTableName,code,rowName,dataList,response);
-            exportExcel.export();
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-    }
-    
-    /**
-     * 导出实体数据
-     * @param id
-     * @param code 文件英文名
-     * @param request
-     * @param response
-     */
-    @RequestMapping(value ="exportData" , method = RequestMethod.GET)
-    public void exportData(Integer id ,String code,String name,HttpServletRequest request,HttpServletResponse response) {
-        String enTableName = code;
-        String [] rowName =  getHead(id); //头部
-        //获取实体数据
-        Page<Map<String, Object>> resPage = new Page<Map<String, Object>>();
-        resPage.setIsPage(false);
-        resPage.setTableName(enTableName);
-        List<Map<String, Object>> resList = dataService.queryList(resPage);
-        try {
-           String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-           ExportExcelData exportExcel = new ExportExcelData(chTableName,enTableName,rowName,resList,response);
-           exportExcel.export();
-           } catch (Exception e1) {
-               e1.printStackTrace();
-           }
-    }
-    
-    @RequestMapping(value ="importData" , method = RequestMethod.POST)
-    public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request,String code) {
-        try {
-            ImportExcelData importExcel = new ImportExcelData(file,0,0);
-            Map<String, String> titleAndAttribute = new HashMap<String, String>();
-            List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
-            boolean is = true;
-            int commitRow = 500; //读取多少返回一次
-            int startRow = 1;  //开始读取的行
-            while(is){
-                dataList = importExcel.uploadAndRead(titleAndAttribute,startRow,commitRow);
-                startRow = startRow+commitRow;
-                if(dataList.size()!=0){
-                    dataService.saveAll("data_"+code, dataList); 
-                }
-                if(dataList.size()<commitRow || dataList.size()==0){
-                    is=false; 
-                }
-            }
-            return ResponseEntity.ok(Global.IMPORT_SUCCESS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Global.IMPORT_ERROR);
-    }
-    
-    //导出EXCEL时所需的头部第一行数据
-    public String[] getHead(Integer id){
-        List<Element> elementList = infoService.findElementById(id);
-        int i = elementList.size();
-        String [] rowName = new String[i]; 
-        int j=0;
-        for (Element e : elementList) {
-            rowName[j] = e.getNameCn()+"("+e.getNameEn()+")";
-            j++;
-        }
-        return rowName;
-    }
   
 }

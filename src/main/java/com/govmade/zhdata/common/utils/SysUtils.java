@@ -7,7 +7,9 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.persistence.RedisService;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
@@ -135,6 +137,10 @@ public class SysUtils {
         Company company = sysUtils.companyService.queryById(id);
         return company.getName();
     }
+    public static Company getCompany(Company company){
+        return sysUtils.companyService.queryOne(company);
+    }
+    
     
     public static String queryCompanyName() {
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
@@ -148,6 +154,15 @@ public class SysUtils {
         Role role = sysUtils.roleService.queryById(roleId);
         return role.getName();
     }
+    
+    public static String getRoleName(Integer id){
+        return sysUtils.roleService.queryById(id).getName();
+    }
+    
+    public static Role getRole(Role role){
+        return sysUtils.roleService.queryOne(role);
+    }
+    
 
     /**
      * 获得班子列表
@@ -160,6 +175,13 @@ public class SysUtils {
         return siteList;
     }
 
+    public static String getSiteName(Integer id){
+        return sysUtils.siteService.queryById(id).getName();
+    }
+    
+    public static Site getSite(Site site){
+        return sysUtils.siteService.queryOne(site);
+    }
     /**
      * 获得信息资源分类列表
      * 
@@ -190,6 +212,12 @@ public class SysUtils {
      * 
      * @return
      */
+    public static List<Dict> getDictList() {
+        List<Dict> dictList = Lists.newArrayList();
+        dictList = sysUtils.dictService.queryAll(new Dict());
+        return dictList;
+    }
+    
     public static List<Dict> getDictList(String type) {
         List<Dict> dictList = Lists.newArrayList();
         dictList = sysUtils.dictService.queryAll(new Dict(type));
@@ -206,6 +234,14 @@ public class SysUtils {
         menuList = sysUtils.menuService.findAll(new Menu());
         return menuList;
     }
+    
+    public static String getMenuName(Integer id){
+        return sysUtils.menuService.queryById(id).getName();
+    }
+    
+    public static Menu getMenu(Menu menu){
+        return sysUtils.menuService.queryOne(menu);
+    }
 
     /**
      * 获得系统列表
@@ -217,6 +253,12 @@ public class SysUtils {
         sysList = sysUtils.systemService.queryAll(new Systems());
         return sysList;
     }
-
+    public static String getSysName(Integer id){
+        return sysUtils.systemService.queryById(id).getNameCn();
+    }
+    
+    public static Systems getSys(Systems systems){
+        return sysUtils.systemService.queryOne(systems);
+    }
 
 }
