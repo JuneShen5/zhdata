@@ -11,27 +11,44 @@ import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.drs.dao.YjSystemDao;
 import com.govmade.zhdata.module.drs.mapper.YjSystemMapper;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
+import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.service.CompanyService;
 
 @Service
-public class YjSystemService extends BaseService<YjSystems>{
-	
-	@Autowired
-	private YjSystemDao yjSystemDao;
-	
-	@Autowired
-	private YjSystemMapper yjSystemMapper;
-	
-	
-	
-	public PageInfo<YjSystems> queryAllList(Page<YjSystems> page) {
+public class YjSystemService extends BaseService<YjSystems> {
+
+    @Autowired
+    private YjSystemDao yjSystemDao;
+
+    @Autowired
+    private YjSystemMapper yjSystemMapper;
+    
+    @Autowired
+    private CompanyService companyService;
+
+    public PageInfo<YjSystems> queryAllList(Page<YjSystems> page) {
+        Integer roleId=UserUtils.getCurrentUser().getRoleId();
+        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        List<Integer> comList=Lists.newArrayList();
+        comList.add(companyId);
+        findAllSubNode(companyId, comList);
+        if (roleId!=1) {
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            map.put("companyIds", comList);
+            page.setParams(map);
+        }
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         YjSystems yjSystems = JsonUtil.readValue(page.getObj(), YjSystems.class);
         try {
@@ -40,16 +57,41 @@ public class YjSystemService extends BaseService<YjSystems>{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        List<YjSystems> list = yjSystemDao.queryAllList(yjSystems);
+
+        List<YjSystems> list = yjSystemDao.queryListByCompanyId(yjSystems,page);
         return new PageInfo<YjSystems>(list);
     }
-	
-	public List<YjSystems> queryForExport() {
-            YjSystems yjSystems = new YjSystems();
-            return yjSystemDao.queryAllList(yjSystems);
+
+    
+    /**
+     * 根据父级查询子级
+     * 
+     * @param parentId
+     * @param list
+     */
+    public void findAllSubNode(Integer companyId, List<Integer> comList) {
+        Company record =new Company();
+        record.setParentId(Integer.valueOf(companyId));
+        List<Company> companies=this.companyService.queryListByWhere(record);
+        if (companies!=null) {
+          //  List<Menu> menus=this.menuService.queryListByWhere(record);
+            for (Company c : companies) {
+                comList.add(c.getId());
+                 findAllSubNode(c.getId(),comList);
+            }
         }
-	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+        
+    }
+    
+    
+    public List<YjSystems> queryForExport() {
+        YjSystems yjSystems = new YjSystems();
+        return yjSystemDao.queryAllList(yjSystems);
+    }
+
+    
+    
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -62,9 +104,12 @@ public class YjSystemService extends BaseService<YjSystems>{
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(yjSystems, example);
     }
-        //保存多条数据
-        @Override
-        public void saveAll(List<Map<String,String>> dataList) {
-            yjSystemDao.saveAll(dataList);
-        }
+
+    
+    
+    // 保存多条数据
+    @Override
+    public void saveAll(List<Map<String, String>> dataList) {
+        yjSystemDao.saveAll(dataList);
+    }
 }
