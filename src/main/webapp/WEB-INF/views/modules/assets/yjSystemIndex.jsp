@@ -93,7 +93,7 @@
 								<input id="" name="companyId"
 									class="form-control citySelId hide" type="text"> <input
 									id="" name="companyName" class="form-control citySel"
-									type="text" ReadOnly required />
+									type="text" placeholder="请选择单位名称" ReadOnly required />
 								<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 							</div>
 						</c:when>
