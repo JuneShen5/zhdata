@@ -38,19 +38,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--<div class="search-list" style="display: none;">
-                            <div class="check-search" style="display: inline-block;margin-right: 20px;">
-                                <label class="">责任部门：</label>
-                                <div class="check-search-item" style="width:200px;display: inline-block;">
-                                    <select type="text" sName="companyId" class="form-control search-chosen select-chosen">
-                                        <option value="">全部</option>
-                                        <c:forEach var="company" items="${fns:getList('company')}">
-                                            <option value="${company.id}">${company.name}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>-->
                     </div>
                     <table id="yjSystemTable">
                         <thead>
@@ -74,6 +61,7 @@
                 <input type="text" name="id" class="hide">
                 <!-- 系统信息 -->
                 <fieldset>
+                    <legend>系统信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class=" control-label">单位名称</label>
@@ -93,6 +81,7 @@
                 </fieldset>
                 <!-- 基本信息 -->
                 <fieldset>
+                    <legend>基本信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">审批部门</label>
@@ -174,6 +163,7 @@
                 </fieldset>
                 <!-- 项目建设状态 -->
                 <fieldset>
+                    <legend>项目建设状态</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">系统当前建设阶段</label>
@@ -270,6 +260,7 @@
                 </fieldset>
                 <!-- 项目建设必要性说明 -->
                 <fieldset>
+                    <legend>项目建设必要性说明</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">项目建设立项依据</label>
@@ -340,6 +331,7 @@
                 </fieldset>
                 <!-- 系统整合信息 -->
                 <fieldset>
+                    <legend>系统整合信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">系统部署位置</label>
@@ -529,16 +521,7 @@
                     </div>
                 </fieldset>
                 <!-- 备注与说明 -->
-                <fieldset>
-                    <div class="form-group">
-                        <div class="col-sm-3 column-title column-title-multiple">
-                            <label class="control-label">备注</label>
-                        </div>
-                        <div class="col-sm-7 column-content">
-                            <textarea name="remarks" class="form-control" hasNoSpace="true" rows="3" required></textarea>
-                        </div>
-                    </div>
-                </fieldset>
+                <%@include file="/WEB-INF/views/modules/assets/systemTable/comm-remarks.jsp"%>
             </form>
         </div>
 		<!-- excel导入导出-->
