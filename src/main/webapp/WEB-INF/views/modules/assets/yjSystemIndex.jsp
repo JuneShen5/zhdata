@@ -399,7 +399,7 @@
                         <div class="col-sm-7 column-content">
                             <select name="smfl" class="form-control" required>
                                 <option value="">== 请选择 ==</option>
-                                 <c:forEach var="dict" items="${fns:getDictList('is_secret ')}">
+                                 <c:forEach var="dict" items="${fns:getDictList('is_secret')}">
                                     <option value="${dict.value}">${dict.label}</option>
                                  </c:forEach>
                             </select>

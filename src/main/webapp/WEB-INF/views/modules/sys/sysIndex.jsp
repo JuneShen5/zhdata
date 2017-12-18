@@ -152,7 +152,7 @@
 					</div>
 				  </div>
 				  <iframe class="default-iframe" width="100%" height="100%"
-							src="${ctx}/panel/ass"
+							src="${ctx}/panel/overview"
 							frameborder="0"></iframe>
 				</div>
 			<!--右侧部分结束-->
