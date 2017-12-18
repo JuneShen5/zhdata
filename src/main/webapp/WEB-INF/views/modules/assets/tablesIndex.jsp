@@ -244,10 +244,6 @@
 		};
 		// 弹框关闭之后将多级联动回复初始化
 		function resetPage (status, formId) {
-			infoRow = {};
-			if (formId != '#generate_form') {
-				return
-			}
 			linkRelInfo.reset();
 		}
 		
@@ -282,6 +278,7 @@
 				zIndex : 100,
 				cancel: function () {
 					$("#importAll_btn").attr("disabled", "disabled");
+					infoRow = {};
 				},
 				content : $("#new_layer_form")
 			});
@@ -436,13 +433,14 @@
 								infoRow.nameEn = data
 							}
 						});
+						infoRow.companyName = '';
 						infoRow.elementList = res.elementList;
 					} else {
 						infoRow = res;
 					}
 				}
 			})
-			loadData(infoRow);
+			loadToData(infoRow, 'generate_form');
 			$("#generate_form").validate().form();
 			$("#elementTable").bootstrapTable("load", infoRow.elementList);
 			layer.open({
@@ -554,7 +552,7 @@
 		
 		function datailElementRow (id) {
 			var row = $("#elementTable").bootstrapTable('getRowByUniqueId', id);
-			loadData(row);
+			loadToData(row, 'elementform');
 			$("#elementform").find("input").each(function () {
 				$(this).attr("disabled","disabled");
 			});
