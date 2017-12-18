@@ -71,6 +71,7 @@
                 <input type="text" name="id" class="hide">
                 <!-- 系统信息 -->
                 <fieldset>
+                    <legend>系统信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class=" control-label">单位名称</label>
@@ -103,6 +104,7 @@
                 </fieldset>
                 <!-- 基本信息 -->
                 <fieldset>
+                    <legend>基本信息</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">审批部门</label>
@@ -205,6 +207,7 @@
                 </fieldset>
                 <!-- 系统建设必要性 -->
                 <fieldset>
+                    <legend>系统建设必要性</legend>
                     <div class="form-group">
                         <div class="col-sm-3 column-title">
                             <label class="control-label">建设紧迫程度</label>
@@ -260,16 +263,7 @@
                     </div>
                 </fieldset>
                 <!-- 备注与说明 -->
-                <fieldset>
-                    <div class="form-group">
-                        <div class="col-sm-3 column-title column-title-multiple">
-                            <label class="control-label">备注</label>
-                        </div>
-                        <div class="col-sm-7 column-content">
-                            <textarea name="remarks" hasNoSpace="true" class="form-control" rows="3" required></textarea>
-                        </div>
-                    </div>
-                </fieldset>
+                <%@include file="/WEB-INF/views/modules/assets/systemTable/comm-remarks.jsp"%>
             </form>
         </div>
         
