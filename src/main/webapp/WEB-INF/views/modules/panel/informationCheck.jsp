@@ -343,7 +343,8 @@
 					endMethod(formId, "close");
 				}
 			});
-			loadData(row);
+			// loadData(row);
+			loadToData(row, 'eform')
 			// 然后将所有表单中的选项做一个禁选中操作
 			$(formId).find("input").each(function () {
 				$(this).attr("disabled","disabled");
@@ -468,7 +469,8 @@
                 row = $(elementTableId2).bootstrapTable('getRowByUniqueId', id);
             }
             mOpenDetail($(elementLayerId),$(elementFormId));
-            loadData(row);
+            // loadData(row);
+            loadToData(row, 'elementform')
             // 然后将所有表单中的选项做一个禁选中操作
             $(elementFormId).find("input").each(function () {
                 $(this).attr("disabled","disabled");

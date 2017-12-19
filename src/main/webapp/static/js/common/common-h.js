@@ -444,7 +444,6 @@ var TableInit = function(tableOption,btnOption) {
         this.$element.find('form').validate({
             ignore: ":hidden:not(select,input)",
             submitHandler: function(form){
-                console.log(that.options.submitHandle);
                 if (!that.options.submitHandle){
                     that.defaultSubmit();
                 }else {
@@ -458,6 +457,9 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
+        $(document).on('click', '.layui-layer-btn0', function () {
+            $(this).text('保存中...');
+        });
         that.$element.find('form').ajaxSubmit({
             url : that.options.submitUrl,
             type : 'post',
@@ -645,7 +647,7 @@ var TableInit = function(tableOption,btnOption) {
 			var html = '<div style="display: inline-block; vertical-align: top;"><img src="${ctxStatic}/js/plugins/webuploader/img/excel.png"  alt="excel" /></div>'+
 						'<div id="' + file.id + '" class="item" style="display: inline-block; vertical-align: top;">' +
 				        '<h4 class="info">' + file.name + '</h4>' +
-				    '</div>'
+				    '</div>';
 			$("#file-message").html(html);
 		});
 	

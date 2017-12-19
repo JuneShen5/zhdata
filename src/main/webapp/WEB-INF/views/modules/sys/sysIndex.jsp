@@ -107,7 +107,7 @@
 							   href="#"><i class="iconfont gm-help"></i>帮助</a>
 							<ul class="dropdown-menu dropdown-alerts" style="left: -50px;right: auto;">
 								<li>
-									<a href="${ctxStatic}/upload/word/OperationManual.doc">
+									<a href="${ctxStatic}/upload/OperationManual.docx">
 										<div>
 											用户操作手册(暂缺)
 										</div>

@@ -20,7 +20,9 @@
 .wrapper {
 	padding: 0 20px;
 }
-
+.wrapper td{
+	border: solid 1px #ccc;
+}
 .ibox {
 	clear: both;
 	margin-bottom: 25px;
@@ -251,7 +253,29 @@ h3 {
 					toolbox: {
 						show: true,
 						feature : {
-							dataView : {show: true, readOnly: false},
+							dataView : {
+							    show: true,
+								optionToContent: function(opt) {
+									var axisData = opt.yAxis[0].data;
+									var series = opt.series;
+									var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+										+ '<td>部门名称</td>'
+										+ '<td>' + series[0].name + '</td>'
+                                        + '<td>' + series[1].name + '</td>'
+                                        + '<td>' + series[2].name + '</td>'
+										+ '</tr>';
+									for (var i = 0, l = axisData.length; i < l; i++) {
+										table += '<tr>'
+											+ '<td>' + axisData[i] + '</td>'
+											+ '<td>' + series[0].data[i] + '</td>'
+											+ '<td>' + series[1].data[i] + '</td>'
+                                            + '<td>' + series[2].data[i] + '</td>'
+											+ '</tr>';
+									}
+									table += '</tbody></table>';
+									return table;
+								}
+							},
 							magicType: {show: true, type: ['line', 'bar']},
 							restore : {show: true},
 							saveAsImage : {show: true}
@@ -300,13 +324,17 @@ h3 {
                     var selectedItems = $('#chartSelect1').val();
                     var ids = '';
                     axisChart1.showLoading();
-                    $.each(selectedItems, function (index, item) {
-                        if (index === selectedItems.length-1){
-                            ids += item;
-						}else{
-                            ids += item + ',';
-						}
-                    });
+                    if (!selectedItems){
+                        selectedItems = '';
+					}else {
+                        $.each(selectedItems, function (index, item) {
+                            if (index === selectedItems.length-1){
+                                ids += item;
+                            }else{
+                                ids += item + ',';
+                            }
+                        });
+					}
                     $.ajax({
                         url:'${ctx}/panel/ass/queryCountList',
                         dataType: 'json',
@@ -384,7 +412,29 @@ h3 {
                         show: true,
                         orient: 'vertical',
                         feature : {
-                            dataView : {show: true, readOnly: false},
+                            dataView : {show: true,
+                                optionToContent: function(opt) {
+                                    var axisData = opt.xAxis[0].data;
+                                    var series = opt.series;
+                                    console.log(series.length);
+                                    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+                                        + '<td>部门名称</td>';
+                                    for (var i = 0; i < series.length; i++) {
+                                        table += '<td>' + series[i].name + '</td>';
+                                    }
+                                    table += '</tr>';
+									for (var k = 0; k < axisData.length; k++) {
+										table += '<tr>'
+                                        table += '<td>' + axisData[k] + '</td>';
+										for (var j = 0; j < series.length; j++) {
+											table += '<td>' + series[j].data[k] + '</td>';
+										}
+                                        table += '</tr>';
+									}
+                                    table += '</tbody></table>';
+                                    return table;
+                                }
+							},
                             magicType: {show: true, type: ['line', 'bar']},
                             restore : {show: true},
                             saveAsImage : {show: true}
@@ -424,13 +474,17 @@ h3 {
                     var selectedItems = $('#chartSelect2').val();
                     var ids = '';
                     axisChart2.showLoading();
-                    $.each(selectedItems, function (index, item) {
-                        if (index === selectedItems.length-1){
-                            ids += item;
-                        }else{
-                            ids += item + ',';
-                        }
-                    });
+                    if (!selectedItems){
+                        selectedItems = '';
+                    }else {
+                        $.each(selectedItems, function (index, item) {
+                            if (index === selectedItems.length-1){
+                                ids += item;
+                            }else{
+                                ids += item + ',';
+                            }
+                        });
+                    }
                     $.ajax({
                         url:'${ctx}/panel/ass/queryCountList',
                         dataType: 'json',
@@ -630,105 +684,6 @@ h3 {
             }
         });
     });
-    // 资源分类
-    // 获取数据
-	<%--$(function () {--%>
-        <%--var axisChart = echarts.init(document.getElementById("main4"));--%>
-        <%--axisChart.showLoading();--%>
-		<%--$.ajax({--%>
-			<%--url:'${ctx}/panel/ass/queryCountList',--%>
-			<%--dataType: 'json',--%>
-			<%--type:'get',--%>
-			<%--data: {--%>
-                <%--pageNum: 1,--%>
-                <%--pageSize: 6,--%>
-                <%--obj: JSON.stringify({'name': ''}),--%>
-                <%--companyIds: ''--%>
-            <%--},--%>
-			<%--success: function (data) {--%>
-                <%--axisChart.hideLoading();--%>
-				<%--var chartData4 = {--%>
-					<%--companyName: [],--%>
-					<%--sourceName: ['信息系统','信息项','信息资源','基础资源','主题资源'],--%>
-					<%--data: []--%>
-				<%--};--%>
-				<%--$.each(data.rows,function (index,pItem) {--%>
-                    <%--$('<option></option>').val(index).text(pItem.companyName).appendTo($('#chartSelect2'));--%>
-				    <%--var dataInit = {};--%>
-					<%--var dataIndex = "data" + (index+1);--%>
-					<%--var dataArr = [];--%>
-                    <%--chartData4.companyName.push(pItem.companyName);--%>
-                    <%--dataArr.push(pItem.sCount);--%>
-                    <%--dataArr.push(pItem.eCount);--%>
-                    <%--dataArr.push(pItem.iCount);--%>
-                    <%--dataArr.push(pItem.iCount1);--%>
-                    <%--dataArr.push(pItem.iCount2);--%>
-                    <%--dataInit['name'] = pItem.companyName;--%>
-                    <%--dataInit['type'] = 'bar';--%>
-                    <%--dataInit['data'] = dataArr;--%>
-                    <%--chartData4.data.push(dataInit);--%>
-				<%--});--%>
-                <%--if (data.data.length>5){--%>
-                    <%--chartData4.companyName = chartData4.companyName.slice(0,5);--%>
-                    <%--chartData4.data = chartData4.data.slice(0,5);--%>
-                <%--}--%>
-                <%--$('#chartSelect2').addClass('selectpicker').selectpicker({--%>
-                    <%--maxOptionsText: '最多选择7个显示项！'--%>
-                <%--}).show();--%>
-				<%--var axisoption2 = {--%>
-					<%--title: {--%>
-					    <%--show: false,--%>
-						<%--text: ' ',--%>
-						<%--subtext: '各部门资源数据对比'--%>
-					<%--},--%>
-					<%--tooltip: {--%>
-						<%--trigger: 'axis',--%>
-						<%--axisPointer: {--%>
-							<%--type: 'shadow'--%>
-						<%--}--%>
-					<%--},--%>
-					<%--toolbox: {--%>
-						<%--show: true,--%>
-                        <%--orient: 'vertical',--%>
-						<%--feature : {--%>
-							<%--dataView : {show: true, readOnly: false},--%>
-							<%--magicType: {show: true, type: ['line', 'bar']},--%>
-							<%--restore : {show: true},--%>
-							<%--saveAsImage : {show: true}--%>
-						<%--},--%>
-						<%--iconStyle: {--%>
-							<%--normal: {--%>
-                                <%--textPosition: 'left'--%>
-                            <%--}--%>
-                        <%--},--%>
-                        <%--right: '.8%'--%>
-					<%--},--%>
-					<%--legend: {--%>
-						<%--data: chartData4.companyName--%>
-					<%--},--%>
-					<%--grid: {--%>
-						<%--left: '3%',--%>
-						<%--right: '4%',--%>
-						<%--bottom: '3%',--%>
-						<%--containLabel: true--%>
-					<%--},--%>
-					<%--color: ['#A878C0','#6ABD78','#30C0C0','#FFC078','#0090D8','#f17c67','#fdb933','#C7FFEC'],--%>
-					<%--xAxis: {--%>
-						<%--type: 'category',--%>
-						<%--data: chartData4.sourceName--%>
-					<%--},--%>
-					<%--yAxis: {--%>
-						<%--type: 'value',--%>
-						<%--boundaryGap: [0, 0.01]--%>
-					<%--},--%>
-					<%--series: chartData4.data--%>
-				<%--};--%>
-				<%--axisChart.setOption(axisoption2);--%>
-				<%--$(window).resize(axisChart.resize);--%>
-
-			<%--}--%>
-		<%--});--%>
-    <%--});--%>
 </script>
 </html>
 
