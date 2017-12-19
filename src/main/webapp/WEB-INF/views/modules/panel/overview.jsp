@@ -20,7 +20,9 @@
 .wrapper {
 	padding: 0 20px;
 }
-
+.wrapper td{
+	border: solid 1px #ccc;
+}
 .ibox {
 	clear: both;
 	margin-bottom: 25px;
@@ -251,7 +253,29 @@ h3 {
 					toolbox: {
 						show: true,
 						feature : {
-							dataView : {show: true, readOnly: false},
+							dataView : {
+							    show: true,
+								optionToContent: function(opt) {
+									var axisData = opt.yAxis[0].data;
+									var series = opt.series;
+									var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+										+ '<td>部门名称</td>'
+										+ '<td>' + series[0].name + '</td>'
+                                        + '<td>' + series[1].name + '</td>'
+                                        + '<td>' + series[2].name + '</td>'
+										+ '</tr>';
+									for (var i = 0, l = axisData.length; i < l; i++) {
+										table += '<tr>'
+											+ '<td>' + axisData[i] + '</td>'
+											+ '<td>' + series[0].data[i] + '</td>'
+											+ '<td>' + series[1].data[i] + '</td>'
+                                            + '<td>' + series[2].data[i] + '</td>'
+											+ '</tr>';
+									}
+									table += '</tbody></table>';
+									return table;
+								}
+							},
 							magicType: {show: true, type: ['line', 'bar']},
 							restore : {show: true},
 							saveAsImage : {show: true}
@@ -388,7 +412,29 @@ h3 {
                         show: true,
                         orient: 'vertical',
                         feature : {
-                            dataView : {show: true, readOnly: false},
+                            dataView : {show: true,
+                                optionToContent: function(opt) {
+                                    var axisData = opt.xAxis[0].data;
+                                    var series = opt.series;
+                                    console.log(series.length);
+                                    var table = '<table style="width:100%;text-align:center"><tbody><tr>'
+                                        + '<td>部门名称</td>';
+                                    for (var i = 0; i < series.length; i++) {
+                                        table += '<td>' + series[i].name + '</td>';
+                                    }
+                                    table += '</tr>';
+									for (var k = 0; k < axisData.length; k++) {
+										table += '<tr>'
+                                        table += '<td>' + axisData[k] + '</td>';
+										for (var j = 0; j < series.length; j++) {
+											table += '<td>' + series[j].data[k] + '</td>';
+										}
+                                        table += '</tr>';
+									}
+                                    table += '</tbody></table>';
+                                    return table;
+                                }
+							},
                             magicType: {show: true, type: ['line', 'bar']},
                             restore : {show: true},
                             saveAsImage : {show: true}

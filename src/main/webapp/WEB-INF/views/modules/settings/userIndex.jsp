@@ -76,7 +76,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">工号：</label>
 				<div class="col-sm-7">
-					<input type="posNum" name="no" class="form-control" required>
+					<input type="text" hasNoSpace="true" name="no" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group">

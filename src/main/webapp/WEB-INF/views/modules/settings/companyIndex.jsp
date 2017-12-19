@@ -303,7 +303,7 @@
  	}
  	// 删除
  	function ztreeDeleteMenu(ids){
- 		layeConfirm = layer.confirm('您确定要删除么？', {
+ 		layeConfirm = layer.confirm('您确定要删除此项吗？（请注意，若此节点下存在子节点，则会一并删除。）', {
  			btn : [ '确定', '取消' ]
  		}, function() {
  			$.post(url + 'delete', {
