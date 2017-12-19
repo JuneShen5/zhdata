@@ -21,6 +21,7 @@ import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.sys.dao.CompanyDao;
 import com.govmade.zhdata.module.sys.mapper.CompanyMapper;
 import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.pojo.Role;
 
 @Service
 public class CompanyService extends BaseService<Company>{
@@ -128,6 +129,11 @@ public class CompanyService extends BaseService<Company>{
             return this.companyDao.queryTotal(page,idList);
         }
        
+    }
+
+    public List<Company> queryForExport() {
+        Company company = new Company();
+        return companyDao.findAll(company);
     }
     
 }

@@ -125,5 +125,10 @@ public class RoleService extends BaseService<Role> {
 		
         return roleDao.findAll();
     }
+
+     public List<Role> queryForExport() {
+         Role role = new Role();
+         return roleDao.findAllList(role);
+     }
     
 }

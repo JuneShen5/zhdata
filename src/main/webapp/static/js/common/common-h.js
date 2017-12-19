@@ -592,7 +592,10 @@ var TableInit = function(tableOption,btnOption) {
 	}
 	
 	// 导入
-	function importData() {
+	function importData(attributeType) {
+		$("#file-message").html("");//清空上次上传后的提示信息
+		$("#message").html("");
+		console.log("attributeType:",attributeType)
 	var importDataLayer	= layer.open({
 			type : 1,
 			title : '导入数据',
@@ -600,7 +603,7 @@ var TableInit = function(tableOption,btnOption) {
 			area : [ '50%', '60%' ],
 			zIndex : 100,
 			success: function(layero, index){
-				initUploader(importDataLayer);
+				initUploader(importDataLayer,attributeType);
 			},
 			content : $(importBox),
 			
@@ -615,13 +618,15 @@ var TableInit = function(tableOption,btnOption) {
 	}
 	
 	//文件导入方法
-	function initUploader(importDataLayer){
+	function initUploader(importDataLayer,attributeType){
 		$("#filePicker").text("上传数据文件");
 		uploader = WebUploader.create({
 			// 选完文件后，是否自动上传。
 			auto: true,
 			// swf文件路径
 			swf: '${ctxStatic}/js/plugins/webuploader/Uploader.swf',
+			//传输的参数
+			formData: {"attributeType":attributeType},//参数列表  
 			// 文件接收服务端。
 			server: uploaderServer+'/importData',
 			// 选择文件的按钮。可选。

@@ -27,10 +27,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Maps;
-import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
-import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -81,7 +79,12 @@ public class ImportExcelImpl{
      */
     protected int commitRow = 500;
     
-    protected Map<String, Map<String,String>> dictMap = null; //存放数据字典
+    protected Map<String, Map<String,String>> dictMap = new HashMap<String, Map<String,String>>(); //存放数据字典
+    protected Map<String,Integer> companyMap = new HashMap<String, Integer>();
+    protected Map<String,Integer> siteMap =  new HashMap<String, Integer>();
+    protected Map<String,Integer> roleMap =  new HashMap<String, Integer>();
+    protected Map<String,Integer> menuMap =  new HashMap<String, Integer>();
+    protected Map<String,Integer> sysMap =  new HashMap<String, Integer>();
     
     protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
 
@@ -336,16 +339,20 @@ public class ImportExcelImpl{
             case "radio":
             case "check":
             case "checkbox":
-                if(this.dictMap == null){
+                if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Id = dictMap.get(inputValue).get(name);
                 break;
             case "companyselect":
-                Company company = new Company();
-                company.setName(name);
-                Id = String.valueOf(SysUtils.getCompany(company).getId());
+                if(this.companyMap.size() == 0){
+                    List<Company> companyList= SysUtils.getCompanyList();
+                    for(Company company : companyList){
+                        companyMap.put(company.getName(),company.getId());
+                    }
+                }
+                Id = String.valueOf(companyMap.get(name));
                 break;
             case "linkselect":
 //                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
@@ -370,35 +377,55 @@ public class ImportExcelImpl{
             if (!StringUtil.isEmpty(type)) {
                 switch (type.trim().toLowerCase()) {
                 case "company":
-                    Company company = new Company();
-                    company.setName(name);
-                    Id = String.valueOf(SysUtils.getCompany(company).getId());
+                    if(this.companyMap.size() == 0){
+                        List<Company> companyList= SysUtils.getCompanyList();
+                        for(Company company : companyList){
+                            companyMap.put(company.getName(),company.getId());
+                        }
+                    }
+                    Id = String.valueOf(companyMap.get(name));
                     break;
                 case "site":
-                    Site site = new Site();
-                    site.setName(name);
-                    Id = String.valueOf(SysUtils.getSite(site).getId());
+                    if(this.siteMap.size() == 0){
+                        List<Site> siteList= SysUtils.getSiteList();
+                        for(Site site : siteList){
+                            siteMap.put(site.getName(),site.getId());
+                        }
+                    }
+                    Id = String.valueOf(siteMap.get(name));
                     break;
                 case "role":
-                    Role role = new Role();
-                    role.setName(name);
-                    Id = String.valueOf(SysUtils.getRole(role).getId());
+                    if(this.roleMap.size() == 0){
+                        List<Role> roleList= SysUtils.getRoleList();
+                        for(Role role : roleList){
+                            roleMap.put(role.getName(),role.getId());
+                        }
+                    }
+                    Id = String.valueOf(roleMap.get(name));
                     break;
                 case "menu":
-                    Menu menu = new Menu();
-                    menu.setName(name);
-                    Id = String.valueOf(SysUtils.getMenu(menu).getId());
+                    if(this.menuMap.size() == 0){
+                        List<Menu> menuList= SysUtils.getMenuList();
+                        for(Menu menu : menuList){
+                            menuMap.put(menu.getName(),menu.getId());
+                        }
+                    }
+                    Id = String.valueOf(menuMap.get(name));
                     break;
                 case "sys":
-                    Systems systems = new Systems();
-                    systems.setNameCn(name);
-                    Id = String.valueOf(SysUtils.getSys(systems).getId());
+                    if(this.sysMap.size() == 0){
+                        List<Systems> sysList= SysUtils.getSysList();
+                        for(Systems systems : sysList){
+                            sysMap.put(systems.getNameCn(),systems.getId());
+                        }
+                    }
+                    Id = String.valueOf(sysMap.get(name));
                     break;
                 default:
                     break;
                 }
             }
-            return name;
+            return Id;
         }
     /**
      * 查询所有的dict数据并保存

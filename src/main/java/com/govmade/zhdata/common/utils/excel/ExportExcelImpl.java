@@ -84,20 +84,10 @@ public abstract class ExportExcelImpl{
     public ExportExcelImpl(String fileName,String title,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response){
         this.fileName = fileName;   //导出的文件名
         this.dataList = dataList;   //查询出来的实体数据
-        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
-        this.title = title;       //sheet名
-        this.response = response;
-    }
-    
-    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList) throws IOException{
-        this.fileName = fileName;   //导出的文件名
-        this.dataList = dataList;   //查询出来的实体数据
 //        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
         this.rowName = rowName;
         this.title = title;       //sheet名
-        File  fi = new File(templatePath+templatFile);
-        InputStream in = new FileInputStream(fi);
-        this.workbook = new XSSFWorkbook(in);
+        this.response = response;
     }
     
     public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
@@ -169,8 +159,9 @@ public abstract class ExportExcelImpl{
     /* 
      * 导出数据 
      * */  
-    public Workbook createExcel() throws Exception{  
+    public Workbook createExcel() throws Exception{
         XSSFSheet sheet = workbook.getSheetAt(0);
+        workbook.setSheetName(0, this.fileName);
         //sheet样式定义【getColumnTopStyle()/getStyle()均为自定义方法 - 在下面  - 可扩展】  
         this.columnTopStyle = this.getColumnTopStyle(workbook);//获取列头样式对象  
         this.style = this.getStyle(workbook);//单元格样式对象  
@@ -193,7 +184,8 @@ public abstract class ExportExcelImpl{
        
        int lastRowNum = sheet.getLastRowNum();
        
-       if(workbook == null){ 
+       if(lastRowNum <1){
+           //模板中自己没做过设置的
            int valueStartRow=3;
            int columnNum = rowName.length;
            //没有excel模板的头部信息导出
@@ -204,15 +196,21 @@ public abstract class ExportExcelImpl{
                for(int n=0;n<columnNum;n++){
                    Cell  cellRowName = rowRowName.createCell(n);               //创建列头对应个数的单元格  
                    cellRowName.setCellType(Cell.CELL_TYPE_STRING);             //设置列头单元格的数据类型  
-                   RichTextString text = new XSSFRichTextString(rowName[n].split("_")[m]);
-//                 RichTextString text = new HSSFRichTextString(rowName[n]);  
-                   cellRowName.setCellValue(text);                                 //设置列头单元格的值  
+                   if(m==valueStartRow-1){
+                       String rowNameCell = rowName[n];
+                       int index = rowNameCell.indexOf("_");
+                       index = rowNameCell.indexOf("_", index+1); //英文有些最后一个_后面时空的，所有按照第二个_的位置来区分
+                       RichTextString text = new XSSFRichTextString(rowNameCell.substring(index+1,rowNameCell.length()));
+                       cellRowName.setCellValue(text); //设置列头单元格的值     
+                   }else{
+                       RichTextString text = new XSSFRichTextString(rowName[n].split("_")[m]);
+                       cellRowName.setCellValue(text); //设置列头单元格的值     
+                   }
                    cellRowName.setCellStyle(columnTopStyle);                       //设置列头单元格样式  
                }
-//               if(m==1 || m==2){
-//                   Row hiddenRow =  sheet.getRow(m); 
-//                   hiddenRow.setZeroHeight(true);                             //将第二、三行隐藏
-//               }
+                   if(m==1 || m==2){
+                       rowRowName.setZeroHeight(true);//将行隐藏
+                   }
            }
            
        }else{
@@ -230,12 +228,10 @@ public abstract class ExportExcelImpl{
                }
              
            }
+           for(int j=0;j<2;j++){
+               sheet.getRow(lastRowNum+j).setZeroHeight(true);//将行隐藏
+           }
        }
-       for(int j=0;j<2;j++){
-           sheet.getRow(lastRowNum+j).setZeroHeight(true);//将行隐藏
-       }
-
-       
    }
    
    /**

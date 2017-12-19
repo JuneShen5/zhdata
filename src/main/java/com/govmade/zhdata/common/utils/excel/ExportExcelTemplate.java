@@ -1,5 +1,6 @@
 package com.govmade.zhdata.common.utils.excel;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
+import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
@@ -47,11 +49,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         super(fileName, title, templatFile, rowName, dataList, response);
     }  
     
-    public ExportExcelTemplate(String fileName, String title, String templatFile, String[] rowName,
-            List<Map<String, Object>> dataList) throws Exception {
-        super(fileName, title, templatFile, rowName, dataList);
-    }
-    
     @Override
     protected void exportValue(XSSFSheet sheet) {
       int lastRowNum = sheet.getLastRowNum();
@@ -64,16 +61,16 @@ public class ExportExcelTemplate extends ExportExcelImpl {
           String  inputValue = "";
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
           String[] CellValArr = CellVal.split("_");
-          if(CellValArr.length>1){
+          if(!Arrays.asList(unSelect).contains(CellValArr[0])){
               //有关联字段的数据
               String columType = CellValArr[0];
-              String columTypeValue = CellValArr[1];
-              List<String> templateValue = getTemplateValue(columType,columTypeValue); //下拉选框数据
+//              String columTypeValue = CellValArr[1];
+              List<String> templateValue = getTemplateValue(CellValArr); //下拉选框数据
               int templateValueSize = 0;
               try {
                   templateValueSize = templateValue.size();
                 } catch (Exception e) {
-                    throw new RuntimeException(columType+"_"+columTypeValue+"查询关联字段错误");
+                    throw new RuntimeException(columType+"查询关联字段错误");
                 }
               
               if(templateValueSize>0 && templateValueSize<10){
@@ -117,12 +114,13 @@ public class ExportExcelTemplate extends ExportExcelImpl {
   //添加附页信息
     private void attachedSheetFunc(List<List<String>> valueList,int maxMapLen){
         Sheet attachedSheet = workbook.getSheetAt(1);
+        workbook.setSheetName(1, "附页");
         for(int i=0;i<maxMapLen;i++){
             attachedSheet.createRow(i);
         }
         for(int n=0;n<valueList.size();n++){
             for(int m=0;m<valueList.get(n).size();m++){
-                attachedSheet.getRow(n).createCell(m).setCellValue(valueList.get(n).get(m));
+                attachedSheet.getRow(m).createCell(n).setCellValue(valueList.get(n).get(m));
             }
         }
     }
@@ -133,13 +131,14 @@ public class ExportExcelTemplate extends ExportExcelImpl {
      * @param columTypeValue dict的type
      * @return Map<id,n>
      */
-        protected List<String> getTemplateValue(String inputType,String columTypeValue){
-            List<String> templateValue = null;
+        protected List<String> getTemplateValue(String[] inputTypeArr){
+            List<String> templateValue =  Lists.newArrayList();
             String inputValue = "";
+            String inputType = inputTypeArr[0];
             switch(inputType)
             {
             case "select":
-                inputValue =  StringUtil.toUnderScoreCase(columTypeValue); //传过来的是大写的驼峰为了避免联动字段出错
+                inputValue =  StringUtil.toUnderScoreCase(inputTypeArr[1]); //传过来的是大写的驼峰为了避免联动字段出错
                 templateValue = getSelect(inputValue);
                 break;
             case "dictselect":
@@ -149,7 +148,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 if(this.dictMap == null){
                     getAllDictToList();
                 }
-                inputValue = StringUtil.toUnderScoreCase(columTypeValue);
+                inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 templateValue = dictMap.get(inputValue);
                 break;
             case "companyselect":
@@ -178,7 +177,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
          * @return
          */
         private List<String> getSelect(String type) {
-            List<String> templateValue = null;
+            List<String> templateValue = Lists.newArrayList();
             if (!StringUtil.isEmpty(type)) {
                 switch (type.trim().toLowerCase()) {
                 case "company":

@@ -28,7 +28,12 @@ import com.govmade.zhdata.module.sys.pojo.Site;
  */  
 public class ExportExcelData extends ExportExcelImpl {
     
-    protected Map<String, Map<String,String>> dictMap = null;
+    protected Map<String, Map<String,String>> dictMap = new HashMap<String, Map<String,String>>();
+    protected Map<Integer,String> companyMap = new HashMap<Integer, String>();
+    protected Map<Integer,String> siteMap = new HashMap<Integer, String>();
+    protected Map<Integer,String> roleMap = new HashMap<Integer, String>();
+    protected Map<Integer,String> menuMap = new HashMap<Integer, String>();
+    protected Map<Integer,String> sysMap = new HashMap<Integer, String>();
     
     public ExportExcelData(String fileName, String title, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
@@ -61,10 +66,10 @@ public class ExportExcelData extends ExportExcelImpl {
                        newRow.createCell(j).setCellValue(data);//没有关联表的数据
                    }else{
                        //有关联表的数据
-                       String columTypeValue = inputTypeArr[1]; 
+//                       String columTypeValue = inputTypeArr[1];
 //                       Map<String,String> templateValue = getTemplateValue(columType,columTypeValue); //对应下拉选框数据
 //                       newRow.createCell(j).setCellValue(templateValue.get(data));//
-                       String value = getTemplateValue(columType,columTypeValue,data);
+                       String value = getTemplateValue(inputTypeArr,data);
                        newRow.createCell(j).setCellValue(value);
                    }
                }
@@ -81,27 +86,39 @@ public class ExportExcelData extends ExportExcelImpl {
      * @param data 管理数据的ID值
      * @return
      */
-        protected String getTemplateValue(String inputType,String columTypeValue,String data){
+        protected String getTemplateValue(String[] inputTypeArr,String data){
+            String inputType = inputTypeArr[0];
             String inputValue = "";
             String name = "";
+            Integer Id = Integer.valueOf(data);
             switch(inputType)
             {
             case "select":
-                inputValue =  StringUtil.toUnderScoreCase(columTypeValue); //传过来的是大写的驼峰为了避免联动字段出错
-                name = getSelect(inputValue,data);
+                
+                inputValue =  StringUtil.toUnderScoreCase(inputTypeArr[1]); //传过来的是大写的驼峰为了避免联动字段出错
+                name = getSelect(inputValue,Id);
                 break;
             case "dictselect":
             case "radio":
             case "check":
             case "checkbox":
-                if(this.dictMap == null){
+                if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
-                inputValue = StringUtil.toUnderScoreCase(columTypeValue);
-                name = dictMap.get(inputValue).get(data);
+                inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
+                name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
             case "companyselect":
-                name = SysUtils.getCompanyName(Integer.valueOf(data));
+                if(this.companyMap.size() == 0){
+                    List<Company> companyList= SysUtils.getCompanyList();
+                    System.out.println("Id1:"+Id);
+                    for(Company company : companyList){
+                        companyMap.put(company.getId(), company.getName());
+                    }
+                }
+                System.out.println("Id:"+Id);
+                name = companyMap.get(Id);
+//                name = SysUtils.getCompanyName(Integer.valueOf(data));
                 break;
             case "linkselect":
 //                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
@@ -121,25 +138,54 @@ public class ExportExcelData extends ExportExcelImpl {
          * @param type dict的type类型
          * @return
          */
-        private String getSelect(String type,String data) {
-            Integer Id = Integer.valueOf(data);
+        private String getSelect(String type,Integer Id) {
             String name = "";
             if (!StringUtil.isEmpty(type)) {
                 switch (type.trim().toLowerCase()) {
                 case "company":
-                    name = SysUtils.getCompanyName(Id);
+                    if(this.companyMap.size() == 0){
+                        List<Company> companyList= SysUtils.getCompanyList();
+                        for(Company company : companyList){
+                            companyMap.put(company.getId(), company.getName());
+                        }
+                    }
+                    name = companyMap.get(Integer.valueOf(Id));
                     break;
                 case "site":
-                    name = SysUtils.getSiteName(Id);
+                    if(this.siteMap.size() == 0){
+                        List<Site> siteList= SysUtils.getSiteList();
+                        for(Site site : siteList){
+                            siteMap.put(site.getId(), site.getName());
+                        }
+                    }
+                    name = siteMap.get(Id);
                     break;
                 case "role":
-                    name = SysUtils.getRoleName(Id);
+                    if(this.roleMap.size() == 0){
+                        List<Role> roleList= SysUtils.getRoleList();
+                        for(Role role : roleList){
+                            roleMap.put(role.getId(), role.getName());
+                        }
+                    }
+                    name = roleMap.get(Id);
                     break;
                 case "menu":
-                    name = SysUtils.getMenuName(Id);
+                    if(this.menuMap.size() == 0){
+                        List<Menu> menuList= SysUtils.getMenuList();
+                        for(Menu menu : menuList){
+                            menuMap.put(menu.getId(), menu.getName());
+                        }
+                    }
+                    name = menuMap.get(Id);
                     break;
                 case "sys":
-                    name = SysUtils.getSysName(Id);
+                    if(this.sysMap.size() == 0){
+                        List<Systems> sysList= SysUtils.getSysList();
+                        for(Systems systems : sysList){
+                            sysMap.put(systems.getId(), systems.getNameCn());
+                        }
+                    }
+                    name = sysMap.get(Id);
                     break;
                 default:
                     break;

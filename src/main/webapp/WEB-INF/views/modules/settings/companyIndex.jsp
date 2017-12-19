@@ -68,6 +68,8 @@
 		<div class="text-center">
 			<button id="examineButton" data-toggle="modal" class="btn btn-green"
 					onclick="menuAdd()"><i class="fa fa-plus-square-o"></i> 新增</button>
+					<!--  <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
+                     <button class="btn btn-purple" type="button" onclick="importData(7);"><i class='fa fa-sign-in'></i> Excel导入</button> -->
 		</div>
 	</div>
 </div>
@@ -139,11 +141,12 @@
 			<ul id="menuTree" class="ztree" style="margin-top:0; width:100%; height: 300px;"></ul>
 		</div>
 	</div>
-	
+	<c:set var="type" value="7" />
+<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <script src="${ctxStatic}/js/plugins/ztree/jquery.ztree.all.min.js"></script>
-
 <script>
+	var uploaderServer = "company";
 	var formId = "#eform";
 	var tableId = "";
 	var url = '${ctx}/settings/company/';

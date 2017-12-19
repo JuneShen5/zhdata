@@ -44,10 +44,6 @@ public class NjSystemController  extends BaseController<NjSystems>{
         super.startRow = 7;
         super.columnIndex = 1;
     }       
-    @Override
-    protected Integer getattributeType(){
-        return 3;
-    }
     
     @Override
     protected BaseService<NjSystems> getService() {

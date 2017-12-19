@@ -1,12 +1,7 @@
 package com.govmade.zhdata.module.sys.web;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,16 +11,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
+import com.govmade.zhdata.common.persistence.BaseController;
+import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.CipherUtil;
+import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.sys.pojo.User;
 import com.govmade.zhdata.module.sys.service.UserService;
 
 @Controller
 @RequestMapping(value = "settings/user")
-public class UserController {
+public class UserController extends BaseController<User>{
 
     @Autowired
     private UserService userService;
@@ -158,6 +157,35 @@ public class UserController {
             e.printStackTrace();
             throw new Exception(Global.HANDLE_ERROR);
         }
+    }
+
+    @Override
+    protected void getFileName() {
+        super.chTableName = "用户机构";
+        super.chTableName = "用户机构";
+        super.templatFile = "yhTemplate.xlsx";
+    }
+
+    @Override
+    protected void getReadExcelStarLine() {
+        super.commitRow = 500;
+        super.startRow = 3;
+        super.columnIndex = 0;
+    }
+
+    @Override
+    protected BaseService<User> getService() {
+        return userService;
+    }
+
+    @Override
+    protected List<Map<String, Object>> queryDataForExp() {
+        List<User> user = userService.queryForExport();
+        List<Map<String, Object>> infoList = Lists.newArrayList();
+        for (User data : user) {
+            infoList.add(MapUtil.beansToMap(data));
+        }
+        return infoList;
     }
     
     

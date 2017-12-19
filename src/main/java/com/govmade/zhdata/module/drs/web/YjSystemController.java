@@ -45,10 +45,6 @@ public class YjSystemController extends BaseController<YjSystems>{
         super.startRow = 7;
         super.columnIndex = 1;
     }       
-    @Override
-    protected Integer getattributeType(){
-        return 3;
-    }
     
     @Override
     protected BaseService<YjSystems> getService() {

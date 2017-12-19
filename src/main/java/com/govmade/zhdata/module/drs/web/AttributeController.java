@@ -64,15 +64,16 @@ public class AttributeController {
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(Attribute attribute) throws Exception {
         try {
-            if (attribute.getId() == null) {
-                attribute.preInsert();
+            String nameEn = attribute.getNameEn().trim();
+            if(nameEn==""||nameEn == null){
                 String pinyin = ChineseTo.getPingYin(attribute.getNameCn());
                 attribute.setNameEn(pinyin);
+            }
+            if (attribute.getId() == null) {
+                attribute.preInsert();
                 this.attributeService.save(attribute);
             } else {
                 attribute.preUpdate();
-                String pinyin = ChineseTo.getPingYin(attribute.getNameCn());
-                attribute.setNameEn(pinyin);
                 this.attributeService.updateSelective(attribute);
             }
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);
