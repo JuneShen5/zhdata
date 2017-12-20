@@ -114,7 +114,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="${ctxStatic}/upload/excel/ChromeStandalone_56.0.2924.87_Setup.exe">
+									<a href="${ctxStatic}/upload/ChromeStandalone_56.0.2924.87_Setup.exe">
 										<div>
 											适配浏览器下载
 										</div>
