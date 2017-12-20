@@ -155,6 +155,5 @@
             $('#layer_form').layerSetting('deleteRow', deleteOptions);
         }
     </script>
-
     </body>
 </html>

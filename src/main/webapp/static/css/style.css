@@ -7794,3 +7794,18 @@ blockquote:nth-child(1) {
 		transform:rotate(0)
 	}
 }
+
+.a-disabled{
+	height: 28px;
+	line-height: 28px;
+	margin: 0 6px;
+	padding: 0 15px;
+	background-color: #2e8ded;
+	color: #fff;
+	border: 1px solid #4898d5;
+	border-radius: 2px;
+	font-weight: 400;
+	text-decoration: none;
+	opacity: .6;
+	cursor: not-allowed;
+}
