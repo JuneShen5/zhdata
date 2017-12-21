@@ -109,7 +109,7 @@
 								<li>
 									<a href="${ctxStatic}/upload/OperationManual.docx">
 										<div>
-											用户操作手册(暂缺)
+											用户操作手册
 										</div>
 									</a>
 								</li>
