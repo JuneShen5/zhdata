@@ -185,4 +185,9 @@ public class ElementService extends BaseService<Element> {
         
     }
 
+    public List<Element> queryForExport() {
+        Element element = new Element();
+        return elementDao.findAll(element);
+    }
+
 }

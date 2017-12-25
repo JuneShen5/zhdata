@@ -1,12 +1,8 @@
 package com.govmade.zhdata.module.drs.web;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,17 +10,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
+import com.govmade.zhdata.common.persistence.BaseController;
+import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
-import com.govmade.zhdata.common.utils.StringUtil;
-import com.govmade.zhdata.common.utils.excel.ExportExcelData;
-import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.service.ColumnsService;
 import com.govmade.zhdata.module.drs.service.ElementService;
@@ -32,7 +25,7 @@ import com.govmade.zhdata.module.sys.service.DictService;
 
 @Controller
 @RequestMapping(value = "/catalog/element")
-public class ElementController {
+public class ElementController extends BaseController<Element>{
 
     @Autowired
     private ElementService elementService;
@@ -145,6 +138,36 @@ public class ElementController {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+    @Override
+    protected void getFileName() {
+        super.chTableName = "信息项";
+        super.chTableName = "信息项";
+        super.templatFile = "elementTemplate.xlsx";
+        
+    }
+
+    @Override
+    protected void getReadExcelStarLine() {
+        super.commitRow = 500;
+        super.startRow = 3;
+        super.columnIndex = 0;
+    }
+
+    @Override
+    protected BaseService<Element> getService() {
+        return elementService;
+    }
+
+    @Override
+    protected List<Map<String, Object>> queryDataForExp() {
+        List<Element> elementList = elementService.queryForExport();
+        List<Map<String, Object>> infoList = Lists.newArrayList();
+        for (Element data : elementList) {
+            infoList.add(MapUtil.beansToMap(data));
+        }
+        return infoList;
     }
     
     

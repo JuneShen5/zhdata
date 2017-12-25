@@ -27,10 +27,9 @@
 						<div class="form-group" style="margin-left: 15px;">
 							<div class="text-center">
 								<a data-toggle="modal" class="btn btn-green"
-									onclick="openLayer('角色新增');"><i class="fa fa-plus-square-o"></i> 新增</a> <!-- <input id="btnExport"
-									class="btn btn-primary" type="button" onclick="exportData();"
-									value="导出" /> <input id="btnImport" class="btn btn-primary"
-									type="button" onclick="importData();" value="导入" /> -->
+									onclick="openLayer('角色新增');"><i class="fa fa-plus-square-o"></i> 新增</a> 
+									 <!--  <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
+                                      <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button> -->
 							</div>
 						</div>
 					</div>
@@ -78,26 +77,10 @@
 			</div>
 		</form>
 	</div>
-		
-	<div id="importBox" style="display: none;">
-		<form id="importForm" action="${ctx}/sys/role/import" method="post"
-			enctype="multipart/form-data" class="form-search"
-			style="padding-left: 20px; text-align: center;"
-			onsubmit="loading('正在导入，请稍等...');">
-			<br /> <input id="uploadFile" name="file" type="file"
-				style="width: 330px" /><br />
-			<br /> <input id="btnImportSubmit" class="btn btn-primary"
-				type="submit" value="   导    入   " /> <a
-				href="${ctx}/sys/role/import/template">下载模板</a> <br />
-			<br />导入文件不能超过5M，仅允许导入“xls”或“xlsx”格式文件！
-		</form>
-	</div>
-	<div id="exportBox" style="display: none;">
-		<form id="exportForm" action="${ctx}/sys/role/export" method="post" class="breadcrumb form-search ">
-		</form>
-	</div>
-
 </body>
+<!-- excel导入导出-->
+<c:set var="type" value="" />
+<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
 <%@ include file="/WEB-INF/views/include/footer.jsp"%>
 <style>
 .col-sm-ztree {
@@ -123,11 +106,9 @@
 	var toolbar = '#toolbar';
 	var layerId = '#layer_form';
 	var formId = '#eform'; //form id
-	var importForm = '#importForm';
-	var importBox = '#importBox';
-	var exportForm='#exportForm';
-	var exportBox='#exportBox';
 	var url = '${ctx}/settings/role/';
+	/*导入导出定义的全部变量 */
+	var uploaderServer = "role";
 	var obj = {
 		name : $('#sName').val(),
 	};

@@ -65,4 +65,9 @@ public class UserService extends BaseService<User> {
     public void saveAll(List<Map<String,String>> dataList) {
         userDao.saveAll(dataList);
     }
+
+    public List<User> queryForExport() {
+        User user = new User();
+        return userDao.findAll(user);
+    }
 }

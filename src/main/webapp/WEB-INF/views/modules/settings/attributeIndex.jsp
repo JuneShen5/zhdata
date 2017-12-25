@@ -53,6 +53,7 @@
 					<input type="text" name="nameCn" class="form-control" required>
 				</div>
 			</div>
+
 			<div class="form-group">
 				<label class="col-sm-3 control-label">是否核心字段：</label>
 				<div class="col-sm-7">
@@ -62,6 +63,12 @@
 							<option value="${dict.value}">${dict.label}</option>
 						</c:forEach>
 					</select>
+				</div>
+			</div>
+			<div class="form-group" id="nameEn">
+				<label class="col-sm-3 control-label">字段名：</label>
+				<div class="col-sm-7">
+					<input type="text" name="nameEn" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group">
@@ -165,7 +172,7 @@
 		var detailTitle = "详情";
 
 		$(".validate-form").hide();
-		$("select[name=isRequire]").chosen({
+		$("select[name=isRequire]").chosen({  
 			width : "100%"
 		}).change(function (e) {
 			var val = $(this).val();
@@ -178,10 +185,19 @@
 			};
 			$(this).blur();
 	    })
-		
+	//更改是否核心选择框时显示还是隐藏字段名字
+/* 	    $("select[name=isCore]").change(function(){
+	    	var val = $(this).val();
+	    	if(val == 1){//核心字段
+	    		$("#nameEn").show();
+	    	}else if(val == 2){
+	    		$("#nameEn").hide();
+	    	}
+	    }) */
 	</script>
 	
 	<script src="${ctxStatic}/js/common/common.js"></script>
+	
 </body>
 </html>
 

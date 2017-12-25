@@ -34,7 +34,7 @@ public abstract class BaseController<T> {
 
     protected String chTableName ; //文件名称
     protected String enTableName ;//sheet名称
-    protected String templatFile ;//excel模板名
+    protected String templatFile = null ;//excel模板名
     
     protected Integer commitRow;//读取数据时事务的行数
     protected Integer startRow;//导入时开始读取数据的行
@@ -43,8 +43,6 @@ public abstract class BaseController<T> {
     protected abstract void getFileName(); //获取导出的文件名
     
     protected abstract void getReadExcelStarLine();  //获取导出时开始读取的行列一回滚行数
-    
-    protected abstract Integer getattributeType();//获取在配置表中type的值
     
     protected abstract BaseService<T> getService();
     /**
@@ -64,8 +62,8 @@ public abstract class BaseController<T> {
             getFileName();
             String _chTableName =chTableName+"模板";
             String _enTableName =enTableName+"模板";
-            ExportExcelImpl exportExcel = new ExportExcelTemplate(_chTableName,_enTableName,templatFile,rowName,infoList,response);
-           exportExcel.export();
+            ExportExcelImpl   exportExcel = new ExportExcelTemplate(_chTableName,_enTableName,templatFile,rowName,infoList,response);
+            exportExcel.export();
            } catch (Exception e1) {
                e1.printStackTrace();
            }
@@ -73,7 +71,7 @@ public abstract class BaseController<T> {
     
    //导入数据
    @RequestMapping(value ="importData" , method = RequestMethod.POST)
-   public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,HttpServletRequest request,String code) {
+   public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,Integer attributeType,HttpServletRequest request,String code) {
        try {
            ImportExcelImpl importExcel = new ImportExcelImpl(file,0,0);
            Map<String, String> titleAndAttribute = new HashMap<String, String>();
@@ -89,7 +87,7 @@ public abstract class BaseController<T> {
                    AttributeService attributeService=(AttributeService)SpringContextUtil.getBean("attributeService");  
                 
                    Attribute attribute = new Attribute();
-                   attribute.setType(getattributeType());
+                   attribute.setType(attributeType);
                    attribute.setDelFlag(0);
                    List<Attribute> attributeList = attributeService.querAllyList(attribute);
                    Map<String,Integer>  attributeMap = new HashMap<String, Integer>();
@@ -120,10 +118,11 @@ public abstract class BaseController<T> {
                        }
                        info = info.substring(0, info.length() - 1);
                        info += "}";
-                       dataMap.put("info", info);
+                       if(info.length()>1){
+                           dataMap.put("info", info);
+                       }
                        resolurdDtaList.add(dataMap);
                    }
-                   
                    getService().saveAll(resolurdDtaList); 
                }
                if(dataList.size()<commitRow || dataList.size()==0){
@@ -155,7 +154,7 @@ public abstract class BaseController<T> {
            String _chTableName = chTableName+"数据";
            String _enTableName = chTableName+"数据";
 //          String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-           ExportExcelImpl exportExcel = new ExportExcelData(_chTableName,_enTableName,templatFile,rowName,DataList,response);
+              ExportExcelImpl  exportExcel = new ExportExcelData(_chTableName,_enTableName,templatFile,rowName,DataList,response);
               exportExcel.export();
           } catch (Exception e1) {
               e1.printStackTrace();

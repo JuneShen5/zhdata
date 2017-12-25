@@ -116,6 +116,13 @@ public class Company extends BasePo<Company> {
     public void setTypes(String types) {
         this.types = types;
     }
+
+    @Override
+    public String toString() {
+        return "Company [parentId=" + parentId + ", parentName=" + parentName + ", name=" + name + ", code="
+                + code + ", address=" + address + ", sort=" + sort + ", type=" + type + ", level=" + level
+                + ", types=" + types + ", count=" + count + "]";
+    }
     
     
     

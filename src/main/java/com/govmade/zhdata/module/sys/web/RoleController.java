@@ -1,10 +1,7 @@
 package com.govmade.zhdata.module.sys.web;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,17 +9,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Lists;
-import com.govmade.zhdata.common.config.ExcelConstant;
 import com.govmade.zhdata.common.config.Global;
+import com.govmade.zhdata.common.persistence.BaseController;
+import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
-import com.govmade.zhdata.common.utils.DateUtils;
 import com.govmade.zhdata.common.utils.JsonUtil;
+import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
-import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Menu;
 import com.govmade.zhdata.module.sys.pojo.Role;
 import com.govmade.zhdata.module.sys.pojo.User;
@@ -31,7 +27,7 @@ import com.govmade.zhdata.module.sys.service.RoleService;
 
 @Controller
 @RequestMapping(value = "settings/role")
-public class RoleController {
+public class RoleController extends BaseController<Role>{
 
     @Autowired
     private RoleService roleService;
@@ -108,10 +104,9 @@ public class RoleController {
         }
     }
 
-    
+
     /**
      * 删除角色
-     * 
      * @param ids
      * @return
      * @throws Exception
@@ -127,6 +122,33 @@ public class RoleController {
             throw new Exception(Global.HANDLE_ERROR);
         }
     }
-    
+
+    @Override
+    protected void getFileName() {
+        super.chTableName = "角色管理";
+        super.chTableName = "角色管理";
+    }
+
+    @Override
+    protected void getReadExcelStarLine() {
+        super.commitRow = 500;
+        super.startRow = 3;
+        super.columnIndex = 0;
+    }
+
+    @Override
+    protected BaseService<Role> getService() {
+        return roleService;
+    }
+
+    @Override
+    protected List<Map<String, Object>> queryDataForExp() {
+        List<Role> role = roleService.queryForExport();
+        List<Map<String, Object>> infoList = Lists.newArrayList();
+        for (Role data : role) {
+            infoList.add(MapUtil.beansToMap(data));
+        }
+        return infoList;
+    }
     
 }

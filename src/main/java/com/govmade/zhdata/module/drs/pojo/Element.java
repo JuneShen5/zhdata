@@ -255,6 +255,18 @@ public class Element extends BasePo<Element> {
 		this.dataTypen = dataTypen;
 	}
 
+    @Override
+    public String toString() {
+        return "Element [idCode=" + idCode + ", nameCn=" + nameCn + ", nameEn=" + nameEn + ", dataType="
+                + dataType + ", dataTypen=" + dataTypen + ", len=" + len + ", dataTypeName=" + dataTypeName
+                + ", label=" + label + ", sort=" + sort + ", companyId=" + companyId + ", companyName="
+                + companyName + ", toPool=" + toPool + ", count=" + count + ", colId=" + colId
+                + ", objectType=" + objectType + ", dataLabel=" + dataLabel + ", isDict=" + isDict
+                + ", shareType=" + shareType + ", shareCondition=" + shareCondition + ", shareMode="
+                + shareMode + ", isOpen=" + isOpen + ", openType=" + openType + ", updateCycle="
+                + updateCycle + "]";
+    }
+
 	
     
    
