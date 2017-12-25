@@ -7,7 +7,12 @@
             <label class="control-label">系统部署位置</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="请输入系统部署位置" required>
+            <select name="bswz" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('deploy_location')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
 
@@ -27,7 +32,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">信息安全登保级别</label>
+            <label class="control-label">信息安全等保级别</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="aqjb" class="form-control" required>
@@ -41,10 +46,10 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">已接入的网络类型</label>
+            <label class="control-label">计划接入网络类型</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="yjrwllx" placeholder="请输入系统已接入的网络类型" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>
         </div>
     </div>
 
@@ -76,13 +81,14 @@
         </div>
     </div>
     <div class="form-group ele-hide" data-parent="sfyqtxtdj">
-        <div class="col-sm-3 column-title">
+        <div class="col-sm-3 column-title form-border-left">
             <label class="control-label">对接其它系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="djqtxtmc" placeholder="请输入对接其它系统名称">
+            <input type="text" class="form-control" hasNoSpace="true" name="djqtxtmc" placeholder="请输入对接其它系统名称" required>
         </div>
     </div>
+
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">虚拟化部署</label>
@@ -164,47 +170,23 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">是否申请暂缓整合</label>
+            <label class="control-label">系统后续计划</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="sfsqzhzh" class="form-control js-hasChild" required>
+            <select name="xthxjh" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                <c:forEach var="dict" items="${fns:getDictList('follow-up')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
         </div>
     </div>
-
-    <div class="form-group ele-hide" data-parent="sfsqzhzh">
+    <div class="form-group ele-hide" data-parent="xthxjh">
         <div class="col-sm-3 column-title column-title-multiple">
-            <label class="control-label">暂缓整合原因说明</label>
+            <label class="control-label">系统继续建设原因</label>
         </div>
         <div class="col-sm-7 column-content">
-            <textarea name="zhzhyy" hasNoSpace="true" class="form-control" rows="3"></textarea>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-sm-3 column-title">
-            <label class="control-label">升级需求</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <select name="sjxq" class="form-control js-hasChild" required>
-                <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('is_have')}">
-                    <option value="${dict.value}">${dict.label}</option>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group ele-hide" data-parent="sjxq">
-        <div class="col-sm-3 column-title column-title-multiple">
-            <label class="control-label">升级需求详细说明</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <textarea name="sjxqsm" class="form-control" hasNoSpace="true" rows="3" placeholder="请说明升级后功能、覆盖面、性能、对接等要求"></textarea>
+            <textarea name="xtjxjsyy" class="form-control" hasNoSpace="true" rows="3" placeholder="说明继续建设的必要性、对接要求等"></textarea>
         </div>
     </div>
 </fieldset>

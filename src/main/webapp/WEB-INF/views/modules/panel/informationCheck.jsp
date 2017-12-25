@@ -323,6 +323,11 @@
 		                    layer.msg("通过审核!")
 		    				parent.updateCount();
 		                    $(tableId).bootstrapTable('refresh');
+		                    var msgCount = parseInt($('#message_number', window.parent.document).text());
+                            $('#message_number', window.parent.document).text(msgCount-1);
+                            $('#message_count', window.parent.document).text(msgCount-1);
+                            console.log($('#message_number', window.parent.document).text());
+                            console.log($('#message_count', window.parent.document).text());
 		                },
 		                error: function () {
 		                	layer.msg('审核不通过，请重试')
@@ -731,6 +736,8 @@
                     success: function (data) {
                         layer.msg('审核成功！');
                         $(tableId).bootstrapTable('refresh');
+                        $('#message_number', window.parent.document).text('0');
+                        $('#message_count', window.parent.document).text('0');
                     }
                 });
                 layer.close(index);
@@ -759,6 +766,9 @@
                     success: function (res) {
                         layer.msg("通过审核!")
                         $(tableId).bootstrapTable('refresh');
+                        var msgCount = parseInt($('#message_number', window.parent.document).text());
+                        $('#message_number', window.parent.document).text(msgCount-postData.length);
+                        $('#message_count', window.parent.document).text(msgCount-postData.length);
                     }
                 });
 			}

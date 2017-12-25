@@ -174,6 +174,7 @@ var TableInit = function(tableOption,btnOption) {
 //            };
     // 初始化全局表单相关插件(select-chosen、datepicker、i-checks)
     LayerEvent.prototype.initFormPlugins = function () {
+        var that = this;
         $(".select-chosen").chosen({
             width : "100%"
         }).change(function (e) {
@@ -220,6 +221,19 @@ var TableInit = function(tableOption,btnOption) {
                 $(that).siblings(".checkboxInput").val(isCheckData)
             }, 0)
         });
+        // 设置表单逻辑字段
+        $('.js-hasChild').on('change', function () {
+            var parentName = $(this).attr('name');
+            if ($(this).val() === '1') {
+                $('[data-parent=' + parentName + ']').slideDown().find('input,select,textarea').prop('required', true).val('');
+            }else {
+                $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+            }
+            $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+                that.$element.find('form').validate().element($(this));
+            });
+        });
+
         // 设置验证信息的默认字段
         $.validator.setDefaults({
             highlight: function (element) {
@@ -457,8 +471,10 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
-        $(document).on('click', '.layui-layer-btn0', function () {
-            $(this).text('保存中...');
+        // var layerSubmitBtn = this.$element.parents('.layui-layer').find('.layui-layer-btn0');
+        this.$element.parents('.layui-layer').on('click', '.layui-layer-btn0', function () {
+            $(this).hide();
+            $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
         });
         that.$element.find('form').ajaxSubmit({
             url : that.options.submitUrl,

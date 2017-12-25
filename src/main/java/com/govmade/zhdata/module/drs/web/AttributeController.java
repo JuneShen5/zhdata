@@ -39,9 +39,9 @@ public class AttributeController {
         try {
             PageInfo<Attribute> pageInfo = this.attributeService.queryList(page);
             List<Attribute> attributeList = pageInfo.getList();
-            if (attributeList.isEmpty()) {
+            /*if (attributeList.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-            }
+            }*/
             Page<Attribute> resPage = new Page<Attribute>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(attributeList);

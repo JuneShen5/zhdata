@@ -131,6 +131,9 @@
     /*line-height: 34px;*/
     text-align: right;
 }
+.ele-hide{
+    display: none;
+}
 
 /* 信息系统表格样式-normal */
 

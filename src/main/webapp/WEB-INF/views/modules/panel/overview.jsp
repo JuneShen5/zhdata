@@ -198,10 +198,13 @@ h3 {
                     $('<option></option>').val(selectItem.id).text(selectItem.name).appendTo($('#chartSelect1'));
                     $('<option></option>').val(selectItem.id).text(selectItem.name).appendTo($('#chartSelect2'));
                 });
+                chartSet1();
 			}
 		});
 
         // 获取柱状图数据
+		function chartSet1() {
+
 		$.ajax({
 			url:'${ctx}/panel/ass/queryCountList',
 			dataType: 'json',
@@ -523,6 +526,7 @@ h3 {
                 // 各部门资源数据对比图形设置-end
 			}
 		});
+	}
     });
 
 //    function createRandomItemStyle() {
