@@ -56,12 +56,25 @@
 	<!-- 查询全部属性 -->
 	<select id="findAll" resultType="Element">
 		SELECT
+		a.name_cn AS "nameCn",
+		a.name_en AS "nameEn",
+		a.remarks,
+		a.data_type AS "dataType",
+		a.len,
+		a.label,
+		a.company_id AS "companyId"
+		FROM drs_element a
+		WHERE a.del_flag = 0
+		ORDER BY a.id
+	</select>
+<!-- 	<select id="findAll" resultType="Element">
+		SELECT
 		<include refid="elementColumns" />
 		FROM drs_element a
 		<include refid="elementJoins" />
 		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
 		ORDER BY a.id
-	</select>
+	</select> -->
 	
 	<select id="findList" resultType="Element">
 		SELECT

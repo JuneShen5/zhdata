@@ -145,8 +145,8 @@ public abstract class ExportExcelImpl{
     
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
-//        this.out(createExcel);
-        this.writeInOutputStream(createExcel);
+        this.out(createExcel);
+//        this.writeInOutputStream(createExcel);
     }
     
     public void out(Workbook createExcel) throws Exception{

@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
+import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -34,6 +37,7 @@ public class ExportExcelData extends ExportExcelImpl {
     protected Map<Integer,String> roleMap = new HashMap<Integer, String>();
     protected Map<Integer,String> menuMap = new HashMap<Integer, String>();
     protected Map<Integer,String> sysMap = new HashMap<Integer, String>();
+    protected Map<Integer,String> elementMap =  new HashMap<Integer, String>();
     
     public ExportExcelData(String fileName, String title, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
@@ -111,15 +115,35 @@ public class ExportExcelData extends ExportExcelImpl {
             case "companyselect":
                 if(this.companyMap.size() == 0){
                     List<Company> companyList= SysUtils.getCompanyList();
-                    System.out.println("Id1:"+Id);
                     for(Company company : companyList){
                         companyMap.put(company.getId(), company.getName());
                     }
                 }
-                System.out.println("Id:"+Id);
                 name = companyMap.get(Id);
 //                name = SysUtils.getCompanyName(Integer.valueOf(data));
                 break;
+//            case "element":
+//                if(this.elementMap.size() == 0){
+//                    List<Element> elementList = SysUtils.getElementList();
+//                    for(Element element : elementList){
+//                        elementMap.put(element.getId(),element.getNameCn());
+//                    }
+//                }
+//                if(null!=Id && !"".equals(Id.trim())){
+//                    String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
+//                    Pattern p = Pattern.compile(regEx);  
+//                    Matcher m = p.matcher(name);  
+//                    String[] elementArray = m.replaceAll(",").split(",");
+//                    String _Id = "";
+//                    for(int i=0;i<elementArray.length;i++){
+//                        _Id += String.valueOf(elementMap.get(elementArray[i]))+",";
+//                    }
+//                    Id = _Id.substring(0,_Id.length() - 1);
+//                }else{
+//                    Id = "";
+//                }
+//                
+//                break;
             case "linkselect":
 //                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
 //                for (InfoSort info : infoSorts) {

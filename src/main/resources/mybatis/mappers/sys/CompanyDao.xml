@@ -41,7 +41,7 @@
 		FROM sys_company a
 		<include refid="companyJoins"/>
 		<where>
-			a.del_flag = #{DEL_FLAG_NORMAL}
+			a.del_flag = 0
 			<if test="name != null and name != ''">
 				AND a.name LIKE CONCAT('%',#{name},'%')
 			</if>
@@ -128,7 +128,7 @@
 		<if test="isAudit == 1">
 			 AND i.is_audit=#{isAudit}
 		</if>
-		WHERE c.del_flag= #{company.delFlag} AND c.type NOT IN (1,2)) a
+		WHERE c.del_flag= 0 AND c.type NOT IN (1,2)) a
 	     GROUP BY a.id;
 	</select>
 	
