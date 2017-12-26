@@ -5,7 +5,6 @@
    <sql id="NjSystemColumns">
       a.id,
       a.company_id AS "companyId",
-      a.dwmc,
       a.xtmc,
       a.smfl,
       a.spbm,
@@ -31,7 +30,7 @@
 	  a.update_date AS "updateDate",
 	  a.remarks,
 	  a.del_flag AS "delFlag",
-	  c.name AS "companyName"
+	  c.name AS "companyName" 
       
     </sql>
     
@@ -43,7 +42,7 @@
       SELECT
       <include refid="NjSystemColumns" />
       FROM drs_system_nijian a
-      <include refid="njSystemJoins" />
+       <include refid="njSystemJoins" /> 
       <where>
       a.del_flag = #{njSystems.delFlag}
       <if test="njSystems.xtmc != null and njSystems.xtmc != ''">
