@@ -119,8 +119,6 @@
 		LIMIT ${page.startRow}, ${page.endRow}
 	</select>
 	
-	
-	
 	<select id="queryCompany" resultType="Company">
 		SELECT a.id,a.name,COUNT(a.company_id) AS count 
 		FROM (SELECT c.id,c.name, i.company_id FROM sys_company c 
