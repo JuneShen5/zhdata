@@ -21,6 +21,40 @@ public class Company extends BasePo<Company> {
     private String name; // 名称
 
     private String code; // 部门编码
+    
+    private String creditCode;
+    
+    private String ldxm;
+    
+    private String ldlxfs;
+    
+    private String fzrxm;
+    
+    private String fzrlxfs;
+    
+    private Integer nsjg1;
+    
+    private Integer nsjg2;
+    
+    private Integer rybzqk1;
+    
+    private Integer rybzqk2;
+    
+    private Integer rybzqk3;
+    
+    private Integer rybzqk4;
+    
+    private Integer ryjszc1;
+    
+    private Integer ryjszc2;
+    
+    private Integer ryjszc3;
+    
+    private Integer ryjszc4;
+    
+    private Integer ryjszc5;
+    
+    private Integer ryjszc6;
 
     private String address; // 地址
 
@@ -178,8 +212,145 @@ public class Company extends BasePo<Company> {
     public void setChildren(List<Company> children) {
         this.children = children;
     }
+    
 
-    @Override
+    public String getCreditCode() {
+		return creditCode;
+	}
+
+	public void setCreditCode(String creditCode) {
+		this.creditCode = creditCode;
+	}
+
+	public String getLdxm() {
+		return ldxm;
+	}
+
+	public void setLdxm(String ldxm) {
+		this.ldxm = ldxm;
+	}
+
+	public String getLdlxfs() {
+		return ldlxfs;
+	}
+
+	public void setLdlxfs(String ldlxfs) {
+		this.ldlxfs = ldlxfs;
+	}
+
+	public String getFzrxm() {
+		return fzrxm;
+	}
+
+	public void setFzrxm(String fzrxm) {
+		this.fzrxm = fzrxm;
+	}
+
+	public String getFzrlxfs() {
+		return fzrlxfs;
+	}
+
+	public void setFzrlxfs(String fzrlxfs) {
+		this.fzrlxfs = fzrlxfs;
+	}
+
+	public Integer getNsjg1() {
+		return nsjg1;
+	}
+
+	public void setNsjg1(Integer nsjg1) {
+		this.nsjg1 = nsjg1;
+	}
+
+	public Integer getNsjg2() {
+		return nsjg2;
+	}
+
+	public void setNsjg2(Integer nsjg2) {
+		this.nsjg2 = nsjg2;
+	}
+
+	public Integer getRybzqk1() {
+		return rybzqk1;
+	}
+
+	public void setRybzqk1(Integer rybzqk1) {
+		this.rybzqk1 = rybzqk1;
+	}
+
+	public Integer getRybzqk2() {
+		return rybzqk2;
+	}
+
+	public void setRybzqk2(Integer rybzqk2) {
+		this.rybzqk2 = rybzqk2;
+	}
+
+	public Integer getRybzqk3() {
+		return rybzqk3;
+	}
+
+	public void setRybzqk3(Integer rybzqk3) {
+		this.rybzqk3 = rybzqk3;
+	}
+
+	public Integer getRybzqk4() {
+		return rybzqk4;
+	}
+
+	public void setRybzqk4(Integer rybzqk4) {
+		this.rybzqk4 = rybzqk4;
+	}
+
+	public Integer getRyjszc1() {
+		return ryjszc1;
+	}
+
+	public void setRyjszc1(Integer ryjszc1) {
+		this.ryjszc1 = ryjszc1;
+	}
+
+	public Integer getRyjszc2() {
+		return ryjszc2;
+	}
+
+	public void setRyjszc2(Integer ryjszc2) {
+		this.ryjszc2 = ryjszc2;
+	}
+
+	public Integer getRyjszc3() {
+		return ryjszc3;
+	}
+
+	public void setRyjszc3(Integer ryjszc3) {
+		this.ryjszc3 = ryjszc3;
+	}
+
+	public Integer getRyjszc4() {
+		return ryjszc4;
+	}
+
+	public void setRyjszc4(Integer ryjszc4) {
+		this.ryjszc4 = ryjszc4;
+	}
+
+	public Integer getRyjszc5() {
+		return ryjszc5;
+	}
+
+	public void setRyjszc5(Integer ryjszc5) {
+		this.ryjszc5 = ryjszc5;
+	}
+
+	public Integer getRyjszc6() {
+		return ryjszc6;
+	}
+
+	public void setRyjszc6(Integer ryjszc6) {
+		this.ryjszc6 = ryjszc6;
+	}
+
+	@Override
     public String toString() {
         return "Company [parentId=" + parentId + ", parentName=" + parentName + ", name=" + name + ", code="
                 + code + ", address=" + address + ", sort=" + sort + ", type=" + type + ", level=" + level
