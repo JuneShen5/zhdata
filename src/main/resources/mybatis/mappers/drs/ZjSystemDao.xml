@@ -76,6 +76,33 @@
 	 ORDER BY a.id DESC
 	</select>
       
+      
+      <!-- 根据当前部门查询 -->
+	<select id="queryListByCompanyId" resultType="ZjSystems">
+      SELECT
+      <include refid="ZjSystemColumns" />
+      FROM drs_system_zaijian a
+      <include refid="zjSystemJoins" />
+      <where>
+      a.del_flag = #{zjSystems.delFlag}
+      <if test="zjSystems.xtmc != null and zjSystems.xtmc != ''">
+      AND a.xtmc LIKE CONCAT('%',#{zjSystems.xtmc},'%')
+      </if>
+       <foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='companyIds'" >
+                	AND a.company_id IN 
+     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
+         			   #{id}
+        			</foreach>
+                </if>
+            </if>
+        </foreach>
+	 </where>
+	 ORDER BY a.id DESC
+	</select>
+	
+	
      <!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
 		INSERT INTO drs_system_zaijian

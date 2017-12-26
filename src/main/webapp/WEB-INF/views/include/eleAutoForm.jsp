@@ -1,51 +1,52 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 	<input type="text" name="id" class="hide">
+	<!-- 新增 -->
 	<div class="form-group">
-		<label class="col-sm-3 control-label">信息项名称：</label>
+		<label class="col-sm-3 control-label">信息项编码：</label>
 		<div class="col-sm-7">
-			<input type="text" name="nameCn" class="form-control" required>
+			<input type="text" name="code" class="form-control" placeholder="请输入信息项编码" required>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">英文名称：</label>
+		<label class="col-sm-3 control-label">信息项中文名称：</label>
 		<div class="col-sm-7">
-			<input type="text" name="nameEn" class="form-control" required>
+			<input type="text" name="nameCn" class="form-control" placeholder="描述信息资源中具体数据项（数据元）的中文标题" required>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">信息项英文名称：</label>
+		<div class="col-sm-7">
+			<input type="text" name="nameEn" class="form-control" placeholder="描述信息资源中具体信息项的英文标题" required>
 		</div>
 	</div>
 	
-	<%@include file="/WEB-INF/views/include/dataType.jsp"%>
-	
+	<!-- 新增 -->
 	<div class="form-group">
-		<label class="col-sm-3 control-label">数据长度：</label>
+		<label class="col-sm-3 control-label">信息项描述说明：</label>
 		<div class="col-sm-7">
-			<input type="text" name="len" class="form-control" required>
+			<input type="text" name="des" class="form-control" placeholder="对该信息项的内容进行简要描述" required>
 		</div>
 	</div>
-	 <div class="form-group">
-		<label class="col-sm-3 control-label">对象类型：</label>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">信息项数据类型：</label>
 		<div class="col-sm-7">
 			<select name="dataType" class="select-chosen" required>
 				<option value=""></option>
-				<c:forEach var="dict" items="${fns:getDictList('object_type')}">
-					<option value="${dict.value}">${dict.label}</option>
-				</c:forEach>
-			</select>
-		</div>
-	</div> 
-	
-	<div class="form-group">
-		<label class="col-sm-3 control-label">数据标记：</label>
-		<div class="col-sm-7">
-			<select name="dataLabel" class="select-chosen" required>
-				<option value=""></option>
-				<c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+				<c:forEach var="dict" items="${fns:getDictList('data_type')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select>
 		</div>
 	</div>
+	<%-- <%@include file="/WEB-INF/views/include/dataType.jsp"%> --%>
 	
+	<div class="form-group">
+		<label class="col-sm-3 control-label">信息项数据长度：</label>
+		<div class="col-sm-7">
+			<input type="text" name="len" class="form-control" placeholder="标明该信息项在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）" required>
+		</div>
+	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">来源部门：</label>
 		<div class="col-sm-7">
@@ -60,8 +61,30 @@
 			<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 		</div>
 	</div>
-	
 	<div class="form-group">
+		<label class="col-sm-3 control-label">数据标记：</label>
+		<div class="col-sm-7">
+			<select name="dataLabel" class="select-chosen" required>
+				<option value=""></option>
+				<c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+					<option value="${dict.value}">${dict.label}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">对象类型：</label>
+		<div class="col-sm-7">
+			<select name="dataType" class="select-chosen" required>
+				<option value=""></option>
+				<c:forEach var="dict" items="${fns:getDictList('object_type')}">
+					<option value="${dict.value}">${dict.label}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	
+	<%-- <div class="form-group">
 		<label class="col-sm-3 control-label">是否字典项：</label>
 		<div class="col-sm-7">
 			<select name="isDict" class="select-chosen" required>
@@ -143,7 +166,7 @@
 			</select>
 		</div>
 	</div>
-
+ --%>
 <script>
 
 </script>
