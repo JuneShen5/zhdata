@@ -432,7 +432,7 @@ var TableInit = function(tableOption,btnOption) {
                         // 	$(".linkagesel-select-group-info ").find(".chosen-container").removeClass("has-error-s has-success-s");
                         // },500);
                     }else if ($(this).hasClass('is-multiple-select')){
-                        console.log('xxx: '+value);
+                        console.log('xxx: '+value.split(","));
                         $(this).val(value);
                         // $(this).val(value).trigger("change");
                     }else {
