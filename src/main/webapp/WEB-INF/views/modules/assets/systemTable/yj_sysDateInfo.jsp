@@ -9,7 +9,7 @@
         <div class="col-sm-7 column-content">
             <select name="xxlrfs" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('is_secret')}">
+                <c:forEach var="dict" items="${fns:getDictList('information_entry_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -20,7 +20,7 @@
             <label class="control-label">数据增长情况（单位：M）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" isNonnegative="true" name="sjzzqk" placeholder="按每月业务发生估算数据增长量（单位：M）" required>
+            <input type="text" class="form-control" isNonnegative="true" name="xtsjzzqk" placeholder="按每月业务发生估算数据增长量（单位：M）" required>
         </div>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
         <div class="col-sm-7 column-content">
             <select name="sjccfs" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('file_size')}">
+                <c:forEach var="dict" items="${fns:getDictList('storage_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -70,15 +70,25 @@
             <label class="control-label">数据加密方式</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="sjjmfs" placeholder="对称算法\非对称算法\杂凑算法\其他" required>
+            <select name="sjjmfs" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('encryption_method')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">数据更新模式</label>
         </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="sjgxms" placeholder="追加且保留历史数据\追加不保留历史数据\覆盖历史数据\其他" required>
+         <div class="col-sm-7 column-content">
+            <select name="sjgxms" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('update_mode')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -86,15 +96,25 @@
             <label class="control-label">外部报送</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="wbbs" placeholder="向上级报送数据\向上级报送报表\向社会公开数据\向社会公开报表\依申请公开数据\其他" required>
+            <select name="wbbs" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('external_delivery')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">报送时效</label>
         </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="bssx" placeholder="实时报送\每日报送\每周报送\每月报送\年末报送\其他" required>
+         <div class="col-sm-7 column-content">
+            <select name="bssx" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('reporting_time')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
 </fieldset>

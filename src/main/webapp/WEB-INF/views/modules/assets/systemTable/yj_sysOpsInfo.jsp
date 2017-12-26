@@ -4,30 +4,30 @@
     <legend>系统运维信息</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">运维单位</label>
+            <label class="control-label">运维单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="ywdwmc" placeholder="请输入运维单位" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="ywdwmc" placeholder="负责此系统运维单位名称" required>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">运维单位联系人姓名</label>
+            <label class="control-label">运维单位联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="ywdwlxr" placeholder="请输入姓名" required>
+                <input type="text" class="form-control" hasNoSpace="true" name="ywdwlxr" placeholder="运维单位联系人姓名" required>
             </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">运维单位联系人手机号</label>
+            <label class="control-label">运维单位联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
-                <input type="text" class="form-control" isMobile="true" name="ywdwlxdh" placeholder="请输入手机号" required>
+                <input type="text" class="form-control" isMobile="true" name="ywdwlxdh" placeholder="运维单位联系人电话" required>
             </div>
         </div>
     </div>
@@ -98,18 +98,43 @@
         <div class="col-sm-3 column-title">
             <label class="control-label">数据备份频率</label>
         </div>
-        <div class="col-sm-7 column-content">
+        <!-- <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="sjbfpl" placeholder="实时备份\每天备份\每周备份\每月更新\其他" required>
+        </div> -->
+        <div class="col-sm-7 column-content form-border-bottom">
+            <select name="bffs" class="form-control">
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('backup_frequency')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">应用双活</label>
         </div>
-        <div class="col-sm-7 column-content">
+       <!--  <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="yysh" placeholder="无\有,同城双活选址：____" required>
+        </div> -->
+        <div class="col-sm-7 column-content">
+            <select name="yysh" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('is_have')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
+    <div class="form-group ele-hide" data-parent="sfybf">
+        <div class="col-sm-3 column-title form-border-left">
+            <label class="control-label">同城双活选址</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" name="tcshxz" placeholder="同城双活选址">
+        </div>
+    </div>
+    
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">应用容灾</label>
