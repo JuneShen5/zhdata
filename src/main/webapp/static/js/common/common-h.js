@@ -432,9 +432,11 @@ var TableInit = function(tableOption,btnOption) {
                         // 	$(".linkagesel-select-group-info ").find(".chosen-container").removeClass("has-error-s has-success-s");
                         // },500);
                     }else if ($(this).hasClass('is-multiple-select')){
-                        console.log('xxx: '+value.split(","));
-                        $(this).val(value);
-                        // $(this).val(value).trigger("change");
+                        var values = new Array(); //定义一数组
+                        values = value.split(",");
+                        console.log(values);
+                        $(this).val(values).trigger("change");
+                        $(this).closest('.form-group').removeClass('has-success has-error');
                     }else {
                         $(this).val(value);
                         $(this).trigger("chosen:updated");
