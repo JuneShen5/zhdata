@@ -116,7 +116,7 @@ public class AssetsStatController {
      * @param companyIds
      * @return
      */
-    @RequestMapping(value="ass/queryCountList",method=RequestMethod.GET)
+    /*@RequestMapping(value="ass/queryCountList",method=RequestMethod.GET)
     public ResponseEntity<Page<Map<String, Object>>> list(Page<Company> page,String companyIds) {
         
         page = this.companyService.getPageForSearch(page);
@@ -211,7 +211,7 @@ public class AssetsStatController {
         resPage.setRows(list);
         return ResponseEntity.ok(resPage);
         
-    }
+    }*/
     
     
 }
