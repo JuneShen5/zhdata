@@ -113,7 +113,7 @@
             <label class="control-label">虚拟化软件厂商名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xnhrjmc" placeholder="若无虚拟化部署，此项不填">
+            <input type="text" class="form-control" hasNoSpace="true" name="xnhrjcsmc" placeholder="若无虚拟化部署，此项不填">
         </div>
     </div>
 

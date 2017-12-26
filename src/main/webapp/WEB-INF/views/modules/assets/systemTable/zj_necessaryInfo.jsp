@@ -4,7 +4,7 @@
     <legend>项目建设必要性说明</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">项目建设立项依据</label>
+            <label class="control-label">项目建设/立项依据</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="xtjsyj" placeholder="权责清单、政策等相关文件" required>
