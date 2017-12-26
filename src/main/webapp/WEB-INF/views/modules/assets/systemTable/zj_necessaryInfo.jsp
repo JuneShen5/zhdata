@@ -48,9 +48,7 @@
             <label class="control-label">预估使用对象</label>
         </div>
         <div class="col-sm-7 column-content">
-            <%--<input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="请输入预估使用对象" required>--%>
-            <select name="ygsydx" class="form-control" required>
-                <option value="">== 请选择 ==</option>
+            <select name="ygsydx" class="form-control is-multiple-select" multiple="multiple" required>
                 <c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>

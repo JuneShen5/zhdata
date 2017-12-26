@@ -172,19 +172,24 @@
             <input type="text" class="form-control datepicker" name="trsysj" readonly="readonly" placeholder="系统投入使用具体时间,格式：CCYY-MM" required>
         </div>
     </div>
-      <div class="form-group">
+    <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">系统类别</label>
         </div>
-        <div class="col-sm-4 column-content select-multiple">
-            <select name="xtlb" class="form-control" required>
+        <div class="col-sm-7 column-content">
+            <select name="xtlb1" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type1')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
         </div>
-        <div class="col-sm-3 column-content">
+    </div>
+    <div class="form-group ele-hide" data-parent="xtlb1">
+        <div class="col-sm-3 column-title">
+            <label class="control-label"></label>
+        </div>
+        <div class="col-sm-7 column-content">
             <select name="xtlb2" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type2')}">
