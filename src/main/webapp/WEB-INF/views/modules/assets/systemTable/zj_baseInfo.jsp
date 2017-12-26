@@ -2,18 +2,18 @@
 <!-- 基本信息 -->
 <fieldset>
     <legend>基本信息</legend>
-    <!-- <div class="form-group">
+    <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class=" control-label">单位名称</label>
+            <label class=" control-label">政务信息系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
         </div>
-    </div> -->
+    </div>
      <c:set var="user" value="${fns:getCurrentUser()}" />
     <div class="form-group">
         <label class="col-sm-3 control-label layerTips"
-               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">单位名称：</label>
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门：</label>
         <c:choose>
             <c:when test="${user.roleId==1}">
                 <div class="col-sm-7">
@@ -33,14 +33,6 @@
                 </div>
             </c:otherwise>
         </c:choose>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-3 column-title">
-            <label class=" control-label">政务信息系统名称</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
-        </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
