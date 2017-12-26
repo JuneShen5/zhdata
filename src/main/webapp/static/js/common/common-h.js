@@ -197,6 +197,11 @@ var TableInit = function(tableOption,btnOption) {
         }).on("changeDate", function (e) {
             $(this).blur();
         });
+        // 多选下拉框插件
+        $('.is-multiple-select').select2();
+        $(".is-multiple-select").change(function(){
+            $(this).valid();
+        });
 
         // checkbox、radio插件
         $('.i-checks').iCheck({
@@ -426,7 +431,11 @@ var TableInit = function(tableOption,btnOption) {
                         // 	$(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
                         // 	$(".linkagesel-select-group-info ").find(".chosen-container").removeClass("has-error-s has-success-s");
                         // },500);
-                    } else {
+                    }else if ($(this).hasClass('is-multiple-select')){
+                        console.log('xxx: '+value);
+                        $(this).val(value);
+                        // $(this).val(value).trigger("change");
+                    }else {
                         $(this).val(value);
                         $(this).trigger("chosen:updated");
                     }
