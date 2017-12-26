@@ -4,7 +4,7 @@
 
       <sql id="ZjSystemColumns">
       a.id,
-      a.dwmc,
+      a.company_id AS "companyId",
       a.xtmc,
       a.spbm,
       a.spsj,
@@ -15,6 +15,7 @@
       a.xtjsys,
       a.zjly,
       a.xtlb,
+      a.xtlb2,
       a.dqjsjd,
       a.jsfs,
       a.cjdwmc,
@@ -39,7 +40,7 @@
       a.sfyqtxtdj,
       a.djqtxtmc,
       a.sfxnhbs,
-      a.xnhrjmc,
+      a.xnhrjcsmc,
       a.sfybf,
       a.bffs,
       a.bfdwz,
@@ -52,14 +53,20 @@
       a.update_by AS "updateBy",
 	  a.update_date AS "updateDate",
 	  a.remarks,
-	  a.del_flag AS "delFlag"
+	  a.del_flag AS "delFlag",
+	  c.name AS "companyName" 
             
       </sql>
+      
+      <sql id="zjSystemJoins">
+    	LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
       
       <select id="queryAllList" resultType="ZjSystems">
       SELECT
       <include refid="ZjSystemColumns" />
       FROM drs_system_zaijian a
+      <include refid="zjSystemJoins" />
       <where>
       a.del_flag = #{zjSystems.delFlag}
       <if test="zjSystems.xtmc != null and zjSystems.xtmc != ''">

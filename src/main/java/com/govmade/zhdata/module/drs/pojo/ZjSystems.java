@@ -1,6 +1,7 @@
 package com.govmade.zhdata.module.drs.pojo;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.govmade.zhdata.common.persistence.BasePo;
 
@@ -9,8 +10,11 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private static final long serialVersionUID = 1L;
 
-    private String dwmc;
-
+	private Integer companyId; // 所属部门ID
+	
+	@Transient
+    private String companyName; // 单位名称（所属部门）
+	
     private String xtmc;
 
     private String spbm;
@@ -29,8 +33,10 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Integer zjly;
 
-    private String xtlb;
-
+    private Integer xtlb;
+    
+    private Integer xtlb2;
+    
     private Integer dqjsjd;
 
     private Integer jsfs;
@@ -69,7 +75,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Integer aqjb;
 
-    private String jhjrwllx;
+    private Integer jhjrwllx;
 
     private Integer syfw;
 
@@ -79,7 +85,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Integer sfxnhbs;
 
-    private String xnhrjmc;
+    private String xnhrjcsmc;
 
     private Integer sfybf;
 
@@ -99,13 +105,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         super();
     }
 
-    public String getDwmc() {
-        return dwmc;
-    }
-
-    public void setDwmc(String dwmc) {
-        this.dwmc = dwmc;
-    }
 
     public String getXtmc() {
         return xtmc;
@@ -179,13 +178,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.zjly = zjly;
     }
 
-    public String getXtlb() {
-        return xtlb;
-    }
-
-    public void setXtlb(String xtlb) {
-        this.xtlb = xtlb;
-    }
 
     public Integer getDqjsjd() {
         return dqjsjd;
@@ -339,13 +331,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.aqjb = aqjb;
     }
 
-    public String getJhjrwllx() {
-        return jhjrwllx;
-    }
-
-    public void setJhjrwllx(String jhjrwllx) {
-        this.jhjrwllx = jhjrwllx;
-    }
 
     public Integer getSyfw() {
         return syfw;
@@ -379,13 +364,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.sfxnhbs = sfxnhbs;
     }
 
-    public String getXnhrjmc() {
-        return xnhrjmc;
-    }
-
-    public void setXnhrjmc(String xnhrjmc) {
-        this.xnhrjmc = xnhrjmc;
-    }
 
     public Integer getSfybf() {
         return sfybf;
@@ -443,4 +421,65 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.xtjxjsyy = xtjxjsyy;
     }
 
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+
+	public Integer getXtlb() {
+		return xtlb;
+	}
+
+
+	public void setXtlb(Integer xtlb) {
+		this.xtlb = xtlb;
+	}
+
+
+	public Integer getXtlb2() {
+		return xtlb2;
+	}
+
+
+	public void setXtlb2(Integer xtlb2) {
+		this.xtlb2 = xtlb2;
+	}
+
+
+	public Integer getJhjrwllx() {
+		return jhjrwllx;
+	}
+
+
+	public void setJhjrwllx(Integer jhjrwllx) {
+		this.jhjrwllx = jhjrwllx;
+	}
+
+
+	public String getXnhrjcsmc() {
+		return xnhrjcsmc;
+	}
+
+
+	public void setXnhrjcsmc(String xnhrjcsmc) {
+		this.xnhrjcsmc = xnhrjcsmc;
+	}
+
+    
 }
