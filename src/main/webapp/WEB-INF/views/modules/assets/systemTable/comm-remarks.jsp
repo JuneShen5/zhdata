@@ -7,7 +7,7 @@
             <label class="control-label">备注</label>
         </div>
         <div class="col-sm-7 column-content">
-            <textarea name="remarks" class="form-control" hasNoSpace="true" rows="3" required></textarea>
+            <textarea name="remarks" class="form-control" rows="3"></textarea>
         </div>
     </div>
 </fieldset>

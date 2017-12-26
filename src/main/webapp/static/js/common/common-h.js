@@ -320,6 +320,11 @@ var TableInit = function(tableOption,btnOption) {
         thisLayerForm.find(".select-chosen").trigger("chosen:updated");
         thisLayerForm.find(".i-checks").find("input").removeAttr("checked");
         thisLayerForm.find(".i-checks").find("div.checked").removeClass("checked");
+        // 将相关下拉框选项隐藏
+        $('.js-hasChild').each(function (index) {
+            var parentName = $(this).attr('name');
+            $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input,select,textarea').prop('required', false).val('');
+        });
         try{
             if(resetPage) {
                 resetPage(status);
@@ -368,6 +373,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     // 查看详情和修改时载入数据
     LayerEvent.prototype.loadData = function (rowData) {
+        var that = this;
         var obj = rowData;
         var key, value, tagName, type, arr;
         for (x in obj) {
@@ -445,6 +451,18 @@ var TableInit = function(tableOption,btnOption) {
                     });
                     $('#elementIds').val(JSON.stringify(innerTableData));
                 }
+            });
+            // 判断相关下拉框选项
+            $('.js-hasChild').each(function (index) {
+                var parentName = $(this).attr('name');
+                if ($(this).val() === '1') {
+                    $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true).val('');
+                }else {
+                    $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+                }
+                // $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+                //     that.$element.find('form').validate().element($(this));
+                // });
             });
         }
         // 数据回显之后自动更新插件回显

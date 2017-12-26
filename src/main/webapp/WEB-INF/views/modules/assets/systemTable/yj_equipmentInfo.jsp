@@ -75,20 +75,4 @@
             <input type="text" class="form-control" hasNoSpace="true" name="fwq" placeholder="X86,CPU总核数：_____,内存总容量：____,其他（小型机）：____" required>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-3 column-title">
-            <label class="control-label">数据备份频率</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="sjbfpl" placeholder="实时备份\每天备份\每周备份\每月更新\其他" required>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-3 column-title">
-            <label class="control-label">应用双活</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="yysh" placeholder="无\有,同城双活选址：____" required>
-        </div>
-    </div>
 </fieldset>

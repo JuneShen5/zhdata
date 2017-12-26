@@ -36,7 +36,7 @@
             <label class="control-label">审批部门</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="负责审批此系统的相关单位" required>
         </div>
     </div>
     <div class="form-group">
@@ -44,7 +44,7 @@
             <label class="control-label">审批时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="请选择审批时间" required>
+            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="审批的具体日期（格式：CCYY-MM）" required>
         </div>
     </div>
 
@@ -62,7 +62,7 @@
             <label class="control-label">系统建设预算（万元）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="请输入建设预算（万元）" required>
+            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="具体数额（单位：万元，格式：数字填写）" required>
         </div>
     </div>
     <div class="form-group">
@@ -97,7 +97,12 @@
             <label class="control-label">建设方式</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jsfs" placeholder="请输入建设方式" required>
+            <select name="jsfs" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -106,7 +111,7 @@
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="lxr" placeholder="请输入姓名" required>
+                <input type="text" class="form-control" hasNoSpace="true" name="lxr" placeholder="单位项目负责人姓名" required>
             </div>
         </div>
     </div>
@@ -116,7 +121,7 @@
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
-                <input type="text" isMobile="true" class="form-control" name="lxdh" placeholder="请输入手机号" required>
+                <input type="text" isMobile="true" class="form-control" name="lxdh" placeholder="单位项目负责人联系电话（固话、手机号码）" required>
             </div>
         </div>
     </div>
@@ -125,8 +130,21 @@
         <div class="col-sm-3 column-title">
             <label class="control-label">系统类别</label>
         </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
+        <div class="col-sm-4 column-content select-multiple">
+            <select name="xtlb" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('security_level')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="col-sm-3 column-content">
+            <select name="xtlb" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('security_level')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
 </fieldset>

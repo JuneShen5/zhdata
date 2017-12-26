@@ -32,30 +32,30 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">承建单位</label>
+            <label class="control-label">承建单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="请输入承建单位" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="负责此项目的承建商名称" required>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人姓名</label>
+            <label class="control-label">承建单位联系人姓名</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="cjdwlxr" placeholder="请输入姓名" required>
+                <input type="text" class="form-control" hasNoSpace="true" name="cjdwlxr" placeholder="承建方负责人姓名" required>
             </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人手机号</label>
+            <label class="control-label">承建单位联系人手机号</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
-                <input type="text" class="form-control" isMobile="true" name="cjdwlxdh" placeholder="请输入手机号" required>
+                <input type="text" class="form-control" isMobile="true" name="cjdwlxdh" placeholder="承建方联系电话" required>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
             <label class="control-label">合同签署时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htqssj" readonly="readonly" placeholder="请选择合同签署时间" required>
+            <input type="text" class="form-control datepicker" name="htqssj" readonly="readonly" placeholder="与承建方签署合同日期时间" required>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
             <label class="control-label">合同约定完成时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htydwcsj" readonly="readonly" placeholder="请选择合同约定完成时间" required>
+            <input type="text" class="form-control datepicker" name="htydwcsj" readonly="readonly" placeholder="与承建方所签署合同约定完成时间" required>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
             <label class="control-label">合同签署维保到期时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="请选择合同签署维保到期时间" required>
+            <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="合同约定的维保到期时间" required>
         </div>
     </div>
 
@@ -92,7 +92,7 @@
             <label class="control-label">已付合同金额或比例</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" name="yfhtje" placeholder="请输入已付合同金额（万元）或比例（%）" required>
+            <input type="text" class="form-control" name="yfhtje" placeholder="已付合同金额（万元）或比例（%）" required>
         </div>
     </div>
 </fieldset>

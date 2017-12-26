@@ -23,7 +23,7 @@
             <label class="control-label">审批部门</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="请输入审批部门" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="spbm" placeholder="负责审批此系统的相关单位" required>
         </div>
     </div>
 
@@ -32,7 +32,7 @@
             <label class="control-label">审批时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="请选择审批时间" required>
+            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="审批的具体日期" required>
         </div>
     </div>
 
@@ -46,22 +46,30 @@
     </div>
 
     <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">建设单位名称</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" hasNoSpace="true" name="jsdwmc" placeholder="负责此项目的科室名称" required>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人姓名</label>
+            <label class="control-label">建设单位联系人姓名</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="jsdwlxr" placeholder="请输入姓名" required>
+                <input type="text" class="form-control" hasNoSpace="true" name="jsdwlxr" placeholder="建设方项目负责人姓名" required>
             </div>
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人手机号</label>
+            <label class="control-label">建设单位联系人手机号</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
-                <input type="text" class="form-control" isMobile="true" name="jsdwlxdh" placeholder="请输入手机号" required>
+                <input type="text" class="form-control" isMobile="true" name="jsdwlxdh" placeholder="建设方项目负责人联系电话" required>
             </div>
         </div>
     </div>
@@ -71,7 +79,7 @@
             <label class="control-label">建设预算/合同金额<br>（万元）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="系统建设预算/合同金额（万元）" required>
+            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="具体数额（单位：万元，格式：数字填写）" required>
         </div>
     </div>
     <div class="form-group">
