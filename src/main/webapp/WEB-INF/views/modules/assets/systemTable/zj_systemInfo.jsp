@@ -52,7 +52,7 @@
             <%--<input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>--%>
             <select name="jhjrwllx" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('security_level')}">
+                <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -80,7 +80,7 @@
         <div class="col-sm-7 column-content">
             <select name="sfyqtxtdj" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
+                <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -97,7 +97,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">虚拟化部署</label>
+            <label class="control-label">是否虚拟化部署</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="sfxnhbs" class="form-control js-hasChild" required>

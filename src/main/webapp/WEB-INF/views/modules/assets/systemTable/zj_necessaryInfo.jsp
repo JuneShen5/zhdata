@@ -36,7 +36,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">紧迫程度简要说明</label>
+            <label class="control-label">紧迫程度说明</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="jpcdsm" placeholder="根据单位具体情况进行说明" required>
@@ -51,7 +51,7 @@
             <%--<input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="请输入预估使用对象" required>--%>
             <select name="ygsydx" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('project_urgency')}">
+                <c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -60,7 +60,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">预估使用规模</label>
+            <label class="control-label">预估使用规模（注册用户个数/个）</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" digits="true" name="ygsygm" placeholder="涉及用户的具体数量" required>
