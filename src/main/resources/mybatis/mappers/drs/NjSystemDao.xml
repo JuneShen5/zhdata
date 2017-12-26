@@ -4,6 +4,7 @@
 
    <sql id="NjSystemColumns">
       a.id,
+      a.company_id AS "companyId",
       a.dwmc,
       a.xtmc,
       a.smfl,
@@ -17,6 +18,7 @@
       a.lxr,
       a.lxdh,
       a.xtlb,
+      a.xtlb2,
       a.jsjpcd,
       a.xtjcsjyq,
       a.njxtyj,
@@ -28,14 +30,20 @@
       a.update_by AS "updateBy",
 	  a.update_date AS "updateDate",
 	  a.remarks,
-	  a.del_flag AS "delFlag"
-       
+	  a.del_flag AS "delFlag",
+	  c.name AS "companyName"
+      
     </sql>
+    
+    <sql id="njSystemJoins">
+    	LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
     
     <select id="queryAllList" resultType="NjSystems">
       SELECT
       <include refid="NjSystemColumns" />
       FROM drs_system_nijian a
+      <include refid="njSystemJoins" />
       <where>
       a.del_flag = #{njSystems.delFlag}
       <if test="njSystems.xtmc != null and njSystems.xtmc != ''">

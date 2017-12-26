@@ -1,6 +1,7 @@
 package com.govmade.zhdata.module.drs.pojo;
 
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.govmade.zhdata.common.persistence.BasePo;
 
@@ -9,7 +10,10 @@ public class NjSystems extends BasePo<NjSystems>{
 	
 	private static final long serialVersionUID = 1L;
 
-	private String dwmc;
+	private Integer companyId; // 所属部门ID
+	
+	@Transient
+    private String companyName; // 单位名称（所属部门）
 	
 	private String xtmc;
 	
@@ -27,13 +31,15 @@ public class NjSystems extends BasePo<NjSystems>{
 	
 	private Integer zjdwqk;
 	
-	private String jsfs;
+	private Integer jsfs;
 	
 	private String lxr;
 	
 	private String lxdh;
 	
-	private String xtlb;
+	private Integer xtlb;
+	
+	private Integer xtlb2;
 	
 	private Integer jsjpcd;
 	
@@ -51,13 +57,7 @@ public class NjSystems extends BasePo<NjSystems>{
 		super();
 	}
 
-	public String getDwmc() {
-		return dwmc;
-	}
 
-	public void setDwmc(String dwmc) {
-		this.dwmc = dwmc;
-	}
 
 	public String getXtmc() {
 		return xtmc;
@@ -123,14 +123,6 @@ public class NjSystems extends BasePo<NjSystems>{
 		this.zjdwqk = zjdwqk;
 	}
 
-	public String getJsfs() {
-		return jsfs;
-	}
-
-	public void setJsfs(String jsfs) {
-		this.jsfs = jsfs;
-	}
-
 	public String getLxr() {
 		return lxr;
 	}
@@ -145,14 +137,6 @@ public class NjSystems extends BasePo<NjSystems>{
 
 	public void setLxdh(String lxdh) {
 		this.lxdh = lxdh;
-	}
-
-	public String getXtlb() {
-		return xtlb;
-	}
-
-	public void setXtlb(String xtlb) {
-		this.xtlb = xtlb;
 	}
 
 	public Integer getJsjpcd() {
@@ -201,6 +185,66 @@ public class NjSystems extends BasePo<NjSystems>{
 
 	public void setYgsygm(String ygsygm) {
 		this.ygsygm = ygsygm;
+	}
+
+
+
+	public Integer getCompanyId() {
+		return companyId;
+	}
+
+
+
+	public void setCompanyId(Integer companyId) {
+		this.companyId = companyId;
+	}
+
+
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+
+
+	public Integer getJsfs() {
+		return jsfs;
+	}
+
+
+
+	public void setJsfs(Integer jsfs) {
+		this.jsfs = jsfs;
+	}
+
+
+
+	public Integer getXtlb() {
+		return xtlb;
+	}
+
+
+
+	public void setXtlb(Integer xtlb) {
+		this.xtlb = xtlb;
+	}
+
+
+
+	public Integer getXtlb2() {
+		return xtlb2;
+	}
+
+
+
+	public void setXtlb2(Integer xtlb2) {
+		this.xtlb2 = xtlb2;
 	}
 	
 		
