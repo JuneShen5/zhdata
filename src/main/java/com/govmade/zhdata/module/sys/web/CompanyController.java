@@ -167,9 +167,12 @@ public class CompanyController extends BaseController<Company>{
 
     @Override
     protected List<Map<String, Object>> queryDataForExp() {
-        List<Company> company = companyService.queryForExport();
+        Company company = new Company();
+        company.setTypes("1,2");
+        List<Company> comList=this.companyService.queryAllList(company);
+//        List<Company> company = companyService.queryForExport();
         List<Map<String, Object>> infoList = Lists.newArrayList();
-        for (Company data : company) {
+        for (Company data : comList) {
             infoList.add(MapUtil.beansToMap(data));
         }
         return infoList;

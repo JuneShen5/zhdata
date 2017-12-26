@@ -6,45 +6,35 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 
-import com.govmade.zhdata.module.drs.pojo.InfoSort;
-
+import com.govmade.zhdata.module.sys.pojo.Company;
 
 
 public class TreeUtil {
     
-    private Integer levalNum = 0;
-    private Integer rankNum = 0;
+    private  List <Company> companyTreeList = new ArrayList<Company>();
     
-    public Integer getLevalNum() {
-        return levalNum;
+
+    public List<Company> getCompanyTreeList() {
+        return companyTreeList;
     }
-
-
-    private String[][] numfour;
-    
 
     @SuppressWarnings("unchecked")
-    public String[][] buildListToTree(List<InfoSort> dirs) {
-        List<InfoSort> roots = findRoots(dirs);
-        List<InfoSort> notRoots = (List<InfoSort>) CollectionUtils
+    public List<Company> buildListToTree(List<Company> dirs) {
+        List<Company> roots = findRoots(dirs);
+        List<Company> notRoots = (List<Company>) CollectionUtils
                 .subtract(dirs, roots);
-        for (InfoSort root : roots) {
+        for (Company root : roots) {
+            companyTreeList.add(root);
             root.setChildren(findChildren(root, notRoots));
         }
-        
-        numfour = new String[rankNum+2][levalNum+2];
-        System.out.println("行："+numfour.length);
-        System.out.println("列："+numfour[0].length);
-        return   listToArray(roots);
-//        return new String[30][30];
-//        return roots;
+        return roots;
     }
 
-    public List<InfoSort> findRoots(List<InfoSort> allInfoSorts) {
-        List<InfoSort> results = new ArrayList<InfoSort>();
-        for (InfoSort InfoSort : allInfoSorts) {
+    public List<Company> findRoots(List<Company> allInfoSorts) {
+        List<Company> results = new ArrayList<Company>();
+        for (Company InfoSort : allInfoSorts) {
             boolean isRoot = true;
-            for (InfoSort comparedOne : allInfoSorts) {
+            for (Company comparedOne : allInfoSorts) {
                 if (InfoSort.getParentId() == comparedOne.getId()) {
                     isRoot = false;
                     break;
@@ -60,28 +50,27 @@ public class TreeUtil {
     }
 
     @SuppressWarnings("unchecked")
-    private List<InfoSort> findChildren(InfoSort root, List<InfoSort> allInfoSorts) {
-        List<InfoSort> children = new ArrayList<InfoSort>();
+    private List<Company> findChildren(Company root, List<Company> allInfoSorts) {
+        List<Company> children = new ArrayList<Company>();
 
-        for (InfoSort comparedOne : allInfoSorts) {
+        for (Company comparedOne : allInfoSorts) {
             if (comparedOne.getParentId() == root.getId()) {
                 comparedOne.setParent(root);
                 comparedOne.setLevel(root.getLevel() + 1);
-                children.add(comparedOne);
-                /*增加列数目     */  
-                if(root.getLevel() + 1>levalNum){
-                    levalNum = root.getLevel() + 1;
+                String treeLine = "";
+                for(int i=0;i<comparedOne.getLevel();i++){
+                    treeLine += "—";
                 }
-//                setLevalNum(root.getLevel() + 1);
-                
+                comparedOne.setName(treeLine+comparedOne.getName()); //假装拼装出树形结构
+                children.add(comparedOne);
+                companyTreeList.add(comparedOne);
             }
         }
-        List<InfoSort> notChildren = (List<InfoSort>) CollectionUtils.subtract(allInfoSorts, children);
-        for (InfoSort child : children) {
-            List<InfoSort> tmpChildren = findChildren(child, notChildren);
+        List<Company> notChildren = (List<Company>) CollectionUtils.subtract(allInfoSorts, children);
+        for (Company child : children) {
+            List<Company> tmpChildren = findChildren(child, notChildren);
             if (tmpChildren == null || tmpChildren.size() < 1) {
                 child.setLeaf(true);
-                rankNum++;
                 child.setChildSize(1);
             } else {
                 child.setLeaf(false);
@@ -91,77 +80,5 @@ public class TreeUtil {
         }
         return children;
 }
-    
-    
-/*   这边开始集合转数组*/
-//    private  String[][] numfour=new String[1000][1000];
-    public  String[][] listToArray(List<InfoSort> roots){
-//        int  num = 0;
-        
-        for (InfoSort n : roots) {
-//            System.out.println(n);
-            int leval = n.getLevel(); //列
-            int  num = getnumFromLevel(numfour,leval);
-            int pRank = n.getChildren().size(); //行
-            if(pRank>=0){
-                
-                System.out.println("num+1:");
-                System.out.println(num+1);
-//                System.out.println("leval:");
-//                System.out.println(leval);
-                numfour[num+1][leval] = n.getId()+"_"+n.getName();
-              
-                if(!n.isLeaf()){
-                    numfour[num][leval+1] = "1_kong";
-                }
-                 int cNum = 0;
-                for(InfoSort infoSort:n.getChildren()){
-                    cNum += infoSort.getChildSize();
-                }
-               
-                num += cNum;
-            }
-            if(n.isLeaf()){
-                ++num;
-            }
-            System.out.println("num："+num);
-            System.out.println("level："+leval);
-            System.out.println(n.getId()+"_"+n.getName());
-//            int _num = getnumFromLevel(numfour,leval)+num;
-//            System.out.println("_num："+_num);
-           
-         
-            if(!n.isLeaf()){
-                listToArray(n.getChildren());
-            }
-            numfour[num][leval] = n.getId()+"_"+n.getName();
-        }
-        
-//        for(int a=0;a<30;a++){
-            for(int b=0;b<30;b++){
-//                System.out.println(numfour[b][1]);
-            }
-//        }
-        
-        
-        return numfour;
-    }
-    
-    public Integer getnumFromLevel(String[][] strarray,int column){
-        int rowlength = strarray.length;
-        int num = 0;
-        for(int i=rowlength-1;i>=0;i--){
-//            System.out.println("column:"+strarray[i][column]);
-            if( strarray[i][column] !=null){
-//                System.out.println("column:"+strarray[i][column]);
-//                System.out.println("i:"+i);
-                num = i;
-//                System.out.println("numnum:"+num);
-                break;
-            }
-        }
-         
-        return num;
-    } 
     
 }
