@@ -107,6 +107,141 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label">社会信用代码：</label>
+				<div class="col-sm-7">
+					<input type="text" name="credit_code" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">部门信息化分管领导姓名：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ldxm" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">部门信息化分管领导联系方式：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ldlxfs" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">部门信息化业务负责人姓名：</label>
+				<div class="col-sm-7">
+					<input type="text" name="fzrxm" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">部门信息化业务负责人联系方式：</label>
+				<div class="col-sm-7">
+					<input type="text" name="fzrlxfs" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-3 control-label">
+					<label class="control-label">承担信息化工作的内设机构：</label>
+				</div>
+				<div class="col-sm-7 column-content">
+					<select name="nsjg1" class="form-control" required>
+						<option value="">== 请选择 ==</option>
+						<c:forEach var="dict" items="${fns:getDictList('inner_organ')}">
+							<option value="${dict.value}">${dict.label}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			<div class="form-group" data-parent="xtlb1">
+				<div class="col-sm-3 column-title">
+					<label class="control-label"></label>
+				</div>
+				<div class="col-sm-7 column-content">
+					<select name="nsjg2" class="form-control" required>
+						<option value="">== 请选择 ==</option>
+						<c:forEach var="dict" items="${fns:getDictList('public_institution')}">
+							<option value="${dict.value}">${dict.label}</option>
+						</c:forEach>
+					</select>
+				</div>
+			</div>
+			
+			
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化机构人员行政编制人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="rybzqk1" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化机构人员政法专项编制人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="rybzqk2" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化机构人员事业编制人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="rybzqk3" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化机构人员其他编制人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="rybzqk4" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术无职称人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc1" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术计算机初级人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc2" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术计算机中级人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc3" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术计算机高级（副教授）人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc4" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术计算机正高级人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc5" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">信息化人员技术其他人数：</label>
+				<div class="col-sm-7">
+					<input type="text" name="ryjszc6" class="form-control" required>
+					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">所属类型：</label>
 				<div class="col-sm-7">
 					<select name="type" class="select-chosen" required>

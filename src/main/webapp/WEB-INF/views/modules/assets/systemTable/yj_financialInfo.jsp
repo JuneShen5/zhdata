@@ -1,7 +1,39 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<!-- 财政要素信息 -->
+<!-- 系统资金信息 -->
 <fieldset>
-    <legend>财政要素信息</legend>
+    <legend>系统资金信息</legend>
+    <div class="form-group">
+        <div class="col-sm-3 column-title form-border-left">
+            <label class="control-label">资金来源</label>
+        </div>
+        <!-- <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" hasNoSpace="true" name="zjly" placeholder="请输入资金来源" required>
+        </div> -->
+        <div class="col-sm-7 column-content">
+            <select name="zjly" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('capital_source_yj')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">建设金额（万元）</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" isNonnegative="true" class="form-control" name="jsje" placeholder="系统建设金额" required>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">运维金额（万元）</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" isNonnegative="true" class="form-control" name="ywje" placeholder="运维所需金额" required>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">年度</label>

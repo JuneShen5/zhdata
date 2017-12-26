@@ -49,7 +49,13 @@
             <label class="control-label">计划接入网络类型</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>
+            <%--<input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>--%>
+            <select name="jhjrwllx" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('network_type')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
 
@@ -74,7 +80,7 @@
         <div class="col-sm-7 column-content">
             <select name="sfyqtxtdj" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('system_integrating')}">
+                <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -85,13 +91,13 @@
             <label class="control-label">对接其它系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="djqtxtmc" placeholder="请输入对接其它系统名称" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="djqtxtmc" placeholder="若无对接其他系统，此项不填" required>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">虚拟化部署</label>
+            <label class="control-label">是否虚拟化部署</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="sfxnhbs" class="form-control js-hasChild" required>
@@ -107,7 +113,7 @@
             <label class="control-label">虚拟化软件厂商名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xnhrjmc" placeholder="虚拟化软件厂商名称">
+            <input type="text" class="form-control" hasNoSpace="true" name="xnhrjcsmc" placeholder="若无虚拟化部署，此项不填">
         </div>
     </div>
 
@@ -142,7 +148,7 @@
             <label class="control-label">数据备份点位置</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置">
+            <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置（若无备份，此项不填）">
         </div>
     </div>
     <div class="form-group ele-hide" data-parent="sfybf">
@@ -150,7 +156,7 @@
             <label class="control-label">数据备份量（GB）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）">
+            <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）（若无备份，此项不填）">
         </div>
     </div>
 
@@ -186,7 +192,7 @@
             <label class="control-label">系统继续建设原因</label>
         </div>
         <div class="col-sm-7 column-content">
-            <textarea name="xtjxjsyy" class="form-control" hasNoSpace="true" rows="3" placeholder="说明继续建设的必要性、对接要求等"></textarea>
+            <textarea name="xtjxjsyy" class="form-control" hasNoSpace="true" rows="3" placeholder="说明继续建设的必要性、对接要求等（若无系统后续计划，此项不填）"></textarea>
         </div>
     </div>
 </fieldset>

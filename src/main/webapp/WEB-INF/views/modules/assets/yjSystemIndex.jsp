@@ -57,16 +57,16 @@
                 <input type="text" name="id" class="hide">
                 <!-- 基本信息 -->
                 <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_baseInfo.jsp"%>
-                <!-- 僵尸系统信息 -->
-                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_zombieInfo.jsp"%>
-                <!-- 系统整合信息 -->
-                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_systemInfo.jsp"%>
-                <!-- 财政要素信息 -->
+                <!-- 系统使用信息 -->
+                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_sysUsageInfo.jsp"%>
+                <!-- 系统运维信息 -->
+                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_sysOpsInfo.jsp"%>
+                <!-- 系统资金信息 -->
                 <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_financialInfo.jsp"%>
-                <!-- 信息化管理要素 -->
-                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_informationInfo.jsp"%>
+                <!-- 系统数据信息 -->
+                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_sysDateInfo.jsp"%>
                 <!-- 关键设备信息 -->
-                <%@include file="/WEB-INF/views/modules/assets/systemTable/yj_equipmentInfo.jsp"%>
+                <%--<%@include file="/WEB-INF/views/modules/assets/systemTable/yj_equipmentInfo.jsp"%>--%>
                 <!-- 备注与说明 -->
                 <%@include file="/WEB-INF/views/modules/assets/systemTable/comm-remarks.jsp"%>
             </form>
