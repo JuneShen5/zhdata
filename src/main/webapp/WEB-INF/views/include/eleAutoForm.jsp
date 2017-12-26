@@ -101,7 +101,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">对象类型：</label>
 		<div class="col-sm-7">
-			<select name="dataType" class="select-chosen" required>
+			<select name="objectType" class="select-chosen" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('object_type')}">
 					<option value="${dict.value}">${dict.label}</option>
