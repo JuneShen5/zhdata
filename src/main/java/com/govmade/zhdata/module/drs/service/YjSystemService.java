@@ -52,8 +52,8 @@ public class YjSystemService extends BaseService<YjSystems> {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         YjSystems yjSystems = JsonUtil.readValue(page.getObj(), YjSystems.class);
         try {
-            String str = new String(yjSystems.getXtmc().getBytes("ISO-8859-1"), "UTF-8");
-            yjSystems.setXtmc(str);
+            String str = new String(yjSystems.getZwxxxtmc().getBytes("ISO-8859-1"), "UTF-8");
+            yjSystems.setZwxxxtmc(str);
         } catch (Exception e) {
             e.printStackTrace();
         }

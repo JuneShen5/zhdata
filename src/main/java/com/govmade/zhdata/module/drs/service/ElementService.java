@@ -81,11 +81,11 @@ public class ElementService extends BaseService<Element> {
         page.setParams(params);
         
         
-        Integer roleId=UserUtils.getCurrentUser().getRoleId();
+       /* Integer roleId=UserUtils.getCurrentUser().getRoleId();
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         if (roleId!=1) {
            element.setCompanyId(companyId);
-        }
+        }*/
         
         List<Element> list=elementDao.findList(page,element);    
         return new PageInfo<Element>(list);
