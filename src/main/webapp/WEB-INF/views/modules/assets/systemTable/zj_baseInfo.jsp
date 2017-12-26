@@ -2,18 +2,18 @@
 <!-- 基本信息 -->
 <fieldset>
     <legend>基本信息</legend>
-    <!-- <div class="form-group">
+    <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class=" control-label">单位名称</label>
+            <label class=" control-label">政务信息系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
         </div>
-    </div> -->
+    </div>
      <c:set var="user" value="${fns:getCurrentUser()}" />
     <div class="form-group">
         <label class="col-sm-3 control-label layerTips"
-               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">单位名称：</label>
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门：</label>
         <c:choose>
             <c:when test="${user.roleId==1}">
                 <div class="col-sm-7">
@@ -33,14 +33,6 @@
                 </div>
             </c:otherwise>
         </c:choose>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-3 column-title">
-            <label class=" control-label">政务信息系统名称</label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
-        </div>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
@@ -79,7 +71,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">建设单位联系人姓名</label>
+            <label class="control-label">建设单位联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -89,7 +81,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">建设单位联系人手机号</label>
+            <label class="control-label">建设单位联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -124,8 +116,21 @@
         <div class="col-sm-3 column-title">
             <label class="control-label">系统类别</label>
         </div>
-        <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="请输入系统类别" required>
+        <div class="col-sm-4 column-content select-multiple">
+            <select name="xtlb" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('system_type1')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
+        </div>
+        <div class="col-sm-3 column-content">
+            <select name="xtlb2" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('system_type2')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
         </div>
     </div>
 </fieldset>
