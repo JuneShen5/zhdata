@@ -15,8 +15,10 @@ public interface YjSystemDao extends BaseDao<YjSystems> {
     
     public int saveAll(@Param("dataList")List<Map<String, String>> dataList);
     
-    public Double queryYwjSum(YjSystems yjSystems);
+    public Double queryYwjSum(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
 
     public List<YjSystems> queryListByCompanyId(@Param("yjSystems")YjSystems yjSystems, @Param("page")Page<YjSystems> page);
+
+    public Integer querySysCount(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
 
 }

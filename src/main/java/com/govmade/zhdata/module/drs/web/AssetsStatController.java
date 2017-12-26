@@ -9,10 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.github.abel533.entity.Example;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
+import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.SystemDao;
 import com.govmade.zhdata.module.drs.dao.YjSystemDao;
@@ -84,18 +86,24 @@ public class AssetsStatController {
      * @return
      */
     @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> queryCountList(){
-        Map<String, Object> map=Maps.newHashMap();
+    public ResponseEntity<Map<String, Object>> querySum(){
         
-        YjSystems yisSys=new YjSystems();
-        yisSys.setDelFlag(Global.DEL_FLAG_NORMAL);
+        Integer roleId=UserUtils.getCurrentUser().getRoleId();
+        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        List<Integer> comList=Lists.newArrayList();
+        if (roleId!=1) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+        }
+        
+        Map<String, Object> map=Maps.newHashMap();
         Integer ysCount=0;
-        Integer ysCount1=this.yjSystemMapper.selectCount(yisSys);
+        Integer ysCount1=this.yjSystemDao.querySysCount(new YjSystems(),comList);
         if (ysCount1 >0) {
             ysCount=ysCount1;
         }
         Double ywjSum=0.00;
-        Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems());
+        Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems(),comList);
         if (ywjSum1!=null) {
             ywjSum=ywjSum1;
         }
@@ -104,8 +112,29 @@ public class AssetsStatController {
         
         return ResponseEntity.ok(map);
         
+        
+        
     }
     
+    
+    /**
+     * 根据父级查询子级
+     * 
+     * @param parentId
+     * @param list
+     */
+    public void findAllSubNode(Integer companyId, List<Integer> comList) {
+        Company record =new Company();
+        record.setParentId(Integer.valueOf(companyId));
+        List<Company> companies=this.companyService.queryListByWhere(record);
+        if (companies!=null) {
+            for (Company c : companies) {
+                comList.add(c.getId());
+                 findAllSubNode(c.getId(),comList);
+            }
+        }
+        
+    }
     
     
     
@@ -117,7 +146,7 @@ public class AssetsStatController {
      * @return
      */
     @RequestMapping(value="ass/queryCountList",method=RequestMethod.GET)
-    public ResponseEntity<Page<Map<String, Object>>> list(Page<Company> page,String companyIds) {
+    public ResponseEntity<Page<Map<String, Object>>> queryCountList(Page<Company> page,String companyIds) {
         
         page = this.companyService.getPageForSearch(page);
         
