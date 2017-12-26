@@ -2,13 +2,37 @@
 <!-- 基本信息 -->
 <fieldset>
     <legend>基本信息</legend>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class=" control-label">单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="dwmc" placeholder="请输入单位名称" required>
         </div>
+    </div> -->
+     <c:set var="user" value="${fns:getCurrentUser()}" />
+    <div class="form-group">
+        <label class="col-sm-3 control-label layerTips"
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">单位名称：</label>
+        <c:choose>
+            <c:when test="${user.roleId==1}">
+                <div class="col-sm-7">
+                    <input id="" name="companyId"
+                           class="form-control citySelId hide" type="text"> <input
+                        id="" name="companyName" class="form-control citySel"
+                        type="text" placeholder="请选择单位名称" ReadOnly required />
+                    <%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+                </div>
+            </c:when>
+            <c:otherwise>
+                <div class="col-sm-7">
+                    <input type="text" name="companyName" class="form-control"
+                           value="${fns:queryCompanyName()}" required> <input
+                        type="text" name="companyId" class="form-control hide"
+                        value="${user.companyId}">
+                </div>
+            </c:otherwise>
+        </c:choose>
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">

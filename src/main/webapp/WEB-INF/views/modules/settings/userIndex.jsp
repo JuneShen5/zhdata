@@ -50,7 +50,7 @@
 		<form id="eform" class="form-horizontal">
 			<input type="text" name="id" class="hide">
 			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" layerData="登录名">登录名：</label>
+				<label class="col-sm-3 control-label" layerData="登录名">登录名：</label>
 				<div class="col-sm-7">
 					<input type="text" name="loginName" class="form-control" required>
 				</div>
