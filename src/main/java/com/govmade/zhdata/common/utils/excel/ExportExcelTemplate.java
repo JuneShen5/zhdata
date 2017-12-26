@@ -19,6 +19,7 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
+import com.govmade.zhdata.common.utils.TreeUtil;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -93,6 +94,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                   }else{
                       inputValue = "参考附页"; 
                   }
+                  System.out.println("title:"+sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue());
                   templateValue.add(0, sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue());//将那一列的中文名放到第一个
                   if(templateValue.size()>attachedMaxLen){
                       attachedMaxLen = templateValue.size();
@@ -152,12 +154,14 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 templateValue = dictMap.get(inputValue);
                 break;
             case "companyselect":
-                List<Company>  companyList = SysUtils.getCompanyList();
+                List<Company>  companyList = SysUtils.getCompanyList(); //单存的列表
+//                TreeUtil treeUtil = new TreeUtil();
+//                treeUtil.buildListToTree(companyList); //父子级
+//                List<Company> companyTreeList = treeUtil.getCompanyTreeList();
                 for(Company company:companyList){
                     templateValue.add(company.getName());
                 }
                 break;
-                
             case "linkselect":
                 List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
                 for (InfoSort info : infoSorts) {
@@ -242,4 +246,5 @@ public class ExportExcelTemplate extends ExportExcelImpl {
             this.dictMap = resultMap;
 //            System.out.println("resultMap"+resultMap);
         }
+        
 }  
