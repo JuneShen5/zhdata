@@ -7,11 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -26,26 +21,9 @@ import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddressList;
-import org.apache.poi.xssf.usermodel.XSSFDataValidation;
-import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
-import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
-import com.alibaba.druid.pool.DruidDataSource;
-import com.google.common.collect.Lists;
-import com.govmade.zhdata.common.utils.DrsUtils;
-import com.govmade.zhdata.common.utils.StringUtil;
-import com.govmade.zhdata.common.utils.SysUtils;
-import com.govmade.zhdata.module.drs.pojo.InfoSort;
-import com.govmade.zhdata.module.drs.pojo.Systems;
-import com.govmade.zhdata.module.sys.pojo.Company;
-import com.govmade.zhdata.module.sys.pojo.Dict;
-import com.govmade.zhdata.module.sys.pojo.Menu;
-import com.govmade.zhdata.module.sys.pojo.Role;
-import com.govmade.zhdata.module.sys.pojo.Site;
   
 /** 
  * 导出Excel公共方法 
@@ -145,8 +123,8 @@ public abstract class ExportExcelImpl{
     
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
-        this.out(createExcel);
-//        this.writeInOutputStream(createExcel);
+//        this.out(createExcel);
+        this.writeInOutputStream(createExcel);
     }
     
     public void out(Workbook createExcel) throws Exception{

@@ -3,19 +3,15 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
-import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
-import com.govmade.zhdata.module.drs.pojo.Element;
-import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -49,10 +45,10 @@ public class ExportExcelData extends ExportExcelImpl {
         super(fileName, title, templatFile, rowName, dataList, response);
     }  
     
+    
     @Override
     protected void exportValue(XSSFSheet sheet) {
         int lastRowNum = sheet.getLastRowNum();
-        
         Row titelRow = sheet.getRow(lastRowNum-1); //获取英文字段的行
         Row inputTypeRow = sheet.getRow(lastRowNum);
         int lastCellNum =  titelRow.getLastCellNum();   //模板中的总列数
@@ -62,7 +58,8 @@ public class ExportExcelData extends ExportExcelImpl {
             for(int j=0;j<lastCellNum;j++){
                String nameEn = titelRow.getCell(j).getStringCellValue(); //获取excel模板中英文那一列
                String data =  (String) dataList.get(i).get(nameEn); //根据英文那一列一次获取实体数据list中的值
-               if(inputTypeRow.getCell(j).getStringCellValue().length()>0 && data != null  ){
+//               newRow.createCell(j).setCellValue(data);
+               if(  data != null && inputTypeRow.getCell(j).getStringCellValue().length()>0 ){
                    //获取excel存放inputtype那一行的值
                    String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
                    String columType = inputTypeArr[0];
@@ -70,9 +67,6 @@ public class ExportExcelData extends ExportExcelImpl {
                        newRow.createCell(j).setCellValue(data);//没有关联表的数据
                    }else{
                        //有关联表的数据
-//                       String columTypeValue = inputTypeArr[1];
-//                       Map<String,String> templateValue = getTemplateValue(columType,columTypeValue); //对应下拉选框数据
-//                       newRow.createCell(j).setCellValue(templateValue.get(data));//
                        String value = getTemplateValue(inputTypeArr,data);
                        newRow.createCell(j).setCellValue(value);
                    }
@@ -80,9 +74,32 @@ public class ExportExcelData extends ExportExcelImpl {
                
             }
         }
+//        changeLinkValue(sheet,lastRowNum);
     }
     
-    
+    /**
+     * 统一更改有关联的数据
+     * @param sheet
+     * @param lastRowNum
+     */
+    private void changeLinkValue(XSSFSheet sheet, int lastRowNum){
+        Row inputTypeRow = sheet.getRow(lastRowNum);
+        int lastCellNum =  sheet.getRow(lastRowNum-1).getLastCellNum();   //模板中的总列数
+        for(int j=0;j<lastCellNum;j++){
+          String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
+          String columType = inputTypeArr[0];
+          if(!Arrays.asList(unSelect).contains(columType)){
+              for(int i=lastRowNum+1;i<dataList.size();i++){
+                  Row nowRow = sheet.getRow(i);
+                  XSSFCell nowCell = (XSSFCell) nowRow.getCell(j);
+                  String value = getTemplateValue(inputTypeArr,nowCell.getStringCellValue());
+                  nowCell.setCellValue(value);
+              }
+                
+          }
+        }
+    }
+ 
     /**
      *  根据关联的ID值获取实体数据
      * @param inputType 输入框类型
