@@ -44,10 +44,6 @@ public class ZjSystemController extends BaseController<ZjSystems>{
         super.startRow = 7;
         super.columnIndex = 1;
     }       
-    @Override
-    protected Integer getattributeType(){
-        return 3;
-    }
     
     @Override
     protected BaseService<ZjSystems> getService() {

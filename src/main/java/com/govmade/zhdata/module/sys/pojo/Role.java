@@ -104,4 +104,14 @@ public class Role extends BasePo<Role> {
         this.menuList = menuList;
     }
 
+
+
+    @Override
+    public String toString() {
+        return "Role [companyId=" + companyId + ", companyName=" + companyName + ", name=" + name
+                + ", enname=" + enname + ", useable=" + useable + ", menuIds=" + menuIds + ", menuList="
+                + menuList + "]";
+    }
+    
+
 }

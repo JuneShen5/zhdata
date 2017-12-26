@@ -33,7 +33,7 @@
                                     <a data-toggle="modal" class="btn btn-green"
                                        onclick="openAdd();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                     <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-                                    <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
+                                    <button class="btn btn-purple" type="button" onclick="importData(5);"><i class='fa fa-sign-in'></i> Excel导入</button>
                                     <button class="btn btn-yellow" type="button" onclick="deleteBatch();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
         <c:set var="type" value="5" />
 		<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
         <%@ include file="/WEB-INF/views/include/footer.jsp"%>
-    <script src="${ctxStatic}/js/common/common-h.js"></script>
+    	<script src="${ctxStatic}/js/common/common-h.js"></script>
     <script>
 	    /*导入导出定义的全部变量 */
 		var uploaderServer = "zjSystem";
