@@ -72,7 +72,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">归口科室名称</label>
+            <label class="control-label">建设单位归口科室名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="gkksmc" placeholder="负责此项目的科室名称" required>
@@ -81,7 +81,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人</label>
+            <label class="control-label">建设单位联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -91,7 +91,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系电话</label>
+            <label class="control-label">建设单位联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -102,7 +102,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">单位名称</label>
+            <label class="control-label">承建单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="负责此项目的承建商名称" required>
@@ -111,7 +111,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人</label>
+            <label class="control-label">承建单位联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -121,7 +121,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系电话</label>
+            <label class="control-label">承建单位联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
