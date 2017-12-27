@@ -20,6 +20,8 @@
 		<result property="isAudit" column="isAudit" />
 		<result property="reason" column="reason" />
 		<result property="tbName" column="tbName" />
+		<result property="resourceFormat" column="resourceFormat" />
+		<result property="rightRelation" column="rightRelation" />
         <result property="info" column="info" />
         <result property="remarks" column="remarks" />
         <collection property="elementList" ofType="Element">
@@ -67,6 +69,8 @@
 		a.is_audit AS "isAudit",
 		a.tb_name AS "tbName",
 		a.reason,
+		a.resource_format AS "resourceFormat",
+		a.right_relation AS "rightRelation",
 		JSON_UNQUOTE(a.info) as "info",
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
