@@ -26,7 +26,12 @@ $(function() {
     }).on("changeDate", function (e) {
     	$(this).blur();
     });
-	
+
+    // 多选下拉框插件
+    $('.is-multiple-select').select2({width:'100%'});
+    $(".is-multiple-select").change(function(){
+        $(this).valid();
+    });
 	// checkbox、radio插件
 	$('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -439,7 +444,12 @@ function loadData(row) {
 					// 	$(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
 					// 	$(".linkagesel-select-group-info ").find(".chosen-container").removeClass("has-error-s has-success-s");
 					// },500);
-				} else {
+				}else if ($(this).hasClass('is-multiple-select')){
+                    var values = new Array(); //定义一数组
+                    values = value.split(",");
+                    $(this).val(values).trigger("change");
+                    $(this).closest('.form-group').removeClass('has-success has-error');
+                } else {
 					$(this).val(value);
 					$(this).trigger("chosen:updated");
 				}
@@ -643,11 +653,14 @@ function shareToggleMethod() {
         // 共享方式
         var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+		var fbrqSelect = gxlxSelect.closest('form').find('input[name=faburiqi]');
         var gxlxValue = parseInt(gxlxSelect.val());
         gxtjSelect.closest('.form-group').hide();
         gxtjSelect.removeAttr("required");
         gxfsSelect.closest('.form-group').hide();
         gxfsSelect.removeAttr("required");
+        fbrqSelect.closest('.form-group').hide();
+        fbrqSelect.removeAttr("required");
         gxlxSelect.chosen({
             width: "100%"
         }).on('change', function () {
@@ -660,6 +673,9 @@ function shareToggleMethod() {
                 gxtjSelect.val("");
                 gxtjSelect.trigger("chosen:updated");
                 gxtjSelect.removeAttr("required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.closest('.form-group').slideToggle();
+                fbrqSelect.attr("required", "required");
             } else if (thisValue === 2) {
                 gxfsSelect.closest('.form-group').hide();
                 gxtjSelect.closest('.form-group').hide();
@@ -667,6 +683,9 @@ function shareToggleMethod() {
                 gxfsSelect.attr("required", "required");
                 gxtjSelect.closest('.form-group').slideToggle();
                 gxtjSelect.attr("required", "required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.closest('.form-group').slideToggle();
+                fbrqSelect.attr("required", "required");
             } else if (thisValue === 3) {
                 gxfsSelect.closest('.form-group').hide();
                 gxfsSelect.val("");
@@ -676,6 +695,9 @@ function shareToggleMethod() {
                 gxtjSelect.val("");
                 gxtjSelect.trigger("chosen:updated");
                 gxtjSelect.removeAttr("required");
+                gxfsSelect.closest('.form-group').hide();
+                gxfsSelect.val("");
+                gxfsSelect.removeAttr("required");
             }
         });
     }
@@ -722,11 +744,14 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 	if (gxlxSelect !== undefined){
 		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+        var fbrqSelect = gxlxSelect.closest('form').find('input[name=faburiqi]');
 		var gxlxValue = parseInt(gxlxSelect.val());
 		gxtjSelect.closest('.form-group').hide();
 		gxtjSelect.removeAttr("required");
 		gxfsSelect.closest('.form-group').hide();
 		gxfsSelect.removeAttr("required");
+        fbrqSelect.closest('.form-group').hide();
+        fbrqSelect.removeAttr("required");
 		if (gxlxValue === 1) {
 			gxfsSelect.closest('.form-group').show();
 			gxfsSelect.attr("required", "required");
@@ -734,11 +759,15 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			gxtjSelect.val("");
 			gxtjSelect.trigger("chosen:updated");
 			gxtjSelect.removeAttr("required");
+            fbrqSelect.closest('.form-group').show();
+            fbrqSelect.attr("required", "required");
 		} else if (gxlxValue === 2) {
 			gxfsSelect.closest('.form-group').show();
 			gxtjSelect.closest('.form-group').show();
 			gxfsSelect.attr("required", "required");
 			gxtjSelect.attr("required", "required");
+            fbrqSelect.closest('.form-group').show();
+            fbrqSelect.attr("required", "required");
 		} else if (gxlxValue === 3) {
 			gxfsSelect.closest('.form-group').hide();
 			gxfsSelect.val("");
@@ -748,6 +777,9 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			gxtjSelect.val("");
 			gxtjSelect.trigger("chosen:updated");
 			gxtjSelect.removeAttr("required");
+            fbrqSelect.closest('.form-group').hide();
+            fbrqSelect.val("");
+            fbrqSelect.removeAttr("required");
 		}
     }
     if (isOpenSelect !== undefined) {

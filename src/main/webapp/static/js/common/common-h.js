@@ -198,7 +198,7 @@ var TableInit = function(tableOption,btnOption) {
             $(this).blur();
         });
         // 多选下拉框插件
-        $('.is-multiple-select').select2();
+        $('.is-multiple-select').select2({width:'100%'});
         $(".is-multiple-select").change(function(){
             $(this).valid();
         });
