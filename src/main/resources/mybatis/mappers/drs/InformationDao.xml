@@ -295,7 +295,7 @@
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
         LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
-        ORDER BY a.id
+        ORDER BY a.id DESC
     </select>
 	
 	<!-- 保存关联表 -->
