@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- 项目建设必要性说明 -->
 <fieldset>
-    <legend>项目建设必要性说明</legend>
+    <legend>系统建设必要性</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">项目建设/立项依据</label>
+            <label class="control-label">系统建设/立项依据</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="xtjsyj" placeholder="权责清单、政策等相关文件" required>
@@ -48,9 +48,7 @@
             <label class="control-label">预估使用对象</label>
         </div>
         <div class="col-sm-7 column-content">
-            <%--<input type="text" class="form-control" hasNoSpace="true" name="ygsydx" placeholder="请输入预估使用对象" required>--%>
-            <select name="ygsydx" class="form-control" required>
-                <option value="">== 请选择 ==</option>
+            <select name="ygsydx" class="form-control is-multiple-select" multiple="multiple" required>
                 <c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>

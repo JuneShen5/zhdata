@@ -4,7 +4,7 @@
     <legend>系统整合信息</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">系统部署位置</label>
+            <label class="control-label">部署位置</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="bswz" class="form-control" required>
@@ -32,7 +32,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">信息安全等保级别</label>
+            <label class="control-label">安全级别</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="aqjb" class="form-control" required>
@@ -80,7 +80,7 @@
         <div class="col-sm-7 column-content">
             <select name="sfyqtxtdj" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
+                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
@@ -119,7 +119,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-bottom">
-            <label class="control-label">数据是否有备份</label>
+            <label class="control-label">是否有备份</label>
         </div>
         <div class="col-sm-7 column-content form-border-bottom">
             <select name="sfybf" class="form-control js-hasChild" required>
@@ -132,7 +132,7 @@
     </div>
     <div class="form-group ele-hide" data-parent="sfybf">
         <div class="col-sm-3 column-title form-border-left form-border-bottom">
-            <label class="control-label">数据备份方式</label>
+            <label class="control-label">备份方式</label>
         </div>
         <div class="col-sm-7 column-content form-border-bottom">
             <select name="bffs" class="form-control">
@@ -145,7 +145,7 @@
     </div>
     <div class="form-group ele-hide" data-parent="sfybf">
         <div class="col-sm-3 column-title">
-            <label class="control-label">数据备份点位置</label>
+            <label class="control-label">备份点位置</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置（若无备份，此项不填）">

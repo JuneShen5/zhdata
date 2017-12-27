@@ -27,6 +27,8 @@
             <result property="idCode" column="elementList.idCode" />
             <result property="nameCn" column="elementList.nameCn" />
             <result property="nameEn" column="elementList.nameEn" />
+             <result property="code" column="elementList.code" />
+             <result property="des" column="elementList.des" />
             <result property="label" column="elementList.label" />
             <result property="len" column="elementList.len" />
             <result property="objectType" column="elementList.objectType" />

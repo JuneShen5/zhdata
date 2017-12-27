@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <!-- 基本信息 -->
 <fieldset>
-    <legend>基本信息</legend>
+    <legend>系统基本信息</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class=" control-label">政务信息系统名称</label>
@@ -14,7 +14,7 @@
     <c:set var="user" value="${fns:getCurrentUser()}" />
     <div class="form-group">
         <label class="col-sm-3 control-label layerTips"
-               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门：</label>
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门</label>
         <c:choose>
             <c:when test="${user.roleId==1}">
                 <div class="col-sm-7">
@@ -81,7 +81,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">建设单位联系人</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -91,7 +91,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">建设单位联系电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -102,7 +102,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">承建单位名称</label>
+            <label class="control-label">单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="负责此项目的承建商名称" required>
@@ -111,7 +111,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">承建单位联系人</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -121,7 +121,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">承建单位联系电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -172,19 +172,24 @@
             <input type="text" class="form-control datepicker" name="trsysj" readonly="readonly" placeholder="系统投入使用具体时间,格式：CCYY-MM" required>
         </div>
     </div>
-      <div class="form-group">
+    <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">系统类别</label>
         </div>
-        <div class="col-sm-4 column-content select-multiple">
-            <select name="xtlb" class="form-control" required>
+        <div class="col-sm-7 column-content">
+            <select name="xtlb" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type1')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
         </div>
-        <div class="col-sm-3 column-content">
+    </div>
+    <div class="form-group ele-hide" data-parent="xtlb">
+        <div class="col-sm-3 column-title">
+            <label class="control-label"></label>
+        </div>
+        <div class="col-sm-7 column-content">
             <select name="xtlb2" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type2')}">
@@ -237,7 +242,7 @@
             <label class="control-label">已接入</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="jhjrwllx" class="form-control" required>
+            <select name="yjr" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>

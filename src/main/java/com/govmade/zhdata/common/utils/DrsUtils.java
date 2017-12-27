@@ -87,13 +87,16 @@ public class DrsUtils {
 
 
     /**
-     * 获取自定义表单属性列表
+     * 获取自定义表单属性(非核心字段)列表
      * 
      * @return
      */
     public static List<Attribute> getAttList(Integer typeId) {
         List<Attribute> attList = Lists.newArrayList();
-        attList = drsUtils.attService.queryAll(new Attribute(typeId));
+        Attribute record=new Attribute();
+        record.setType(typeId);
+        record.setIsCore(2);
+        attList = drsUtils.attService.queryAll(record);
         return attList;
     }
     

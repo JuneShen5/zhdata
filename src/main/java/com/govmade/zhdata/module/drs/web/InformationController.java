@@ -216,12 +216,12 @@ public class InformationController extends BaseController<Information>{
                 info.preInsert();
               /*  info.setNameEn(ChineseTo.getPinYinHeadChar(info.getNameCn()));*/
                 Company company=this.companyService.queryById(info.getCompanyId());
-                info.setCode(company.getCode());
+                info.setCode(company.getCreditCode());
                 this.infoService.saveInformation(info);
             } else {
                 info.preUpdate();
                 Company company=this.companyService.queryById(info.getCompanyId());
-                info.setCode(company.getCode());
+                info.setCode(company.getCreditCode());
                 this.infoService.updateInformation(info);
             }
         } catch (Exception e) {

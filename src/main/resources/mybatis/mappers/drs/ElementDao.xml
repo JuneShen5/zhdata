@@ -7,12 +7,13 @@
 		LPAD(a.id,7,'0') as "idCode", 
 		<!-- a.open_type AS "openType",
 		a.share_type AS "shareType", -->
+		a.code,
+		a.des,
 		a.name_cn AS "nameCn",
 		a.name_en AS "nameEn",
 		a.data_type AS "dataType",
 		a.data_typen AS "dataTypen",
-		<!-- a.object_type AS "objectType",
-		a.input_type AS "inputType",
+		<!--a.input_type AS "inputType",
 		a.search_type AS "searchType", -->
 		a.len,
 		a.label,		

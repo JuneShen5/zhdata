@@ -37,6 +37,20 @@ $(function() {
     		$(e.currentTarget).siblings("input").blur();
     	}, 0)
     });
+    // 设置表单逻辑字段
+    $('.js-hasChild').on('change', function () {
+        var parentName = $(this).attr('name');
+        if ($(this).val() === '1') {
+            $('[data-parent=' + parentName + ']').slideDown().find('input,select,textarea').prop('required', true).val('');
+        }else {
+            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+        }
+        $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+            // that.$element.find('form').validate().element($(this));
+            $(this).valid();
+
+        });
+    });
 });
 
 var TableInit = function() {
@@ -452,6 +466,15 @@ function loadData(row) {
         radioClass: 'iradio_square-green',
     });
     shareToggle();
+    // 判断相关下拉框选项
+    $('.js-hasChild').each(function (index) {
+        var parentName = $(this).attr('name');
+        if ($(this).val() === '1') {
+            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+        }else {
+            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+        }
+    });
 }
 
 // 数据具体的回显功能，上面的存在bug
@@ -617,9 +640,8 @@ function tf(str){
 function shareToggleMethod() {
     var gxlxSelect = $("select[name=shareType]");
     if (gxlxSelect !== undefined) {
-        console.log('1oo');
         // 共享方式
-        var gxtjSelect = gxlxSelect.closest('form').find('select[name=shareCondition]');
+        var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
         var gxlxValue = parseInt(gxlxSelect.val());
         gxtjSelect.closest('.form-group').hide();
@@ -660,7 +682,6 @@ function shareToggleMethod() {
     // 是否向社会开放
     var isOpenSelect = $("select[name=isOpen]");
     if (isOpenSelect !== undefined) {
-        console.log('2oo');
         var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
         var isOpenValue = parseInt(isOpenSelect.val());
         kflxSelect.closest('.form-group').hide();
@@ -699,8 +720,7 @@ function shareToggleName (formId) {
 
 function shareToggleChange (gxlxSelect, isOpenSelect) {
 	if (gxlxSelect !== undefined){
-		console.log('1xx');
-		var gxtjSelect = gxlxSelect.closest('form').find('select[name=shareCondition]');
+		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
 		var gxlxValue = parseInt(gxlxSelect.val());
 		gxtjSelect.closest('.form-group').hide();
@@ -731,7 +751,6 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 		}
     }
     if (isOpenSelect !== undefined) {
-        console.log('2xx');
         var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
         var isOpenValue = parseInt(isOpenSelect.val());
         kflxSelect.closest('.form-group').hide();

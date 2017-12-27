@@ -17,7 +17,11 @@ public class Element extends BasePo<Element> {
     private String nameCn; // 中文名字
 
     private String nameEn; // 英文名字
-
+    
+    private String code; // 信息项编码
+    
+    private String des; // 信息项描述说明
+    
     private Integer dataType;
 
     private String dataTypen;// 数据类型英文名
@@ -257,14 +261,32 @@ public class Element extends BasePo<Element> {
 
     @Override
     public String toString() {
-        return "Element [idCode=" + idCode + ", nameCn=" + nameCn + ", nameEn=" + nameEn + ", dataType="
-                + dataType + ", dataTypen=" + dataTypen + ", len=" + len + ", dataTypeName=" + dataTypeName
-                + ", label=" + label + ", sort=" + sort + ", companyId=" + companyId + ", companyName="
-                + companyName + ", toPool=" + toPool + ", count=" + count + ", colId=" + colId
-                + ", objectType=" + objectType + ", dataLabel=" + dataLabel + ", isDict=" + isDict
-                + ", shareType=" + shareType + ", shareCondition=" + shareCondition + ", shareMode="
-                + shareMode + ", isOpen=" + isOpen + ", openType=" + openType + ", updateCycle="
-                + updateCycle + "]";
+        return "Element [idCode=" + idCode + ", nameCn=" + nameCn + ", nameEn=" + nameEn + ", code=" + code
+                + ", des=" + des + ", dataType=" + dataType + ", dataTypen=" + dataTypen + ", len=" + len
+                + ", dataTypeName=" + dataTypeName + ", label=" + label + ", sort=" + sort + ", companyId="
+                + companyId + ", companyName=" + companyName + ", toPool=" + toPool + ", count=" + count
+                + ", colId=" + colId + ", objectType=" + objectType + ", dataLabel=" + dataLabel
+                + ", isDict=" + isDict + ", shareType=" + shareType + ", shareCondition=" + shareCondition
+                + ", shareMode=" + shareMode + ", isOpen=" + isOpen + ", openType=" + openType
+                + ", updateCycle=" + updateCycle + "]";
+    }
+    
+    
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
 	

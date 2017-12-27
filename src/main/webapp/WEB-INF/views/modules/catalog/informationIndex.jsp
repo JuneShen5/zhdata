@@ -234,6 +234,7 @@
         var elementFormId = '#elementform'; //form ids
         
         var elementTableId2 = '#elementTable2';
+//        var element_layer_form2 = '#element_layer_form2';
         
         var rowInput = "#exportData input[name='obj']";
         var uploaderServer = "information";

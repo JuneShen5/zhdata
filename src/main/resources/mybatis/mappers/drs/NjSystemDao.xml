@@ -52,6 +52,32 @@
 	 ORDER BY a.id DESC
 	</select>
 	
+	<!-- 根据当前部门查询 -->
+	<select id="queryListByCompanyId" resultType="NjSystems">
+      SELECT
+      <include refid="NjSystemColumns" />
+      FROM drs_system_nijian a
+      <include refid="njSystemJoins" />
+      <where>
+     a.del_flag = #{njSystems.delFlag}
+      <if test="njSystems.xtmc != null and njSystems.xtmc != ''">
+      AND a.xtmc LIKE CONCAT('%',#{njSystems.xtmc},'%')
+      </if>
+       <foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='companyIds'" >
+                	AND a.company_id IN 
+     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
+         			   #{id}
+        			</foreach>
+                </if>
+            </if>
+        </foreach>
+	 </where>
+	 ORDER BY a.id DESC
+	</select>
+	
+	
 	<!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
 		INSERT INTO drs_system_nijian

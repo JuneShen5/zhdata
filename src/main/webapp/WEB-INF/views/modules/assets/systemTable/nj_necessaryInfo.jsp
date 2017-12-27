@@ -17,7 +17,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">系统建设时间要求</label>
+            <label class="control-label">系统建成时间要求</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control datepicker" name="xtjcsjyq" readonly="readonly" placeholder="具体日期时间（CCYY-MM）" required>
@@ -53,7 +53,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">预估使用规模</label>
+            <label class="control-label">预估使用规模（注册用户数/个）</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" digits="true" name="ygsygm" placeholder="预估使用规模" required>

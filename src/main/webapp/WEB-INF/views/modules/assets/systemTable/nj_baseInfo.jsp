@@ -13,7 +13,7 @@
      <c:set var="user" value="${fns:getCurrentUser()}" />
     <div class="form-group">
         <label class="col-sm-3 control-label layerTips"
-               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">单位名称：</label>
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">单位名称</label>
         <c:choose>
             <c:when test="${user.roleId==1}">
                 <div class="col-sm-7">
@@ -36,7 +36,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class=" control-label">政务信息系统名称</label>
+            <label class=" control-label">系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
@@ -131,7 +131,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人姓名</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -141,7 +141,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -155,7 +155,7 @@
             <label class="control-label">系统类别</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="xtlb1" class="form-control js-hasChild" required>
+            <select name="xtlb" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type1')}">
                     <option value="${dict.value}">${dict.label}</option>
@@ -163,7 +163,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group ele-hide" data-parent="xtlb1">
+    <div class="form-group ele-hide" data-parent="xtlb">
         <div class="col-sm-3 column-title">
             <label class="control-label"></label>
         </div>
