@@ -108,45 +108,6 @@
 		</form>
 	</div>
 	
-	<!-- 导出数据开始 -->
-	<div id="exportData" style="display: none;"  class="ibox-content">
-		<form method="post" action="system/exportData" class="form-horizontal" id="exportForm">
-			<div class="alert alert-info">如导出数据量大，下载请耐心等待！</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="信息系统名称" nameEn="nameCn" inputType="input" inputValue="" checked/> <!-- inputType="companyselect" -->
-				信息系统名称
-			</div>
-			
-			<c:choose>
-				<c:when test="${user.roleId==1}">
-					<div class="col-md-3">
-						<input type="checkbox" nameCn="责任部门" nameEn="companyId" inputType="companyselect" inputValue="company" checked/>
-						责任部门
-					</div>
-				</c:when>
-				
-				<c:otherwise>
-					<div class="col-md-3">
-						<input type="checkbox" nameCn="责任部门" nameEn="companyName" inputType="input" inputValue="" checked/>
-						责任部门
-					</div>
-				</c:otherwise>
-					
-			</c:choose>
-			
-			<c:forEach var="att" items="${fns:getAttList(type)}">
-				<div class="col-md-3">
-					<input type="checkbox" nameEn="${att.nameEn}" nameCn="${att.nameCn}" inputType="${att.inputType}"  inputValue="${att.inputValue}" checked/>
-					${att.nameCn}
-				</div>
-			</c:forEach>
-			<input type="hidden" name="obj" value="">
-		</form>
-	</div>
-	<!-- 导出数据结束 -->
-	
-	<!-- excel导入开始 -->
-	<%@ include file="/WEB-INF/views/include/importData.jsp"%>
 	<!-- excel导入结束 -->
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>

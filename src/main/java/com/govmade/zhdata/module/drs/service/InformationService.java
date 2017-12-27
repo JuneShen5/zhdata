@@ -170,12 +170,6 @@ public class InformationService extends BaseService<Information> {
         return this.infoDao.findMAX(info);
     }
 
-    // 保存多条数据
-/*    public int saveAll(List<Map<String, Object>> dataList) {
-        int num = infoDao.saveAll(dataList);
-        return num;
-    }*/
-
     public void deleteAll(List<String> idList) {
        
         if ( this.infoMapper.delete(null)>0) {
@@ -249,6 +243,8 @@ public class InformationService extends BaseService<Information> {
         return this.infoMapper.selectCount(record);
     }
 
-    
+//    public void saveAll(List<Map<String,String>> dataList) {
+//        infoDao.saveAll(dataList);
+//    }
 
 }

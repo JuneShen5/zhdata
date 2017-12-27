@@ -1,14 +1,10 @@
 package com.govmade.zhdata.module.drs.web;
 
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +13,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
+import com.govmade.zhdata.common.persistence.BaseController;
+import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
-import com.govmade.zhdata.common.utils.excel.ExportExcelData;
-import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.service.DataService;
@@ -43,7 +37,7 @@ import com.govmade.zhdata.module.sys.service.DictService;
 
 @Controller
 @RequestMapping(value = "catalog/information")
-public class InformationController {
+public class InformationController extends BaseController<Information>{
 
     @Autowired
     private InformationService infoService;
@@ -444,6 +438,31 @@ public class InformationController {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+
+    @Override
+    protected void getFileName() {
+        super.chTableName = "信息资源";
+        super.chTableName = "信息资源";
+        super.templatFile = "informationTemplate.xlsx";
+    }
+
+    @Override
+    protected void getReadExcelStarLine() {
+        super.commitRow = 500;
+        super.startRow = 3;
+        super.columnIndex = 0;
+    }
+
+    @Override
+    protected BaseService<Information> getService() {
+        return infoService;
+    }
+
+    @Override
+    protected List<Map<String, Object>> queryDataForExp() {
+        // TODO Auto-generated method stub
+        return null;
     }
     
     

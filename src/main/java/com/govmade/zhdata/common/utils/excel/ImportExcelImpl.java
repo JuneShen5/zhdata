@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -79,6 +81,8 @@ public class ImportExcelImpl{
      */
     protected int commitRow = 500;
     
+    private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
+    
     protected Map<String, Map<String,String>> dictMap = new HashMap<String, Map<String,String>>(); //存放数据字典
     protected Map<String,Integer> companyMap = new HashMap<String, Integer>();
     protected Map<String,Integer> siteMap =  new HashMap<String, Integer>();
@@ -88,7 +92,7 @@ public class ImportExcelImpl{
     protected Map<String,Integer> elementMap =  new HashMap<String, Integer>();
     
     protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
-
+    protected String[] oneToMoreSelect = {"checkbox","element"}; //一对多关联的
     /**
      * 无参构造
      */
@@ -254,6 +258,28 @@ public class ImportExcelImpl{
                     continue;  //类型行没有数据直接跳过
                 }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
                     value = getCellValue(cell);   //没有关联的数据直接获取
+                }else if(Arrays.asList(oneToMoreSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
+                    //有关联一对一的数据，获取关联的ID
+                    int _rowIndex; //用于记录错误的行和列
+                    int _columnIndex ;
+                    if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
+                        String name = getCellValue(cell);
+                       /* Map<label,value>*/
+                        String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
+                        if(ID==null || ID==""){
+                            _rowIndex = rowIndex+1; 
+                            _columnIndex = columnIndex+1;
+                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
+                        }else{
+                            value = ID;
+                        }
+                    }
+//                    else{
+//                        _rowIndex = rowIndex+1; 
+//                        _columnIndex = columnIndex+1;
+//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+//                    }
+                    
                 }else{
                     //有关联一对一的数据，获取关联的ID
                     int _rowIndex; //用于记录错误的行和列
@@ -269,11 +295,12 @@ public class ImportExcelImpl{
                         }else{
                             value = ID;
                         }
-                    }else{
-                        _rowIndex = rowIndex+1; 
-                        _columnIndex = columnIndex+1;
-                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
                     }
+//                    else{
+//                        _rowIndex = rowIndex+1; 
+//                        _columnIndex = columnIndex+1;
+//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+//                    }
                 }
                 rowMap.put(nameEnMap.get(columnIndex), value);
             }
@@ -338,13 +365,31 @@ public class ImportExcelImpl{
                 break;
             case "dictselect":
             case "radio":
+                if(this.dictMap.size() == 0){
+                    getAllDictToList();
+                }
+                inputValue = StringUtil.toUnderScoreCase(columTypeValue);
+                Id = dictMap.get(inputValue).get(name);
+                
             case "check":
             case "checkbox":
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
-                Id = dictMap.get(inputValue).get(name);
+                Map<String,String> checkDic = dictMap.get(inputValue);
+                Matcher m = Pattern.compile(regEx).matcher(name);  
+                String[] checkArray = m.replaceAll(",").split(",");
+                String _Id = "";
+                for(int i=0;i<checkArray.length;i++){
+                    String checkId = checkDic.get(checkArray[i]);
+                    if(!(checkId == "" || checkId == null)){
+                        _Id += checkId+",";
+                    }
+                }
+                if(_Id.length()>0){
+                    Id = _Id.substring(0,_Id.length() - 1);
+                }
                 break;
             case "companyselect":
                 if(this.companyMap.size() == 0){

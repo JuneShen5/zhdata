@@ -210,88 +210,9 @@
         </table>
     </div>
     
-        <!-- 导出数据开始 -->
-    <div id="exportData" style="display: none;"  class="ibox-content">
-        <form method="post" action="information/exportData" class="form-horizontal" id="exportForm">
-            <div class="alert alert-info">如导出数据量大，下载请耐心等待！</div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="信息资源分类" nameEn="infoType"  inputType="linkselect"   inputValue="" checked/>
-                信息资源分类
-            </div>
-        <!--     <div class="col-md-3" style="display:none">
-                <input type="checkbox" nameCn="信息资源分类(子)" nameEn="infoType2"  inputType="linkselect"  inputValue=""  checked />
-                信息资源分类(子)
-            </div> -->
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="信息资源名称" nameEn="nameCn" inputType="input" inputValue="" checked/>
-                信息资源名称
-            </div>
-            
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="所属系统" nameEn="systemId" inputType="select" inputValue="sys" checked/>
-                所属系统
-            </div>
-            
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="信息资源提供方" nameEn="companyId" inputType="companyselect" inputValue="company" checked/>
-                信息资源提供方
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="信息资源代码" nameEn="nameEn" inputType="input" inputValue="" checked/>
-                信息资源代码
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="数据表英文名称" nameEn="tbName" inputType="input" inputValue="" checked/>
-                数据表英文名称
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="共享条件" nameEn="shareCondition" inputType="dictselect" inputValue="share_condition" checked/>
-                共享条件
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="共享方式" nameEn="shareMode" inputType="dictselect" inputValue="share_mode" checked/>
-                共享方式
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="开放类型" nameEn="openType" inputType="dictselect" inputValue="open_type" checked/>
-                开放类型
-            </div>
-            <c:forEach var="att" items="${fns:getAttList(type)}">
-                <div class="col-md-3">
-                    <input type="checkbox" nameEn="${att.nameEn}" nameCn="${att.nameCn}" inputType="${att.inputType}"  inputValue="${att.inputValue}" checked/>
-                    ${att.nameCn}
-                </div>
-            </c:forEach>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="共享类型" nameEn="shareType" inputType="radio" inputValue="share_type" checked/>
-                共享类型
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="是否向社会开放" nameEn="isOpen" inputType="radio" inputValue="yes_no" checked/>
-                是否向社会开放
-            </div>
-            <div class="col-md-3">
-                <input type="checkbox" nameCn="信息项" nameEn="elementIds" inputType="element" inputValue="" checked/>
-                信息项
-            </div>
-            <input type="hidden" name="obj" value="">
-        </form>
-    </div>
-    <!-- 导出数据结束 -->
-    
-    <!-- excel导入开始 -->
-    <%@ include file="/WEB-INF/views/include/importData.jsp"%>
-    <!-- excel导入结束 -->
-    <div id="notThrough_layer" style="display: none" class="ibox-content form-horizontal">
-        <form id="notThrough_form" class="form-horizontal">
-            <input type="text" name="id" class="hide">
-            <div class="form-group">
-                <div class="col-sm-12">
-                    <textarea name="reason" class="form-control" style="min-height: 130px;width: 100%;"></textarea>
-                </div>
-            </div>
-        </form>
-    </div>
+	<!-- excel导入导出-->
+    <c:set var="type" value="2" />
+	<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>    
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script>
         var tableId = '#infoTable';
@@ -314,10 +235,6 @@
         
         var elementTableId2 = '#elementTable2';
         
-        var exportBox = '#exportData';
-        var exportForm = '#exportForm';
-        var importBox = '#importData';
-        var importForm = '#importForm';
         var rowInput = "#exportData input[name='obj']";
         var uploaderServer = "information";
         
