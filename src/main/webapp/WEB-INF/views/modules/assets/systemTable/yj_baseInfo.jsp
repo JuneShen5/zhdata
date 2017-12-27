@@ -242,7 +242,7 @@
             <label class="control-label">已接入</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="jhjrwllx" class="form-control" required>
+            <select name="yjr" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>

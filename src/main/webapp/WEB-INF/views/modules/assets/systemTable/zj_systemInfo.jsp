@@ -80,7 +80,7 @@
         <div class="col-sm-7 column-content">
             <select name="sfyqtxtdj" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('backup_mode')}">
+                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
