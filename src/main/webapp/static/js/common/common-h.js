@@ -231,6 +231,7 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
                 $('[data-parent=' + parentName + ']').slideDown().find('input,select,textarea').prop('required', true).val('');
+                // if ($('[data-parent=' + parentName + ']').find('.is-multiple-select')<1)
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
             }
@@ -434,6 +435,7 @@ var TableInit = function(tableOption,btnOption) {
                     }else if ($(this).hasClass('is-multiple-select')){
                         var values = new Array(); //定义一数组
                         values = value.split(",");
+                        console.log('xxx');
                         $(this).val(values).trigger("change");
                         $(this).closest('.form-group').removeClass('has-success has-error');
                     }else {
@@ -531,6 +533,7 @@ var TableInit = function(tableOption,btnOption) {
         this.forbiddenForm();
     };
     LayerEvent.prototype.openEdit = function () {
+        this.validate();
         this.loadData(this.getRowData());
         // 验证初始化
         this.validate();

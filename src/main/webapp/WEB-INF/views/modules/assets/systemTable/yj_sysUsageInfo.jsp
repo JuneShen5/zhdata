@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="form-group ele-hide" data-parent="sfjsxt">
+    <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">使用对象</label>
         </div>
