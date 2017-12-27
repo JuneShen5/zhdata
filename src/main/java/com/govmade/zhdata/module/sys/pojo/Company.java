@@ -64,6 +64,16 @@ public class Company extends BasePo<Company> {
 
     private Integer level; //级别
     
+    private Double total2013; //年度总指标金额（万元）
+    
+    private Double total2014;
+    
+    private Double total2015;
+    
+    private Double total2016;
+    
+    private Double total2017;
+    
     @Transient
     private String types; //类型
 
@@ -348,6 +358,47 @@ public class Company extends BasePo<Company> {
 
 	public void setRyjszc6(Integer ryjszc6) {
 		this.ryjszc6 = ryjszc6;
+	}
+    
+	
+	public Double getTotal2013() {
+		return total2013;
+	}
+
+	public void setTotal2013(Double total2013) {
+		this.total2013 = total2013;
+	}
+
+	public Double getTotal2014() {
+		return total2014;
+	}
+
+	public void setTotal2014(Double total2014) {
+		this.total2014 = total2014;
+	}
+
+	public Double getTotal2015() {
+		return total2015;
+	}
+
+	public void setTotal2015(Double total2015) {
+		this.total2015 = total2015;
+	}
+
+	public Double getTotal2016() {
+		return total2016;
+	}
+
+	public void setTotal2016(Double total2016) {
+		this.total2016 = total2016;
+	}
+
+	public Double getTotal2017() {
+		return total2017;
+	}
+
+	public void setTotal2017(Double total2017) {
+		this.total2017 = total2017;
 	}
 
 	@Override
