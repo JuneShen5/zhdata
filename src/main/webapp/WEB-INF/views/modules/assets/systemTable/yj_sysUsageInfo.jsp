@@ -60,7 +60,7 @@
             <label class="control-label">系统访问地址</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtfwdz" placeholder="此系统的网址及登录信息（访问网址、账号、密码）" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="xtfwdz" placeholder="请输入此系统的网址及登录信息（包括访问网址、账号、密码），例如：访问网址: 账号: 密码: " required>
         </div>
     </div>
 </fieldset>
