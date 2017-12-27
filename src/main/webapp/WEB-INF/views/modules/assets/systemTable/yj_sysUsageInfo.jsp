@@ -9,7 +9,7 @@
         <div class="col-sm-7 column-content">
             <select name="sfjsxt" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                <c:forEach var="dict" items="${fns:getDictList('is_jiangshi')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
