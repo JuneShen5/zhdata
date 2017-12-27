@@ -394,7 +394,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group ele-hide" data-parent="sjxq">
+    <div class="form-group ele-hide" data-parent="sfysjxq">
         <div class="col-sm-3 column-title column-title-multiple">
             <label class="control-label">升级需求详细说明</label>
         </div>

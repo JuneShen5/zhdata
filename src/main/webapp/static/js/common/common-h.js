@@ -198,7 +198,7 @@ var TableInit = function(tableOption,btnOption) {
             $(this).blur();
         });
         // 多选下拉框插件
-        $('.is-multiple-select').select2({width:'100%'});
+        $('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
         $(".is-multiple-select").change(function(){
             $(this).valid();
         });
@@ -231,13 +231,17 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
                 $('[data-parent=' + parentName + ']').slideDown().find('input,select,textarea').prop('required', true).val('');
-                // if ($('[data-parent=' + parentName + ']').find('.is-multiple-select')<1)
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2('destroy');
+                $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+                    $(this).valid();
+                });
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+                $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+                    $(this).valid();
+                });
             }
-            $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
-                that.$element.find('form').validate().element($(this));
-            });
         });
 
         // 设置验证信息的默认字段
@@ -371,6 +375,7 @@ var TableInit = function(tableOption,btnOption) {
         },500);
         // checkbox
         thisLayerForm.find('.i-checks').iCheck('disable');
+        thisLayerForm.find('.form-group').removeClass('has-success has-error');
     };
 
     // 获取表格行数据
@@ -435,7 +440,6 @@ var TableInit = function(tableOption,btnOption) {
                     }else if ($(this).hasClass('is-multiple-select')){
                         var values = new Array(); //定义一数组
                         values = value.split(",");
-                        console.log('xxx');
                         $(this).val(values).trigger("change");
                         $(this).closest('.form-group').removeClass('has-success has-error');
                     }else {
@@ -475,6 +479,11 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
                 $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2('destroy');
+                $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+                    $(this).valid();
+                });
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
             }

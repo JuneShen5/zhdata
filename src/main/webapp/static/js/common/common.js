@@ -695,9 +695,9 @@ function shareToggleMethod() {
                 gxtjSelect.val("");
                 gxtjSelect.trigger("chosen:updated");
                 gxtjSelect.removeAttr("required");
-                gxfsSelect.closest('.form-group').hide();
-                gxfsSelect.val("");
-                gxfsSelect.removeAttr("required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.val("");
+                fbrqSelect.removeAttr("required");
             }
         });
     }

@@ -16,12 +16,12 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group ele-hide" data-parent="sfjsxt">
         <div class="col-sm-3 column-title">
             <label class="control-label">使用对象</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="sydx" class="form-control is-multiple-select" multiple="multiple" required>
+            <select name="sydx" class="form-control is-multiple-select" multiple="multiple">
                 <c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
@@ -34,7 +34,7 @@
             <label class="control-label">用户规模</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" digits="true" name="yhgm" placeholder="涉及用户的具体数量（注册用户的总数）" required>
+            <input type="text" class="form-control" digits="true" name="yhgm" placeholder="涉及用户的具体数量（注册用户的总数）">
         </div>
     </div>
 

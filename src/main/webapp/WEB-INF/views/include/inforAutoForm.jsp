@@ -95,7 +95,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">共享方式：</label>
 		<div class="col-sm-7">
-			<select name="shareMode" class="select-chosen" required>
+			<select name="shareMode" class="form-control is-multiple-select" multiple="multiple" >
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('share_mode')}">
 					<option value="${dict.value}">${dict.label}</option>
