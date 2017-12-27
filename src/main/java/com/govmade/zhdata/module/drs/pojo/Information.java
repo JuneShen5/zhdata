@@ -29,9 +29,9 @@ public class Information extends BasePo<Information> {
 
     private Integer shareType;
     
-    private Integer shareMode;//共享方式
+    private String shareMode;//共享方式
     
-    private Integer shareCondition;//共享条件
+    private String shareCondition;//共享条件
 
     private Integer infoType1;
 
@@ -44,6 +44,10 @@ public class Information extends BasePo<Information> {
     private String code; //信息资源提供方代码
     
     private String reason; //信息资源提供方代码
+    
+    private String resourceFormat; //信息资源格式
+    
+    private String rightRelation; //权属关系
     
     @Transient
     private Integer isAuthorize; //是否需要数据权限控制 0为否 1为是
@@ -215,22 +219,6 @@ public class Information extends BasePo<Information> {
         this.isOpen = isOpen;
     }
 
-    public Integer getShareMode() {
-        return shareMode;
-    }
-
-    public void setShareMode(Integer shareMode) {
-        this.shareMode = shareMode;
-    }
-
-    public Integer getShareCondition() {
-        return shareCondition;
-    }
-
-    public void setShareCondition(Integer shareCondition) {
-        this.shareCondition = shareCondition;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -246,6 +234,38 @@ public class Information extends BasePo<Information> {
     public void setIsAuthorize(Integer isAuthorize) {
         this.isAuthorize = isAuthorize;
     }
+
+	public String getShareMode() {
+		return shareMode;
+	}
+
+	public void setShareMode(String shareMode) {
+		this.shareMode = shareMode;
+	}
+
+	public String getShareCondition() {
+		return shareCondition;
+	}
+
+	public void setShareCondition(String shareCondition) {
+		this.shareCondition = shareCondition;
+	}
+
+	public String getResourceFormat() {
+		return resourceFormat;
+	}
+
+	public void setResourceFormat(String resourceFormat) {
+		this.resourceFormat = resourceFormat;
+	}
+
+	public String getRightRelation() {
+		return rightRelation;
+	}
+
+	public void setRightRelation(String rightRelation) {
+		this.rightRelation = rightRelation;
+	}
     
     
     
