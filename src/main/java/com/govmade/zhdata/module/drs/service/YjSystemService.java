@@ -23,6 +23,7 @@ import com.govmade.zhdata.module.drs.dao.YjSystemDao;
 import com.govmade.zhdata.module.drs.mapper.YjSystemMapper;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.pojo.User;
 import com.govmade.zhdata.module.sys.service.CompanyService;
 
 @Service
@@ -38,12 +39,13 @@ public class YjSystemService extends BaseService<YjSystems> {
     private CompanyService companyService;
 
     public PageInfo<YjSystems> queryAllList(Page<YjSystems> page) {
-        Integer roleId=UserUtils.getCurrentUser().getRoleId();
-        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
-        List<Integer> comList=Lists.newArrayList();
-        comList.add(companyId);
-        findAllSubNode(companyId, comList);
+        User user=UserUtils.getCurrentUser();
+        Integer roleId=user.getRoleId();
         if (roleId!=1) {
+            Integer companyId=user.getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
             map.put("companyIds", comList);
