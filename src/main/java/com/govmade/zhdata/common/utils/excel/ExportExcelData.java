@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -28,12 +30,15 @@ import com.govmade.zhdata.module.sys.pojo.Site;
 public class ExportExcelData extends ExportExcelImpl {
     
     protected Map<String, Map<String,String>> dictMap = new HashMap<String, Map<String,String>>();
-    protected Map<Integer,String> companyMap = new HashMap<Integer, String>();
-    protected Map<Integer,String> siteMap = new HashMap<Integer, String>();
-    protected Map<Integer,String> roleMap = new HashMap<Integer, String>();
-    protected Map<Integer,String> menuMap = new HashMap<Integer, String>();
-    protected Map<Integer,String> sysMap = new HashMap<Integer, String>();
-    protected Map<Integer,String> elementMap =  new HashMap<Integer, String>();
+    protected Map<String,String> companyMap = new HashMap<String, String>();
+    protected Map<String,String> siteMap = new HashMap<String, String>();
+    protected Map<String,String> roleMap = new HashMap<String, String>();
+    protected Map<String,String> menuMap = new HashMap<String, String>();
+    protected Map<String,String> sysMap = new HashMap<String, String>();
+    protected Map<String,String> elementMap =  new HashMap<String, String>();
+    
+    private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
+    
     
     public ExportExcelData(String fileName, String title, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
@@ -107,11 +112,10 @@ public class ExportExcelData extends ExportExcelImpl {
      * @param data 管理数据的ID值
      * @return
      */
-        protected String getTemplateValue(String[] inputTypeArr,String data){
+        protected String getTemplateValue(String[] inputTypeArr,String Id){
             String inputType = inputTypeArr[0];
             String inputValue = "";
             String name = "";
-            Integer Id = Integer.valueOf(data);
             switch(inputType)
             {
             case "select":
@@ -121,23 +125,36 @@ public class ExportExcelData extends ExportExcelImpl {
                 break;
             case "dictselect":
             case "radio":
-            case "check":
-            case "checkbox":
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
+            case "check":
+            case "checkbox":
+                if(this.dictMap.size() == 0){
+                    getAllDictToList();
+                }
+                inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
+                Map<String,String> checkDic = dictMap.get(inputValue);
+                Matcher m = Pattern.compile(regEx).matcher(Id);  
+                String[] idArray = m.replaceAll(",").split(",");
+                String _name = "";
+                for(int i=0;i<idArray.length;i++){
+                    _name += checkDic.get(idArray[i])+",";
+                  
+                }
+                name = _name.substring(0,_name.length() - 1);
+                break;
             case "companyselect":
                 if(this.companyMap.size() == 0){
                     List<Company> companyList= SysUtils.getCompanyList();
                     for(Company company : companyList){
-                        companyMap.put(company.getId(), company.getName());
+                        companyMap.put(String.valueOf(company.getId()), company.getName());
                     }
                 }
                 name = companyMap.get(Id);
-//                name = SysUtils.getCompanyName(Integer.valueOf(data));
                 break;
 //            case "element":
 //                if(this.elementMap.size() == 0){
@@ -179,7 +196,7 @@ public class ExportExcelData extends ExportExcelImpl {
          * @param type dict的type类型
          * @return
          */
-        private String getSelect(String type,Integer Id) {
+        private String getSelect(String type,String Id) {
             String name = "";
             if (!StringUtil.isEmpty(type)) {
                 switch (type.trim().toLowerCase()) {
@@ -187,7 +204,7 @@ public class ExportExcelData extends ExportExcelImpl {
                     if(this.companyMap.size() == 0){
                         List<Company> companyList= SysUtils.getCompanyList();
                         for(Company company : companyList){
-                            companyMap.put(company.getId(), company.getName());
+                            companyMap.put(String.valueOf(company.getId()), company.getName());
                         }
                     }
                     name = companyMap.get(Integer.valueOf(Id));
@@ -196,7 +213,7 @@ public class ExportExcelData extends ExportExcelImpl {
                     if(this.siteMap.size() == 0){
                         List<Site> siteList= SysUtils.getSiteList();
                         for(Site site : siteList){
-                            siteMap.put(site.getId(), site.getName());
+                            siteMap.put(String.valueOf(site.getId()), site.getName());
                         }
                     }
                     name = siteMap.get(Id);
@@ -205,7 +222,7 @@ public class ExportExcelData extends ExportExcelImpl {
                     if(this.roleMap.size() == 0){
                         List<Role> roleList= SysUtils.getRoleList();
                         for(Role role : roleList){
-                            roleMap.put(role.getId(), role.getName());
+                            roleMap.put(String.valueOf(role.getId()), role.getName());
                         }
                     }
                     name = roleMap.get(Id);
@@ -214,7 +231,7 @@ public class ExportExcelData extends ExportExcelImpl {
                     if(this.menuMap.size() == 0){
                         List<Menu> menuList= SysUtils.getMenuList();
                         for(Menu menu : menuList){
-                            menuMap.put(menu.getId(), menu.getName());
+                            menuMap.put(String.valueOf(menu.getId()), menu.getName());
                         }
                     }
                     name = menuMap.get(Id);
@@ -223,7 +240,7 @@ public class ExportExcelData extends ExportExcelImpl {
                     if(this.sysMap.size() == 0){
                         List<Systems> sysList= SysUtils.getSysList();
                         for(Systems systems : sysList){
-                            sysMap.put(systems.getId(), systems.getNameCn());
+                            sysMap.put(String.valueOf(systems.getId()), systems.getNameCn());
                         }
                     }
                     name = sysMap.get(Id);

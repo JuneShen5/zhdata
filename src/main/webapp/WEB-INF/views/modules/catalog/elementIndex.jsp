@@ -30,7 +30,7 @@
 								<a data-toggle="modal" class="btn btn-green"
 									onclick="openLayer('信息项新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
 								<button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-								<button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
+								<button class="btn btn-purple" type="button" onclick="importData(3);"><i class='fa fa-sign-in'></i> Excel导入</button>
 								<button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
 								<button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button>
 							</div>
@@ -75,87 +75,8 @@
 			
 		</form>
 	</div>
-	<!-- 导出数据开始 -->
-	<div id="exportData" style="display: none;"  class="ibox-content">
-		<form method="post" action="element/exportData" class="form-horizontal" id="exportForm">
-			<div class="alert alert-info">如导出数据量大，下载请耐心等待！</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="信息项名称" nameEn="nameCn" inputType="input" inputValue="" checked/>
-				信息项名称
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="英文名称" nameEn="nameEn" inputType="input" inputValue="" checked/>
-				英文名称
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据类型" nameEn="dataTypen" inputType="dictselect" inputValue="data_type_en" checked/>
-				数据类型
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据类型(子)" nameEn="dataType" inputType="dictselect" inputValue="data_type" checked/>
-				数据类型(子)
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据长度" nameEn="len" inputType="input" inputValue="" checked/>
-				数据长度
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="对象类型" nameEn="objectType" inputType="dictselect" inputValue="object_type" checked/>
-				对象类型
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据标记" nameEn="dataLabel" inputType="dictselect" inputValue="yes_no" checked/>
-				数据标记
-			</div>
-			
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="来源部门" nameEn="companyId" inputType="companyselect" inputValue="company" checked/>
-				来源部门
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="是否字典项" nameEn="isDict" inputType="dictselect" inputValue="yes_no" checked/>
-				是否字典项
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="共享类型" nameEn="shareType" inputType="dictselect" inputValue="share_type" checked/>
-				共享类型
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="共享条件" nameEn="shareCondition" inputType="dictselect" inputValue="share_condition" checked/>
-				共享条件
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="共享方式" nameEn="shareMode" inputType="dictselect" inputValue="share_mode" checked/>
-				共享方式
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="是否向全社会开放" nameEn="isOpen" inputType="dictselect" inputValue="yes_no" checked/>
-				是否向全社会开放
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="开放条件" nameEn="openType" inputType="dictselect" inputValue="open_type" checked/>
-				开放条件
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="更新周期" nameEn="updateCycle" inputType="dictselect" inputValue="update_cycle" checked/>
-				更新周期
-			</div>
-		<!-- 	<div class="col-md-3">
-				<input type="checkbox" nameCn="备注" nameEn="label" inputType="input" inputValue="" checked/>
-				备注
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="排序" nameEn="sort" inputType="input" inputValue="" checked/>
-				排序
-			</div> -->
-			<input type="hidden" name=obj value="">
-		</form>
-	</div>
-	<!-- 导出数据结束 -->
-	
-	<!-- excel导入开始 -->
-	<%@ include file="/WEB-INF/views/include/importData.jsp"%>
-	<!-- excel导入结束 -->
+	<c:set var="type" value="3" />
+	<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>    
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 		var tableId = '#elementTable';
@@ -169,10 +90,6 @@
 		var editTitle = "信息项修改";
 		var detailTitle = "信息项详情";
 
-		var exportBox = '#exportData';
-		var exportForm = '#exportForm';
-		var importBox = '#importData';
-		var importForm = '#importForm';
 		var rowInput = "#exportData input[name='obj']";
 		var uploaderServer = "element";
 

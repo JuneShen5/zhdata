@@ -224,33 +224,6 @@
 		</form>
 	</div>
 	
-	<!-- 导出数据开始 -->
-	<div id="exportData" style="display: none;"  class="ibox-content">
-		<form method="post" action="dbs/exportData" class="form-horizontal" id="exportForm">
-			<div class="alert alert-info">如导出数据量大，下载请耐心等待！</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据库代码" nameEn="nameEn" inputType="input" inputValue="" checked/> <!-- inputType="companyselect" -->
-				数据库代码
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="数据库名称" nameEn="nameCn" inputType="input" inputValue="" checked/> <!-- inputType="companyselect" -->
-				数据库名称
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="所属机构" nameEn="companyId" inputType="companyselect" inputValue="company" checked/>
-				所属机构
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="所属系统" nameEn="sysId" inputType="select" inputValue="sys" checked/>
-				所属系统
-			</div>
-			<input type="hidden" name="obj" value="">
-		</form>
-	</div>
-	<!-- 导出数据结束 -->
-	
-	<!-- excel导入结束 -->
-	<%@ include file="/WEB-INF/views/include/importData.jsp"%>
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
         var validformCallback = false;
