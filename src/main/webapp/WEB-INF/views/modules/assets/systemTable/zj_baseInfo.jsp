@@ -13,7 +13,7 @@
      <c:set var="user" value="${fns:getCurrentUser()}" />
     <div class="form-group">
         <label class="col-sm-3 control-label layerTips"
-               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门：</label>
+               data-tips-text="例：XX市XX局 / 单位人事管理 / 统计分析">所属部门</label>
         <c:choose>
             <c:when test="${user.roleId==1}">
                 <div class="col-sm-7">

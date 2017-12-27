@@ -24,6 +24,7 @@ import com.govmade.zhdata.module.drs.mapper.NjSystemMapper;
 import com.govmade.zhdata.module.drs.pojo.NjSystems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.pojo.User;
 import com.govmade.zhdata.module.sys.service.CompanyService;
 
 @Service
@@ -39,12 +40,17 @@ public class NjSystemService extends BaseService<NjSystems> {
     private CompanyService companyService;
 
     public PageInfo<NjSystems> queryAllList(Page<NjSystems> page) {
-        Integer roleId=UserUtils.getCurrentUser().getRoleId();
-        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        User user=UserUtils.getCurrentUser();
+        Integer roleId=user.getRoleId();
+        /*Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         List<Integer> comList=Lists.newArrayList();
         comList.add(companyId);
-        findAllSubNode(companyId, comList);
+        findAllSubNode(companyId, comList);*/
         if (roleId!=1) {
+            Integer companyId=user.getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
             map.put("companyIds", comList);
