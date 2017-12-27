@@ -4,7 +4,7 @@
     <legend>系统运维信息</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">运维单位名称</label>
+            <label class="control-label">单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="ywdwmc" placeholder="负责此系统运维单位名称" required>
@@ -13,7 +13,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">运维单位联系人</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -23,7 +23,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">运维单位联系电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -54,7 +54,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-bottom">
-            <label class="control-label">数据是否有备份</label>
+            <label class="control-label">是否有备份</label>
         </div>
         <div class="col-sm-7 column-content form-border-bottom">
             <select name="sfybf" class="form-control js-hasChild" required>
@@ -67,7 +67,7 @@
     </div>
     <div class="form-group ele-hide" data-parent="sfybf">
         <div class="col-sm-3 column-title form-border-left form-border-bottom">
-            <label class="control-label">数据备份方式</label>
+            <label class="control-label">备份方式</label>
         </div>
         <div class="col-sm-7 column-content form-border-bottom">
             <select name="bffs" class="form-control">
@@ -80,7 +80,7 @@
     </div>
     <div class="form-group ele-hide" data-parent="sfybf">
         <div class="col-sm-3 column-title">
-            <label class="control-label">数据备份点位置</label>
+            <label class="control-label">备份点位置</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="bfdwz" placeholder="备份点位置">
