@@ -330,6 +330,7 @@ var TableInit = function(tableOption,btnOption) {
         thisLayerForm.find(".select-chosen").trigger("chosen:updated");
         thisLayerForm.find(".i-checks").find("input").removeAttr("checked");
         thisLayerForm.find(".i-checks").find("div.checked").removeClass("checked");
+        thisLayerForm.find(".is-multiple-select").val('').trigger("change");
         // 将相关下拉框选项隐藏
         $('.js-hasChild').each(function (index) {
             var parentName = $(this).attr('name');

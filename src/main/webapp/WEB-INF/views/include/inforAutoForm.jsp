@@ -96,7 +96,6 @@
 		<label class="col-sm-3 control-label">共享方式：</label>
 		<div class="col-sm-7">
 			<select name="shareMode" class="form-control is-multiple-select" multiple="multiple" >
-				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('share_mode')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
@@ -106,7 +105,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">发布日期：</label>
 		<div class="col-sm-7">
-			<input type="text" name="releaseDate" class="form-control datepicker" placeholder="请选择发布日期" required readonly="readonly">
+			<input type="text" name="releaseDate" class="form-control datepicker" placeholder="请选择发布日期" readonly="readonly">
 		</div>
 	</div>
 	<div class="form-group">
@@ -123,7 +122,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">开放类型：</label>
 		<div class="col-sm-7">
-			<select name="openType" class="select-chosen" required>
+			<select name="openType" class="select-chosen">
 					<option value=""></option>
 					<c:forEach var="dict" items="${fns:getDictList('open_type')}">
 						<option value="${dict.value}">${dict.label}</option>

@@ -28,7 +28,7 @@ $(function() {
     });
 
     // 多选下拉框插件
-    $('.is-multiple-select').select2({width:'100%'});
+    $('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
     $(".is-multiple-select").change(function(){
         $(this).valid();
     });
@@ -226,6 +226,12 @@ function endMethod (closeId, status) {
 	$(closeId).find(".i-checks").find("div.checked").removeClass("checked");
     $(closeId).find('select[name=shareCondition],select[name=shareMode],select[name=openType]').closest('.form-group').hide().val('').trigger("chosen:updated").removeAttr("required");
     // console.log($(closeId).find('select[name=shareCondition],select[name=shareMode],select[name=openType]').closest('.form-group').length);
+    $(closeId).find(".is-multiple-select").val('').trigger("change");
+    // 将相关下拉框选项隐藏
+    $('.js-hasChild').each(function (index) {
+        var parentName = $(this).attr('name');
+        $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input,select,textarea').prop('required', false).val('');
+    });
 	try{
 		if(resetPage) {
 			resetPage(status, closeId);

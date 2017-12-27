@@ -7,8 +7,7 @@
             <label class="control-label">信息录入方式</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="xxlrfs" class="form-control" required>
-                <option value="">== 请选择 ==</option>
+            <select name="xxlrfs" class="form-control is-multiple-select" multiple="multiple" required>
                 <c:forEach var="dict" items="${fns:getDictList('information_entry_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
@@ -96,8 +95,7 @@
             <label class="control-label">外部报送</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="wbbs" class="form-control" required>
-                <option value="">== 请选择 ==</option>
+            <select name="wbbs" class="form-control is-multiple-select" multiple="multiple" required>
                 <c:forEach var="dict" items="${fns:getDictList('external_delivery')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
