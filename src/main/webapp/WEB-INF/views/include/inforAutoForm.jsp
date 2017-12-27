@@ -106,7 +106,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">发布日期：</label>
 		<div class="col-sm-7">
-			<input type="text" name="faburiqi" class="form-control datepicker" placeholder="请选择发布日期" required readonly="readonly">
+			<input type="text" name="releaseDate" class="form-control datepicker" placeholder="请选择发布日期" required readonly="readonly">
 		</div>
 	</div>
 	<div class="form-group">
@@ -136,7 +136,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">管理方式：</label>
 		<div class="col-sm-7">
-			<select name="guanlifangshi" class="select-chosen js-hasChild" required>
+			<select name="manageStyle" class="select-chosen js-hasChild" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('manage_style')}">
 					<option value="${dict.value}">${dict.label}</option>
