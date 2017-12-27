@@ -311,7 +311,7 @@
 				area : [ '100%', '100%' ],
 				scrollbar : false,
 				zIndex : 100,
-				btn : [ '审核通过', '审核不通过' ],
+				btn : [ '审核通过' ],
 				btn1 : function(index, layero) {
 					var ids = id;
 		            $.ajax({
@@ -326,8 +326,6 @@
 		                    var msgCount = parseInt($('#message_number', window.parent.document).text());
                             $('#message_number', window.parent.document).text(msgCount-1);
                             $('#message_count', window.parent.document).text(msgCount-1);
-                            console.log($('#message_number', window.parent.document).text());
-                            console.log($('#message_count', window.parent.document).text());
 		                },
 		                error: function () {
 		                	layer.msg('审核不通过，请重试')
@@ -711,7 +709,7 @@
                 + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
 			if (itemState == 0) {
 				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
-					+ row.id + ')"><i class="fa fa-pencil"></i>&nbsp;发布审核</button>';
+					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;发布审核</button>';
 			}
 			html += '</div>';
 			return html;

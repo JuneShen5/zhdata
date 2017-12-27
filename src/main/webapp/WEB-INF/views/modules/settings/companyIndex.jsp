@@ -259,6 +259,36 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label">2013年度总指标金额：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2013" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2014年度总指标金额：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2014" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2015年度总指标金额：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2015" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2016年度总指标金额：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2016" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2017年度总指标金额：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2017" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">地址：</label>
 				<div class="col-sm-7">
 					<input type="text" name="address" class="form-control">

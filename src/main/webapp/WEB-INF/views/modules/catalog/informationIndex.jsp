@@ -315,7 +315,7 @@
             html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
             html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-search"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
             html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             /* html += '<button type="button" class="btn btn-white" id="created"  onclick="createdRow('
@@ -424,7 +424,7 @@
                 area : [ '100%', '100%' ],
                 scrollbar : false,
                 zIndex : 100,
-                btn : [ '审核通过', '审核不通过' ],
+                btn : [ '审核通过' ],
                 btn1 : function(index, layero) {
                     var ids = id;
                     $.ajax({
@@ -440,7 +440,7 @@
                         error: function () {
                             layer.msg('审核不通过，请重试')
                         }
-                    })
+                    });
                     layer.close(layer.index);
                     endMethod(formId, "close");
                 },
