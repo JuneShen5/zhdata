@@ -238,6 +238,10 @@ $(function () {
 	$(formId).validate({
 		ignore: ":hidden:not(select,input)",
         submitHandler: function(form){
+            $(document).one('click', '.layui-layer-btn0', function () {
+                $(this).hide();
+                $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
+            });
         	$(formId).ajaxSubmit({
     			url : url + 'save',
     			type : 'post',
@@ -653,7 +657,7 @@ function shareToggleMethod() {
         // 共享方式
         var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
-		var fbrqSelect = gxlxSelect.closest('form').find('input[name=faburiqi]');
+		var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
         var gxlxValue = parseInt(gxlxSelect.val());
         gxtjSelect.closest('.form-group').hide();
         gxtjSelect.removeAttr("required");
@@ -744,7 +748,7 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 	if (gxlxSelect !== undefined){
 		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
-        var fbrqSelect = gxlxSelect.closest('form').find('input[name=faburiqi]');
+        var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
 		var gxlxValue = parseInt(gxlxSelect.val());
 		gxtjSelect.closest('.form-group').hide();
 		gxtjSelect.removeAttr("required");

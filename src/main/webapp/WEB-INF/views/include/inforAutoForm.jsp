@@ -144,7 +144,7 @@
 			</select>
 		</div>
 	</div>
-	<div class="form-group ele-hide" data-parent="guanlifangshi">
+	<div class="form-group ele-hide" data-parent="manageStyle">
 		<label class="col-sm-3 control-label">所属系统名称：</label>
 		<div class="col-sm-7">
 			<select name="systemId" class="form-control">
