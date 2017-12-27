@@ -87,9 +87,9 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer sfjsxt;
 
-    private String sydx;
+    private String sydx;   //使用对象
 
-    private String yhgm;
+    private String yhgm;  
 
     private String mysypd;
 
@@ -165,7 +165,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private String yyje;
 
-    private String xxlrfs;
+    private String xxlrfs;  //信息录入方式
 
     private String xtsjzzqk;
 
@@ -181,7 +181,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer sjgxms;
 
-    private String wbbs;
+    private String wbbs;  //外部报送
 
     private Integer bssx;
    
