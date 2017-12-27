@@ -181,7 +181,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer sjgxms;
 
-    private Integer wbbs;
+    private String wbbs;
 
     private Integer bssx;
    
@@ -1041,12 +1041,12 @@ public class YjSystems extends BasePo<YjSystems> {
 	}
 
 
-	public Integer getWbbs() {
+	public String getWbbs() {
 		return wbbs;
 	}
 
 
-	public void setWbbs(Integer wbbs) {
+	public void setWbbs(String wbbs) {
 		this.wbbs = wbbs;
 	}
 
