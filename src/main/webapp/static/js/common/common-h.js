@@ -434,7 +434,6 @@ var TableInit = function(tableOption,btnOption) {
                     }else if ($(this).hasClass('is-multiple-select')){
                         var values = new Array(); //定义一数组
                         values = value.split(",");
-                        console.log(values);
                         $(this).val(values).trigger("change");
                         $(this).closest('.form-group').removeClass('has-success has-error');
                     }else {
@@ -463,23 +462,23 @@ var TableInit = function(tableOption,btnOption) {
                     $('#elementIds').val(JSON.stringify(innerTableData));
                 }
             });
-            // 判断相关下拉框选项
-            $('.js-hasChild').each(function (index) {
-                var parentName = $(this).attr('name');
-                if ($(this).val() === '1') {
-                    $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true).val('');
-                }else {
-                    $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
-                }
-                // $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
-                //     that.$element.find('form').validate().element($(this));
-                // });
-            });
         }
         // 数据回显之后自动更新插件回显
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green'
+        });
+        // 判断相关下拉框选项
+        $('.js-hasChild').each(function (index) {
+            var parentName = $(this).attr('name');
+            if ($(this).val() === '1') {
+                $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+            }else {
+                $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+            }
+            // $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
+            //     that.$element.find('form').validate().element($(this));
+            // });
         });
     };
     LayerEvent.prototype.validate = function () {

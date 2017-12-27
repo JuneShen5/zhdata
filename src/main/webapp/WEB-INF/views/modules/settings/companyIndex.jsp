@@ -146,7 +146,7 @@
 					<label class="control-label">承担信息化工作的内设机构：</label>
 				</div>
 				<div class="col-sm-7 column-content">
-					<select name="nsjg1" class="form-control" required>
+					<select name="nsjg1" class="form-control js-hasChild" required>
 						<option value="">== 请选择 ==</option>
 						<c:forEach var="dict" items="${fns:getDictList('inner_organ')}">
 							<option value="${dict.value}">${dict.label}</option>
@@ -154,7 +154,7 @@
 					</select>
 				</div>
 			</div>
-			<div class="form-group" data-parent="xtlb1">
+			<div class="form-group ele-hide" data-parent="nsjg1">
 				<div class="col-sm-3 column-title">
 					<label class="control-label"></label>
 				</div>

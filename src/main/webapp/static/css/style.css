@@ -7822,3 +7822,6 @@ blockquote:nth-child(1) {
 	background-color: transparent;
 	border-radius: 0;
 }
+.ele-hide{
+	display: none;
+}
