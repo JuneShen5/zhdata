@@ -36,7 +36,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class=" control-label">政务信息系统名称</label>
+            <label class=" control-label">系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
@@ -131,7 +131,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人姓名</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -141,7 +141,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">联系人电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
