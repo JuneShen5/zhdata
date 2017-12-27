@@ -68,8 +68,8 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源格式：</label>
 		<div class="col-sm-7 column-content">
-			<select name="xinxiziyuangeshi" class="form-control is-multiple-select" multiple="multiple" required>
-				<c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
+			<select name="resourceFormat" class="form-control is-multiple-select" multiple="multiple" required>
+				<c:forEach var="dict" items="${fns:getDictList('resource_format')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select>
@@ -110,38 +110,6 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">管理方式：</label>
-		<div class="col-sm-7">
-			<select name="guanlifangshi" class="select-chosen js-hasChild" required>
-				<option value=""></option>
-				<c:forEach var="dict" items="${fns:getDictList('share_type')}">
-					<option value="${dict.value}">${dict.label}</option>
-				</c:forEach>
-			</select>
-		</div>
-	</div>
-	<div class="form-group ele-hide" data-parent="guanlifangshi">
-		<label class="col-sm-3 control-label">所属系统名称：</label>
-		<div class="col-sm-7">
-			<select name="systemId" class="form-control">
-				<option value=""></option>
-				<c:forEach var="sys" items="${fns:getList('sys')}">
-					<option value="${sys.id}">${sys.nameCn}</option>
-				</c:forEach>
-			</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">权属关系：</label>
-		<div class="col-sm-7 column-content">
-			<select name="quanzhuguanxi" class="form-control is-multiple-select" multiple="multiple" required>
-				<c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
-					<option value="${dict.value}">${dict.label}</option>
-				</c:forEach>
-			</select>
-		</div>
-	</div>
-	<div class="form-group">
 		<label class="col-sm-3 control-label">是否向社会开放：</label>
 		<div class="col-sm-7">
 			<select name="isOpen" class="select-chosen" required>
@@ -163,7 +131,41 @@
 				</select>
 		</div>
 	</div>
-
+	
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label">管理方式：</label>
+		<div class="col-sm-7">
+			<select name="guanlifangshi" class="select-chosen js-hasChild" required>
+				<option value=""></option>
+				<c:forEach var="dict" items="${fns:getDictList('manage_style')}">
+					<option value="${dict.value}">${dict.label}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="form-group ele-hide" data-parent="guanlifangshi">
+		<label class="col-sm-3 control-label">所属系统名称：</label>
+		<div class="col-sm-7">
+			<select name="systemId" class="form-control">
+				<option value=""></option>
+				<c:forEach var="sys" items="${fns:getList('sys')}">
+					<option value="${sys.id}">${sys.nameCn}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-3 control-label">权属关系：</label>
+		<div class="col-sm-7 column-content">
+			<select name="rightRelation" class="form-control is-multiple-select" multiple="multiple" required>
+				<c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
+					<option value="${dict.value}">${dict.label}</option>
+				</c:forEach>
+			</select>
+		</div>
+	</div>
+	
 <script>
 
 </script>
