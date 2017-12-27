@@ -120,7 +120,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">社会信用代码：</label>
 				<div class="col-sm-7">
-					<input type="text" name="credit_code" hasNoSpace="true" class="form-control" required>
+					<input type="text" name="creditCode" hasNoSpace="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
@@ -232,7 +232,7 @@
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">信息化人员技术计算机高级（副教授）人数：</label>
+				<label class="col-sm-3 control-label">信息化人员技术计算机高级(副教授)人数：</label>
 				<div class="col-sm-7">
 					<input type="text" name="ryjszc4" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>

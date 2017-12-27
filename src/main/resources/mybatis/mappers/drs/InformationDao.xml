@@ -286,10 +286,11 @@
                 </if>  -->
             </if>
         </foreach>
+         ORDER BY id DESC
         <if test="page.isPage==true">
         LIMIT #{page.startRow}, #{page.endRow}
         </if> 
-        ) a
+         ) a
         LEFT JOIN sys_company c ON c.id = a.company_id
         LEFT JOIN drs_info_element ie ON ie.info_id=a.id
         LEFT JOIN drs_element e ON ie.element_id=e.id
