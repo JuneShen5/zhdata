@@ -4,7 +4,7 @@
     <legend>项目建设状态</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">系统当前建设阶段</label>
+            <label class="control-label">当前建设阶段</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="dqjsjd" class="form-control" required>
@@ -32,7 +32,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">承建单位名称</label>
+            <label class="control-label">单位名称</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true" name="cjdwmc" placeholder="负责此项目的承建商名称" required>
@@ -41,7 +41,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">承建单位联系人</label>
+            <label class="control-label">联系人</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content">
@@ -51,7 +51,7 @@
     </div>
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">承建单位联系电话</label>
+            <label class="control-label">联系电话</label>
         </div>
         <div class="col-sm-7 form-border-nobottom">
             <div class="form-contact column-content form-border-left">
@@ -80,7 +80,7 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">合同签署维保到期时间</label>
+            <label class="control-label">合同签署的维保到期时间</label>
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="合同约定的维保到期时间" required>
