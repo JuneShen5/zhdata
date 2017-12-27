@@ -100,6 +100,17 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label">所属类型：</label>
+				<div class="col-sm-7">
+					<select name="type" class="select-chosen" required>
+							<option value=""></option>
+							<c:forEach var="dict" items="${fns:getDictList('depart_type')}">
+								<option value="${dict.value}">${dict.label}</option>
+							</c:forEach>
+						</select>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">部门编码：</label>
 				<div class="col-sm-7">
 					<input type="text" name="code" hasNoSpace="true" class="form-control" required>
@@ -241,23 +252,8 @@
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">所属类型：</label>
-				<div class="col-sm-7">
-					<select name="type" class="select-chosen" required>
-							<option value=""></option>
-							<c:forEach var="dict" items="${fns:getDictList('depart_type')}">
-								<option value="${dict.value}">${dict.label}</option>
-							</c:forEach>
-						</select>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">排序：</label>
-				<div class="col-sm-7">
-					<input type="text" name="sort" digits="true" class="form-control" required>
-				</div>
-			</div>
+			
+			
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2013年度总指标金额：</label>
 				<div class="col-sm-7">
@@ -286,6 +282,12 @@
 				<label class="col-sm-3 control-label">2017年度总指标金额：</label>
 				<div class="col-sm-7">
 					<input type="text" name="total2017" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">排序：</label>
+				<div class="col-sm-7">
+					<input type="text" name="sort" digits="true" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group">
