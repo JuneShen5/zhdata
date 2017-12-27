@@ -59,7 +59,7 @@
         <div class="col-sm-7 column-content form-border-bottom">
             <select name="sfybf" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('is_have')}">
+                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>

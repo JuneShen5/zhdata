@@ -168,7 +168,7 @@ ul, li {
 			</div>
 			<div class="search-container form-inline clearfix" style="display: none;">
 				<div class="form-group">
-					<input class="form-control col-sm-8 search-input" placeholder="请输入部门名称" />
+					<input class="form-control col-sm-8 search-input" placeholder="请输入系统名称" />
 					<div class="input-group-btn col-sm-4">
 						<button class="btn btn-primary search-btn">搜索</button>
 					</div>
