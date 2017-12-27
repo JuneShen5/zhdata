@@ -4,7 +4,7 @@
     <legend>系统使用信息</legend>
     <div class="form-group">
         <div class="col-sm-3 column-title">
-            <label class="control-label">是否为僵尸信息系统</label>
+            <label class="control-label">是否僵尸系统</label>
         </div>
         <div class="col-sm-7 column-content">
             <select name="sfjsxt" class="form-control js-hasChild" required>
