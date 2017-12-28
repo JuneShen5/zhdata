@@ -411,6 +411,11 @@ public class InformationController extends BaseController<Information>{
     }
     
     
+    /**
+     * 根据规则自动生成信息资源代码
+     * 
+     * @return
+     */
     @RequestMapping(value="getCode",method=RequestMethod.GET)
     @ResponseBody
     public  String getCode(){
