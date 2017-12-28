@@ -5,7 +5,7 @@
    <sql id="NjSystemColumns">
       a.id,
       a.company_id AS "companyId",
-      a.xtmc,
+      a.name,
       a.smfl,
       a.spbm,
       a.spsj,
@@ -45,8 +45,8 @@
        <include refid="njSystemJoins" /> 
       <where>
       a.del_flag = #{njSystems.delFlag}
-      <if test="njSystems.xtmc != null and njSystems.xtmc != ''">
-      AND a.xtmc LIKE CONCAT('%',#{njSystems.xtmc},'%')
+      <if test="njSystems.name != null and njSystems.name != ''">
+      AND a.name LIKE CONCAT('%',#{njSystems.name},'%')
       </if>
 	 </where>
 	 ORDER BY a.id DESC
@@ -60,8 +60,8 @@
       <include refid="njSystemJoins" />
       <where>
      a.del_flag = #{njSystems.delFlag}
-      <if test="njSystems.xtmc != null and njSystems.xtmc != ''">
-      AND a.xtmc LIKE CONCAT('%',#{njSystems.xtmc},'%')
+      <if test="njSystems.name != null and njSystems.name != ''">
+      AND a.name LIKE CONCAT('%',#{njSystems.name},'%')
       </if>
        <foreach collection="page.params" index="key" item="value" separator="" >
             <if test="value != null and value !=''" >
