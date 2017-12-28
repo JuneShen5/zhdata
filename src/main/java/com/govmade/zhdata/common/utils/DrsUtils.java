@@ -96,11 +96,12 @@ public class DrsUtils {
         List<Attribute> attList = Lists.newArrayList();
         
         Example example = new Example(Attribute.class);
-        example.createCriteria().andEqualTo("type", typeId);
-        example.createCriteria().andEqualTo("delFlag", 0);
+        Example.Criteria criteria=example.createCriteria();
+        criteria.andEqualTo("type", typeId).andEqualTo("delFlag", 0);
         if(isCore>0){
-            example.createCriteria().andEqualTo("isCore", isCore);
+            criteria.andEqualTo("isCore", isCore);
         }
+        
         example.setOrderByClause("sort asc,id asc");
         attList = drsUtils.attService.queryByExample(example);
         return attList;
