@@ -7,7 +7,7 @@
             <label class=" control-label">系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtmc" placeholder="请输入政务信息系统名称" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="name" placeholder="请输入政务信息系统名称" required>
         </div>
     </div>
      <c:set var="user" value="${fns:getCurrentUser()}" />

@@ -15,7 +15,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 	@Transient
     private String companyName; // 单位名称（所属部门）
 	
-    private String xtmc;
+    private String name;
 
     private String spbm;
 
@@ -106,15 +106,16 @@ public class ZjSystems extends BasePo<ZjSystems> {
     }
 
 
-    public String getXtmc() {
-        return xtmc;
-    }
 
-    public void setXtmc(String xtmc) {
-        this.xtmc = xtmc;
-    }
+    public String getName() {
+		return name;
+	}
 
-    public String getSpbm() {
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSpbm() {
         return spbm;
     }
 

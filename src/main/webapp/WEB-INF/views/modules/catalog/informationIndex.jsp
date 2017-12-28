@@ -114,7 +114,7 @@
                             <th data-field="companyName">资源提供方</th>
                             <th data-field="auditName">审核状态</th>
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
-                                <c:if test="${att.isShow=='yes'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
+                                <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
                             </c:forEach>
                             <th data-field="name" data-formatter="initInfoTableButton">操作</th>
                         </tr>

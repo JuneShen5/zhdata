@@ -15,7 +15,7 @@ public class NjSystems extends BasePo<NjSystems>{
 	@Transient
     private String companyName; // 单位名称（所属部门）
 	
-	private String xtmc;
+	private String name;
 	
 	private Integer smfl;
 	
@@ -58,13 +58,12 @@ public class NjSystems extends BasePo<NjSystems>{
 	}
 
 
-
-	public String getXtmc() {
-		return xtmc;
+	public String getName() {
+		return name;
 	}
 
-	public void setXtmc(String xtmc) {
-		this.xtmc = xtmc;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Integer getSmfl() {

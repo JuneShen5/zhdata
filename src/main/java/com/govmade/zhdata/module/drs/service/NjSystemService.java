@@ -59,8 +59,8 @@ public class NjSystemService extends BaseService<NjSystems> {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         NjSystems njSystems = JsonUtil.readValue(page.getObj(), NjSystems.class);
         try {
-            String str = new String(njSystems.getXtmc().getBytes("ISO-8859-1"), "UTF-8");
-            njSystems.setXtmc(str);
+            String str = new String(njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
+            njSystems.setName(str);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@
                     <div id="toolbar">
                         <div class="form-inline">
                             <div class="form-group">
-                                <input id="sName" sName="xtmc" type="text" placeholder="输入信息系统名称"
+                                <input id="sName" sName="name" type="text" placeholder="输入信息系统名称"
                                        class="form-control col-sm-8">
                                 <div class="input-group-btn col-sm-4">
                                     <button type="button" id="searchFor"
@@ -44,7 +44,7 @@
                             <tr>
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
-                                <th data-field="xtmc">信息系统名称</th>
+                                <th data-field="name">信息系统名称</th>
                                 <th data-field="ywgn">业务功能</th>
                                 <th data-field="companyName">单位名称</th>
                                 <th data-field="spsj">审批时间</th>

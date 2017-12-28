@@ -132,7 +132,7 @@
 				<div class="col-sm-7">
 					<select name="isShow" class="select-chosen" required>
 						<option value=""></option>
-						<c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+						<c:forEach var="dict" items="${fns:getDictList('show_hide')}">
 							<option value="${dict.value}">${dict.label}</option>
 						</c:forEach>
 					</select>

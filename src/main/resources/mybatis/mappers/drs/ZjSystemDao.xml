@@ -5,7 +5,7 @@
       <sql id="ZjSystemColumns">
       a.id,
       a.company_id AS "companyId",
-      a.xtmc,
+      a.name,
       a.spbm,
       a.spsj,
       a.ywgn,
@@ -69,8 +69,8 @@
       <include refid="zjSystemJoins" />
       <where>
       a.del_flag = #{zjSystems.delFlag}
-      <if test="zjSystems.xtmc != null and zjSystems.xtmc != ''">
-      AND a.xtmc LIKE CONCAT('%',#{zjSystems.xtmc},'%')
+      <if test="zjSystems.name != null and zjSystems.name != ''">
+      AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
       </if>
 	 </where>
 	 ORDER BY a.id DESC
@@ -85,8 +85,8 @@
       <include refid="zjSystemJoins" />
       <where>
       a.del_flag = #{zjSystems.delFlag}
-      <if test="zjSystems.xtmc != null and zjSystems.xtmc != ''">
-      AND a.xtmc LIKE CONCAT('%',#{zjSystems.xtmc},'%')
+      <if test="zjSystems.name != null and zjSystems.name != ''">
+      AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
       </if>
        <foreach collection="page.params" index="key" item="value" separator="" >
             <if test="value != null and value !=''" >

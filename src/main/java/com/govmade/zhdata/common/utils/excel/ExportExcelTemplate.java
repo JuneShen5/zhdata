@@ -23,6 +23,7 @@ import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.common.utils.TreeUtil;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
+import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
 import com.govmade.zhdata.module.sys.pojo.Menu;
@@ -215,9 +216,9 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                     }
                     break;
                 case "sys":
-                    List<Systems>  sysList = SysUtils.getSysList();
-                    for(Systems systems:sysList){
-                        templateValue.add(systems.getNameCn());
+                    List<YjSystems>  sysList = SysUtils.getSysList();
+                    for(YjSystems systems:sysList){
+                        templateValue.add(systems.getName());
                     }
                     break;
                 default:

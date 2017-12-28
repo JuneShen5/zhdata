@@ -16,6 +16,7 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Systems;
+import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
 import com.govmade.zhdata.module.sys.pojo.Menu;
@@ -240,9 +241,9 @@ public class ExportExcelData extends ExportExcelImpl {
                     break;
                 case "sys":
                     if(this.sysMap.size() == 0){
-                        List<Systems> sysList= SysUtils.getSysList();
-                        for(Systems systems : sysList){
-                            sysMap.put(String.valueOf(systems.getId()), systems.getNameCn());
+                        List<YjSystems> sysList= SysUtils.getSysList();
+                        for(YjSystems systems : sysList){
+                            sysMap.put(String.valueOf(systems.getId()), systems.getName());
                         }
                     }
                     name = sysMap.get(Id);
