@@ -142,15 +142,5 @@ public class InfoSort extends BasePo<InfoSort> {
         this.childSize = childSize;
     }
 
-    @Override
-    public String toString() {
-        return "InfoSort [parentId=" + parentId + ", code=" + code + ", name=" + name + ", sort=" + sort
-                + ", count=" + count + ", parentName=" + parentName + ", children=" + children + ", parent="
-                + parent + ", level=" + level + ", isLeaf=" + isLeaf + ", rootId=" + rootId + ", childSize="
-                + childSize + "]";
-    }
-    
-    
-    
 
 }

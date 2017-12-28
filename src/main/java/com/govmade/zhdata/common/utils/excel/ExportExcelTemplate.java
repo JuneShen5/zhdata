@@ -1,4 +1,5 @@
 package com.govmade.zhdata.common.utils.excel;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,6 +51,11 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         super(fileName, title, templatFile, rowName, dataList, response);
     }  
     
+    public ExportExcelTemplate(String fileName, String title, String templatFile,
+            String[] rowName, List<Map<String, Object>> infoList) throws IOException {
+        super(fileName, title, templatFile, rowName, infoList);
+    }
+
     @Override
     protected void exportValue(XSSFSheet sheet) {
       int lastRowNum = sheet.getLastRowNum();
