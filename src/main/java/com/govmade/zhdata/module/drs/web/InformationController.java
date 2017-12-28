@@ -98,15 +98,17 @@ public class InformationController extends BaseController<Information>{
         Integer roleId=UserUtils.getCurrentUser().getRoleId();
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         List<Integer> comList=Lists.newArrayList();
-        comList.add(companyId);
-        findAllSubNode(companyId, comList);
+        
         if (roleId!=1&& information.getIsAuthorize()==1) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
             Map<String, Object> map=Maps.newHashMap();
             map=page.getParams();
             //map.put("companyId", companyId);
             map.put("companyIds", comList);
             page.setParams(map);
         }
+        Integer isAuditCount=this.infoService.queryIsAuditCount(comList);
         
         try {
             Long total = infoService.getTotal(page);
@@ -150,6 +152,7 @@ public class InformationController extends BaseController<Information>{
             Page<Map<String, Object>> resPage = new Page<Map<String, Object>>();
             resPage.setTotal(total);
             resPage.setRows(list);
+            resPage.setStartRow(isAuditCount);  //startRow暂时用作待审核数量
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
             e.printStackTrace();

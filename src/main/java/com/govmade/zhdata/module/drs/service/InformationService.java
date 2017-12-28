@@ -280,4 +280,8 @@ public class InformationService extends BaseService<Information> {
         return this.infoDao.queryByCompanyIds(comList);
     }
 
+    public Integer queryIsAuditCount(List<Integer> comList) {
+        return this.infoDao.queryIsAuditCount(comList);
+    }
+
 }
