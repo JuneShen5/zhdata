@@ -7825,3 +7825,6 @@ blockquote:nth-child(1) {
 .ele-hide{
 	display: none;
 }
+.menu-selected{
+	background-color: #d1dbe5;
+}
