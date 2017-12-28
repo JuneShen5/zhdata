@@ -31,6 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
+import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -357,6 +358,9 @@ public class ImportExcelImpl{
         protected String getTemplateValue(String inputType,String columTypeValue,String name){
             String inputValue = "";
             String Id = "";
+            Matcher m = null;
+            String[] Array = null;
+            String _Id = "";
             switch(inputType)
             {
             case "select":
@@ -378,11 +382,10 @@ public class ImportExcelImpl{
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Map<String,String> checkDic = dictMap.get(inputValue);
-                Matcher m = Pattern.compile(regEx).matcher(name);  
-                String[] checkArray = m.replaceAll(",").split(",");
-                String _Id = "";
-                for(int i=0;i<checkArray.length;i++){
-                    String checkId = checkDic.get(checkArray[i]);
+                m = Pattern.compile(regEx).matcher(name);  
+                Array = m.replaceAll(",").split(",");
+                for(int i=0;i<Array.length;i++){
+                    String checkId = checkDic.get(Array[i]);
                     if(!(checkId == "" || checkId == null)){
                         _Id += checkId+",";
                     }
@@ -400,28 +403,25 @@ public class ImportExcelImpl{
                 }
                 Id = String.valueOf(companyMap.get(name));
                 break;
-//            case "element":
-//                if(this.elementMap.size() == 0){
-//                    List<Element> elementList = SysUtils.getElementList();
-//                    for(Element element : elementList){
-//                        elementMap.put(element.getNameCn(),element.getId());
-//                    }
-//                }
-//                if(null!=name && !"".equals(name.trim())){
-//                    String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
-//                    Pattern p = Pattern.compile(regEx);  
-//                    Matcher m = p.matcher(name);  
-//                    String[] elementArray = m.replaceAll(",").split(",");
-//                    String _Id = "";
-//                    for(int i=0;i<elementArray.length;i++){
-//                        _Id += String.valueOf(elementMap.get(elementArray[i]))+",";
-//                    }
-//                    Id = _Id.substring(0,_Id.length() - 1);
-//                }else{
-//                    Id = "";
-//                }
-//                
-//                break;
+            case "element":
+                if(this.elementMap.size() == 0){
+                    List<Element> elementList= SysUtils.getElementList();
+                    for(Element element : elementList){
+                        elementMap.put(element.getNameCn(),element.getId());
+                    }
+                }
+                m = Pattern.compile(regEx).matcher(name);  
+                Array = m.replaceAll(",").split(",");
+                for(int i=0;i<Array.length;i++){
+                    Integer elementId = elementMap.get(Array[i]);
+                    if(!( elementId == null)){
+                        _Id +="{\"id\":"+ elementId+"},";
+                    }
+                }
+                if(_Id.length()>0){
+                    Id = "["+_Id.substring(0,_Id.length() - 1)+"]";
+                }
+                break;
             case "linkselect":
 //                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
 //                for (InfoSort info : infoSorts) {

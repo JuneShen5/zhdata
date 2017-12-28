@@ -53,5 +53,4 @@ public interface InformationDao extends BaseDao<Information> {
     public void updateAllAudit();
 
 
-
 }

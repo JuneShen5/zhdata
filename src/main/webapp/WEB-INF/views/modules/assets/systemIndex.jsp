@@ -16,7 +16,7 @@
 						<div class="form-group">
 							<input id="sName" sName="nameCn" type="text" placeholder="输入信息系统名称"
 								class="form-control col-sm-8">
-                            <c:forEach var="att" items="${fns:getAttList(1)}">
+                            <c:forEach var="att" items="${fns:getAttList(1,2)}">
                                      <c:if test="${att.searchType=='2'}">
                                             <input id="${att.id}" sName="${att.nameEn}" type="text" placeholder="输入${att.nameCn}"
                                                 class="form-control col-sm-8" style="margin-left: 15px;">
@@ -62,7 +62,7 @@
 							<th data-checkbox="true"></th>
 							<th data-field="id">序号</th>
 							<th data-field="nameCn">信息系统名称</th>
-							<c:forEach var="att" items="${fns:getAttList(1)}">
+							<c:forEach var="att" items="${fns:getAttList(1,2)}">
 								 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
 							</c:forEach>
 							<th data-field="companyName">责任部门</th>

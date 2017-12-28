@@ -1,29 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-
+	<c:set var="isCore" value="0" />
 		<!-- 导出数据开始 -->
 	<div id="exportData" style="display: none;"  class="ibox-content">
 		<form method="post" action="" class="form-horizontal" id="exportForm">
 			<div class="alert alert-info">如导出数据量大，下载请耐心等待！</div>
-			
-<!-- 			<div class="col-md-3">
-				<input type="checkbox" nameCn="信息资源名称" nameEn="nameCn" inputType="input" inputValue="" checked/>
-				信息资源名称
-			</div>
-	
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="所属系统" nameEn="systemId" inputType="select" inputValue="sys" checked/>
-				所属系统
-			</div>
-			
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="信息资源提供方" nameEn="companyId" inputType="companyselect" inputValue="company" checked/>
-				信息资源提供方
-			</div>
-			<div class="col-md-3">
-				<input type="checkbox" nameCn="信息资源代码" nameEn="nameEn" inputType="input" inputValue="" checked/>
-				信息资源代码
-			</div> -->
-			<c:forEach var="att" items="${fns:getAttList(type)}">
+			<c:forEach var="att" items="${fns:getAttList(type,isCore)}">
 				<div class="col-md-3">
 					<input type="checkbox" nameEn="${att.nameEn}" nameCn="${att.nameCn}" inputType="${att.inputType}"  inputValue="${att.inputValue}" checked/>
 					${att.nameCn}

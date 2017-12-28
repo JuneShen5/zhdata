@@ -1,6 +1,7 @@
 package com.govmade.zhdata.module.drs.web;
 
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -461,8 +462,32 @@ public class InformationController extends BaseController<Information>{
 
     @Override
     protected List<Map<String, Object>> queryDataForExp() {
-        // TODO Auto-generated method stub
-        return null;
+        List<Information> informationList = infoService.queryForExport();
+        List<Map<String, Object>> infoList = Lists.newArrayList();
+        String info = "";
+        for (Information data : informationList) {
+          /*  信息项*/
+            String elementIds = "";
+            List<Element> elementList = data.getElementList();
+            if(elementList.size()>0){
+                for(Element element:elementList){
+                    elementIds += element.getNameCn()+",";
+                }
+            };
+            if(elementIds.length()>1){
+                elementIds = elementIds.substring(0,elementIds.length() - 1);
+                data.setElementIds(elementIds);
+            }
+            /*info字段*/
+            info = data.getInfo();
+            if(!StringUtils.isBlank(info)){
+                infoList.add(MapUtil.infoToMap(MapUtil.beansToMap(data), info));
+            }else{
+                infoList.add(MapUtil.beansToMap(data));
+            }
+           
+        }
+        return infoList;
     }
     
     

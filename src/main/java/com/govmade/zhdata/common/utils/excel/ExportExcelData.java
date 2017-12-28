@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
+import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -138,8 +139,9 @@ public class ExportExcelData extends ExportExcelImpl {
                 }
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 Map<String,String> checkDic = dictMap.get(inputValue);
-                Matcher m = Pattern.compile(regEx).matcher(Id);  
-                String[] idArray = m.replaceAll(",").split(",");
+//                Matcher m = Pattern.compile(regEx).matcher(Id);
+//                String[] idArray = m.replaceAll(",").split(",");
+                String[] idArray = Id.split(",");
                 String _name = "";
                 for(int i=0;i<idArray.length;i++){
                     _name += checkDic.get(idArray[i])+",";

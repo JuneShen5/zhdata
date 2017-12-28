@@ -1,6 +1,9 @@
 package com.govmade.zhdata.common.utils;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Method;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +17,7 @@ import net.sf.json.JSONObject;
 
 import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.cglib.beans.BeanMap;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -137,4 +141,57 @@ public class MapUtil {
         }
         return result;
     }
+    
+   
+  //Map转换为JavaBean  
+    public static <T> T map2bean(Map<String,String> map,Class<T> clz) throws Exception{  
+        //创建JavaBean对象  
+        T obj = clz.newInstance();  
+        //获取指定类的BeanInfo对象  
+        BeanInfo beanInfo = Introspector.getBeanInfo(clz, Object.class);  
+        //获取所有的属性描述器  
+        PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();  
+        for(PropertyDescriptor pd:pds){  
+            Object value = map.get(pd.getName());  
+            Method setter = pd.getWriteMethod();  
+            setter.invoke(obj, value);  
+        }  
+          
+        return  obj;  
+    }
+    
+    /** 
+     * 将List<Map<String,Object>>转换为List<T> 
+     * @param maps 
+     * @param clazz 
+     * @return 
+     * @throws InstantiationException 
+     * @throws IllegalAccessException 
+     */  
+    public static <T> List<T> mapsToObjects(List<Map<String, String>> maps,Class<T> clazz) throws InstantiationException, IllegalAccessException {  
+        List<T> list = Lists.newArrayList();  
+        if (maps != null && maps.size() > 0) {  
+            Map<String, String> map = null;  
+            T bean = null;  
+            for (int i = 0,size = maps.size(); i < size; i++) {  
+                map = maps.get(i);  
+                bean = clazz.newInstance();  
+                mapToBean(map, bean);  
+                list.add(bean);  
+            }  
+        }  
+        return list;  
+    } 
+    
+    /** 
+     * 将map装换为javabean对象 
+     * @param map 
+     * @param bean 
+     * @return 
+     */  
+    public static <T> T mapToBean(Map<String, String> map,T bean) {  
+        BeanMap beanMap = BeanMap.create(bean);  
+        beanMap.putAll(map);  
+        return bean;  
+    } 
 }

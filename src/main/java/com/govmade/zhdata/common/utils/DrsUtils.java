@@ -91,11 +91,14 @@ public class DrsUtils {
      * 
      * @return
      */
-    public static List<Attribute> getAttList(Integer typeId) {
+    public static List<Attribute> getAttList(Integer typeId,Integer isCore) {
+//        Integer isCore = 0;
         List<Attribute> attList = Lists.newArrayList();
         Attribute record=new Attribute();
         record.setType(typeId);
-        record.setIsCore(2);
+        if(isCore>0){
+            record.setIsCore(isCore);
+        }
         attList = drsUtils.attService.queryAll(record);
         return attList;
     }

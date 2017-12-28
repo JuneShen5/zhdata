@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,10 +12,12 @@ import com.github.abel533.entity.Example;
 import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
+import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.TablesDao;
@@ -243,8 +246,34 @@ public class InformationService extends BaseService<Information> {
         return this.infoMapper.selectCount(record);
     }
 
-//    public void saveAll(List<Map<String,String>> dataList) {
-//        infoDao.saveAll(dataList);
-//    }
+    public void saveAll(List<Map<String,String>> dataList) {
+        try {
+           for(Map<String,String> infoMap :dataList){
+                Information information = MapUtil.map2bean(infoMap,Information.class);
+                String jsonArray = information.getElementIds();
+                List<Element> elements = Lists.newArrayList();
+                if (StringUtils.isNotBlank(jsonArray)) {
+                    // json数组转List对象
+                    elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
+                    information.setElementList(elements);
+                }
+                
+                Company company=this.companyService.queryById(information.getCompanyId());
+                information.setCode(company.getCreditCode());
+                this.saveInformation(information);
+           }
+        
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+    }
+
+    public List<Information> queryForExport() {
+        Page<Information> page = new Page<Information>();
+        page.setIsPage(false);
+        return infoDao.queryListByPage(page);
+    }
 
 }
