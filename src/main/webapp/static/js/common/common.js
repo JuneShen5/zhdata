@@ -26,7 +26,12 @@ $(function() {
     }).on("changeDate", function (e) {
     	$(this).blur();
     });
-	
+
+    // 多选下拉框插件
+    $('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
+    $(".is-multiple-select").change(function(){
+        $(this).valid();
+    });
 	// checkbox、radio插件
 	$('.i-checks').iCheck({
         checkboxClass: 'icheckbox_square-green',
@@ -221,6 +226,12 @@ function endMethod (closeId, status) {
 	$(closeId).find(".i-checks").find("div.checked").removeClass("checked");
     $(closeId).find('select[name=shareCondition],select[name=shareMode],select[name=openType]').closest('.form-group').hide().val('').trigger("chosen:updated").removeAttr("required");
     // console.log($(closeId).find('select[name=shareCondition],select[name=shareMode],select[name=openType]').closest('.form-group').length);
+    $(closeId).find(".is-multiple-select").val('').trigger("change");
+    // 将相关下拉框选项隐藏
+    $('.js-hasChild').each(function (index) {
+        var parentName = $(this).attr('name');
+        $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input,select,textarea').prop('required', false).val('');
+    });
 	try{
 		if(resetPage) {
 			resetPage(status, closeId);
@@ -233,6 +244,10 @@ $(function () {
 	$(formId).validate({
 		ignore: ":hidden:not(select,input)",
         submitHandler: function(form){
+            $(document).one('click', '.layui-layer-btn0', function () {
+                $(this).hide();
+                $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
+            });
         	$(formId).ajaxSubmit({
     			url : url + 'save',
     			type : 'post',
@@ -439,7 +454,12 @@ function loadData(row) {
 					// 	$(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
 					// 	$(".linkagesel-select-group-info ").find(".chosen-container").removeClass("has-error-s has-success-s");
 					// },500);
-				} else {
+				}else if ($(this).hasClass('is-multiple-select')){
+                    var values = new Array(); //定义一数组
+                    values = value.split(",");
+                    $(this).val(values).trigger("change");
+                    $(this).closest('.form-group').removeClass('has-success has-error');
+                } else {
 					$(this).val(value);
 					$(this).trigger("chosen:updated");
 				}
@@ -643,11 +663,14 @@ function shareToggleMethod() {
         // 共享方式
         var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+		var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
         var gxlxValue = parseInt(gxlxSelect.val());
         gxtjSelect.closest('.form-group').hide();
         gxtjSelect.removeAttr("required");
         gxfsSelect.closest('.form-group').hide();
         gxfsSelect.removeAttr("required");
+        fbrqSelect.closest('.form-group').hide();
+        fbrqSelect.removeAttr("required");
         gxlxSelect.chosen({
             width: "100%"
         }).on('change', function () {
@@ -660,6 +683,9 @@ function shareToggleMethod() {
                 gxtjSelect.val("");
                 gxtjSelect.trigger("chosen:updated");
                 gxtjSelect.removeAttr("required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.closest('.form-group').slideToggle();
+                fbrqSelect.attr("required", "required");
             } else if (thisValue === 2) {
                 gxfsSelect.closest('.form-group').hide();
                 gxtjSelect.closest('.form-group').hide();
@@ -667,6 +693,9 @@ function shareToggleMethod() {
                 gxfsSelect.attr("required", "required");
                 gxtjSelect.closest('.form-group').slideToggle();
                 gxtjSelect.attr("required", "required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.closest('.form-group').slideToggle();
+                fbrqSelect.attr("required", "required");
             } else if (thisValue === 3) {
                 gxfsSelect.closest('.form-group').hide();
                 gxfsSelect.val("");
@@ -676,6 +705,9 @@ function shareToggleMethod() {
                 gxtjSelect.val("");
                 gxtjSelect.trigger("chosen:updated");
                 gxtjSelect.removeAttr("required");
+                fbrqSelect.closest('.form-group').hide();
+                fbrqSelect.val("");
+                fbrqSelect.removeAttr("required");
             }
         });
     }
@@ -722,11 +754,14 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 	if (gxlxSelect !== undefined){
 		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+        var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
 		var gxlxValue = parseInt(gxlxSelect.val());
 		gxtjSelect.closest('.form-group').hide();
 		gxtjSelect.removeAttr("required");
 		gxfsSelect.closest('.form-group').hide();
 		gxfsSelect.removeAttr("required");
+        fbrqSelect.closest('.form-group').hide();
+        fbrqSelect.removeAttr("required");
 		if (gxlxValue === 1) {
 			gxfsSelect.closest('.form-group').show();
 			gxfsSelect.attr("required", "required");
@@ -734,11 +769,15 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			gxtjSelect.val("");
 			gxtjSelect.trigger("chosen:updated");
 			gxtjSelect.removeAttr("required");
+            fbrqSelect.closest('.form-group').show();
+            fbrqSelect.attr("required", "required");
 		} else if (gxlxValue === 2) {
 			gxfsSelect.closest('.form-group').show();
 			gxtjSelect.closest('.form-group').show();
 			gxfsSelect.attr("required", "required");
 			gxtjSelect.attr("required", "required");
+            fbrqSelect.closest('.form-group').show();
+            fbrqSelect.attr("required", "required");
 		} else if (gxlxValue === 3) {
 			gxfsSelect.closest('.form-group').hide();
 			gxfsSelect.val("");
@@ -748,6 +787,9 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			gxtjSelect.val("");
 			gxtjSelect.trigger("chosen:updated");
 			gxtjSelect.removeAttr("required");
+            fbrqSelect.closest('.form-group').hide();
+            fbrqSelect.val("");
+            fbrqSelect.removeAttr("required");
 		}
     }
     if (isOpenSelect !== undefined) {

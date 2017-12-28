@@ -34,6 +34,7 @@
             <input type="text" isNonnegative="true" class="form-control" name="ywje" placeholder="运维所需金额" required>
         </div>
     </div>
+    <!--
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">年度</label>
@@ -170,5 +171,5 @@
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" isNonnegative="true" name="yyje" placeholder="请输入已用金额（万元）" required>
         </div>
-    </div>
+    </div>-->
 </fieldset>

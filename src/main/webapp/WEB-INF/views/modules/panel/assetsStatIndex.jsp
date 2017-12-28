@@ -135,6 +135,9 @@ ul, li {
 .search-container>.form-group{
 	margin: 20px 0 0 10px;
 }
+.box-info-container{
+	position: relative;
+}
 .box-info-container .panel-item{
 	margin: 15px 10px;
 }
@@ -145,7 +148,7 @@ ul, li {
 	z-index: 100;
 	background-color: rgba(255,255,255,.7);
 	text-align: center;
-	padding-top: 200px;
+	padding-top: 130px;
 }
 .loading-area p{
 	margin-top: 10px;
@@ -165,7 +168,7 @@ ul, li {
 			</div>
 			<div class="search-container form-inline clearfix" style="display: none;">
 				<div class="form-group">
-					<input class="form-control col-sm-8 search-input" placeholder="请输入部门名称" />
+					<input class="form-control col-sm-8 search-input" placeholder="请输入系统名称" />
 					<div class="input-group-btn col-sm-4">
 						<button class="btn btn-primary search-btn">搜索</button>
 					</div>

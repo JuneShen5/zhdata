@@ -20,6 +20,10 @@
 		<result property="isAudit" column="isAudit" />
 		<result property="reason" column="reason" />
 		<result property="tbName" column="tbName" />
+		<result property="resourceFormat" column="resourceFormat" />
+		<result property="rightRelation" column="rightRelation" />
+		<result property="manageStyle" column="manageStyle" />
+		<result property="releaseDate" column="releaseDate" />
         <result property="info" column="info" />
         <result property="remarks" column="remarks" />
         <collection property="elementList" ofType="Element">
@@ -67,6 +71,10 @@
 		a.is_audit AS "isAudit",
 		a.tb_name AS "tbName",
 		a.reason,
+		a.resource_format AS "resourceFormat",
+		a.right_relation AS "rightRelation",
+		a.manage_style AS "manageStyle",
+		a.release_date AS "releaseDate",
 		JSON_UNQUOTE(a.info) as "info",
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
@@ -278,16 +286,17 @@
                 </if>  -->
             </if>
         </foreach>
+         ORDER BY id DESC
         <if test="page.isPage==true">
         LIMIT #{page.startRow}, #{page.endRow}
         </if> 
-        ) a
+         ) a
         LEFT JOIN sys_company c ON c.id = a.company_id
         LEFT JOIN drs_info_element ie ON ie.info_id=a.id
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
         LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
-        ORDER BY a.id
+        ORDER BY a.id DESC
     </select>
 	
 	<!-- 保存关联表 -->

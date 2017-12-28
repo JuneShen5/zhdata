@@ -95,49 +95,60 @@
 			<div class="form-group tooltip-demo">
 				<label class="col-sm-3 control-label">部门名称：</label>
 				<div class="col-sm-7">
-					<input type="text" name="name" class="form-control" rangelength="[1, 30]" required>
+					<input type="text" name="name" hasNoSpace="true" class="form-control" rangelength="[1, 30]" required>
 					<div class="Validform_checktip"></div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">所属类型：</label>
+				<div class="col-sm-7">
+					<select name="type" class="select-chosen" required>
+							<option value=""></option>
+							<c:forEach var="dict" items="${fns:getDictList('depart_type')}">
+								<option value="${dict.value}">${dict.label}</option>
+							</c:forEach>
+						</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门编码：</label>
 				<div class="col-sm-7">
-					<input type="text" name="code" class="form-control" required>
+					<input type="text" name="code" hasNoSpace="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">社会信用代码：</label>
 				<div class="col-sm-7">
-					<input type="text" name="credit_code" class="form-control" required>
+					<input type="text" name="creditCode" hasNoSpace="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门信息化分管领导姓名：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ldxm" class="form-control" required>
+					<input type="text" name="ldxm" hasNoSpace="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门信息化分管领导联系方式：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ldlxfs" class="form-control" required>
+					<input type="text" name="ldlxfs" isMobile="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门信息化业务负责人姓名：</label>
 				<div class="col-sm-7">
-					<input type="text" name="fzrxm" class="form-control" required>
+					<input type="text" name="fzrxm" hasNoSpace="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">部门信息化业务负责人联系方式：</label>
 				<div class="col-sm-7">
-					<input type="text" name="fzrlxfs" class="form-control" required>
+					<input type="text" name="fzrlxfs" isMobile="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
@@ -173,28 +184,28 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化机构人员行政编制人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="rybzqk1" class="form-control" required>
+					<input type="text" name="rybzqk1" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化机构人员政法专项编制人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="rybzqk2" class="form-control" required>
+					<input type="text" name="rybzqk2" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化机构人员事业编制人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="rybzqk3" class="form-control" required>
+					<input type="text" name="rybzqk3" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化机构人员其他编制人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="rybzqk4" class="form-control" required>
+					<input type="text" name="rybzqk4" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
@@ -202,60 +213,81 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化人员技术无职称人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc1" class="form-control" required>
+					<input type="text" name="ryjszc1" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化人员技术计算机初级人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc2" class="form-control" required>
+					<input type="text" name="ryjszc2" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化人员技术计算机中级人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc3" class="form-control" required>
+					<input type="text" name="ryjszc3" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
-				<label class="col-sm-3 control-label">信息化人员技术计算机高级（副教授）人数：</label>
+				<label class="col-sm-3 control-label">信息化人员技术计算机高级(副教授)人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc4" class="form-control" required>
+					<input type="text" name="ryjszc4" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化人员技术计算机正高级人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc5" class="form-control" required>
+					<input type="text" name="ryjszc5" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">信息化人员技术其他人数：</label>
 				<div class="col-sm-7">
-					<input type="text" name="ryjszc6" class="form-control" required>
+					<input type="text" name="ryjszc6" digits="true" class="form-control" required>
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
+			
+			
 			<div class="form-group">
-				<label class="col-sm-3 control-label">所属类型：</label>
+				<label class="col-sm-3 control-label">2013年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<select name="type" class="select-chosen" required>
-							<option value=""></option>
-							<c:forEach var="dict" items="${fns:getDictList('depart_type')}">
-								<option value="${dict.value}">${dict.label}</option>
-							</c:forEach>
-						</select>
+					<input type="text" name="total2013" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2014年度总指标金额（万元）：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2014" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2015年度总指标金额（万元）：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2015" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2016年度总指标金额（万元）：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2016" isNonnegative="true" class="form-control" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">2017年度总指标金额（万元）：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2017" isNonnegative="true" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">排序：</label>
 				<div class="col-sm-7">
-					<input type="text" name="sort" class="form-control" required>
+					<input type="text" name="sort" digits="true" class="form-control" required>
 				</div>
 			</div>
 			<div class="form-group">

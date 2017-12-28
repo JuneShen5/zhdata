@@ -132,6 +132,10 @@ public class InformationController extends BaseController<Information>{
                 map.put("isAudit", s.getIsAudit());
                 map.put("systemId", s.getSystemId());
                 map.put("reason", s.getReason());
+                map.put("resourceFormat", s.getResourceFormat());
+                map.put("rightRelation", s.getRightRelation());
+                map.put("manageStyle", s.getManageStyle());
+                map.put("releaseDate", s.getReleaseDate());
                 if(s.getIsAudit()==0){
                     map.put("auditName", "待审核");
                 }else{
@@ -196,7 +200,9 @@ public class InformationController extends BaseController<Information>{
                         || paramName.trim().equals("elementIds") || paramName.trim().equals("isOpen")|| paramName.trim().equals("openType")
                         || paramName.trim().equals("shareType")|| paramName.trim().equals("shareMode")|| paramName.trim().equals("shareCondition")
                         || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("reason")
-                        ||paramName.trim().equals("infoType2") ||paramName.trim().equals("tbName")||paramName.trim().equals("code"))) {
+                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("rightRelation")
+                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("releaseDate")
+                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("tbName")||paramName.trim().equals("code"))) {
                     infos += "\"" + paramName + "\":\"" + paramValue + "\",";
                 }
             }

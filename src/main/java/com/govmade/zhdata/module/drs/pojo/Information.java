@@ -17,21 +17,21 @@ public class Information extends BasePo<Information> {
 
     private Integer systemId;
 
-    private String nameEn; //信息资源代码
+    private String nameEn; // 信息资源代码
 
     private String nameCn;
-    
+
     private String tbName;
 
-    private Integer isOpen;//是否向社会开放
-    
+    private Integer isOpen;// 是否向社会开放
+
     private Integer openType;
 
     private Integer shareType;
-    
-    private Integer shareMode;//共享方式
-    
-    private Integer shareCondition;//共享条件
+
+    private String shareMode;// 共享方式
+
+    private String shareCondition;// 共享条件
 
     private Integer infoType1;
 
@@ -40,14 +40,21 @@ public class Information extends BasePo<Information> {
     private Integer isAudit;
 
     private String info; // 信息资源属性
-    
-    private String code; //信息资源提供方代码
-    
-    private String reason; //信息资源提供方代码
-    
+
+    private String code; // 信息资源提供方代码
+
+    private String reason; // 信息资源提供方代码
+
+    private String resourceFormat; // 信息资源格式
+
+    private String rightRelation; // 权属关系
+
+    private Integer manageStyle; // 管理方式
+
+    private String releaseDate; // 发布日期
+
     @Transient
-    private Integer isAuthorize; //是否需要数据权限控制 0为否 1为是
-    
+    private Integer isAuthorize; // 是否需要数据权限控制 0为否 1为是
 
     @Transient
     private String companyName;
@@ -60,7 +67,7 @@ public class Information extends BasePo<Information> {
 
     @Transient
     private List<Element> elementList = Lists.newArrayList(); // 拥有数据元列表
-    
+
     @Transient
     private Integer count;
 
@@ -84,8 +91,6 @@ public class Information extends BasePo<Information> {
         this.systemId = systemId;
     }
 
-    
-    
     public String getTbName() {
         return tbName;
     }
@@ -142,16 +147,15 @@ public class Information extends BasePo<Information> {
         this.infoType2 = infoType2;
     }
 
-
     public Integer getIsAudit() {
-		return isAudit;
-	}
+        return isAudit;
+    }
 
-	public void setIsAudit(Integer isAudit) {
-		this.isAudit = isAudit;
-	}
+    public void setIsAudit(Integer isAudit) {
+        this.isAudit = isAudit;
+    }
 
-	public String getInfo() {
+    public String getInfo() {
         return info;
     }
 
@@ -215,22 +219,6 @@ public class Information extends BasePo<Information> {
         this.isOpen = isOpen;
     }
 
-    public Integer getShareMode() {
-        return shareMode;
-    }
-
-    public void setShareMode(Integer shareMode) {
-        this.shareMode = shareMode;
-    }
-
-    public Integer getShareCondition() {
-        return shareCondition;
-    }
-
-    public void setShareCondition(Integer shareCondition) {
-        this.shareCondition = shareCondition;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -246,7 +234,53 @@ public class Information extends BasePo<Information> {
     public void setIsAuthorize(Integer isAuthorize) {
         this.isAuthorize = isAuthorize;
     }
-    
-    
-    
+
+    public String getShareMode() {
+        return shareMode;
+    }
+
+    public void setShareMode(String shareMode) {
+        this.shareMode = shareMode;
+    }
+
+    public String getShareCondition() {
+        return shareCondition;
+    }
+
+    public void setShareCondition(String shareCondition) {
+        this.shareCondition = shareCondition;
+    }
+
+    public String getResourceFormat() {
+        return resourceFormat;
+    }
+
+    public void setResourceFormat(String resourceFormat) {
+        this.resourceFormat = resourceFormat;
+    }
+
+    public String getRightRelation() {
+        return rightRelation;
+    }
+
+    public void setRightRelation(String rightRelation) {
+        this.rightRelation = rightRelation;
+    }
+
+    public Integer getManageStyle() {
+        return manageStyle;
+    }
+
+    public void setManageStyle(Integer manageStyle) {
+        this.manageStyle = manageStyle;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
 }

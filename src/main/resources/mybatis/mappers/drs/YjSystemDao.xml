@@ -179,7 +179,7 @@
 	
 	<!-- 根据部门查询年度运维费用总金额 -->
 	<select id="queryYwjSum" resultType="Double">
-		select SUM(distinct ywje) from drs_system_yijian WHERE del_flag=#{yjSystems.delFlag}
+		SELECT SUM(ywje) FROM drs_system_yijian WHERE del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
     		AND company_id IN 
     		<foreach collection="comList" item="id" open="("  close=")" separator=",">
