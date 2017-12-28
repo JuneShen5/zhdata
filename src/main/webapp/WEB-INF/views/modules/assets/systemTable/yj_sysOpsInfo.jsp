@@ -99,7 +99,7 @@
             <label class="control-label">数据备份频率</label>
         </div>
         <div class="col-sm-7 column-content form-border-bottom">
-            <select name="bffs" class="form-control" required>
+            <select name="sjbfpl" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('backup_frequency')}">
                     <option value="${dict.value}">${dict.label}</option>
