@@ -149,7 +149,7 @@
 			<select name="systemId" class="form-control">
 				<option value=""></option>
 				<c:forEach var="sys" items="${fns:getList('sys')}">
-					<option value="${sys.id}">${sys.zwxxxtmc}</option>
+					<option value="${sys.id}">${sys.name}</option>
 				</c:forEach>
 			</select>
 		</div>

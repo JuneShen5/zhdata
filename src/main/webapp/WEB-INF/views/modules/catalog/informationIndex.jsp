@@ -211,8 +211,7 @@
     </div>
     
 	<!-- excel导入导出-->
-    <c:set var="type" value="2" />
-	<%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>    
+     
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script>
         var tableId = '#infoTable';
