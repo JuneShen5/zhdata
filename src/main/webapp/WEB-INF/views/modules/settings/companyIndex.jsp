@@ -318,6 +318,7 @@
 	var tableId = "";
 	var url = '${ctx}/settings/company/';
 	var layerId = '#layer_form';
+	var detailTitle = '机构详情'
     var zTreeNodes;
     var zTree;
     var zTreeSetting = {
@@ -428,7 +429,12 @@
      */
     function formatHandle(treeNode) {
         var htmlStr = '';
-        htmlStr += '<div class="btn-group"><button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',' + treeNode.level + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button><button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button><button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button></div>'
+        htmlStr += '<div class="btn-group">',
+        htmlStr += '<button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',' + treeNode.level + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeDetailMenu(' + treeNode.id + ')"><i class="fa fa-info-circle"></i>详情</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button>';
+        htmlStr += '</div>';
         return htmlStr;
     }
     
@@ -458,6 +464,18 @@
 		}
 		$("#citySel").val(name);
  	}
+ 	// 查看
+    function ztreeDetailMenu(id){
+        var row;
+        for (var i in ztreeData) {
+            if (id == ztreeData[i].id) {
+                row = ztreeData[i]
+            }
+        }
+        openDetail();
+        loadData(row);
+        disabledMenu (formId);
+	}
  	// 修改
  	function ztreeEditMenu (id) {
  		var row;
