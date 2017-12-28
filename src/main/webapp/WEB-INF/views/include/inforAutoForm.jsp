@@ -158,7 +158,7 @@
 		<label class="col-sm-3 control-label">权属关系：</label>
 		<div class="col-sm-7 column-content">
 			<select name="rightRelation" class="form-control is-multiple-select" multiple="multiple" required>
-				<c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
+				<c:forEach var="dict" items="${fns:getDictList('right_relation')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select>
