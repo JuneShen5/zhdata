@@ -15,13 +15,12 @@ import com.govmade.zhdata.module.drs.pojo.InfoSort;
 
 public class TreeUtil {
     
-    private Integer levalNum = 0;
-    private Integer rankNum = 0;
+    private Integer levalNum = 0; //列数
+    private Integer rankNum = 0;  //行数
     
     public Integer getLevalNum() {
         return levalNum;
     }
-
 
     private String[][] numfour;
     

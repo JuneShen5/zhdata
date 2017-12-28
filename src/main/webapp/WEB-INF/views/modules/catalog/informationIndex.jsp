@@ -64,7 +64,7 @@
                                 <a data-toggle="modal" class="btn btn-green"
                                     onclick="openLayer('信息资源新增');getCode();"><i class="fa fa-plus-square-o"></i> 新增</a>
                                 <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-                                <button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
+                                <button class="btn btn-purple" type="button" onclick="importData(2);"><i class='fa fa-sign-in'></i> Excel导入</button>
                                 <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
                                 <button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button>
                                 <button class="btn btn-blue other-url" type="button" id="271" url="${ctx}/settings/attribute?type=2" name="信息资源配置"><i class='fa fa-cog'></i> 配置</button>
@@ -211,7 +211,8 @@
     </div>
     
 	<!-- excel导入导出-->
-     
+	<c:set var="type" value="2" />
+    <%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script>
         var tableId = '#infoTable';

@@ -101,7 +101,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                   }else{
                       inputValue = "参考附页"; 
                   }
-                  System.out.println("title:"+sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue());
                   templateValue.add(0, sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue());//将那一列的中文名放到第一个
                   if(templateValue.size()>attachedMaxLen){
                       attachedMaxLen = templateValue.size();
@@ -170,7 +169,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 }
                 break;
             case "linkselect":
-                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
+                List<InfoSort> infoSorts =  DrsUtils.findAllInfo();
                 for (InfoSort info : infoSorts) {
                     templateValue.add(info.getName());
                 }

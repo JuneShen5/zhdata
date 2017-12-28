@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +25,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import com.govmade.zhdata.common.utils.DrsUtils;
+import com.govmade.zhdata.common.utils.TreeUtil;
+import com.govmade.zhdata.module.drs.pojo.InfoSort;
   
 /** 
  * 导出Excel公共方法 
@@ -57,13 +62,17 @@ public abstract class ExportExcelImpl{
     protected CellStyle style = null;
     
     protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
+   
+    protected List<InfoSort> infoSortTree; //用于存储资源分类的树形结构数据
+    
+    protected Integer levalNum ;
     
     //构造方法，传入要导出的数据  
     public ExportExcelImpl(String fileName,String title,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response){
         this.fileName = fileName;   //导出的文件名
         this.dataList = dataList;   //查询出来的实体数据
-//        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
-        this.rowName = rowName;
+        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
+//        this.rowName = rowName;
         this.title = title;       //sheet名
         this.response = response;
     }
@@ -83,8 +92,8 @@ public abstract class ExportExcelImpl{
     public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList) throws IOException{
         this.fileName = fileName;   //导出的文件名
         this.dataList = dataList;   //查询出来的实体数据
-//        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
-        this.rowName = rowName;
+        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
+//        this.rowName = rowName;
         this.title = title;       //sheet名
         
         File  fi = new File(templatePath+templatFile);
@@ -99,49 +108,47 @@ public abstract class ExportExcelImpl{
     
 
     public String[] ChangeRowName(String[] rowName){
-      int _i=0;//用于记录第几个是linkselect类型的
-      int levalNum = 0;//用于记录联动的层数
-      String[] _rowName = null;//用于存放新的额数组
-      for(int i=0;i<rowName.length ;i++){
-          String columType = rowName[i].split("_")[2];
-         if("linkselect".equals(columType)){
-             _i = i;
-             levalNum = 4;
-             _rowName = new String[levalNum]; //这边先直接写死了
-             //将值付给_rowName
-             for(int j=1;j<=levalNum;j++){
-//                 String inputType = "";
-//                 if(j==1){
-//                     inputType = rowName[_i].split("_")[2];
-//                 }else{
-//                     inputType = "input"; //下面的子级当做input以便在导出模板中不出错
-//                 }
-                 _rowName[j-1] = rowName[_i].split("_")[0]+j+"_"+rowName[_i].split("_")[1]+j+"_"+ rowName[_i].split("_")[2]+"_";
+        System.out.println("2211");
+      ArrayList<String> rowNameList = new ArrayList<String>(Arrays.asList(rowName));
+      System.out.println("rowNameList:"+rowNameList);
+      String[] rowNameElementRow;
+      System.out.println("size:"+rowNameList.size());
+      int size = rowNameList.size();
+      for(int i=0;i<size;i++){
+          rowNameElementRow = rowNameList.get(i).split("_");
+          System.out.println("rowNameElementRow[2]:"+rowNameElementRow[2]);
+          if("linkageSelect".equals(rowNameElementRow[2])){
+             getLinkageData(rowNameElementRow[3]);
+             for(int j=1;j<levalNum;j++){
+                 rowNameList.add(i, rowNameElementRow[0]+"_"+rowNameElementRow[1]+j+"_"+rowNameElementRow[2]+"_"+rowNameElementRow[3]);
              }
-         }
-      }
-      
-      if(levalNum == 0){
-          return rowName;
-      }else{
-          String[] _rowName_ = new String[_rowName.length+rowName.length-1];
-          for(int a=0;a<_rowName_.length;a++){
-              if(a<=3){
-                  _rowName_[a] = _rowName[a];
-              }else{
-                  _rowName_[a] = rowName[a-3];
-              }
           }
-          return _rowName_;
-
       }
-        
+      System.out.println("rowNameList"+rowNameList);
+//      return (String[]) rowNameList.toArray();
+      return rowName;
     }
     
+    private void getLinkageData(String inputTypevalue) {
+        switch(inputTypevalue)
+        {
+        case "infoSort":
+            List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
+            TreeUtil treeUtil = new TreeUtil();
+            System.out.println(9876543);
+            this.infoSortTree  = treeUtil.buildListToTree(infoSortList);
+            this.levalNum = treeUtil.getLevalNum();
+            break;  
+        default:
+            break;
+        }
+        
+    }
+
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
-//        this.out(createExcel);
-        this.writeInOutputStream(createExcel);
+        this.out(createExcel);
+//        this.writeInOutputStream(createExcel);
     }
     
     public void out(Workbook createExcel) throws Exception{
