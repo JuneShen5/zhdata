@@ -14,9 +14,11 @@ import com.govmade.zhdata.common.persistence.RedisService;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
+import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.drs.service.ElementService;
 import com.govmade.zhdata.module.drs.service.InfoSortService;
 import com.govmade.zhdata.module.drs.service.SystemService;
+import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
 import com.govmade.zhdata.module.sys.pojo.Menu;
@@ -49,8 +51,11 @@ public class SysUtils {
     @Autowired
     private MenuService menuService;
 
+   /* @Autowired
+    private SystemService systemService;*/
+    
     @Autowired
-    private SystemService systemService;
+    private YjSystemService yjSystemService;
     
     @Autowired
     private ElementService elementService;
@@ -73,7 +78,7 @@ public class SysUtils {
         sysUtils.dictService = this.dictService;
         sysUtils.redisService = this.redisService;
         sysUtils.menuService = this.menuService;
-        sysUtils.systemService = this.systemService;
+        sysUtils.yjSystemService = this.yjSystemService;
         sysUtils.infosortservice = this.infosortservice;
         sysUtils.elementService = this.elementService;
 
@@ -254,17 +259,17 @@ public class SysUtils {
      * 
      * @return
      */
-    public static List<Systems> getSysList() {
-        List<Systems> sysList = Lists.newArrayList();
-        sysList = sysUtils.systemService.queryAll(new Systems());
+    public static List<YjSystems> getSysList() {
+        List<YjSystems> sysList = Lists.newArrayList();
+        sysList = sysUtils.yjSystemService.queryAll(new YjSystems());
         return sysList;
     }
     public static String getSysName(Integer id){
-        return sysUtils.systemService.queryById(id).getNameCn();
+        return sysUtils.yjSystemService.queryById(id).getName();
     }
     
-    public static Systems getSys(Systems systems){
-        return sysUtils.systemService.queryOne(systems);
+    public static YjSystems getSys(YjSystems yjSystems){
+        return sysUtils.yjSystemService.queryOne(yjSystems);
     }
 
     /**

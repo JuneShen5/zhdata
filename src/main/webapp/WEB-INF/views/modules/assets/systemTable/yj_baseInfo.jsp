@@ -8,7 +8,7 @@
         </div>
         <div class="col-sm-7 column-content">
             <input type="text" class="form-control" hasNoSpace="true"
-                   name="zwxxxtmc" placeholder="请输入政务信息系统名称" required>
+                   name="name" placeholder="请输入政务信息系统名称" required>
         </div>
     </div>
     <c:set var="user" value="${fns:getCurrentUser()}" />

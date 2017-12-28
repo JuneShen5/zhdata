@@ -15,7 +15,7 @@ public class YjSystems extends BasePo<YjSystems> {
     @Transient
     private String companyName; // 单位名称（所属部门）
 
-    private String zwxxxtmc;
+    private String name;  //系统名称
 
     private String jsyj;
 
@@ -205,13 +205,6 @@ public class YjSystems extends BasePo<YjSystems> {
         this.companyName = companyName;
     }
 
-    public String getZwxxxtmc() {
-        return zwxxxtmc;
-    }
-
-    public void setZwxxxtmc(String zwxxxtmc) {
-        this.zwxxxtmc = zwxxxtmc;
-    }
 
     public String getJsyj() {
         return jsyj;
@@ -884,5 +877,15 @@ public class YjSystems extends BasePo<YjSystems> {
     public void setBssx(Integer bssx) {
         this.bssx = bssx;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    
 
 }
