@@ -111,7 +111,7 @@
                             <th data-checkbox="true"></th>
                             <th data-field="nameEn">信息资源代码</th>
                             <th data-field="nameCn">信息资源名称</th>
-                            <th data-field="companyName">资源提供方</th>
+                            <th data-field="companyName">信息资源提供方</th>
                             <th data-field="auditName">审核状态</th>
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
