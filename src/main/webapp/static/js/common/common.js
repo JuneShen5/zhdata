@@ -550,7 +550,12 @@ function loadToData(row, formId) {
 					}
 					console.log(linkageSelData);
 					loadLinkageSel(linkageSelData);
-				} else {
+				}else if ($(this).hasClass('is-multiple-select')){
+                    var values = new Array(); //定义一数组
+                    values = value.split(",");
+                    $(this).val(values).trigger("change");
+                    $(this).closest('.form-group').removeClass('has-success has-error');
+                }  else {
 					console.log("value: ", value)
 					$(this).val(value);
 					$(this).trigger("chosen:updated");
@@ -578,6 +583,15 @@ function loadToData(row, formId) {
         radioClass: 'iradio_square-green',
     });
     shareToggleName(formId);
+    // 判断相关下拉框选项
+    $('.js-hasChild').each(function (index) {
+        var parentName = $(this).attr('name');
+        if ($(this).val() === '1') {
+            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+        }else {
+            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+        }
+    });
 }
 
 // 四级联动数据获取之后样式的变化

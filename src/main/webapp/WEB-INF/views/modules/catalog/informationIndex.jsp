@@ -311,12 +311,17 @@
             html += '<div class="btn-group">';
             html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+            if (row.isAudit === 0){
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-            html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
                     + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
-            html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            } else if (row.isAudit === 1){
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+            }
             /* html += '<button type="button" class="btn btn-white" id="created"  onclick="createdRow('
                     + row.id + ',' + row.isCreated + ')"><i class="fa fa-search"></i>&nbsp;' + dataIsCreated(row.isCreated) + '</button>';
             html += '<button type="button" class="btn btn-white" id="display"  onclick="showSqlRow(\''
