@@ -32,6 +32,8 @@ public class Attribute extends BasePo<Attribute> {
     private Integer sort;
     
     private Integer isCore;
+    
+    protected Integer delFlag; // 删除标记（0：正常；1：删除；2：审核）按照example查询的时候这个如果加载公用地方不起作用
 
     public Attribute() {
         super();
@@ -137,5 +139,14 @@ public class Attribute extends BasePo<Attribute> {
     public void setIsCore(Integer isCore) {
         this.isCore = isCore;
     }
+
+    public Integer getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Integer delFlag) {
+        this.delFlag = delFlag;
+    }
+    
     
 }
