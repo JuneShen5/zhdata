@@ -175,7 +175,7 @@ public class InformationService extends BaseService<Information> {
 
     public void deleteAll(List<String> idList) {
        
-        if ( this.infoMapper.delete(null)>0) {
+        if ( this.infoDao.delete(idList)>0) {
             this.infoDao.deleteInfoEle(idList);
             this.tablesDao.updateTabs(idList); //将table表中的info_id设置为0
         }
@@ -274,6 +274,10 @@ public class InformationService extends BaseService<Information> {
         Page<Information> page = new Page<Information>();
         page.setIsPage(false);
         return infoDao.queryListByPage(page);
+    }
+
+    public List<Information> queryByCompanyIds(List<Integer> comList) {
+        return this.infoDao.queryByCompanyIds(comList);
     }
 
 }

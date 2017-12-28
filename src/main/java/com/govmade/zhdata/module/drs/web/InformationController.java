@@ -267,8 +267,15 @@ public class InformationController extends BaseController<Information>{
     @RequestMapping(value="deleteAll",method=RequestMethod.GET)
     public ResponseEntity<String> deleteAll(){
         try {
-          
-          List<Information> inforList=this.infoService.queryAll(new Information());
+            Integer roleId=UserUtils.getCurrentUser().getRoleId();
+            Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            if (roleId!=1) {
+                comList.add(companyId);
+                findAllSubNode(companyId, comList);
+            }
+            List<Information> inforList=this.infoService.queryByCompanyIds(comList);
+          //List<Information> inforList=this.infoService.queryAll(new Information());
           List<String> idList = Lists.newArrayList();
           for (Information info : inforList) {
             idList.add(info.getId().toString());

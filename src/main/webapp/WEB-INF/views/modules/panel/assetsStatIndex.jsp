@@ -220,7 +220,7 @@ ul, li {
 			data: {
                 pageNum: 1,
                 pageSize: 6,
-                obj: JSON.stringify({'zwxxxtmc': ''})
+                obj: JSON.stringify({'name': ''})
 			},
 			success: function (data) {
 //                layer.close(layer.index);
@@ -234,11 +234,11 @@ ul, li {
 				$('.top-company-count').find('em').text(data.total + ' 个');
                     $("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
 				$.each(data.rows, function(index,dataList){
-				    var searchHtml = '<option value="'+dataList.id+'">' + dataList.zwxxxtmc + '</option>';
+				    var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
 				    $('.search-container').find('select').append(searchHtml);
 					var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
 						listHtml += '<div class="panel panel-default  panel-item">';
-						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.zwxxxtmc + '</div>';
+						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
 						listHtml += '<div class="panel-body content"><ul>';
 						 listHtml += '<li class="clearfix"><p class="col-xs-3 text-right">单位名称：</p><p class="col-xs-9 text-left"><span>'+dataList.companyName+'</span></p></li>';
                          listHtml += '<li class="clearfix"><p class="col-xs-4 text-right">年度运维金额：</p><p class="col-xs-8 text-left"><span>'+dataList.ywje+' 万元'+'</span></p></li>';
@@ -259,7 +259,7 @@ ul, li {
                 data: {
                     pageNum: 1,
                     pageSize: 6,
-                    obj: JSON.stringify({'zwxxxtmc': thisValue})
+                    obj: JSON.stringify({'name': thisValue})
                 },
                 success: function (data) {
                     $('.loading-area').hide();
@@ -272,11 +272,11 @@ ul, li {
                     var pageNum = Math.ceil(totalCounts/pageSize);
                     // 拼接部门详细资源
                     $.each(data.rows, function(index,dataList){
-                        var searchHtml = '<option value="'+dataList.id+'">' + dataList.zwxxxtmc + '</option>';
+                        var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
                         $('.search-container').find('select').append(searchHtml);
                         var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                         listHtml += '<div class="panel panel-default  panel-item">';
-                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.zwxxxtmc + '</div>';
+                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
                         listHtml += '<div class="panel-body content"><ul>';
                         listHtml += '<li class="clearfix"><p class="col-xs-3 text-right">单位名称：</p><p class="col-xs-9 text-left"><span>'+dataList.companyName+'</span></p></li>';
                         listHtml += '<li class="clearfix"><p class="col-xs-4 text-right">年度运维金额：</p><p class="col-xs-8 text-left"><span>'+dataList.ywje+' 万元'+'</span></p></li>';
@@ -316,7 +316,7 @@ ul, li {
                         data: {
                             pageNum: num,
                             pageSize: 6,
-                            obj: JSON.stringify({'zwxxxtmc': ''})
+                            obj: JSON.stringify({'name': ''})
                         },
                         success: function (data) {
                             $('.loading-area').hide();
@@ -329,11 +329,11 @@ ul, li {
                             var pageNum = Math.ceil(totalCounts/pageSize);
                             // 拼接部门详细资源
                             $.each(data.rows, function(index,dataList){
-                                var searchHtml = '<option value="'+dataList.id+'">' + dataList.zwxxxtmc + '</option>';
+                                var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
                                 $('.search-container').find('select').append(searchHtml);
                                 var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                                 listHtml += '<div class="panel panel-default  panel-item">';
-                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.zwxxxtmc + '</div>';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
                                 listHtml += '<div class="panel-body content"><ul>';
                                 listHtml += '<li class="clearfix"><p class="col-xs-3 text-right">单位名称：</p><p class="col-xs-9 text-left"><span>'+dataList.companyName+'</span></p></li>';
                                 listHtml += '<li class="clearfix"><p class="col-xs-4 text-right">年度运维金额：</p><p class="col-xs-8 text-left"><span>'+dataList.ywje+' 万元'+'</span></p></li>';
