@@ -267,6 +267,7 @@ public class InformationController extends BaseController<Information>{
     @RequestMapping(value="deleteAll",method=RequestMethod.GET)
     public ResponseEntity<String> deleteAll(){
         try {
+          
           List<Information> inforList=this.infoService.queryAll(new Information());
           List<String> idList = Lists.newArrayList();
           for (Information info : inforList) {
@@ -365,7 +366,14 @@ public class InformationController extends BaseController<Information>{
     @RequestMapping(value="setAllAudit",method=RequestMethod.GET)
     public ResponseEntity<String> setAllAudit() throws Exception{
         try {
-            infoService.updateAllAudit();
+            Integer roleId=UserUtils.getCurrentUser().getRoleId();
+            Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            if (roleId!=1) {
+                comList.add(companyId);
+                findAllSubNode(companyId, comList);
+            }
+            infoService.updateAllAudit(comList);
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);
         } catch (Exception e) {
             e.printStackTrace();
