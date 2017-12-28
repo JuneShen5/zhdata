@@ -204,6 +204,10 @@
 			$(".J_menuItem").each(function (index) {
 				$(this).attr('id', index+1);
 			});
+			$(document).on('click', '.J_menuItem', function () {
+                $(".J_menuItem").removeClass('menu-selected');
+                $(this).addClass('menu-selected');
+            });
 		});
 		  themeInit();
 		$('#side-menu').slimScroll({

@@ -257,31 +257,31 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2013年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<input type="text" name="total2013" isNonnegative="true" class="form-control" required>
+					<input type="text" name="total2013" isNonnegative="true" class="form-control" placeholder="2013年度部门信息化系统预算" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2014年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<input type="text" name="total2014" isNonnegative="true" class="form-control" required>
+					<input type="text" name="total2014" isNonnegative="true" class="form-control" placeholder="2014年度部门信息化系统预算" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2015年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<input type="text" name="total2015" isNonnegative="true" class="form-control" required>
+					<input type="text" name="total2015" isNonnegative="true" class="form-control" placeholder="2015年度部门信息化系统预算" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2016年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<input type="text" name="total2016" isNonnegative="true" class="form-control" required>
+					<input type="text" name="total2016" isNonnegative="true" class="form-control" placeholder="2016年度部门信息化系统预算" required>
 				</div>
 			</div>
 			<div class="form-group">
 				<label class="col-sm-3 control-label">2017年度总指标金额（万元）：</label>
 				<div class="col-sm-7">
-					<input type="text" name="total2017" isNonnegative="true" class="form-control" required>
+					<input type="text" name="total2017" isNonnegative="true" class="form-control" placeholder="2017年度部门信息化系统预算" required>
 				</div>
 			</div>
 			<div class="form-group">
@@ -318,6 +318,7 @@
 	var tableId = "";
 	var url = '${ctx}/settings/company/';
 	var layerId = '#layer_form';
+	var detailTitle = '机构详情'
     var zTreeNodes;
     var zTree;
     var zTreeSetting = {
@@ -428,7 +429,12 @@
      */
     function formatHandle(treeNode) {
         var htmlStr = '';
-        htmlStr += '<div class="btn-group"><button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',' + treeNode.level + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button><button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button><button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button></div>'
+        htmlStr += '<div class="btn-group">',
+        htmlStr += '<button class="btn btn-white" onclick="ztreeAddMenu(' + treeNode.id + ',' + treeNode.level + ',\'' + treeNode.name + '\')"><i class="fa fa-plus"></i>添加子级机构</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeDetailMenu(' + treeNode.id + ')"><i class="fa fa-info-circle"></i>详情</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeEditMenu(' + treeNode.id + ')"><i class="fa fa-pencil"></i>修改</button>';
+        htmlStr += '<button class="btn btn-white" onclick="ztreeDeleteMenu(' + treeNode.id + ')"><i class="fa fa-trash"></i>删除</button>';
+        htmlStr += '</div>';
         return htmlStr;
     }
     
@@ -458,6 +464,18 @@
 		}
 		$("#citySel").val(name);
  	}
+ 	// 查看
+    function ztreeDetailMenu(id){
+        var row;
+        for (var i in ztreeData) {
+            if (id == ztreeData[i].id) {
+                row = ztreeData[i]
+            }
+        }
+        openDetail();
+        loadData(row);
+        disabledMenu (formId);
+	}
  	// 修改
  	function ztreeEditMenu (id) {
  		var row;

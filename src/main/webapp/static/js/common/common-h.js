@@ -35,6 +35,9 @@ var TableInit = function(tableOption,btnOption) {
                     tableInitParams['url'] = tableOption.url;
                 }
                 $('#' + tableOption.tableId).bootstrapTable(tableInitParams);
+                $('#' + tableOption.tableId).on('post-body.bs.table', function (e) {
+                    $(this).find('thead').removeClass('ele-hide');
+                });
             },
 
             // 得到查询的参数

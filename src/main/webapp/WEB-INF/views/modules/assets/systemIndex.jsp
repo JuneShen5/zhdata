@@ -57,7 +57,7 @@
 					</div>
 				</div>
 				<table id="systemTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
 							<th data-field="id">序号</th>

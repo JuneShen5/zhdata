@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<table id="siteTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-field="code">单位信用代码</th>
 							<th data-field="name">单位名称</th>

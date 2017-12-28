@@ -35,7 +35,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Integer xtlb;
     
-    private Integer xtlb2;
     
     private Integer dqjsjd;
 
@@ -450,16 +449,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
 	public void setXtlb(Integer xtlb) {
 		this.xtlb = xtlb;
-	}
-
-
-	public Integer getXtlb2() {
-		return xtlb2;
-	}
-
-
-	public void setXtlb2(Integer xtlb2) {
-		this.xtlb2 = xtlb2;
 	}
 
 

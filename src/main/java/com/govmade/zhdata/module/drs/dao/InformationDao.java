@@ -50,7 +50,7 @@ public interface InformationDao extends BaseDao<Information> {
 
     public void relationSave(@Param("id") Integer id, @Param("elIds") List<String> elIds);
 
-    public void updateAllAudit();
+    public void updateAllAudit(@Param("comList") List<Integer> comList);
 
 
 }

@@ -33,14 +33,14 @@ public class Attribute extends BasePo<Attribute> {
     
     private Integer isCore;
     
-    protected Integer delFlag; // 删除标记（0：正常；1：删除；2：审核）按照example查询的时候这个如果加载公用地方不起作用
+   // protected Integer delFlag; // 删除标记（0：正常；1：删除；2：审核）按照example查询的时候这个如果加载公用地方不起作用
 
     public Attribute() {
         super();
     }
 
     public Attribute(Integer type) {
-        this.delFlag = DEL_FLAG_NORMAL;
+        //this.delFlag = DEL_FLAG_NORMAL;
         this.type = type;
     }
 

@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<table id="userTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-field="id">id</th>
 							<th data-field="loginName">用户名</th>

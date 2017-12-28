@@ -177,22 +177,9 @@
             <label class="control-label">系统类别</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="xtlb" class="form-control js-hasChild" required>
+            <select name="xtlb" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('system_type1')}">
-                    <option value="${dict.value}">${dict.label}</option>
-                </c:forEach>
-            </select>
-        </div>
-    </div>
-    <div class="form-group ele-hide" data-parent="xtlb">
-        <div class="col-sm-3 column-title">
-            <label class="control-label"></label>
-        </div>
-        <div class="col-sm-7 column-content">
-            <select name="xtlb2" class="form-control" required>
-                <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('system_type2')}">
+                <c:forEach var="dict" items="${fns:getDictList('system_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>

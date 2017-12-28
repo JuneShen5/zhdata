@@ -106,12 +106,12 @@
                     </div>
                 </div>
                 <table id="infoTable">
-                    <thead>
+                    <thead class="ele-hide">
                         <tr>
                             <th data-checkbox="true"></th>
                             <th data-field="nameEn">信息资源代码</th>
                             <th data-field="nameCn">信息资源名称</th>
-                            <th data-field="companyName">资源提供方</th>
+                            <th data-field="companyName">信息资源提供方</th>
                             <th data-field="auditName">审核状态</th>
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
@@ -312,12 +312,17 @@
             html += '<div class="btn-group">';
             html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+            if (row.isAudit === 0){
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-            html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
                     + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
-            html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            } else if (row.isAudit === 1){
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+            }
             /* html += '<button type="button" class="btn btn-white" id="created"  onclick="createdRow('
                     + row.id + ',' + row.isCreated + ')"><i class="fa fa-search"></i>&nbsp;' + dataIsCreated(row.isCreated) + '</button>';
             html += '<button type="button" class="btn btn-white" id="display"  onclick="showSqlRow(\''

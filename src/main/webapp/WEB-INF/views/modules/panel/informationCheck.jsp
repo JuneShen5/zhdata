@@ -66,7 +66,7 @@
 								<div class="check-search-item" style="width:200px;">
 									<select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
 										<option value="">全部</option>
-										<option value=0 selected>未审核</option>
+										<option value=0 selected>待审核</option>
 										<option value=1>已审核</option>
 									</select>
 								</div>
@@ -81,7 +81,7 @@
 					</div>
 				</div>
 				<table id="systemTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
 							<th data-field="nameEn">信息资源代码</th>

@@ -53,7 +53,7 @@
 					
 				</div>
 				<table id="elementTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
 							<th data-field="idCode">内部标识符</th>

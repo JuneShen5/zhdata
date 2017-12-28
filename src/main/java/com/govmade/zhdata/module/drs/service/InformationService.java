@@ -236,8 +236,8 @@ public class InformationService extends BaseService<Information> {
         }
     }
 
-    public void updateAllAudit() {
-        this.infoDao.updateAllAudit();
+    public void updateAllAudit(List<Integer> comList) {
+        this.infoDao.updateAllAudit(comList);
     }
 
     public Integer queryAuditCount(Integer isAudit) {
