@@ -37,8 +37,8 @@ public class DrsUtils {
 
     private static DrsUtils drsUtils;
     
-//    @Autowired
-//    private HttpServletRequest request;
+    @Autowired
+    private HttpServletRequest request;
     
     @Autowired
     private ElementService elementService;
@@ -55,7 +55,7 @@ public class DrsUtils {
     public void init() {
         drsUtils = this;
         drsUtils.attService = this.attService;
-//        drsUtils.request = this.request;
+        drsUtils.request = this.request;
         drsUtils.dbsService=this.dbsService;
         drsUtils.tablesService=this.tablesService;
         drsUtils.elementService=this.elementService;
@@ -112,10 +112,10 @@ public class DrsUtils {
      * @param type
      * @return
      */
-//    public static Integer getParam(String type) {
-//        Integer typeId=Integer.valueOf(drsUtils.request.getParameter(type));
-//        return typeId;
-//    }
+   public static Integer getParam(String type) {
+        Integer typeId=Integer.valueOf(drsUtils.request.getParameter(type));
+        return typeId;
+    }
     
     /**
      * 获取数据库
