@@ -39,7 +39,6 @@ public class NjSystems extends BasePo<NjSystems>{
 	
 	private Integer xtlb;
 	
-	private Integer xtlb2;
 	
 	private Integer jsjpcd;
 	
@@ -236,15 +235,7 @@ public class NjSystems extends BasePo<NjSystems>{
 
 
 
-	public Integer getXtlb2() {
-		return xtlb2;
-	}
 
-
-
-	public void setXtlb2(Integer xtlb2) {
-		this.xtlb2 = xtlb2;
-	}
 	
 		
 }

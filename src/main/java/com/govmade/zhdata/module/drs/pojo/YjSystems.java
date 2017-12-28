@@ -47,8 +47,6 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer xtlb;
 
-    private Integer xtlb2;
-
     private Integer bswz;
 
     private Integer smfl;
@@ -326,13 +324,6 @@ public class YjSystems extends BasePo<YjSystems> {
         this.xtlb = xtlb;
     }
 
-    public Integer getXtlb2() {
-        return xtlb2;
-    }
-
-    public void setXtlb2(Integer xtlb2) {
-        this.xtlb2 = xtlb2;
-    }
 
     public Integer getBswz() {
         return bswz;
