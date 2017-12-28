@@ -48,6 +48,16 @@ public abstract class BaseService<T> {
     }
 
     /**
+     * 按照条件查询
+     * 
+     * @param
+     * @return
+     * */
+    public List<T> queryByExample(Example example) {
+        return this.mapper.selectByExample(example);
+    }
+
+    /**
      * 根据条件查询一条数据
      * 
      * @param record

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.abel533.entity.Example;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.module.drs.pojo.Attribute;
@@ -92,14 +93,16 @@ public class DrsUtils {
      * @return
      */
     public static List<Attribute> getAttList(Integer typeId,Integer isCore) {
-//        Integer isCore = 0;
         List<Attribute> attList = Lists.newArrayList();
-        Attribute record=new Attribute();
-        record.setType(typeId);
+        
+        Example example = new Example(Attribute.class);
+        example.createCriteria().andEqualTo("type", typeId);
+        example.createCriteria().andEqualTo("delFlag", 0);
         if(isCore>0){
-            record.setIsCore(isCore);
+            example.createCriteria().andEqualTo("isCore", isCore);
         }
-        attList = drsUtils.attService.queryAll(record);
+        example.setOrderByClause("sort asc,id asc");
+        attList = drsUtils.attService.queryByExample(example);
         return attList;
     }
     
