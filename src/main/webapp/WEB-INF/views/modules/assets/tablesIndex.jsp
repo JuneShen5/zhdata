@@ -62,7 +62,7 @@
 					</div>
 				</div>
 				<table id="tablesTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 						    <th data-checkbox="true"></th>
 						    <th data-field="nameEn">表代码</th>

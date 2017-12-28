@@ -137,7 +137,7 @@
 					</div>
 				</div>
 				<table id="retrievalTable">
-					<thead>
+					<thead class="ele-hide">
 					<tr>
 						<th data-field="nameEn">信息资源编号</th>
 						<th data-field="nameCn">信息资源名称</th>

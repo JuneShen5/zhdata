@@ -31,7 +31,7 @@
 					</div>
 				</div>
 				<table id="userTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-field="nameCn">名称</th>
 							<th data-field="sort">排序</th>

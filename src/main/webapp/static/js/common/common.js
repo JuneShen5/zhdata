@@ -83,7 +83,7 @@ var TableInit = function() {
 			uniqueId : "id", // 每一行的唯一标识，一般为主键列
 		});
 		$(tableId).on('post-body.bs.table', function (e) {
-			$(this).find('thead').show();
+			$(this).find('thead').removeClass('ele-hide');
 		});
 	};
 

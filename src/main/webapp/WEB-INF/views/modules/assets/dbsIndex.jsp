@@ -70,7 +70,7 @@
 					</div>
 				</div>
 				<table id="dbsTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 						    <th data-checkbox="true"></th>
 						    <th data-field="nameEn">数据库代码</th>

@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <table id="yjSystemTable">
-                        <thead>
+                        <thead class="ele-hide">
                             <tr>
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>

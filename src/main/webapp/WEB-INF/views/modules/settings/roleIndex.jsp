@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<table id="roleTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-field="name">角色名称</th>
 							<th data-field="enname">描述</th>

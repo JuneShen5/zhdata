@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<table id="columnsTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 						    <th data-checkbox="true"></th>
 						    <th data-field="nameEn">字段代码</th>

@@ -35,7 +35,7 @@
 					</div>
 				</div>
 				<table id="dictTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-field="label">字典名称</th>
 							<th data-field="type">字典号</th>

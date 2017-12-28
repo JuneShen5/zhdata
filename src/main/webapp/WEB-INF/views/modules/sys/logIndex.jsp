@@ -33,7 +33,7 @@
 					</div>
 				</div>
 				<table id="systemTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<!-- <th data-field="nameEn">信息系统编号</th> -->
 							<th data-field="title">日志标题</th>

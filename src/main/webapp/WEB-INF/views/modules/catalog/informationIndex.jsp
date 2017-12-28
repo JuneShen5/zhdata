@@ -106,7 +106,7 @@
                     </div>
                 </div>
                 <table id="infoTable">
-                    <thead>
+                    <thead class="ele-hide">
                         <tr>
                             <th data-checkbox="true"></th>
                             <th data-field="nameEn">信息资源代码</th>
