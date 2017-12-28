@@ -79,22 +79,22 @@ public abstract class BaseController<T> {
            List<Map<String, String>> resolurdDtaList = new ArrayList<Map<String,String>>();
            boolean is = true;
            getReadExcelStarLine();
+           /*读取表单配置信息*/
+           AttributeService attributeService=(AttributeService)SpringContextUtil.getBean("attributeService");  
+           Attribute attribute = new Attribute();
+           attribute.setType(attributeType);
+           attribute.setDelFlag(0);
+           List<Attribute> attributeList = attributeService.querAllyList(attribute);
+           Map<String,Integer>  attributeMap = new HashMap<String, Integer>();
+           for(Attribute att:attributeList){ 
+               //这边查出来的getNameEn是大小写的驼峰
+               attributeMap.put(att.getNameEn(), att.getIsCore());
+           }
+           /*读取表单配置信息结束*/
            while(is){
                dataList = importExcel.uploadAndRead(titleAndAttribute,startRow,columnIndex,commitRow);
                startRow = startRow+commitRow;
                if(dataList.size()!=0){
-                   
-                   AttributeService attributeService=(AttributeService)SpringContextUtil.getBean("attributeService");  
-                
-                   Attribute attribute = new Attribute();
-                   attribute.setType(attributeType);
-                   attribute.setDelFlag(0);
-                   List<Attribute> attributeList = attributeService.querAllyList(attribute);
-                   Map<String,Integer>  attributeMap = new HashMap<String, Integer>();
-                   for(Attribute att:attributeList){ 
-                       //这边查出来的getNameEn是大小写的驼峰
-                       attributeMap.put(att.getNameEn(), att.getIsCore());
-                   }
                    //循环将数据的核心与非核心字段区分开，非核心的存入info中
                    for(Map<String, String> excelData :dataList){  //dataList  Map<nameEn,value>中的value是大小的驼峰
                        Map<String, String> dataMap = new HashMap<String, String>();

@@ -59,8 +59,8 @@
 		<description>获取自定义表单属性</description>
 		<name>getAttList</name>
 		<function-class>com.govmade.zhdata.common.utils.DrsUtils</function-class>
-		<function-signature>java.util.List getAttList(java.lang.Integer)</function-signature>
-		<example>${fns:getAttList(typeId)}</example>  
+		<function-signature>java.util.List getAttList(java.lang.Integer,java.lang.Integer)</function-signature>
+		<example>${fns:getAttList(typeId,isCore)}</example>  
 	</function>
 	
 	<function>

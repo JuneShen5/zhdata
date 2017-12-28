@@ -44,7 +44,7 @@
                         <div class="form-group">
                             <input id="sName" sName="nameCn" type="text" placeholder="输入信息资源名称"
                                 class="form-control col-sm-8">
-                            <c:forEach var="att" items="${fns:getAttList(2)}">
+                            <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                      <c:if test="${att.searchType=='2'}">
                                             <input id="${att.id}" sName="${att.nameEn}" type="text" placeholder="输入${att.nameCn}"
                                                 class="form-control col-sm-8" style="margin-left: 15px;">
@@ -113,7 +113,7 @@
                             <th data-field="nameCn">信息资源名称</th>
                             <th data-field="companyName">资源提供方</th>
                             <th data-field="auditName">审核状态</th>
-                            <c:forEach var="att" items="${fns:getAttList(4)}">
+                            <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='yes'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
                             </c:forEach>
                             <th data-field="name" data-formatter="initInfoTableButton">操作</th>

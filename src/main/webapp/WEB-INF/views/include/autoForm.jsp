@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
-
-<c:forEach var="att" items="${fns:getAttList(type)}">
-
+<c:set var="isCore" value="2" />
+<c:forEach var="att" items="${fns:getAttList(type,isCore)}">
 	<div
 		class="form-group">
 		<label class="col-sm-3 control-label layerTips" data-tips-text="${att.remarks}">${att.nameCn} :</label>

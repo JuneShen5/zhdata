@@ -52,7 +52,7 @@
             <label class="control-label">系统涉及的服务器IP</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtsjdfwqip" placeholder="请输入涉及的服务器IP" required>
+            <input type="text" class="form-control" ipv4="true" name="xtsjdfwqip" placeholder="请输入涉及的服务器IP" required>
         </div>
     </div>
     <div class="form-group">
