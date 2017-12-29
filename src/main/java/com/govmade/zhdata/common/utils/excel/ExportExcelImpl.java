@@ -54,9 +54,11 @@ public abstract class ExportExcelImpl{
     
     private OutputStream out = null;
     
-    private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
+   // private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
     
 //    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
+    
+    private String templatePath = ExportExcelImpl.class.getResource("").getPath();
     
     protected CellStyle columnTopStyle = null;
     
@@ -80,7 +82,9 @@ public abstract class ExportExcelImpl{
     
     public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
         this(fileName, title, rowName,  dataList,response);
-        File  fi = new File(templatePath+templatFile);
+        System.out.println("templatePath:"+templatePath);
+        System.out.println(templatePath+"excelTemplate/"+templatFile);
+        File  fi = new File(templatePath+"excelTemplate/"+templatFile);
         InputStream in;
         try {
             in = new FileInputStream(fi);
@@ -96,7 +100,7 @@ public abstract class ExportExcelImpl{
         this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
 //        this.rowName = rowName;
         this.title = title;       //sheet名
-        System.out.println("templatePath:"+templatePath);
+       
         File  fi = new File(templatePath+templatFile);
         InputStream in;
         try {
