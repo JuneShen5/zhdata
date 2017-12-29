@@ -43,7 +43,7 @@
 					<th data-field="nameEn">信息资源编号</th>
 					<th data-field="nameCn">信息资源名称</th>
 					<th data-field="companyName">所属部门</th>
-					<c:forEach var="att" items="${fns:getAttList(4)}">
+					<c:forEach var="att" items="${fns:getAttList(4,2)}">
 								<c:if test="${att.isShow=='yes'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
 					</c:forEach>
 					<th data-field="Score" data-formatter="resTableButton">操作</th>
@@ -76,7 +76,7 @@
 					<select name="systemId" class="select-chosen" required>
 						<option value=""></option>
 						<c:forEach var="sys" items="${fns:getList('sys')}">
-							<option value="${sys.id}">${sys.nameCn}</option>
+							<option value="${sys.id}">${sys.name}</option>
 						</c:forEach>
 					</select>
 				</div>
