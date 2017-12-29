@@ -112,13 +112,12 @@ public class ExportExcelTemplate extends ExportExcelImpl {
               //有联动的
               while(true){
                   if(inputTypeRow.getCell(columnIndex+1).getStringCellValue().equals(CellVal)){
-                      System.out.println("columnIndex:"+columnIndex);
                       columnIndex++;
                   }else{
                       break;
                   }
               }  //这边用于跳过联动的子数据，以免多次生成模板
-              
+              System.out.println("infoSortTree:"+super.infoSortTree);
               List<Map<String, Object>> linkageTemplateValue = infoSortTree; //下拉选框数据
               Sheet attachedSheet = workbook.getSheetAt(2);
               workbook.setSheetName(2, "信息资源分类附件");
@@ -163,11 +162,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 i++;
             }
             attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
-            if(i>2 && attachedSheet.getRow(i-1).getCell(j).getStringCellValue().toString()==""){
-                for(int k=i;k>1;k--){
-                    
-                }
-            }
         }
         j--;
     }

@@ -54,9 +54,9 @@ public abstract class ExportExcelImpl{
     
     private OutputStream out = null;
     
-//    private String templatePath = "C:\\Users\\chenqi\\Desktop\\";
+    private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
     
-    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
+//    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
     
     protected CellStyle columnTopStyle = null;
     
@@ -66,7 +66,7 @@ public abstract class ExportExcelImpl{
    
     protected List<Map<String, Object>> infoSortTree; //用于存储资源分类的树形结构数据
     
-    protected Integer levalNum ;
+    protected Integer levalNum =4;
     
     //构造方法，传入要导出的数据  
     public ExportExcelImpl(String fileName,String title,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response){
@@ -96,7 +96,7 @@ public abstract class ExportExcelImpl{
         this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
 //        this.rowName = rowName;
         this.title = title;       //sheet名
-        
+        System.out.println("templatePath:"+templatePath);
         File  fi = new File(templatePath+templatFile);
         InputStream in;
         try {
@@ -145,6 +145,7 @@ public abstract class ExportExcelImpl{
             }
             ListToTree listToTree = new ListToTree();
             this.infoSortTree  = listToTree.getTree(list, "id0", "id");
+            System.out.println("this.infoSortTree:"+this.infoSortTree);
             System.out.println("MaxColumNum"+listToTree.getMaxColumNum());
             System.out.println("getMaxColumNum"+listToTree.getMaxColumNum());
             this.levalNum = 4;
@@ -157,7 +158,7 @@ public abstract class ExportExcelImpl{
 
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
-//        this.out(createExcel);
+//        this.out(createExcel);  /测试导出到桌面
         this.writeInOutputStream(createExcel);
     }
     
