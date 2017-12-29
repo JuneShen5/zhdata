@@ -192,9 +192,12 @@ public class ExportExcelTemplate extends ExportExcelImpl {
             case "checkbox":
                 if(this.dictMap == null){
                     getAllDictToList();
+                    System.out.println("dictMap:"+dictMap);
                 }
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 templateValue = dictMap.get(inputValue);
+                System.out.println("inputValue:"+inputValue);
+                System.out.println("templateValue:"+templateValue);
                 break;
             case "companyselect":
                 List<Company>  companyList = SysUtils.getCompanyList(); //单存的列表
