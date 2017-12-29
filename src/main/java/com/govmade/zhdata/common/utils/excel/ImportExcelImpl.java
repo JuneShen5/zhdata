@@ -29,9 +29,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.common.collect.Maps;
+import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
+import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -92,6 +94,7 @@ public class ImportExcelImpl{
     protected Map<String,Integer> menuMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> sysMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> elementMap =  new HashMap<String, Integer>();
+    protected Map<String,Integer> infoSortMap =  new HashMap<String, Integer>();
     
     protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
     protected String[] oneToMoreSelect = {"checkbox","element"}; //一对多关联的
@@ -297,9 +300,10 @@ public class ImportExcelImpl{
                             value = ID;
                         }
                     }else{
-                        _rowIndex = rowIndex+1; 
-                        _columnIndex = columnIndex+1;
-                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+//                        _rowIndex = rowIndex+1; 
+//                        _columnIndex = columnIndex+1;
+//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+                        value = "-100";
                     }
                 }
                 rowMap.put(nameEnMap.get(columnIndex), value);
@@ -421,11 +425,14 @@ public class ImportExcelImpl{
                     Id = "["+_Id.substring(0,_Id.length() - 1)+"]";
                 }
                 break;
-            case "linkselect":
-//                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
-//                for (InfoSort info : infoSorts) {
-//                    templateValue.put(String.valueOf(info.getId()), info.getName());
-//                }
+            case "linkageSelect":
+                if(this.infoSortMap.size() == 0){
+                    List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
+                    for(InfoSort infoSort : infoSortList){
+                        infoSortMap.put(infoSort.getName(),infoSort.getId());
+                    }
+                }
+                Id = String.valueOf(infoSortMap.get(name));
                  break; 
             default:
                 break;

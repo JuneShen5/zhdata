@@ -101,7 +101,6 @@ public class DrsUtils {
         if(isCore>0){
             criteria.andEqualTo("isCore", isCore);
         }
-        
         example.setOrderByClause("sort asc,id asc");
         attList = drsUtils.attService.queryByExample(example);
         return attList;

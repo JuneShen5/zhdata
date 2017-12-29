@@ -12,9 +12,11 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
+import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
+import com.govmade.zhdata.module.drs.pojo.InfoSort;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -38,8 +40,11 @@ public class ExportExcelData extends ExportExcelImpl {
     protected Map<String,String> menuMap = new HashMap<String, String>();
     protected Map<String,String> sysMap = new HashMap<String, String>();
     protected Map<String,String> elementMap =  new HashMap<String, String>();
+    protected Map<String,String> infoSortMap =  new HashMap<String, String>();
     
     private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
+    
+    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
     
     
     public ExportExcelData(String fileName, String title, String[] rowName,
@@ -51,7 +56,6 @@ public class ExportExcelData extends ExportExcelImpl {
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
         super(fileName, title, templatFile, rowName, dataList, response);
     }  
-    
     
     @Override
     protected void exportValue(XSSFSheet sheet) {
@@ -184,12 +188,15 @@ public class ExportExcelData extends ExportExcelImpl {
 //                }
 //                
 //                break;
-            case "linkselect":
-//                List<InfoSort> infoSorts =  DrsUtils.findInfoArray();
-//                for (InfoSort info : infoSorts) {
-//                    templateValue.put(String.valueOf(info.getId()), info.getName());
-//                }
-                 break; 
+            case "linkageSelect":
+                if(this.infoSortMap.size() == 0){
+                    List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
+                    for(InfoSort infoSort : infoSortList){
+                        infoSortMap.put(String.valueOf(infoSort.getId()), infoSort.getName());
+                    }
+                }
+                name = infoSortMap.get(Id);
+                break; 
             default:
                 break;
             }

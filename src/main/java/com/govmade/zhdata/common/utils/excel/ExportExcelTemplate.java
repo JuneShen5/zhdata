@@ -18,6 +18,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.utils.DrsUtils;
+import com.govmade.zhdata.common.utils.ListToTree;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
@@ -39,6 +40,7 @@ import com.govmade.zhdata.module.sys.pojo.Site;
 public class ExportExcelTemplate extends ExportExcelImpl {
     
     protected Map<String, List<String>> dictMap = null;
+    protected String[] unSelect = {"input","dateselect","textarea","element","linkageSelect"}; //不用做关联的inputtype
     
     public ExportExcelTemplate(String fileName, String title, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
@@ -66,6 +68,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
       for (int columnIndex = 0; columnIndex <lastCellNum; columnIndex++) {
           String  inputValue = "";
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
+          System.out.println("CellVal:"+CellVal);
           String[] CellValArr = CellVal.split("_");
           if(!Arrays.asList(unSelect).contains(CellValArr[0])){
               //有关联字段的数据
@@ -110,6 +113,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
               inputValue = "2017-10-1";
           }else if("linkageSelect".equals(CellValArr[0])){
               //有联动的
+              List<Map<String, Object>> linkageTemplateValue = getLinkSelect(CellValArr[1]); //下拉选框数据
               while(true){
                   if(inputTypeRow.getCell(columnIndex+1).getStringCellValue().equals(CellVal)){
                       columnIndex++;
@@ -117,8 +121,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                       break;
                   }
               }  //这边用于跳过联动的子数据，以免多次生成模板
-              System.out.println("infoSortTree:"+super.infoSortTree);
-              List<Map<String, Object>> linkageTemplateValue = infoSortTree; //下拉选框数据
+              
               Sheet attachedSheet = workbook.getSheetAt(2);
               workbook.setSheetName(2, "信息资源分类附件");
               for(int i=0;i<500;i++){
@@ -144,7 +147,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         }
         for(int n=0;n<valueList.size();n++){
             for(int m=0;m<valueList.get(n).size();m++){
-                attachedSheet.getRow(m).createCell(n).setCellValue(valueList.get(n).get(m));
+                attachedSheet.getRow(m).createCell(n).setCellValue(valueList.get(n).get(m).toString());
             }
         }
     }
@@ -195,19 +198,10 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 break;
             case "companyselect":
                 List<Company>  companyList = SysUtils.getCompanyList(); //单存的列表
-//                TreeUtil treeUtil = new TreeUtil();
-//                treeUtil.buildListToTree(companyList); //父子级
-//                List<Company> companyTreeList = treeUtil.getCompanyTreeList();
                 for(Company company:companyList){
                     templateValue.add(company.getName());
                 }
                 break;
-            case "linkageSelect":
-                List<InfoSort> infoSorts =  DrsUtils.findAllInfo();
-                for (InfoSort info : infoSorts) {
-                    templateValue.add(info.getName());
-                }
-                 break; 
             default:
                 break;
             }
@@ -261,6 +255,34 @@ public class ExportExcelTemplate extends ExportExcelImpl {
             return templateValue;
         }
         
+        /**
+         * 联动类型的类型的关联数据
+         * @param type dict的type类型
+         * @return
+         */
+        private List<Map<String, Object>>  getLinkSelect(String type){
+            List<Map<String, Object>>  templateValue = Lists.newArrayList();
+            if (!StringUtil.isEmpty(type)) {
+                switch (type) {
+                case "infoSort":
+                    List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
+                    List<Map<String, Object>> list = new ArrayList<>(); 
+                    for(InfoSort infoSort:infoSortList){
+                        Map<String, Object> infoSortMap = new HashMap<String, Object>();
+                        infoSortMap.put("id", "id"+infoSort.getId());  
+                        infoSortMap.put("name", infoSort.getName());  
+                        infoSortMap.put("pid", "id"+infoSort.getParentId());  
+                        list.add(infoSortMap);  
+                    }
+                    ListToTree listToTree = new ListToTree();
+                    templateValue = listToTree.getTree(list, "id0", "id");
+                    break;
+                default:
+                    break;
+                }
+            }
+            return templateValue;
+        }
         /**
          * 查询所有的dict数据并保存
          * 返回 Map<type, Map<value,label>>
