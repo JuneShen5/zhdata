@@ -125,12 +125,12 @@
 										class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
 							</div>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<div class="text-center">
 								<button id="infoTypeSearch" class="btn btn-green"><i class="fa fa-search"></i> 部门搜索</button>
 								<button class="btn btn-purple" type="button" onclick="addRetrieval();"><i class='fa fa-plus-square-o'></i> 新增需求</button>
 							</div>
-						</div>
+						</div>-->
 						<div class="keyword-area">
 							<p class="keyword-title">热门关键词：</p>
 						</div>
