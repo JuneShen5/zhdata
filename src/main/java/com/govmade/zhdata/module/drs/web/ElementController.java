@@ -143,7 +143,7 @@ public class ElementController extends BaseController<Element>{
     @Override
     protected void getFileName() {
         super.chTableName = "信息项";
-        super.chTableName = "信息项";
+        super.enTableName = "信息项";
         super.templatFile = "elementTemplate.xlsx";
         
     }

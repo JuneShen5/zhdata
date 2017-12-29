@@ -34,7 +34,7 @@ public class ZjSystemController extends BaseController<ZjSystems>{
     @Override
     protected void getFileName(){
         super.chTableName = "在建信息系统";
-        super.chTableName = "在建信息系统";
+        super.enTableName = "在建信息系统";
         super.templatFile = "zjTemplate.xlsx";
     }
     

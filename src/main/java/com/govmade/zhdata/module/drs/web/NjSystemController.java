@@ -34,7 +34,7 @@ public class NjSystemController  extends BaseController<NjSystems>{
     @Override
     protected void getFileName(){
         super.chTableName = "拟建信息系统";
-        super.chTableName = "拟建信息系统";
+        super.enTableName = "拟建信息系统";
         super.templatFile = "njTemplate.xlsx";
     }
     

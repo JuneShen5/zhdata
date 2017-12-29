@@ -53,8 +53,8 @@ public abstract class ExportExcelImpl{
     protected XSSFWorkbook workbook = null;
     
     private OutputStream out = null;
-    
-    private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
+    private String templatePath = ExportExcelImpl.class.getResource("excelTemplate/").getPath();
+//    private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
     
 //    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
     
