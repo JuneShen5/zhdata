@@ -13,7 +13,7 @@ public class Page<T> {
 
     private Integer pageSize = 10;// 每页显示的记录数，默认是10
 
-    private Integer startRow;
+    private Integer startRow;   //空余时当信息资源待审核数量
 
     private Integer endRow;
 

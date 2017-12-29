@@ -85,6 +85,12 @@ var TableInit = function() {
 		$(tableId).on('post-body.bs.table', function (e) {
 			$(this).find('thead').removeClass('ele-hide');
 		});
+        $(tableId).on('load-success.bs.table', function (e, data) {
+        	if (data.startRow !== null){
+                $('#message_number', window.parent.document).text(data.startRow);
+                $('#message_count', window.parent.document).text(data.startRow);
+			}
+        });
 	};
 
 	// 得到查询的参数
