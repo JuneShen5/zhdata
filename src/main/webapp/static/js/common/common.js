@@ -465,7 +465,7 @@ function loadData(row) {
 					// },500);
 				}else if ($(this).hasClass('is-multiple-select')){
                     var values = new Array(); //定义一数组
-                    values = value.split(",");
+                    values = value.toString().split(",");
                     $(this).val(values).trigger("change");
                     $(this).closest('.form-group').removeClass('has-success has-error');
                 } else {

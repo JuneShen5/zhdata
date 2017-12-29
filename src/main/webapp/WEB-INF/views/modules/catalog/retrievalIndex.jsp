@@ -447,29 +447,7 @@
         // 实例化表格
         mTable = new TableInit2($(tableId2));
         mTable.Init();
-        loadData(row);
-        // input禁用
-        $(formId).find("input").prop("disabled", true);
-        // 判断select禁用
-        $(formId).find("select").prop("disabled", true);
-        $(formId).find("select").trigger("chosen:updated");
-        // checkbox禁用
-        $(formId).find('.i-checks').iCheck('disable');
-        $(formId).find('.i-checks').parents('.form-group').removeClass('has-success');
-        openDetail();
-        // 判断select
-        $(formId).find("select").prop("disabled", true);
-        $(formId).find("select").trigger("chosen:updated");
-        setTimeout(function(){
-            $(formId).find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
-            $(formId).find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");
-            $(formId).find(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
-            // i-ckeck将自动验证去掉
-            $(formId).find('.i-checks').closest(".form-group").removeClass("has-success");
-        },500);
-        // checkbox
-        $(formId).find('.i-checks').iCheck('disable');
-
+        datailRow(id);
     }
 
     /* 四级联动相关方法---begain*/
@@ -576,15 +554,6 @@
     // 打开第二层弹出框
     function openRetrievalLayer2(id) {
         var row = $(tableId2).bootstrapTable('getRowByUniqueId', id);
-        loadData(row);
-        // input
-        $(layerId2).find("input").prop("disabled", true);
-        // 判断select
-        $(layerId2).find("select").prop("disabled", true);
-        $(layerId2).find("select").trigger("chosen:updated");
-        // checkbox
-        $(layerId2).find('.i-checks').iCheck('disable');
-        $(layerId2).find('.i-checks').parents('.form-group').removeClass('has-success');
         layeForm = layer.open({
             title: row.nameCn + '详情',
             type : 1,
@@ -594,6 +563,16 @@
             zIndex : 100,
             content : $(layerId2)
         });
+        loadToData(row, 'elementform');
+        disabledMenu(formId2);
+        // input
+//        $(layerId2).find("input").prop("disabled", true);
+//        // 判断select
+//        $(layerId2).find("select").prop("disabled", true);
+//        $(layerId2).find("select").trigger("chosen:updated");
+//        // checkbox
+//        $(layerId2).find('.i-checks').iCheck('disable');
+//        $(layerId2).find('.i-checks').parents('.form-group').removeClass('has-success');
     }
 
     // 向弹出列表添加数据
