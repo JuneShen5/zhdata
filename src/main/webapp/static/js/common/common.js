@@ -465,7 +465,7 @@ function loadData(row) {
 					// },500);
 				}else if ($(this).hasClass('is-multiple-select')){
                     var values = new Array(); //定义一数组
-                    values = value.split(",");
+                    values = value.toString().split(",");
                     $(this).val(values).trigger("change");
                     $(this).closest('.form-group').removeClass('has-success has-error');
                 } else {
@@ -988,3 +988,15 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 		}, 50)
 	}
 /**********************************导入导出EXCEL结束**********************************************/
+
+
+/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
+$(function () {
+    $('.form-group').each(function () {
+        var $this = $(this);
+        if ($this.find('label').text() === '信息资源分类3 :' || $this.find('label').text() === '信息资源分类4 :'){
+            $this.hide();
+        }
+    });
+});
+/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
