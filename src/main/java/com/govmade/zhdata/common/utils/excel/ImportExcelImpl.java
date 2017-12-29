@@ -275,12 +275,11 @@ public class ImportExcelImpl{
                         }else{
                             value = ID;
                         }
+                    }else{
+                        _rowIndex = rowIndex+1; 
+                        _columnIndex = columnIndex+1;
+                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
                     }
-//                    else{
-//                        _rowIndex = rowIndex+1; 
-//                        _columnIndex = columnIndex+1;
-//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
-//                    }
                     
                 }else{
                     //有关联一对一的数据，获取关联的ID
@@ -297,12 +296,11 @@ public class ImportExcelImpl{
                         }else{
                             value = ID;
                         }
+                    }else{
+                        _rowIndex = rowIndex+1; 
+                        _columnIndex = columnIndex+1;
+                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
                     }
-//                    else{
-//                        _rowIndex = rowIndex+1; 
-//                        _columnIndex = columnIndex+1;
-//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
-//                    }
                 }
                 rowMap.put(nameEnMap.get(columnIndex), value);
             }

@@ -725,17 +725,22 @@ var TableInit = function(tableOption,btnOption) {
 		    $("#message").text("上传中");
 		    $percent.css( 'width', percentage * 100 + '%' );
 		});
+		
+		uploader.on("uploadAccept", function( file, data){
+			if(data=="上传成功！"){
+				$("#message").text(data).css("color", "#1ab394");
+				layer.close(importDataLayer);
+				$(tableId).bootstrapTable('refresh');
+			}else{
+				$("#message").text(data).css("color", "#ed5565");
+			}
+//		    if ( data.success=="0") {
+//		        // 通过return false来告诉组件，此文件上传有错。
+//		        return false;
+//		    }
+		});
+
 	
-		// 文件上传成功，给item添加成功class, 用样式标记上传成功。
-		uploader.on( 'uploadSuccess', function( file,response) {
-			$("#message").text(response).css("color", "#1ab394");
-			layer.close(importDataLayer);
-			$(tableId).bootstrapTable('refresh');
-		});
-		// 文件上传失败，显示上传出错。
-		uploader.on( 'uploadError', function( file) {
-		   $("#message").text("上传失败").css("color", "#ed5565");
-		});
 		/*    完成上传完了，成功或者失败，先删除进度条。 */
 		uploader.on( 'uploadComplete', function( file ) {
 		     $( '#'+file.id ).find('.progress').fadeOut();
