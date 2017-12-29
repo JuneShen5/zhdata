@@ -81,7 +81,7 @@
 					</div>
 				</div>
 				<table id="systemTable">
-					<thead>
+					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
 							<th data-field="nameEn">信息资源代码</th>

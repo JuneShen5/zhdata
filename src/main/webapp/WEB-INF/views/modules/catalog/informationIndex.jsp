@@ -312,27 +312,22 @@
             html += '<div class="btn-group">';
             html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+//            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+//                + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+//            html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+//                + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            // 审核功能按钮
             if (row.isAudit === 0){
                 html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
                 html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             } else if (row.isAudit === 1){
-                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
             }
-            /* html += '<button type="button" class="btn btn-white" id="created"  onclick="createdRow('
-                    + row.id + ',' + row.isCreated + ')"><i class="fa fa-search"></i>&nbsp;' + dataIsCreated(row.isCreated) + '</button>';
-            html += '<button type="button" class="btn btn-white" id="display"  onclick="showSqlRow(\''
-                    + row.id + '\')"><i class="fa fa-search"></i>&nbsp;显示sql</button>';
-            html += '<button type="button" class="btn btn-white" onclick="showDataRow(' + row.id + ',\''
-                    + row.code + '\',\'' + row.name + '\')"><i class="fa fa-align-justify"></i>&nbsp;数据</button>';
-            html += '<button type="button" class="btn btn-white" onclick="openDataRow(' + row.id + ','
-                    + row.openType + ')"><i class="fa fa-folder-open-o"></i>&nbsp;' + openStatus(row.openType) + '</button>';
-            html += '<button type="button" class="btn btn-white" onclick="openDataRow(' + row.id + ','
-                    + row.shareType + ')"><i class="fa fa-share"></i>&nbsp;' + shareStatus(row.shareType) + '</button>'; */
             html += '</div>';
             return html;
         }
