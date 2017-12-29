@@ -7809,8 +7809,30 @@ blockquote:nth-child(1) {
 	opacity: .6;
 	cursor: not-allowed;
 }
+/*详情弹框禁用时样式调整*/
+.form-horizontal .form-control[disabled],.form-horizontal .form-control[readonly],.form-horizontal fieldset[disabled] .form-control{
+	cursor: default;
+	background-color: transparent;
+	color: #444;
+}
+.form-horizontal .chosen-disabled{
+	opacity: 1!important;
+	color: #444;
+}
 .select2-container--default.select2-container--focus .select2-selection--multiple,.select2-container--default.select2-container--disabled .select2-selection--multiple{
 	border: 1px solid #e5e6e7;
+	background-color: transparent;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice{
+	background-color: transparent;
+	color: #444;
+	border-color: #999;
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice__remove{
+	margin-left: 2px;
+	float: right;
+	font-size: 18px;
+	line-height: 20px;
 }
 .has-error .select2-container--default .select2-selection--multiple{
 	border-color: #ed5565;
@@ -7822,6 +7844,7 @@ blockquote:nth-child(1) {
 	background-color: transparent;
 	border-radius: 0;
 }
+/*详情弹框禁用时样式调整*/
 .ele-hide{
 	display: none;
 }
