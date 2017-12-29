@@ -53,12 +53,9 @@ public abstract class ExportExcelImpl{
     protected XSSFWorkbook workbook = null;
     
     private OutputStream out = null;
-    
-   // private String templatePath = this.getClass().getResource("excelTemplate").getFile()+"/";
+    private String templatePath = ExportExcelImpl.class.getResource("excelTemplate/").getPath();
     
 //    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
-    
-    private String templatePath = ExportExcelImpl.class.getResource("").getPath();
     
     protected CellStyle columnTopStyle = null;
     
@@ -83,8 +80,8 @@ public abstract class ExportExcelImpl{
     public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
         this(fileName, title, rowName,  dataList,response);
         System.out.println("templatePath:"+templatePath);
-        System.out.println(templatePath+"excelTemplate/"+templatFile);
-        File  fi = new File(templatePath+"excelTemplate/"+templatFile);
+        System.out.println(templatePath+templatFile);
+        File  fi = new File(templatePath+templatFile);
         InputStream in;
         try {
             in = new FileInputStream(fi);

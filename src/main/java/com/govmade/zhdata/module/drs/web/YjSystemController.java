@@ -35,7 +35,7 @@ public class YjSystemController extends BaseController<YjSystems>{
     @Override
     protected void getFileName(){
         super.chTableName = "已建信息系统";
-        super.chTableName = "已建信息系统";
+        super.enTableName = "已建信息系统";
         super.templatFile = "yjTemplate.xlsx";
     }
     

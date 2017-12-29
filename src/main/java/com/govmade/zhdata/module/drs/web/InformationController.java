@@ -473,7 +473,7 @@ public class InformationController extends BaseController<Information>{
     @Override
     protected void getFileName() {
         super.chTableName = "信息资源";
-        super.chTableName = "信息资源";
+        super.enTableName = "信息资源";
         super.templatFile = "informationTemplate.xlsx";
     }
 
