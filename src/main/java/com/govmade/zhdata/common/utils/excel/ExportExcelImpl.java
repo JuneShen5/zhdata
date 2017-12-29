@@ -27,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.govmade.zhdata.common.utils.DrsUtils;
+import com.govmade.zhdata.common.utils.ListToTree;
 import com.govmade.zhdata.common.utils.TreeUtil;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
   
@@ -61,9 +62,9 @@ public abstract class ExportExcelImpl{
     
     protected CellStyle style = null;
     
-    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
+    protected String[] unSelect = {"input","dateselect","textarea","element","linkageSelect"}; //不用做关联的inputtype
    
-    protected List<InfoSort> infoSortTree; //用于存储资源分类的树形结构数据
+    protected List<Map<String, Object>> infoSortTree; //用于存储资源分类的树形结构数据
     
     protected Integer levalNum ;
     
@@ -108,25 +109,25 @@ public abstract class ExportExcelImpl{
     
 
     public String[] ChangeRowName(String[] rowName){
-        System.out.println("2211");
       ArrayList<String> rowNameList = new ArrayList<String>(Arrays.asList(rowName));
-      System.out.println("rowNameList:"+rowNameList);
-      String[] rowNameElementRow;
-      System.out.println("size:"+rowNameList.size());
-      int size = rowNameList.size();
-      for(int i=0;i<size;i++){
-          rowNameElementRow = rowNameList.get(i).split("_");
-          System.out.println("rowNameElementRow[2]:"+rowNameElementRow[2]);
+      ArrayList<String> _rowNameList = new ArrayList<>(rowNameList);
+      ArrayList<String> linkList = new ArrayList<String>();
+      int i=0;
+      for(String rowNameElement:rowNameList){
+          String[]  rowNameElementRow = rowNameElement.split("_");
           if("linkageSelect".equals(rowNameElementRow[2])){
-             getLinkageData(rowNameElementRow[3]);
-             for(int j=1;j<levalNum;j++){
-                 rowNameList.add(i, rowNameElementRow[0]+"_"+rowNameElementRow[1]+j+"_"+rowNameElementRow[2]+"_"+rowNameElementRow[3]);
+              linkList.clear();
+              String inputName =rowNameElementRow[1];
+              getLinkageData(rowNameElementRow[3]);
+             for(int j=1;j<=levalNum;j++){
+                 linkList.add(rowNameElementRow[0]+"_"+inputName+j+"_"+rowNameElementRow[2]+"_"+rowNameElementRow[3]);
              }
+             _rowNameList.remove(i);
+             _rowNameList.addAll(i, linkList);
+             i++;
           }
       }
-      System.out.println("rowNameList"+rowNameList);
-//      return (String[]) rowNameList.toArray();
-      return rowName;
+      return (String[]) _rowNameList.toArray(new String[_rowNameList.size()]);
     }
     
     private void getLinkageData(String inputTypevalue) {
@@ -134,10 +135,19 @@ public abstract class ExportExcelImpl{
         {
         case "infoSort":
             List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
-            TreeUtil treeUtil = new TreeUtil();
-            System.out.println(9876543);
-            this.infoSortTree  = treeUtil.buildListToTree(infoSortList);
-            this.levalNum = treeUtil.getLevalNum();
+            List<Map<String, Object>> list = new ArrayList<>(); 
+            for(InfoSort infoSort:infoSortList){
+                Map<String, Object> infoSortMap = new HashMap<String, Object>();
+                infoSortMap.put("id", "id"+infoSort.getId());  
+                infoSortMap.put("name", infoSort.getName());  
+                infoSortMap.put("pid", "id"+infoSort.getParentId());  
+                list.add(infoSortMap);  
+            }
+            ListToTree listToTree = new ListToTree();
+            this.infoSortTree  = listToTree.getTree(list, "id0", "id");
+            System.out.println("MaxColumNum"+listToTree.getMaxColumNum());
+            System.out.println("getMaxColumNum"+listToTree.getMaxColumNum());
+            this.levalNum = 4;
             break;  
         default:
             break;
@@ -147,8 +157,8 @@ public abstract class ExportExcelImpl{
 
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
-        this.out(createExcel);
-//        this.writeInOutputStream(createExcel);
+//        this.out(createExcel);
+        this.writeInOutputStream(createExcel);
     }
     
     public void out(Workbook createExcel) throws Exception{

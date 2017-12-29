@@ -130,7 +130,10 @@ public class ExportExcelData extends ExportExcelImpl {
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
+                System.out.println("dictMap:"+dictMap);
+                System.out.println("id:"+Id);
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
+                System.out.println("inputValue:"+inputValue);
                 name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
             case "check":

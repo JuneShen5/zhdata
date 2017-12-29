@@ -20,9 +20,7 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
-import com.govmade.zhdata.common.utils.TreeUtil;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
-import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -110,6 +108,25 @@ public class ExportExcelTemplate extends ExportExcelImpl {
               }
           }else if("dateselect".equals(CellValArr[0])){
               inputValue = "2017-10-1";
+          }else if("linkageSelect".equals(CellValArr[0])){
+              //有联动的
+              while(true){
+                  if(inputTypeRow.getCell(columnIndex+1).getStringCellValue().equals(CellVal)){
+                      System.out.println("columnIndex:"+columnIndex);
+                      columnIndex++;
+                  }else{
+                      break;
+                  }
+              }  //这边用于跳过联动的子数据，以免多次生成模板
+              
+              List<Map<String, Object>> linkageTemplateValue = infoSortTree; //下拉选框数据
+              Sheet attachedSheet = workbook.getSheetAt(2);
+              workbook.setSheetName(2, "信息资源分类附件");
+              for(int i=0;i<500;i++){
+                  attachedSheet.createRow(i);
+              }
+              attachedLinkSheetFunc(attachedSheet,linkageTemplateValue);
+              
           }
           selectBoxRow.createCell(columnIndex).setCellValue(inputValue);//下拉选框的提示内容
        }
@@ -132,6 +149,29 @@ public class ExportExcelTemplate extends ExportExcelImpl {
             }
         }
     }
+    
+    //将联动信息添加到附表
+    private Integer i =0; //行
+    private Integer j =-1;// 列
+    private void attachedLinkSheetFunc(Sheet attachedSheet,List<Map<String, Object>> valueList){
+        j++;
+        for(Map<String, Object> infoSort:valueList){
+//            System.out.println("name"+infoSort.getName());
+            if( ((List<Map<String, Object>>)infoSort.get("children")).size()>0){
+                attachedLinkSheetFunc(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"));
+            }else{
+                i++;
+            }
+            attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
+            if(i>2 && attachedSheet.getRow(i-1).getCell(j).getStringCellValue().toString()==""){
+                for(int k=i;k>1;k--){
+                    
+                }
+            }
+        }
+        j--;
+    }
+    
     
     /**
      *  根据输入框类型以及类型的值查询下拉选框数据
@@ -168,7 +208,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                     templateValue.add(company.getName());
                 }
                 break;
-            case "linkselect":
+            case "linkageSelect":
                 List<InfoSort> infoSorts =  DrsUtils.findAllInfo();
                 for (InfoSort info : infoSorts) {
                     templateValue.add(info.getName());
