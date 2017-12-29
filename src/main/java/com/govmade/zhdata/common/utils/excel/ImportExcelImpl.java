@@ -382,13 +382,18 @@ public class ImportExcelImpl{
             case "checkbox":
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
+                    System.out.println("dictMap"+dictMap);
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Map<String,String> checkDic = dictMap.get(inputValue);
+                System.out.println("checkDic:"+checkDic);
+                System.out.println("inputValue:"+inputValue);
                 m = Pattern.compile(regEx).matcher(name);  
                 Array = m.replaceAll(",").split(",");
                 for(int i=0;i<Array.length;i++){
                     String checkId = checkDic.get(Array[i]);
+                    System.out.println("Array[i]:"+Array[i]);
+                    System.out.println("checkId:"+checkId);
                     if(!(checkId == "" || checkId == null)){
                         _Id += checkId+",";
                     }

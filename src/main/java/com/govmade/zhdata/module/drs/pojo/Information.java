@@ -283,4 +283,17 @@ public class Information extends BasePo<Information> {
         this.releaseDate = releaseDate;
     }
 
+    @Override
+    public String toString() {
+        return "Information [companyId=" + companyId + ", systemId=" + systemId + ", nameEn=" + nameEn
+                + ", nameCn=" + nameCn + ", tbName=" + tbName + ", isOpen=" + isOpen + ", openType="
+                + openType + ", shareType=" + shareType + ", shareMode=" + shareMode + ", shareCondition="
+                + shareCondition + ", infoType1=" + infoType1 + ", infoType2=" + infoType2 + ", isAudit="
+                + isAudit + ", info=" + info + ", code=" + code + ", reason=" + reason + ", resourceFormat="
+                + resourceFormat + ", rightRelation=" + rightRelation + ", manageStyle=" + manageStyle
+                + ", releaseDate=" + releaseDate + ", isAuthorize=" + isAuthorize + ", companyName="
+                + companyName + ", systemName=" + systemName + ", elementIds=" + elementIds
+                + ", elementList=" + elementList + ", count=" + count + "]";
+    }
+
 }

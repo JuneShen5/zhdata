@@ -105,6 +105,7 @@ public abstract class BaseController<T> {
                            if(attributeMap.get(nameEn) == 1){
                                //判断是核心字段
                                String _nameEn = StringUtil.toUnderScoreCase(nameEn);
+                               System.out.println("_nameEn:"+_nameEn);
                                dataMap.put(_nameEn, excelData.get(nameEn));
                            }else{
                              //判断为非核心字段
@@ -121,6 +122,7 @@ public abstract class BaseController<T> {
                        if(info.length()>1){
                            dataMap.put("info", info);
                        }
+                       System.out.println("dataMap："+dataMap);
                        resolurdDtaList.add(dataMap);
                    }
                    getService().saveAll(resolurdDtaList); 

@@ -1,6 +1,7 @@
 package com.govmade.zhdata.module.drs.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -249,7 +250,14 @@ public class InformationService extends BaseService<Information> {
     public void saveAll(List<Map<String,String>> dataList) {
         try {
            for(Map<String,String> infoMap :dataList){
-                Information information = MapUtil.map2bean(infoMap,Information.class);
+               Map<String,String> _infoMap = new HashMap<String, String>();
+               for (String key : infoMap.keySet()) { 
+                   _infoMap.put(StringUtil.toCamelCase(key), infoMap.get(key));
+//                   String value = infoMap.get(key);  
+//                   System.out.println("Key = " + key + ", Value = " + value);  
+               } 
+               
+                Information information = MapUtil.map2bean(_infoMap,Information.class);
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
                 if (StringUtils.isNotBlank(jsonArray)) {
@@ -257,7 +265,8 @@ public class InformationService extends BaseService<Information> {
                     elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                     information.setElementList(elements);
                 }
-                
+                System.out.println("information:"+information);
+                System.out.println("getCompanyId:"+information.getCompanyId());
                 Company company=this.companyService.queryById(information.getCompanyId());
                 information.setCode(company.getCreditCode());
                 this.saveInformation(information);
