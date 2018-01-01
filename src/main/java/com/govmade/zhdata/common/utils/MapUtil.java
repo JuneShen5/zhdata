@@ -144,7 +144,7 @@ public class MapUtil {
     
    
   //Map转换为JavaBean  
-    public static <T> T map2bean(Map<String,String> map,Class<T> clz) throws Exception{  
+    public static <T> T map2bean(Map<String,Object> map,Class<T> clz) throws Exception{  
         //创建JavaBean对象  
         T obj = clz.newInstance();  
         //获取指定类的BeanInfo对象  

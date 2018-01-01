@@ -44,7 +44,7 @@ public class ExportExcelData extends ExportExcelImpl {
     
     private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
     
-    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
+    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype,这边的element不做关联是因为在读取数据的时候直接把信息项的中文名读取出来了
     
     
     public ExportExcelData(String fileName, String title, String[] rowName,
@@ -134,10 +134,10 @@ public class ExportExcelData extends ExportExcelImpl {
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
-                System.out.println("dictMap:"+dictMap);
-                System.out.println("id:"+Id);
+//                System.out.println("dictMap:"+dictMap);
+//                System.out.println("id:"+Id);
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
-                System.out.println("inputValue:"+inputValue);
+//                System.out.println("inputValue:"+inputValue);
                 name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
             case "check":
@@ -170,16 +170,16 @@ public class ExportExcelData extends ExportExcelImpl {
 //                if(this.elementMap.size() == 0){
 //                    List<Element> elementList = SysUtils.getElementList();
 //                    for(Element element : elementList){
-//                        elementMap.put(element.getId(),element.getNameCn());
+//                        elementMap.put(String.valueOf(element.getId()),element.getNameCn());
 //                    }
 //                }
 //                if(null!=Id && !"".equals(Id.trim())){
-//                    String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
-//                    Pattern p = Pattern.compile(regEx);  
-//                    Matcher m = p.matcher(name);  
-//                    String[] elementArray = m.replaceAll(",").split(",");
-//                    String _Id = "";
-//                    for(int i=0;i<elementArray.length;i++){
+////                    String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
+////                    Pattern p = Pattern.compile(regEx);  
+////                    Matcher m = p.matcher(name);  
+//                    String[] idArray = Id.replaceAll(",").split(",");
+//                    String _name = "";
+//                    for(int i=0;i<idArray.length;i++){
 //                        _Id += String.valueOf(elementMap.get(elementArray[i]))+",";
 //                    }
 //                    Id = _Id.substring(0,_Id.length() - 1);

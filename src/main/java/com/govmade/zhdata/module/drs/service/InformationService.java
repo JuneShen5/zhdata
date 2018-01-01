@@ -250,14 +250,27 @@ public class InformationService extends BaseService<Information> {
     public void saveAll(List<Map<String,String>> dataList) {
         try {
            for(Map<String,String> infoMap :dataList){
-               Map<String,String> _infoMap = new HashMap<String, String>();
-               for (String key : infoMap.keySet()) { 
-                   _infoMap.put(StringUtil.toCamelCase(key), infoMap.get(key));
-//                   String value = infoMap.get(key);  
-//                   System.out.println("Key = " + key + ", Value = " + value);  
-               } 
-               
-                Information information = MapUtil.map2bean(_infoMap,Information.class);
+                Information information = new Information();
+                information.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
+                information.setManageStyle(Integer.valueOf(infoMap.get("manage_style")));
+                information.setShareType(Integer.valueOf(infoMap.get("share_type")));
+                information.setIsOpen(Integer.valueOf(infoMap.get("is_open")));
+                information.setSystemId(Integer.valueOf(infoMap.get("system_id")));
+                information.setOpenType(Integer.valueOf(infoMap.get("open_type")));
+                information.setInfoType1(Integer.valueOf(infoMap.get("info_type1")));
+                information.setInfoType2(Integer.valueOf(infoMap.get("info_type2")));
+                
+                information.setRightRelation(infoMap.get("right_relation"));
+                information.setNameCn(infoMap.get("name_cn"));
+                information.setNameEn(infoMap.get("name_en"));
+                information.setCode(infoMap.get("code"));
+                information.setInfo(infoMap.get("info"));
+                information.setElementIds(infoMap.get("element_ids"));
+                information.setShareMode(infoMap.get("share_mode"));
+                information.setShareCondition(infoMap.get("share_condition"));
+                information.setResourceFormat(infoMap.get("resource_format"));
+                information.setReleaseDate(infoMap.get("release_date"));
+                
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
                 if (StringUtils.isNotBlank(jsonArray)) {
@@ -265,8 +278,6 @@ public class InformationService extends BaseService<Information> {
                     elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                     information.setElementList(elements);
                 }
-                System.out.println("information:"+information);
-                System.out.println("getCompanyId:"+information.getCompanyId());
                 Company company=this.companyService.queryById(information.getCompanyId());
                 information.setCode(company.getCreditCode());
                 this.saveInformation(information);

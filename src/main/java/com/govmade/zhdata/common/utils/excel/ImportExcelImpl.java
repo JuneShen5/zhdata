@@ -96,8 +96,8 @@ public class ImportExcelImpl{
     protected Map<String,Integer> elementMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> infoSortMap =  new HashMap<String, Integer>();
     
-    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype
-    protected String[] oneToMoreSelect = {"checkbox","element"}; //一对多关联的
+    protected String[] unSelect = {"input","dateselect","textarea"}; //不用做关联的inputtype
+//    protected String[] Select = {"checkbox","element","select"}; //一对一关联的或一对多关联的
     /**
      * 无参构造
      */
@@ -253,7 +253,7 @@ public class ImportExcelImpl{
                 inputTypeValueMap.put(i, "");
             }
         }
-        for (int rowIndex = startRow; rowIndex < sheet.getPhysicalNumberOfRows(); rowIndex++) {
+        for (int rowIndex = startRow;  sheet.getRow(rowIndex)!=null; rowIndex++) {
             Row Datarow = sheet.getRow(rowIndex);
             Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
             for (int columnIndex = this.columnIndex; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
@@ -263,29 +263,32 @@ public class ImportExcelImpl{
                     continue;  //类型行没有数据直接跳过
                 }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
                     value = getCellValue(cell);   //没有关联的数据直接获取
-                }else if(Arrays.asList(oneToMoreSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
-                    //有关联一对一的数据，获取关联的ID
-                    int _rowIndex; //用于记录错误的行和列
-                    int _columnIndex ;
-                    if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
-                        String name = getCellValue(cell);
-                       /* Map<label,value>*/
-                        String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
-                        if(ID==null || ID==""){
-                            _rowIndex = rowIndex+1; 
-                            _columnIndex = columnIndex+1;
-                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
-                        }else{
-                            value = ID;
-                        }
-                    }else{
-                        _rowIndex = rowIndex+1; 
-                        _columnIndex = columnIndex+1;
-                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
-                    }
+                }
+//                else if(Arrays.asList(oneToMoreSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
+//                    //有关联一对一的数据，获取关联的ID
+//                    int _rowIndex; //用于记录错误的行和列
+//                    int _columnIndex ;
+//                    if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
+//                        String name = getCellValue(cell);
+//                       /* Map<label,value>*/
+//                        String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
+//                        if(ID==null || ID==""){
+//                            _rowIndex = rowIndex+1; 
+//                            _columnIndex = columnIndex+1;
+//                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
+//                        }else{
+//                            value = ID;
+//                        }
+//                    }else{
+//                        _rowIndex = rowIndex+1; 
+//                        _columnIndex = columnIndex+1;
+//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
+////                        value = null;
+//                    }
                     
-                }else{
-                    //有关联一对一的数据，获取关联的ID
+//                }
+            else{
+                    //有关联的数据，获取关联的ID
                     int _rowIndex; //用于记录错误的行和列
                     int _columnIndex ;
                     if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
@@ -382,18 +385,18 @@ public class ImportExcelImpl{
             case "checkbox":
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
-                    System.out.println("dictMap"+dictMap);
+//                    System.out.println("dictMap"+dictMap);
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Map<String,String> checkDic = dictMap.get(inputValue);
-                System.out.println("checkDic:"+checkDic);
-                System.out.println("inputValue:"+inputValue);
+//                System.out.println("checkDic:"+checkDic);
+//                System.out.println("inputValue:"+inputValue);
                 m = Pattern.compile(regEx).matcher(name);  
                 Array = m.replaceAll(",").split(",");
                 for(int i=0;i<Array.length;i++){
                     String checkId = checkDic.get(Array[i]);
-                    System.out.println("Array[i]:"+Array[i]);
-                    System.out.println("checkId:"+checkId);
+//                    System.out.println("Array[i]:"+Array[i]);
+//                    System.out.println("checkId:"+checkId);
                     if(!(checkId == "" || checkId == null)){
                         _Id += checkId+",";
                     }
@@ -428,6 +431,8 @@ public class ImportExcelImpl{
                 }
                 if(_Id.length()>0){
                     Id = "["+_Id.substring(0,_Id.length() - 1)+"]";
+                }else{
+                    Id ="[{}]"; 
                 }
                 break;
             case "linkageSelect":

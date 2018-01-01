@@ -146,8 +146,8 @@ public abstract class ExportExcelImpl{
             }
             ListToTree listToTree = new ListToTree();
             this.infoSortTree  = listToTree.getTree(list, "id0", "id");
-            System.out.println("MaxColumNum"+listToTree.getMaxColumNum());
-            System.out.println("getMaxColumNum"+listToTree.getMaxColumNum());
+//            System.out.println("MaxColumNum"+listToTree.getMaxColumNum());
+//            System.out.println("getMaxColumNum"+listToTree.getMaxColumNum());
             this.levalNum = 4;
             break;  
         default:

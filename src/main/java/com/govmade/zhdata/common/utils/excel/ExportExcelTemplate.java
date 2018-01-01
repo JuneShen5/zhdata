@@ -68,7 +68,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
       for (int columnIndex = 0; columnIndex <lastCellNum; columnIndex++) {
           String  inputValue = "";
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
-          System.out.println("CellVal:"+CellVal);
           String[] CellValArr = CellVal.split("_");
           if(!Arrays.asList(unSelect).contains(CellValArr[0])){
               //有关联字段的数据
