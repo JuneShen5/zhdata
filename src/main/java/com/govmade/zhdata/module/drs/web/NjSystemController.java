@@ -133,29 +133,31 @@ public class NjSystemController  extends BaseController<NjSystems>{
     @RequestMapping(value = "validateName", method = RequestMethod.GET)
     public ResponseEntity<String> validateName(String name,Integer id) {
         try {
+            String name1=new String (name.getBytes("ISO-8859-1"), "UTF-8");
             NjSystems record1=new NjSystems();
-            record1.setName(name);
+            record1.setName(name1);
             NjSystems njSystems=this.njSystemService.queryOne(record1);
             ZjSystems record2=new ZjSystems();
-            record2.setName(name);
+            record2.setName(name1);
             ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
             YjSystems record3=new YjSystems();
-            record3.setName(name);
+            record3.setName(name1);
             YjSystems yjSystems=this.yjSystemService.queryOne(record3);
             if (null==id) {
-                if (null==njSystems|| null==zjSystems ||null==yjSystems) {
+                if (null==njSystems && null==zjSystems && null==yjSystems) {
                     return ResponseEntity.ok(Global.TRUE);
                 }else {
                     return ResponseEntity.ok(Global.FALSE);
                 }
             }else {
-               if (njSystems.getId()==id||zjSystems.getId()==id||yjSystems.getId()==id) {
+               if (njSystems.getId()==id &&zjSystems.getId()==id&&yjSystems.getId()==id) {
                    return ResponseEntity.ok(Global.TRUE);
-               }else {
+               }else if (null==njSystems && null==zjSystems && null==yjSystems) {
+                   return ResponseEntity.ok(Global.TRUE);
+            } else {
                    return ResponseEntity.ok(Global.FALSE);
+               }
             }
-            }
-           
         } catch (Exception e) {
             e.printStackTrace();
         }
