@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.druid.sql.visitor.functions.Nil;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
@@ -109,6 +110,51 @@ public class NjSystemController  extends BaseController<NjSystems>{
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(NjSystems njSystems) {
         try {
+            //String name=new String (njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
+            String name=njSystems.getName();
+            Integer companyId=njSystems.getCompanyId();
+            NjSystems record1=new NjSystems();
+            record1.setName(name);
+            record1.setCompanyId(companyId);
+            NjSystems njSystems1=this.njSystemService.queryOne(record1);
+            ZjSystems record2=new ZjSystems();
+            record2.setName(name);
+            record2.setCompanyId(companyId);
+            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
+            YjSystems record3=new YjSystems();
+            record3.setName(name);
+            record3.setCompanyId(companyId);
+            YjSystems yjSystems=this.yjSystemService.queryOne(record3);
+            
+            if (njSystems.getId() == null) {
+                njSystems.preInsert();
+                if (null==njSystems1 && null==zjSystems && null==yjSystems) {
+                    this.njSystemService.saveSelective(njSystems);
+                    return ResponseEntity.ok(Global.INSERT_SUCCESS);
+                }else {
+                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                }
+                
+            } else {
+                njSystems.preUpdate();
+                if (njSystems1.getId().intValue()==njSystems.getId().intValue()||(null==njSystems1 && null==zjSystems && null==yjSystems)) {
+                    this.njSystemService.updateSelective(njSystems);
+                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                }else {
+                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                }
+               
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    /*@RequestMapping(value = "save", method = RequestMethod.POST)
+    public ResponseEntity<String> save(NjSystems njSystems) {
+        try {
             if (njSystems.getId() == null) {
                 njSystems.preInsert();
                 this.njSystemService.saveSelective(njSystems);
@@ -121,49 +167,10 @@ public class NjSystemController  extends BaseController<NjSystems>{
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
+    }*/
     
-    /**
-     * 验证去重
-     * 
-     * @param name
-     * @param id
-     * @return
-     */
-    @RequestMapping(value = "validateName", method = RequestMethod.GET)
-    public ResponseEntity<String> validateName(String name,Integer id) {
-        try {
-            String name1=new String (name.getBytes("ISO-8859-1"), "UTF-8");
-            NjSystems record1=new NjSystems();
-            record1.setName(name1);
-            NjSystems njSystems=this.njSystemService.queryOne(record1);
-            ZjSystems record2=new ZjSystems();
-            record2.setName(name1);
-            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
-            YjSystems record3=new YjSystems();
-            record3.setName(name1);
-            YjSystems yjSystems=this.yjSystemService.queryOne(record3);
-            if (null==id) {
-                if (null==njSystems && null==zjSystems && null==yjSystems) {
-                    return ResponseEntity.ok(Global.TRUE);
-                }else {
-                    return ResponseEntity.ok(Global.FALSE);
-                }
-            }else {
-               if (njSystems.getId()==id &&zjSystems.getId()==id&&yjSystems.getId()==id) {
-                   return ResponseEntity.ok(Global.TRUE);
-               }else if (null==njSystems && null==zjSystems && null==yjSystems) {
-                   return ResponseEntity.ok(Global.TRUE);
-            } else {
-                   return ResponseEntity.ok(Global.FALSE);
-               }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-        
-    }
+    
+   
 
     /**
      * 拟建系统删除
