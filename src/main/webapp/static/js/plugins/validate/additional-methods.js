@@ -1026,6 +1026,6 @@ $.validator.addMethod("remoted", function(value, element) {
 		}
 	})
     return result;
-}, $.validator.format("存在此条数据"));
+}, $.validator.format("<i class='fa fa-times-circle'></i> 名称重复"));
 
 }));

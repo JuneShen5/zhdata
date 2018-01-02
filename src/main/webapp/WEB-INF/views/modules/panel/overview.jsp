@@ -277,7 +277,8 @@ h3 {
 									}
 									table += '</tbody></table>';
 									return table;
-								}
+								},
+                                readOnly: true
 							},
 							magicType: {show: true, type: ['line', 'bar']},
 							restore : {show: true},
@@ -436,7 +437,8 @@ h3 {
 									}
                                     table += '</tbody></table>';
                                     return table;
-                                }
+                                },
+                                readOnly: true
 							},
                             magicType: {show: true, type: ['line', 'bar']},
                             restore : {show: true},

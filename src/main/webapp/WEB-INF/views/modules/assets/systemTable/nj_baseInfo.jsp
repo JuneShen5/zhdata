@@ -39,7 +39,7 @@
             <label class=" control-label">系统名称</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="name" placeholder="请输入政务信息系统名称" required>
+            <input type="text" class="form-control remoted" remoteUrl="${ctx}/assets/njSystem/validateName" hasNoSpace="true" name="name" placeholder="请输入政务信息系统名称" required>
         </div>
     </div>
     <div class="form-group">
