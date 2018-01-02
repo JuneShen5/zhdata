@@ -18,7 +18,11 @@ import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.module.drs.pojo.NjSystems;
+import com.govmade.zhdata.module.drs.pojo.YjSystems;
+import com.govmade.zhdata.module.drs.pojo.ZjSystems;
 import com.govmade.zhdata.module.drs.service.NjSystemService;
+import com.govmade.zhdata.module.drs.service.YjSystemService;
+import com.govmade.zhdata.module.drs.service.ZjSystemService;
 
 @Controller
 @RequestMapping(value = "assets/njSystem")
@@ -31,6 +35,13 @@ public class NjSystemController  extends BaseController<NjSystems>{
 
     @Autowired
     private NjSystemService njSystemService;
+    
+    @Autowired
+    private ZjSystemService zjSystemService;
+    
+    @Autowired
+    private YjSystemService yjSystemService;
+    
     @Override
     protected void getFileName(){
         super.chTableName = "拟建信息系统";
@@ -110,6 +121,46 @@ public class NjSystemController  extends BaseController<NjSystems>{
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    /**
+     * 验证去重
+     * 
+     * @param name
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "validateName", method = RequestMethod.GET)
+    public ResponseEntity<String> validateName(String name,Integer id) {
+        try {
+            NjSystems record1=new NjSystems();
+            record1.setName(name);
+            NjSystems njSystems=this.njSystemService.queryOne(record1);
+            ZjSystems record2=new ZjSystems();
+            record2.setName(name);
+            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
+            YjSystems record3=new YjSystems();
+            record3.setName(name);
+            YjSystems yjSystems=this.yjSystemService.queryOne(record3);
+            if (null==id) {
+                if (null==njSystems|| null==zjSystems ||null==yjSystems) {
+                    return ResponseEntity.ok(Global.TRUE);
+                }else {
+                    return ResponseEntity.ok(Global.FALSE);
+                }
+            }else {
+               if (njSystems.getId()==id||zjSystems.getId()==id||yjSystems.getId()==id) {
+                   return ResponseEntity.ok(Global.TRUE);
+               }else {
+                   return ResponseEntity.ok(Global.FALSE);
+            }
+            }
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+        
     }
 
     /**
