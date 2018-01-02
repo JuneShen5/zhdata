@@ -98,9 +98,9 @@
                             </div>
                         </div>
                         <div class="check-search">
-                            <label class="">信息资源代码：</label>
+                            <label class="">信息资源提供方：</label>
                             <div class="check-search-item">
-                                <input type="text" sName="nameEn" class="form-control">
+                                <input type="text" sName="companyName" class="form-control">
                             </div>
                         </div>
                     </div>
