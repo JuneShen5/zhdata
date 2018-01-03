@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.alibaba.druid.sql.visitor.functions.Nil;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
@@ -137,10 +136,13 @@ public class NjSystemController  extends BaseController<NjSystems>{
                 
             } else {
                 njSystems.preUpdate();
-                if (njSystems1.getId().intValue()==njSystems.getId().intValue()||(null==njSystems1 && null==zjSystems && null==yjSystems)) {
+                if (null==njSystems1 && null==zjSystems && null==yjSystems) {
                     this.njSystemService.updateSelective(njSystems);
                     return ResponseEntity.ok(Global.UPDATE_SUCCESS);
-                }else {
+                }else if (njSystems1!=null&&njSystems1.getId().intValue()==njSystems.getId().intValue()) {
+                    this.njSystemService.updateSelective(njSystems);
+                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                } else {
                     return ResponseEntity.ok("系统名称已经存在，请重新填写！");
                 }
                

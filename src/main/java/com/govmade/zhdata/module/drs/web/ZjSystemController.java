@@ -136,10 +136,13 @@ public class ZjSystemController extends BaseController<ZjSystems>{
                 
             } else {
                 zjSystems.preUpdate();
-                if (zjSystems1.getId().intValue()==zjSystems.getId().intValue()||(null==njSystems && null==zjSystems1 && null==yjSystems)) {
+                if (null==njSystems && null==zjSystems1 && null==yjSystems) {
                     this.zjSystemService.updateSelective(zjSystems);
                     return ResponseEntity.ok(Global.UPDATE_SUCCESS);
-                }else {
+                }else if (zjSystems1!=null&&zjSystems1.getId().intValue()==njSystems.getId().intValue()) {
+                    this.zjSystemService.updateSelective(zjSystems);
+                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                } else {
                     return ResponseEntity.ok("系统名称已经存在，请重新填写！");
                 }
             }

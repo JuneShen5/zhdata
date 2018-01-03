@@ -19,7 +19,6 @@ import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.module.sys.pojo.Company;
-import com.govmade.zhdata.module.sys.pojo.Role;
 import com.govmade.zhdata.module.sys.service.CompanyService;
 
 @Controller

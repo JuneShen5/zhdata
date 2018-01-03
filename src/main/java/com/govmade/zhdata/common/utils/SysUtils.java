@@ -7,17 +7,13 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.persistence.RedisService;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
-import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.drs.service.ElementService;
 import com.govmade.zhdata.module.drs.service.InfoSortService;
-import com.govmade.zhdata.module.drs.service.SystemService;
 import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
