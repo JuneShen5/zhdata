@@ -17,7 +17,11 @@ import com.govmade.zhdata.common.persistence.BaseController;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
+import com.govmade.zhdata.module.drs.pojo.NjSystems;
+import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.drs.pojo.ZjSystems;
+import com.govmade.zhdata.module.drs.service.NjSystemService;
+import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.drs.service.ZjSystemService;
 
 @Controller
@@ -31,6 +35,13 @@ public class ZjSystemController extends BaseController<ZjSystems>{
 
     @Autowired
     private ZjSystemService zjSystemService;
+    
+    @Autowired
+    private NjSystemService njSystemService;
+    
+    @Autowired
+    private YjSystemService yjSystemService;
+    
     @Override
     protected void getFileName(){
         super.chTableName = "在建信息系统";
@@ -98,14 +109,41 @@ public class ZjSystemController extends BaseController<ZjSystems>{
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<String> save(ZjSystems zjSystems) {
         try {
+            //String name=new String (njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
+            String name=zjSystems.getName();
+            Integer companyId=zjSystems.getCompanyId();
+            NjSystems record1=new NjSystems();
+            record1.setName(name);
+            record1.setCompanyId(companyId);
+            NjSystems njSystems=this.njSystemService.queryOne(record1);
+            ZjSystems record2=new ZjSystems();
+            record2.setName(name);
+            record2.setCompanyId(companyId);
+            ZjSystems zjSystems1=this.zjSystemService.queryOne(record2);
+            YjSystems record3=new YjSystems();
+            record3.setName(name);
+            record3.setCompanyId(companyId);
+            YjSystems yjSystems=this.yjSystemService.queryOne(record3);
+            
             if (zjSystems.getId() == null) {
                 zjSystems.preInsert();
-                this.zjSystemService.saveSelective(zjSystems);
+                if (null==njSystems && null==zjSystems1 && null==yjSystems) {
+                    this.zjSystemService.saveSelective(zjSystems);
+                    return ResponseEntity.ok(Global.INSERT_SUCCESS);
+                }else {
+                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                }
+                
             } else {
                 zjSystems.preUpdate();
-                this.zjSystemService.updateSelective(zjSystems);
+                if (zjSystems1.getId().intValue()==zjSystems.getId().intValue()||(null==njSystems && null==zjSystems1 && null==yjSystems)) {
+                    this.zjSystemService.updateSelective(zjSystems);
+                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                }else {
+                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                }
             }
-            return ResponseEntity.ok(Global.INSERT_SUCCESS);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

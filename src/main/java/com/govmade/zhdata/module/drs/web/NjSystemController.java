@@ -102,7 +102,7 @@ public class NjSystemController  extends BaseController<NjSystems>{
     }
 
     /**
-     * 拟建系统保存，修改
+     * 拟建系统保存，修改（包括去重）
      * 
      * @param njSystems
      * @return
