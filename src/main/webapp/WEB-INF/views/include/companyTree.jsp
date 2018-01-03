@@ -52,12 +52,12 @@
 		}
 	};
 	
-	var menuTree;
+	var companyTree;
 	
  	function childQuery (data) {
  		$.fn.zTree.init($(".company_tree_ul"), menuSetting, data);
-		menuTree = $.fn.zTree.getZTreeObj("menuTree");
-		menuTree.expandAll(true);
+		companyTree = $.fn.zTree.getZTreeObj("menuTree");
+		companyTree.expandAll(true);
  	};
  	
  	$(function () {
@@ -77,13 +77,13 @@
  	})
 
 	function onClick(e, treeId, treeNode) {
-		menuTree.checkNode(treeNode, !treeNode.checked, null, true);
+		companyTree.checkNode(treeNode, !treeNode.checked, null, true);
 		return false;
 	}
 
 	function onCheck(e, treeId, treeNode) {
 		console.log("e: ", e)
-		nodes = menuTree.getCheckedNodes(true),
+		nodes = companyTree.getCheckedNodes(true),
 		v = "";
 		id = "";
 		for (var i=0, l=nodes.length; i<l; i++) {
@@ -105,6 +105,9 @@
 		var cityOffset = $(".citySel").offset();
 		$(this).siblings(".company_tree").css({zIndex: 10000, width: '100%'}).slideDown("fast");
 		$("body").bind("mousedown", onBodyDown);
+		// 回显
+		var val = $(this).siblings("input[name=companyId]").val();
+		companyTree.checkNode(companyTree.getNodeByParam("id", val, null), true, true);
 	})
 	function hideMenu() {
 		$(".company_tree").fadeOut("fast");
