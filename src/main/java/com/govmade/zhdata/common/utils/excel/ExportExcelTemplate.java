@@ -122,10 +122,10 @@ public class ExportExcelTemplate extends ExportExcelImpl {
               }  //这边用于跳过联动的子数据，以免多次生成模板
               
               Sheet attachedSheet = workbook.getSheetAt(2);
-              workbook.setSheetName(2, "信息资源分类附件");
-              for(int i=0;i<500;i++){
-                  attachedSheet.createRow(i);
-              }
+              workbook.setSheetName(2, "信息资源分类附页");
+//              for(int i=0;i<500;i++){
+//                  attachedSheet.createRow(i);
+//              }
               attachedLinkSheetFunc(attachedSheet,linkageTemplateValue);
               
           }
@@ -154,14 +154,23 @@ public class ExportExcelTemplate extends ExportExcelImpl {
     //将联动信息添加到附表
     private Integer i =0; //行
     private Integer j =-1;// 列
+//    private Integer _i = 1;
+    @SuppressWarnings("unchecked")
     private void attachedLinkSheetFunc(Sheet attachedSheet,List<Map<String, Object>> valueList){
         j++;
+//        int _i=1;
         for(Map<String, Object> infoSort:valueList){
 //            System.out.println("name"+infoSort.getName());
-            if( ((List<Map<String, Object>>)infoSort.get("children")).size()>0){
+            if(((List<Map<String, Object>>)infoSort.get("children")).size()>0){
                 attachedLinkSheetFunc(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"));
+//                System.out.println("操作的列："+j);
+//                System.out.println("从第几行开始："+i);
+//                System.out.println("合并的行数"+(i-_i));
+//                System.out.println("---------------");
+//                _i = i;
             }else{
                 i++;
+                attachedSheet.createRow(i);
             }
             attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
         }
@@ -258,7 +267,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         }
         
         /**
-         * 联动类型的类型的关联数据
+         * 联动类型的类型的关联数据（树形结构）
          * @param type dict的type类型
          * @return
          */

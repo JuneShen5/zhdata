@@ -48,10 +48,10 @@ import com.govmade.zhdata.module.sys.pojo.Site;
  * @author  cyz
  * @param <T>
  */
-public class ImportExcelImpl{
+public class CopyOfImportExcelImpl{
     
     //log4j输出
-    private Logger log = LoggerFactory.getLogger(ImportExcelImpl.class);
+    private Logger log = LoggerFactory.getLogger(CopyOfImportExcelImpl.class);
     // 时间的格式
     private String format="yyyy-MM-dd";
     
@@ -96,16 +96,12 @@ public class ImportExcelImpl{
     protected Map<String,Integer> elementMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> infoSortMap =  new HashMap<String, Integer>();
     
-    protected Map<Integer, String> nameEnMap= Maps.newHashMap(); //存放字段英文名
-    protected Map<Integer, String> inputTypeMap= Maps.newHashMap(); //存放inputType
-    protected Map<Integer, String> inputTypeValueMap= Maps.newHashMap();//存放inputTypeValue
-    
     protected String[] unSelect = {"input","dateselect","textarea"}; //不用做关联的inputtype
 //    protected String[] Select = {"checkbox","element","select"}; //一对一关联的或一对多关联的
     /**
      * 无参构造
      */
-    public ImportExcelImpl() {
+    public CopyOfImportExcelImpl() {
         super();
     }
     
@@ -118,7 +114,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(String fileName, int headerNum) throws InvalidFormatException, IOException {
+    public CopyOfImportExcelImpl(String fileName, int headerNum) throws InvalidFormatException, IOException {
         this(new File(fileName), headerNum);
     }
 
@@ -130,7 +126,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(File file, int headerNum) throws InvalidFormatException, IOException {
+    public CopyOfImportExcelImpl(File file, int headerNum) throws InvalidFormatException, IOException {
         this(file, headerNum, 0);
     }
 
@@ -143,7 +139,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(String fileName, int headerNum, int sheetIndex) throws InvalidFormatException,
+    public CopyOfImportExcelImpl(String fileName, int headerNum, int sheetIndex) throws InvalidFormatException,
             IOException {
         this(new File(fileName), headerNum, sheetIndex);
     }
@@ -157,7 +153,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(File file, int headerNum, int sheetIndex) throws InvalidFormatException, IOException {
+    public CopyOfImportExcelImpl(File file, int headerNum, int sheetIndex) throws InvalidFormatException, IOException {
         this(file.getName(), new FileInputStream(file), headerNum, sheetIndex);
     }
 
@@ -170,7 +166,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(MultipartFile multipartFile, int headerNum, int sheetIndex)
+    public CopyOfImportExcelImpl(MultipartFile multipartFile, int headerNum, int sheetIndex)
             throws InvalidFormatException, IOException {
         this(multipartFile.getOriginalFilename(), multipartFile.getInputStream(), headerNum, sheetIndex);
     }
@@ -184,7 +180,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(String fileName, InputStream is, int headerNum, int sheetIndex)
+    public CopyOfImportExcelImpl(String fileName, InputStream is, int headerNum, int sheetIndex)
             throws InvalidFormatException, IOException {
         if (StringUtils.isBlank(fileName)) {
             throw new RuntimeException("导入文档为空!");
@@ -211,9 +207,9 @@ public class ImportExcelImpl{
 	  * @return List<Map<String, String>>
 	  * @throws Exception
 	  */
-//    public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute) throws Exception{
-//        return readExcel(titleAndAttribute);
-//    }
+    public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute) throws Exception{
+        return readExcel(titleAndAttribute);
+    }
 //    abstract  protected List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute) throws Exception;
         
     /**
@@ -224,13 +220,30 @@ public class ImportExcelImpl{
      * @return List<Map<String, String>>
      * @throws Exception*********
      */
-    public void uploadAndRead(int startRow,int columnIndex, int commitRow) throws Exception{
-      this.columnIndex = columnIndex;
-      this.commitRow = commitRow;
-       Row nameEnRow = sheet.getRow(startRow-2);  //英文名称行
-       Row inputTypeRow = sheet.getRow(startRow-1); //输入框及类型行
-       int lastCellNum = nameEnRow.getLastCellNum(); //总共的列数
-       for(int i=0;i<lastCellNum;i++){
+    public List<Map<String, String>> uploadAndRead(Map<String, String> titleAndAttribute,int startRow,int columnIndex, int commitRow) throws Exception{
+       this.startRow = startRow;
+       this.commitRow = commitRow;
+       this.columnIndex = columnIndex;
+       return readExcel(titleAndAttribute);
+    }
+
+    /**
+     * 判断接收的Map集合中的标题是否于Excle中标题对应
+     * @param titleAndAttribute
+     * @return List<Map<String, String>>
+     * @throws Exception
+     */
+    private List<Map<String, String>> readExcel(Map<String, String> titleAndAttribute) throws Exception{
+        
+        List<Map<String, String>> resolut = new ArrayList<Map<String, String>>();//存放最终结果
+        Row nameEnRow = sheet.getRow(startRow-2);  //英文名称行
+        Row inputTypeRow = sheet.getRow(startRow-1); //输入框及类型行
+        Map<Integer, String> nameEnMap= Maps.newHashMap(); //存放字段英文名
+        Map<Integer, String> inputTypeMap= Maps.newHashMap(); //存放inputType
+        Map<Integer, String> inputTypeValueMap= Maps.newHashMap();//存放inputTypeValue
+        
+        int lastCellNum = nameEnRow.getLastCellNum(); //总共的列数
+        for(int i=0;i<lastCellNum;i++){
             nameEnMap.put(i,nameEnRow.getCell(i).getStringCellValue());
             String[] inputType = inputTypeRow.getCell(i).getStringCellValue().split("_");
             inputTypeMap.put(i, inputType[0]);
@@ -240,25 +253,10 @@ public class ImportExcelImpl{
                 inputTypeValueMap.put(i, "");
             }
         }
-    }
-
-    /**
-     * 判断接收的Map集合中的标题是否于Excle中标题对应
-     * @param titleAndAttribute
-     * @return List<Map<String, String>>
-     * @throws Exception
-     */
-    public List<Map<String, String>> readExcel(Map<String, String> titleAndAttribute,int startRow) throws Exception{
-        System.out.println("startRow1:"+startRow);
-        System.out.println("commitRow:"+commitRow);
-        List<Map<String, String>> resolut = new ArrayList<Map<String, String>>();//存放最终结果
-        
-        int lastCellNum = nameEnMap.size(); //总共的列数
-        
         for (int rowIndex = startRow;  sheet.getRow(rowIndex)!=null; rowIndex++) {
             Row Datarow = sheet.getRow(rowIndex);
             Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
-            for (int columnIndex = this.columnIndex ; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
+            for (int columnIndex = this.columnIndex; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
                 String value =""; //excel每一格读取的值
                 Cell cell = Datarow.getCell(columnIndex);
                 if("".equals(inputTypeMap.get(columnIndex).trim()) ){
@@ -407,6 +405,7 @@ public class ImportExcelImpl{
                         companyMap.put(company.getName(),company.getId());
                     }
                 }
+                System.out.println("companyMap:"+companyMap);
                 Id = String.valueOf(companyMap.get(name));
                 break;
             case "element":

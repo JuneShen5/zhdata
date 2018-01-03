@@ -30,22 +30,7 @@ public class InfoSort extends BasePo<InfoSort> {
     @Transient
     private List<InfoSort> children= Lists.newArrayList();
     
-    /*树形结构要用*/  
-    @Transient
-    private InfoSort parent;
     
-    @Transient
-    private int level;
-    
-    @Transient
-    private boolean isLeaf;
-    
-    @Transient
-    private int rootId;
-    
-    @Transient
-    private int childSize;
-
     public Integer getParentId() {
         return parentId;
     }
@@ -101,46 +86,5 @@ public class InfoSort extends BasePo<InfoSort> {
     public void setParentName(String parentName) {
         this.parentName = parentName;
     }
-
-    public InfoSort getParent() {
-        return parent;
-    }
-
-    public void setParent(InfoSort parent) {
-        this.parent = parent;
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public boolean isLeaf() {
-        return isLeaf;
-    }
-
-    public void setLeaf(boolean isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
-    public int getRootId() {
-        return rootId;
-    }
-
-    public void setRootId(int rootId) {
-        this.rootId = rootId;
-    }
-
-    public int getChildSize() {
-        return childSize;
-    }
-
-    public void setChildSize(int childSize) {
-        this.childSize = childSize;
-    }
-
 
 }

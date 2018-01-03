@@ -69,16 +69,20 @@ public abstract class BaseController<T> {
            }
     }
     
+    
+    
    //导入数据
    @RequestMapping(value ="importData" , method = RequestMethod.POST)
    public ResponseEntity<String> importData(@RequestParam(value = "file", required = false) MultipartFile file,Integer attributeType,HttpServletRequest request,String code) {
        try {
            ImportExcelImpl importExcel = new ImportExcelImpl(file,0,0);
+           getReadExcelStarLine();
            Map<String, String> titleAndAttribute = new HashMap<String, String>();
+           importExcel.uploadAndRead(startRow,columnIndex,commitRow);
            List<Map<String, String>> dataList = new ArrayList<Map<String,String>>();
            List<Map<String, String>> resolurdDtaList = new ArrayList<Map<String,String>>();
            boolean is = true;
-           getReadExcelStarLine();
+         
            /*读取表单配置信息*/
            AttributeService attributeService=(AttributeService)SpringContextUtil.getBean("attributeService");  
            Attribute attribute = new Attribute();
@@ -92,8 +96,11 @@ public abstract class BaseController<T> {
            }
            /*读取表单配置信息结束*/
            while(is){
-               dataList = importExcel.uploadAndRead(titleAndAttribute,startRow,columnIndex,commitRow);
+               dataList.clear();
+               resolurdDtaList.clear();
+               dataList = importExcel.readExcel(titleAndAttribute,startRow);
                startRow = startRow+commitRow;
+//               System.out.println("startRow2:"+startRow);
                if(dataList.size()!=0){
                    //循环将数据的核心与非核心字段区分开，非核心的存入info中
                    for(Map<String, String> excelData :dataList){  //dataList  Map<nameEn,value>中的value是大小的驼峰
@@ -114,7 +121,6 @@ public abstract class BaseController<T> {
                                info +=   "\"" + nameEn.trim() + "\":\"" + info_value + "\",";
                            }
                            
-                          
                        }
                        info = info.substring(0, info.length() - 1);
                        info += "}";
@@ -123,18 +129,18 @@ public abstract class BaseController<T> {
                        }
                        resolurdDtaList.add(dataMap);
                    }
-                   getService().saveAll(resolurdDtaList); 
+                   getService().saveAll(resolurdDtaList);
                }
                if(dataList.size()<commitRow || dataList.size()==0){
                    is=false; 
                }
            }
+           
            return ResponseEntity.ok(Global.IMPORT_SUCCESS);
        } catch (Exception e) {
            e.printStackTrace();
            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
        }
-       
    }
    
    /**
