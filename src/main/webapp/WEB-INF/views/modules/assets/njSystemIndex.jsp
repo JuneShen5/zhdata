@@ -100,7 +100,10 @@
             toolbar: 'toolbar',
             pageNumber: 1,
             pageSize: 10,
-            obj: {}
+            obj: {
+            	name:"",
+            	companyName:""
+            }
         };
         var mainTableBtnOption = {
             btnNeed: 'default'
