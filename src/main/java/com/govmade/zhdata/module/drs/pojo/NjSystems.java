@@ -6,236 +6,213 @@ import javax.persistence.Transient;
 import com.govmade.zhdata.common.persistence.BasePo;
 
 @Table(name = "drs_system_nijian")
-public class NjSystems extends BasePo<NjSystems>{
-	
-	private static final long serialVersionUID = 1L;
+public class NjSystems extends BasePo<NjSystems> {
 
-	private Integer companyId; // 所属部门ID
-	
-	@Transient
+    private static final long serialVersionUID = 1L;
+
+    private Integer companyId; // 所属部门ID
+
+    @Transient
     private String companyName; // 单位名称（所属部门）
-	
-	private String name;
-	
-	private Integer smfl;
-	
-	private String spbm;
-	
-	private String spsj;
-	
-	private String ywgn;
-	
-	private String xtjsys;
-	
-	private Integer zjly;
-	
-	private Integer zjdwqk;
-	
-	private Integer jsfs;
-	
-	private String lxr;
-	
-	private String lxdh;
-	
-	private Integer xtlb;
-	
-	
-	private Integer jsjpcd;
-	
-	private String xtjcsjyq;
-	
-	private String njxtyj;
-	
-	private String jsyqmb;
-	
-	private String ygsydx;
-	
-	private String ygsygm;
 
-	public NjSystems() {
-		super();
-	}
+    private String name;
 
+    private Integer smfl;
 
-	public String getName() {
-		return name;
-	}
+    private String spbm;
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    private String spsj;
 
-	public Integer getSmfl() {
-		return smfl;
-	}
+    private String ywgn;
 
-	public void setSmfl(Integer smfl) {
-		this.smfl = smfl;
-	}
+    private String xtjsys;
 
-	public String getSpbm() {
-		return spbm;
-	}
+    private Integer zjly;
 
-	public void setSpbm(String spbm) {
-		this.spbm = spbm;
-	}
+    private Integer zjdwqk;
 
-	public String getSpsj() {
-		return spsj;
-	}
+    private Integer jsfs;
 
-	public void setSpsj(String spsj) {
-		this.spsj = spsj;
-	}
+    private String lxr;
 
-	public String getYwgn() {
-		return ywgn;
-	}
+    private String lxdh;
 
-	public void setYwgn(String ywgn) {
-		this.ywgn = ywgn;
-	}
+    private Integer xtlb;
 
-	public String getXtjsys() {
-		return xtjsys;
-	}
+    private Integer jsjpcd;
 
-	public void setXtjsys(String xtjsys) {
-		this.xtjsys = xtjsys;
-	}
+    private String xtjcsjyq;
 
-	public Integer getZjly() {
-		return zjly;
-	}
+    private String njxtyj;
 
-	public void setZjly(Integer zjly) {
-		this.zjly = zjly;
-	}
+    private String jsyqmb;
 
-	public Integer getZjdwqk() {
-		return zjdwqk;
-	}
+    private String ygsydx;
 
-	public void setZjdwqk(Integer zjdwqk) {
-		this.zjdwqk = zjdwqk;
-	}
+    private String ygsygm;
 
-	public String getLxr() {
-		return lxr;
-	}
+    public NjSystems() {
+        super();
+    }
 
-	public void setLxr(String lxr) {
-		this.lxr = lxr;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getLxdh() {
-		return lxdh;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setLxdh(String lxdh) {
-		this.lxdh = lxdh;
-	}
+    public Integer getSmfl() {
+        return smfl;
+    }
 
-	public Integer getJsjpcd() {
-		return jsjpcd;
-	}
+    public void setSmfl(Integer smfl) {
+        this.smfl = smfl;
+    }
 
-	public void setJsjpcd(Integer jsjpcd) {
-		this.jsjpcd = jsjpcd;
-	}
+    public String getSpbm() {
+        return spbm;
+    }
 
-	public String getXtjcsjyq() {
-		return xtjcsjyq;
-	}
+    public void setSpbm(String spbm) {
+        this.spbm = spbm;
+    }
 
-	public void setXtjcsjyq(String xtjcsjyq) {
-		this.xtjcsjyq = xtjcsjyq;
-	}
+    public String getSpsj() {
+        return spsj;
+    }
 
-	public String getNjxtyj() {
-		return njxtyj;
-	}
+    public void setSpsj(String spsj) {
+        this.spsj = spsj;
+    }
 
-	public void setNjxtyj(String njxtyj) {
-		this.njxtyj = njxtyj;
-	}
+    public String getYwgn() {
+        return ywgn;
+    }
 
-	public String getJsyqmb() {
-		return jsyqmb;
-	}
+    public void setYwgn(String ywgn) {
+        this.ywgn = ywgn;
+    }
 
-	public void setJsyqmb(String jsyqmb) {
-		this.jsyqmb = jsyqmb;
-	}
+    public String getXtjsys() {
+        return xtjsys;
+    }
 
-	public String getYgsydx() {
-		return ygsydx;
-	}
+    public void setXtjsys(String xtjsys) {
+        this.xtjsys = xtjsys;
+    }
 
-	public void setYgsydx(String ygsydx) {
-		this.ygsydx = ygsydx;
-	}
+    public Integer getZjly() {
+        return zjly;
+    }
 
-	public String getYgsygm() {
-		return ygsygm;
-	}
+    public void setZjly(Integer zjly) {
+        this.zjly = zjly;
+    }
 
-	public void setYgsygm(String ygsygm) {
-		this.ygsygm = ygsygm;
-	}
+    public Integer getZjdwqk() {
+        return zjdwqk;
+    }
 
+    public void setZjdwqk(Integer zjdwqk) {
+        this.zjdwqk = zjdwqk;
+    }
 
+    public String getLxr() {
+        return lxr;
+    }
 
-	public Integer getCompanyId() {
-		return companyId;
-	}
+    public void setLxr(String lxr) {
+        this.lxr = lxr;
+    }
 
+    public String getLxdh() {
+        return lxdh;
+    }
 
+    public void setLxdh(String lxdh) {
+        this.lxdh = lxdh;
+    }
 
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
-	}
+    public Integer getJsjpcd() {
+        return jsjpcd;
+    }
 
+    public void setJsjpcd(Integer jsjpcd) {
+        this.jsjpcd = jsjpcd;
+    }
 
+    public String getXtjcsjyq() {
+        return xtjcsjyq;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public void setXtjcsjyq(String xtjcsjyq) {
+        this.xtjcsjyq = xtjcsjyq;
+    }
 
+    public String getNjxtyj() {
+        return njxtyj;
+    }
 
+    public void setNjxtyj(String njxtyj) {
+        this.njxtyj = njxtyj;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public String getJsyqmb() {
+        return jsyqmb;
+    }
 
+    public void setJsyqmb(String jsyqmb) {
+        this.jsyqmb = jsyqmb;
+    }
 
+    public String getYgsydx() {
+        return ygsydx;
+    }
 
-	public Integer getJsfs() {
-		return jsfs;
-	}
+    public void setYgsydx(String ygsydx) {
+        this.ygsydx = ygsydx;
+    }
 
+    public String getYgsygm() {
+        return ygsygm;
+    }
 
+    public void setYgsygm(String ygsygm) {
+        this.ygsygm = ygsygm;
+    }
 
-	public void setJsfs(Integer jsfs) {
-		this.jsfs = jsfs;
-	}
+    public Integer getCompanyId() {
+        return companyId;
+    }
 
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public Integer getXtlb() {
-		return xtlb;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
+    public Integer getJsfs() {
+        return jsfs;
+    }
 
+    public void setJsfs(Integer jsfs) {
+        this.jsfs = jsfs;
+    }
 
-	public void setXtlb(Integer xtlb) {
-		this.xtlb = xtlb;
-	}
+    public Integer getXtlb() {
+        return xtlb;
+    }
 
+    public void setXtlb(Integer xtlb) {
+        this.xtlb = xtlb;
+    }
 
-
-
-	
-		
 }

@@ -98,9 +98,9 @@
                             </div>
                         </div>
                         <div class="check-search">
-                            <label class="">信息资源代码：</label>
+                            <label class="">信息资源提供方：</label>
                             <div class="check-search-item">
-                                <input type="text" sName="nameEn" class="form-control">
+                                <input type="text" sName="companyName" class="form-control">
                             </div>
                         </div>
                     </div>
@@ -232,7 +232,9 @@
         var elementTableId = '#elementTable';
         var elementLayerId = '#element_layer_form';
         var elementFormId = '#elementform'; //form ids
-        
+        var obj2 = {
+
+        };
         var elementTableId2 = '#elementTable2';
 //        var element_layer_form2 = '#element_layer_form2';
         
@@ -797,11 +799,11 @@
                         totalRows:dataEles.length
                     });
                     flag=false;
-                    obj={};
+                    obj={isAuthorize:1};
                     layer.close(layeForm2);
                 },
                 end : function() {
-                    obj={};
+                    obj={isAuthorize:1};
                     flag=false;
                     layer.close(layeForm2);
                 },

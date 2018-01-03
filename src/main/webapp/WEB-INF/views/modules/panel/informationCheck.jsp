@@ -624,11 +624,11 @@
                         totalRows:dataEles.length
                     });
                     flag=false;
-                    obj={};
+                    obj={isAuthorize:1};
                     layer.close(layeForm2);
                 },
                 end : function() {
-                    obj={};
+                    obj={isAuthorize:1};
                     flag=false;
                     layer.close(layeForm2);
                 },
@@ -770,7 +770,7 @@
 		}
 
 		// 开放、共享表单事件绑定
-        shareToggleMethod();
+        $(function (){shareToggleMethod();});
 	</script>
 
 	<script src="${ctxStatic}/js/common/common.js"></script>
