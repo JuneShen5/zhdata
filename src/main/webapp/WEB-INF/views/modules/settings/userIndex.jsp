@@ -14,11 +14,15 @@
 				<div id="toolbar">
 					<div class="form-inline">
 						<div class="form-group">
-							<input id="sName" sName="name" type="text" placeholder="输入姓名"
+							<select type="text" name="searchType" class="form-control col-sm-6" style="margin-right: 5px">
+								<option value="name">姓名</option>
+								<option value="loginName">用户名</option>
+							</select>
+							<input id="sName" sName="name" type="text" placeholder="输入搜索项名称"
 								class="form-control col-sm-8">
 							<div class="input-group-btn col-sm-4">
 								<button type="button" id="searchFor"
-									onclick=" $('#userTable').bootstrapTable('refresh');"
+									onclick="conditionalSearch();"
 									class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
 							</div>
 						</div>
@@ -136,6 +140,14 @@
 //            //parent.location.reload();
 //            console.log($(".logo", window.parent.document).text());
 //        });
+
+        // 选择条件搜索
+        function conditionalSearch() {
+            var searchType = $('select[name=searchType]').val();
+            $('#sName').attr('sName', searchType);
+            $(tableId).bootstrapTable('refresh');
+            delete obj[searchType];
+        }
 	</script>
 
 	<script src="${ctxStatic}/js/common/common.js"></script>

@@ -18,11 +18,15 @@
                     <div id="toolbar">
                         <div class="form-inline">
                             <div class="form-group">
-                                <input id="sName" sName="name" type="text" placeholder="输入信息系统名称"
+                                <select type="text" name="searchType" class="form-control col-sm-6" style="margin-right: 5px">
+                                    <option value="name">信息系统名称</option>
+                                    <option value="companyName">单位名称</option>
+                                </select>
+                                <input id="sName" sName="name" type="text" placeholder="输入搜索项名称"
                                        class="form-control col-sm-8">
                                 <div class="input-group-btn col-sm-4">
                                     <button type="button" id="searchFor"
-                                            onclick="$('#yjSystemTable').bootstrapTable('refresh');"
+                                            onclick="conditionalSearch();"
                                             class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
                                 </div>
                             </div>
@@ -164,6 +168,14 @@
             ids = JSON.stringify(ids);
             deleteOptions.dataTableId = ids.slice(1, ids.length - 1);
             $('#layer_form').layerSetting('deleteRow', deleteOptions);
+        }
+        
+        // 选择条件搜索
+        function conditionalSearch() {
+            var searchType = $('select[name=searchType]').val();
+            $('#sName').attr('sName', searchType);
+            $(deleteOptions.dataTable).bootstrapTable('refresh');
+            delete mainTableOption.obj[searchType];
         }
     </script>
 

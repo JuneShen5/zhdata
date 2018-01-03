@@ -1,96 +1,97 @@
 /*** 公用功能---begin ***/
-    // 表格初始化、表格按钮创建
-var TableInit = function(tableOption,btnOption) {
-        var oTableInit = {
-            // 初始化Table
-            Init : function () {
-                // 设置默认值
-                tableOption.toolbar = (tableOption.toolbar === undefined) ? '#toolbar' : '#' + tableOption.toolbar;
-                tableOption.pageNumber = (tableOption.pageNumber === undefined) ? 1 : tableOption.pageNumber;
-                tableOption.pageSize = (tableOption.pageSize === undefined) ? 10 : tableOption.pageSize;
-                var tableInitParams = {
-                    method: 'get',
-                    toolbar: tableOption.toolbar, // 工具按钮用哪个容器
-                    striped: true, // 是否显示行间隔色
-                    pagination: true, // 是否显示分页（*）
-                    queryParams: oTableInit.queryParams, // 传递参数（*）
-                    sidePagination: "server", // 分页方式：client客户端分页，server服务端分页（*）
-                    pageNumber: parseInt(tableOption.pageNumber), // 初始化加载第一页，默认第一页
-                    pageSize: parseInt(tableOption.pageSize), // 每页的记录行数（*）
-                    pageList: [10, 25, 50, 100], // 可供选择的每页的行数（*）
-                    showColumns: true, // 是否显示所有的列
-                    showRefresh: true, // 是否显示刷新按钮
-                    iconSize: 'outline',
-                    icons: {
-                        refresh: 'glyphicon-repeat',
-                        columns: 'glyphicon-list'
-                    },
-                    uniqueId: "id" // 每一行的唯一标识，一般为主键列
-                };
-                if (tableOption.url === undefined && tableOption.data !== undefined){
-                    delete tableInitParams['url'];
-                    tableInitParams['data'] = tableOption.data;
-                }else {
-                    delete tableInitParams['data'];
-                    tableInitParams['url'] = tableOption.url;
-                }
-                $('#' + tableOption.tableId).bootstrapTable(tableInitParams);
-                $('#' + tableOption.tableId).on('post-body.bs.table', function (e) {
-                    $(this).find('thead').removeClass('ele-hide');
-                });
-            },
 
-            // 得到查询的参数
-            queryParams : function (params) {
-                $(tableOption.toolbar).find(".form-control").each(function (index, item) {
+// 表格初始化、表格按钮创建
+var TableInit = function(tableOption,btnOption) {
+    var oTableInit = {
+        // 初始化Table
+        Init : function () {
+            // 设置默认值
+            tableOption.toolbar = (tableOption.toolbar === undefined) ? '#toolbar' : '#' + tableOption.toolbar;
+            tableOption.pageNumber = (tableOption.pageNumber === undefined) ? 1 : tableOption.pageNumber;
+            tableOption.pageSize = (tableOption.pageSize === undefined) ? 10 : tableOption.pageSize;
+            var tableInitParams = {
+                method: 'get',
+                toolbar: tableOption.toolbar, // 工具按钮用哪个容器
+                striped: true, // 是否显示行间隔色
+                pagination: true, // 是否显示分页（*）
+                queryParams: oTableInit.queryParams, // 传递参数（*）
+                sidePagination: "server", // 分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: parseInt(tableOption.pageNumber), // 初始化加载第一页，默认第一页
+                pageSize: parseInt(tableOption.pageSize), // 每页的记录行数（*）
+                pageList: [10, 25, 50, 100], // 可供选择的每页的行数（*）
+                showColumns: true, // 是否显示所有的列
+                showRefresh: true, // 是否显示刷新按钮
+                iconSize: 'outline',
+                icons: {
+                    refresh: 'glyphicon-repeat',
+                    columns: 'glyphicon-list'
+                },
+                uniqueId: "id" // 每一行的唯一标识，一般为主键列
+            };
+            if (tableOption.url === undefined && tableOption.data !== undefined){
+                delete tableInitParams['url'];
+                tableInitParams['data'] = tableOption.data;
+            }else {
+                delete tableInitParams['data'];
+                tableInitParams['url'] = tableOption.url;
+            }
+            $('#' + tableOption.tableId).bootstrapTable(tableInitParams);
+            $('#' + tableOption.tableId).on('post-body.bs.table', function (e) {
+                $(this).find('thead').removeClass('ele-hide');
+            });
+        },
+
+        // 得到查询的参数
+        queryParams : function (params) {
+            $(tableOption.toolbar).find(".form-control").each(function (index, item) {
+                if ($(this).attr("sName") !== undefined) {
+                    tableOption.obj[$(this).attr("sName")] = $(this).val();
+                }
+            });
+            console.log("obj: ", tableOption.obj);
+            if ($(".search-list").length > 0) {
+                $(".search-list").find(".form-control").each(function (index, item) {
                     if ($(this).attr("sName") !== undefined) {
                         tableOption.obj[$(this).attr("sName")] = $(this).val();
                     }
-                })
-                console.log("obj: ", tableOption.obj);
-                if ($(".search-list").length > 0) {
-                    $(".search-list").find(".form-control").each(function (index, item) {
-                        if ($(this).attr("sName") !== undefined) {
-                            tableOption.obj[$(this).attr("sName")] = $(this).val();
-                        }
-                    });
-                }
-                var temp = {
-                    pageNum: params.offset / params.limit + 1,
-                    pageSize: params.limit,
-                    obj: JSON.stringify(tableOption.obj)
-                };
-                return temp;
-            },
-
-            // 设置表格按钮
-            InitButton : function (row) {
-                var html = '';
-                btnOption.btnNeed = (btnOption.btnNeed === undefined) ? 'default' : btnOption.btnNeed;
-                if (btnOption.btnNeed === 'default') {
-                    html += '<div class="btn-group">';
-                    html += '<button type="button" class="btn btn-white detail-btn" onclick="datailRow(\''
-                        + row.id
-                        + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-                    html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
-                        + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-                    html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
-                        + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
-                    html += '</div>';
-                } else if (btnOption.btnNeed && btnOption.btnNeed !== 'default') {
-                    html += '<div class="btn-group">';
-                    $.each(btnOption.button, function (index, btns) {
-                        btns.color = (btns.color === undefined || btns.color === '') ? 'btn-white' : btns.color;
-                        btns.icon = (btns.icon === undefined || btns.icon === '') ? 'fa-circle' : btns.icon;
-                        html += '<button class="detail-btn btn ' + btns.color + '" id="' + btns.id + '" onclick="' + btns.event + '(\'' + row.id + '\')"><i class="fa ' + btns.icon + '"></i>&nbsp;' + btns.text + '</button>';
-                    });
-                    html += '</div>';
-                }
-                return html;
+                });
             }
-        };
-        return oTableInit;
+            var temp = {
+                pageNum: params.offset / params.limit + 1,
+                pageSize: params.limit,
+                obj: JSON.stringify(tableOption.obj)
+            };
+            return temp;
+        },
+
+        // 设置表格按钮
+        InitButton : function (row) {
+            var html = '';
+            btnOption.btnNeed = (btnOption.btnNeed === undefined) ? 'default' : btnOption.btnNeed;
+            if (btnOption.btnNeed === 'default') {
+                html += '<div class="btn-group">';
+                html += '<button type="button" class="btn btn-white detail-btn" onclick="datailRow(\''
+                    + row.id
+                    + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+                html += '</div>';
+            } else if (btnOption.btnNeed && btnOption.btnNeed !== 'default') {
+                html += '<div class="btn-group">';
+                $.each(btnOption.button, function (index, btns) {
+                    btns.color = (btns.color === undefined || btns.color === '') ? 'btn-white' : btns.color;
+                    btns.icon = (btns.icon === undefined || btns.icon === '') ? 'fa-circle' : btns.icon;
+                    html += '<button class="detail-btn btn ' + btns.color + '" id="' + btns.id + '" onclick="' + btns.event + '(\'' + row.id + '\')"><i class="fa ' + btns.icon + '"></i>&nbsp;' + btns.text + '</button>';
+                });
+                html += '</div>';
+            }
+            return html;
+        }
     };
+    return oTableInit;
+};
 ;(function () {
     // 弹框初始化及相关方法
     var LayerEvent = function(ele, options) {
