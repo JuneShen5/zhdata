@@ -90,7 +90,10 @@
             toolbar: 'toolbar',
             pageNumber: 1,
             pageSize: 10,
-            obj: {}
+            obj: {
+                name:"",
+                companyName:""
+            }
         };
         var mainTableBtnOption = {
             btnNeed: 'default'
@@ -163,7 +166,7 @@
             var searchType = $('select[name=searchType]').val();
             $('#sName').attr('sName', searchType);
             $(deleteOptions.dataTable).bootstrapTable('refresh');
-            delete mainTableOption.obj[searchType];
+            mainTableOption.obj[searchType] = '';
         }
     </script>
     </body>

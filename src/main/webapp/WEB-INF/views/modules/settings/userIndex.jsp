@@ -132,6 +132,7 @@
 		var url = '${ctx}/settings/user/';
 		var obj = {
 			name : $('#sName').val(),
+            loginName: ''
 		};
 		var editTitle = "用户修改";
 		var detailTitle = "用户详情";
@@ -146,7 +147,7 @@
             var searchType = $('select[name=searchType]').val();
             $('#sName').attr('sName', searchType);
             $(tableId).bootstrapTable('refresh');
-            delete obj[searchType];
+            obj[searchType] = '';
         }
 	</script>
 

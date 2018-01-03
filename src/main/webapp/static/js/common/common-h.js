@@ -192,6 +192,9 @@ var TableInit = function(tableOption,btnOption) {
 
         // 时间插件
         $('.datepicker').datepicker({
+            startView: 1,
+            format: 'yyyy-mm',
+            minViewMode: 1,
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,

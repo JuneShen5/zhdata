@@ -178,7 +178,7 @@
             var searchType = $('select[name=searchType]').val();
             $('#sName').attr('sName', searchType);
             $(deleteOptions.dataTable).bootstrapTable('refresh');
-            delete mainTableOption.obj[searchType];
+            mainTableOption.obj[searchType] = '';
         }
     </script>
 

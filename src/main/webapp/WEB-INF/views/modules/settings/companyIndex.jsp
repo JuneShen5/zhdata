@@ -48,7 +48,11 @@
 <body style="background-color: #fff;padding: 20px;">
 <div class="search-container form-inline clearfix">
 	<div class="form-group">
-		<input id="sName" sName="nameCN" type="text" placeholder="输入名称"
+		<select type="text" name="searchType" class="form-control col-sm-6" style="margin-right: 5px">
+			<option value="name">部门名称</option>
+			<option value="code">部门编码</option>
+		</select>
+		<input id="sName" sName="nameCN" type="text" placeholder="输入搜索项名称"
 			   class="form-control col-sm-8">
 	</div>
 	<div class="form-group">
@@ -366,13 +370,14 @@
     }
     // 搜索功能
     function menuSearch(searchText) {
+        var searchType = $('select[name=searchType]').val();
         var treeObj = $.fn.zTree.getZTreeObj("dataTree");
-        var allNodes = treeObj.getNodesByParamFuzzy("name", "", null);
+        var allNodes = treeObj.getNodesByParamFuzzy(searchType, "", null);
         $.each(allNodes, function (index, allNode) {
             $('#'+allNode.tId).children('a').removeClass('high-light-red');
         });
         if (searchText !== ''){
-			var nodes = treeObj.getNodesByParamFuzzy("name", searchText, null);
+			var nodes = treeObj.getNodesByParamFuzzy(searchType, searchText, null);
 			$.each(nodes, function (index, node) {
 				$('#'+node.tId).children('a').addClass('high-light-red');
 			});
