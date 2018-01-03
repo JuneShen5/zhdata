@@ -248,7 +248,6 @@ public class InformationService extends BaseService<Information> {
     }
 
     public void saveAll(List<Map<String,String>> dataList) {
-        try {
            for(Map<String,String> infoMap :dataList){
                 Information information = new Information();
                 information.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
@@ -282,12 +281,6 @@ public class InformationService extends BaseService<Information> {
                 information.setCode(company.getCreditCode());
                 this.saveInformation(information);
            }
-        
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        
     }
 
     public List<Information> queryForExport() {

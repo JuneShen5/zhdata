@@ -26,10 +26,6 @@ import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.govmade.zhdata.common.utils.DrsUtils;
-import com.govmade.zhdata.common.utils.ListToTree;
-import com.govmade.zhdata.common.utils.TreeUtil;
-import com.govmade.zhdata.module.drs.pojo.InfoSort;
   
 /** 
  * 导出Excel公共方法 
@@ -119,7 +115,7 @@ public abstract class ExportExcelImpl{
           if("linkageSelect".equals(rowNameElementRow[2])){
               linkList.clear();
               String inputName =rowNameElementRow[1];
-              getLinkageData(rowNameElementRow[3]);
+//              getLinkageData(rowNameElementRow[3]);
              for(int j=1;j<=levalNum;j++){
                  linkList.add(rowNameElementRow[0]+"_"+inputName+j+"_"+rowNameElementRow[2]+"_"+rowNameElementRow[3]);
              }
@@ -131,30 +127,7 @@ public abstract class ExportExcelImpl{
       return (String[]) _rowNameList.toArray(new String[_rowNameList.size()]);
     }
     
-    private void getLinkageData(String inputTypevalue) {
-        switch(inputTypevalue)
-        {
-        case "infoSort":
-            List<InfoSort> infoSortList =  DrsUtils.findAllInfo();
-            List<Map<String, Object>> list = new ArrayList<>(); 
-            for(InfoSort infoSort:infoSortList){
-                Map<String, Object> infoSortMap = new HashMap<String, Object>();
-                infoSortMap.put("id", "id"+infoSort.getId());  
-                infoSortMap.put("name", infoSort.getName());  
-                infoSortMap.put("pid", "id"+infoSort.getParentId());  
-                list.add(infoSortMap);  
-            }
-            ListToTree listToTree = new ListToTree();
-            this.infoSortTree  = listToTree.getTree(list, "id0", "id");
-//            System.out.println("MaxColumNum"+listToTree.getMaxColumNum());
-//            System.out.println("getMaxColumNum"+listToTree.getMaxColumNum());
-            this.levalNum = 4;
-            break;  
-        default:
-            break;
-        }
-        
-    }
+
 
     public void export () throws Exception{
         Workbook createExcel = this.createExcel();
