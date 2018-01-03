@@ -126,40 +126,35 @@ public class NjSystemController  extends BaseController<NjSystems>{
             record3.setCompanyId(companyId);
             YjSystems yjSystems=this.yjSystemService.queryOne(record3);
             
+            Message message1=new Message();
+            message1.setStatus(0);
+            message1.setMessage("系统名称已经存在，请重新填写！");
+            
             if (njSystems.getId() == null) {
                 njSystems.preInsert();
                 if (null==njSystems1 && null==zjSystems && null==yjSystems) {
                     this.njSystemService.saveSelective(njSystems);
                     Message message=new Message();
                     message.setStatus(1);
-                    message.setMessage("保存成功");
+                    message.setMessage(Global.INSERT_SUCCESS);
                     return ResponseEntity.ok(message);
                 }else {
-                    Message message=new Message();
-                    message.setStatus(0);
-                    message.setMessage("系统名称已经存在，请重新填写！");
-                    return ResponseEntity.ok(message);
+                    return ResponseEntity.ok(message1);
                 }
                 
             } else {
                 njSystems.preUpdate();
+                Message message2=new Message();
+                message2.setStatus(1);
+                message2.setMessage(Global.UPDATE_SUCCESS);
                 if (null==njSystems1 && null==zjSystems && null==yjSystems) {
                     this.njSystemService.updateSelective(njSystems);
-                    Message message=new Message();
-                    message.setStatus(1);
-                    message.setMessage("更新成功");
-                    return ResponseEntity.ok(message);
+                    return ResponseEntity.ok(message2);
                 }else if (njSystems1!=null&&njSystems1.getId().intValue()==njSystems.getId().intValue()) {
                     this.njSystemService.updateSelective(njSystems);
-                    Message message=new Message();
-                    message.setStatus(1);
-                    message.setMessage("更新成功");
-                    return ResponseEntity.ok(message);
+                    return ResponseEntity.ok(message2);
                 } else {
-                    Message message=new Message();
-                    message.setStatus(0);
-                    message.setMessage("系统名称已经存在，请重新填写！");
-                    return ResponseEntity.ok(message);
+                    return ResponseEntity.ok(message1);
                 }
             }
             

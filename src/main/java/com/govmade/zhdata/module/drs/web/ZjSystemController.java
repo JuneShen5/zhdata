@@ -15,6 +15,7 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseController;
 import com.govmade.zhdata.common.persistence.BaseService;
+import com.govmade.zhdata.common.persistence.Message;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.module.drs.pojo.NjSystems;
@@ -107,7 +108,7 @@ public class ZjSystemController extends BaseController<ZjSystems>{
      * @return
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(ZjSystems zjSystems) {
+    public ResponseEntity<Message> save(ZjSystems zjSystems) {
         try {
             //String name=new String (njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
             String name=zjSystems.getName();
@@ -125,25 +126,36 @@ public class ZjSystemController extends BaseController<ZjSystems>{
             record3.setCompanyId(companyId);
             YjSystems yjSystems=this.yjSystemService.queryOne(record3);
             
+            Message message1=new Message();
+            message1.setStatus(0);
+            message1.setMessage("系统名称已经存在，请重新填写！");
+            
             if (zjSystems.getId() == null) {
                 zjSystems.preInsert();
                 if (null==njSystems && null==zjSystems1 && null==yjSystems) {
                     this.zjSystemService.saveSelective(zjSystems);
-                    return ResponseEntity.ok(Global.INSERT_SUCCESS);
+                    Message message=new Message();
+                    message.setStatus(1);
+                    message.setMessage(Global.INSERT_SUCCESS);
+                    return ResponseEntity.ok(message);
                 }else {
-                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                    return ResponseEntity.ok(message1);
                 }
                 
             } else {
                 zjSystems.preUpdate();
+                Message message2=new Message();
+                message2.setStatus(1);
+                message2.setMessage(Global.UPDATE_SUCCESS);
+                
                 if (null==njSystems && null==zjSystems1 && null==yjSystems) {
                     this.zjSystemService.updateSelective(zjSystems);
-                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                    return ResponseEntity.ok(message2);
                 }else if (zjSystems1!=null&&zjSystems1.getId().intValue()==njSystems.getId().intValue()) {
                     this.zjSystemService.updateSelective(zjSystems);
-                    return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+                    return ResponseEntity.ok(message2);
                 } else {
-                    return ResponseEntity.ok("系统名称已经存在，请重新填写！");
+                    return ResponseEntity.ok(message1);
                 }
             }
             
