@@ -12,7 +12,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.google.common.collect.Lists;
-import com.govmade.zhdata.common.utils.TreeUtil;
 import com.govmade.zhdata.common.utils.excel.ExportExcelImpl;
 import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
@@ -30,7 +29,7 @@ public class treeExcel {
     @Transactional   //标明此方法需使用事务  
     @Rollback(true)  //标明使用完此方法后事务不回滚,true时为回滚  
     public void insert() {
-        try {
+       /* try {
             List<InfoSort> infoSortList= infosortservice.findAll();
             TreeUtil treeUtil = new TreeUtil();
             List<InfoSort> infoSortTree = treeUtil.buildListToTree(infoSortList);
@@ -47,6 +46,6 @@ public class treeExcel {
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
+        }*/
     }
 }
