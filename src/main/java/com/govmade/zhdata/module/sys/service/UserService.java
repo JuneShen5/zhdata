@@ -31,7 +31,9 @@ public class UserService extends BaseService<User> {
         User user = JsonUtil.readValue(page.getObj(), User.class);
         try {
             String name= new String(user.getName().getBytes("ISO-8859-1"), "UTF-8");
+            String loginName= new String(user.getLoginName().getBytes("ISO-8859-1"), "UTF-8");
             user.setName(name);
+            user.setLoginName(loginName);
         } catch (Exception e) {
             e.printStackTrace();
         }

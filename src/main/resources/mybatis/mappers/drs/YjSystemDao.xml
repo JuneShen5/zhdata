@@ -2,152 +2,157 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.govmade.zhdata.module.drs.dao.YjSystemDao">
 
-      <sql id="yjSystemColumns">
-      a.id,
-      a.company_id AS "companyId",
-      a.name,
-      a.jsyj,
-      a.spbm,
-      a.spsj,
-      a.ywgn,
-      a.gkksmc,
-      a.jsdwlxr,
-      a.jsdwlxdh,
-      a.cjdwmc,
-      a.cjdwlxr,
-      a.cjdwlxdh,
-      a.jslx,
-      a.jsfs,
-      a.jsqssj,
-      a.trsysj,
-      a.xtlb,
-      a.bswz,
-      a.smfl,
-      a.aqjb,
-      a.yjr,
-      a.wllxsyfw,
-      a.xtjg,
-      a.yyfwqczxt,
-      a.sjkfwqczxt,
-      a.zjjbb,
-      a.sjkbb,
-      a.sfyqtxtdj,
-      a.djqtxtmc,
-      a.sfxnhbs,
-      a.xnhrjjcsmc,
-      a.sfsqzhzh,
-      a.zhzhyysm,
-      a.sfysjxq,
-      a.sjxqxxsm,
-      a.sfjsxt,
-      a.sydx,
-      a.yhgm,
-      a.mysypd,
-      a.xtsjdfwqip,
-      a.xtfwdz,
-      a.ywdwmc,
-      a.ywdwlxr,
-      a.ywdwlxdh,
-      a.ywfs,
-      a.ywhtqsdqsj,
-      a.sfybf,
-      a.bffs,
-      a.bfdwz,
-      a.sjbfl,
-      a.sjbfpl,
-      a.yysh,
-      a.tcshxz,
-      a.yyrz,
-      a.jszl,
-      a.zjly,
-      a.jsje,
-      a.ywje,
-      a.nd,
-      a.qhmc,
-      a.ywcsmc,
-      a.ysdwmc,
-      a.zjxzmc,
-      a.gnflmc,
-      a.xmflmc,
-      a.jjflmc,
-      a.zffsmc,
-      a.zblxmc,
-      a.zblymc,
-      a.zbfpndmc,
-      a.ysxmbm,
-      a.ysxmmc,
-      a.zzbje,
-      a.kyje,
-      a.yyje,
-      a.xxlrfs,
-      a.xtsjzzqk,
-      a.clsjnx,
-      a.clsjyxq,
-      a.sjccfs,
-      a.sjwjdx,
-      a.sjjmfs,
-      a.sjgxms,
-      a.wbbs,
-      a.bssx,    
-      a.create_by AS "createBy",
-	  a.create_date AS "createDate",
-      a.update_by AS "updateBy",
-	  a.update_date AS "updateDate",
-	  a.remarks,
-	  a.del_flag AS "delFlag",
-	  c.name AS "companyName"
-      
-      </sql>
-      
-      <sql id="yjSystemJoins">
-    	LEFT JOIN sys_company c ON c.id = a.company_id
+	<sql id="yjSystemColumns">
+		a.id,
+		a.company_id AS "companyId",
+		a.name,
+		a.jsyj,
+		a.spbm,
+		a.spsj,
+		a.ywgn,
+		a.gkksmc,
+		a.jsdwlxr,
+		a.jsdwlxdh,
+		a.cjdwmc,
+		a.cjdwlxr,
+		a.cjdwlxdh,
+		a.jslx,
+		a.jsfs,
+		a.jsqssj,
+		a.trsysj,
+		a.xtlb,
+		a.bswz,
+		a.smfl,
+		a.aqjb,
+		a.yjr,
+		a.wllxsyfw,
+		a.xtjg,
+		a.yyfwqczxt,
+		a.sjkfwqczxt,
+		a.zjjbb,
+		a.sjkbb,
+		a.sfyqtxtdj,
+		a.djqtxtmc,
+		a.sfxnhbs,
+		a.xnhrjjcsmc,
+		a.sfsqzhzh,
+		a.zhzhyysm,
+		a.sfysjxq,
+		a.sjxqxxsm,
+		a.sfjsxt,
+		a.sydx,
+		a.yhgm,
+		a.mysypd,
+		a.xtsjdfwqip,
+		a.xtfwdz,
+		a.ywdwmc,
+		a.ywdwlxr,
+		a.ywdwlxdh,
+		a.ywfs,
+		a.ywhtqsdqsj,
+		a.sfybf,
+		a.bffs,
+		a.bfdwz,
+		a.sjbfl,
+		a.sjbfpl,
+		a.yysh,
+		a.tcshxz,
+		a.yyrz,
+		a.jszl,
+		a.zjly,
+		a.jsje,
+		a.ywje,
+		a.nd,
+		a.qhmc,
+		a.ywcsmc,
+		a.ysdwmc,
+		a.zjxzmc,
+		a.gnflmc,
+		a.xmflmc,
+		a.jjflmc,
+		a.zffsmc,
+		a.zblxmc,
+		a.zblymc,
+		a.zbfpndmc,
+		a.ysxmbm,
+		a.ysxmmc,
+		a.zzbje,
+		a.kyje,
+		a.yyje,
+		a.xxlrfs,
+		a.xtsjzzqk,
+		a.clsjnx,
+		a.clsjyxq,
+		a.sjccfs,
+		a.sjwjdx,
+		a.sjjmfs,
+		a.sjgxms,
+		a.wbbs,
+		a.bssx,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+
 	</sql>
-      
-      
-      
-      <select id="queryAllList" resultType="YjSystems">
-      SELECT
-      <include refid="yjSystemColumns" />
-      FROM drs_system_yijian a
-      <include refid="yjSystemJoins" />
-      <where>
-      a.del_flag = #{yjSystems.delFlag}
-      <if test="yjSystems.name != null and yjSystems.name != ''">
-       AND a.name LIKE CONCAT('%',#{yjSystems.name},'%')
-      </if>
-	 </where>
-	 ORDER BY a.id DESC
+
+	<sql id="yjSystemJoins">
+		LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+
+
+
+	<select id="queryAllList" resultType="YjSystems">
+		SELECT
+		<include refid="yjSystemColumns" />
+		FROM drs_system_yijian a
+		<include refid="yjSystemJoins" />
+		<where>
+			a.del_flag = #{yjSystems.delFlag}
+			<if test="yjSystems.name != null and yjSystems.name != ''">
+				AND a.name LIKE CONCAT('%',#{yjSystems.name},'%')
+			</if>
+		</where>
+		ORDER BY a.id DESC
 	</select>
-	
-	
+
+
 	<!-- 根据当前部门查询 -->
 	<select id="queryListByCompanyId" resultType="YjSystems">
-      SELECT
-      <include refid="yjSystemColumns" />
-      FROM drs_system_yijian a
-      <include refid="yjSystemJoins" />
-      <where>
-      a.del_flag = #{yjSystems.delFlag}
-      <if test="yjSystems.name != null and yjSystems.name != ''">
-       AND a.name LIKE CONCAT('%',#{yjSystems.name},'%')
-      </if>
-       <foreach collection="page.params" index="key" item="value" separator="" >
-            <if test="value != null and value !=''" >
-                <if test="key=='companyIds'" >
-                	AND a.company_id IN 
-     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
-         			   #{id}
-        			</foreach>
-                </if>
-            </if>
-        </foreach>
-	 </where>
-	 ORDER BY a.id DESC
+		SELECT
+		<include refid="yjSystemColumns" />
+		FROM drs_system_yijian a
+		<include refid="yjSystemJoins" />
+		<where>
+			a.del_flag = #{yjSystems.delFlag}
+			<if test="yjSystems.name != null and yjSystems.name != ''">
+				AND a.name LIKE CONCAT('%',#{yjSystems.name},'%')
+			</if>
+			<if test="yjSystems.companyName != null and yjSystems.companyName != ''">
+				AND c.name LIKE CONCAT('%',#{yjSystems.companyName},'%')
+			</if>
+			<foreach collection="page.params" index="key" item="value"
+				separator="">
+				<if test="value != null and value !=''">
+					<if test="key=='companyIds'">
+						AND a.company_id IN
+						<foreach collection="value" item="id" open="(" close=")"
+							separator=",">
+							#{id}
+						</foreach>
+					</if>
+				</if>
+			</foreach>
+		</where>
+		ORDER BY a.id DESC
 	</select>
-	
-	
-	  <!-- 添加多条数据 -->
-	<insert  id="saveAll"  statementType="STATEMENT" >
+
+
+	<!-- 添加多条数据 -->
+	<insert id="saveAll" statementType="STATEMENT">
 		INSERT INTO drs_system_yijian
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">
@@ -162,29 +167,33 @@
 			</foreach>
 		</foreach>
 	</insert>
-	
-	
+
+
 	<!-- 根据部门查询系统个数 -->
 	<select id="querySysCount" resultType="Integer">
-		select COUNT(*) from drs_system_yijian WHERE del_flag=#{yjSystems.delFlag} 
+		select COUNT(*) from drs_system_yijian WHERE
+		del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
-    		AND company_id IN 
-    		<foreach collection="comList" item="id" open="("  close=")" separator=",">
-           	 #{id}
-        	</foreach>
-       </if>
-		
+			AND company_id IN
+			<foreach collection="comList" item="id" open="(" close=")"
+				separator=",">
+				#{id}
+			</foreach>
+		</if>
+
 	</select>
-	
+
 	<!-- 根据部门查询年度运维费用总金额 -->
 	<select id="queryYwjSum" resultType="Double">
-		SELECT SUM(ywje) FROM drs_system_yijian WHERE del_flag=#{yjSystems.delFlag}
+		SELECT SUM(ywje) FROM drs_system_yijian WHERE
+		del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
-    		AND company_id IN 
-    		<foreach collection="comList" item="id" open="("  close=")" separator=",">
-           	 #{id}
-        	</foreach>
-       </if>
-		
+			AND company_id IN
+			<foreach collection="comList" item="id" open="(" close=")"
+				separator=",">
+				#{id}
+			</foreach>
+		</if>
+
 	</select>
 </mapper>      

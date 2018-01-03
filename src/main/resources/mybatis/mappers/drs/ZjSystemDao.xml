@@ -2,108 +2,113 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.govmade.zhdata.module.drs.dao.ZjSystemDao">
 
-      <sql id="ZjSystemColumns">
-      a.id,
-      a.company_id AS "companyId",
-      a.name,
-      a.spbm,
-      a.spsj,
-      a.ywgn,
-      a.jsdwmc,
-      a.jsdwlxr,
-      a.jsdwlxdh,
-      a.xtjsys,
-      a.zjly,
-      a.xtlb,
-      a.dqjsjd,
-      a.jsfs,
-      a.cjdwmc,
-      a.cjdwlxr,
-      a.cjdwlxdh,
-      a.htqssj,
-      a.htydwcsj,
-      a.htqsdwbdqsj,
-      a.yfhtje,
-      a.xtjsyj,
-      a.jsyqmb,
-      a.jsxmjpcd,
-      a.jpcdsm,
-      a.ygsydx,
-      a.ygsygm,
-      a.yjhtrsysj,
-      a.bswz,
-      a.smfl,
-      a.aqjb,
-      a.jhjrwllx,
-      a.syfw,
-      a.sfyqtxtdj,
-      a.djqtxtmc,
-      a.sfxnhbs,
-      a.xnhrjcsmc,
-      a.sfybf,
-      a.bffs,
-      a.bfdwz,
-      a.sjbfl,
-      a.yyrz,
-      a.xthxjh,
-      a.xtjxjsyy,
-      a.create_by AS "createBy",
-	  a.create_date AS "createDate",
-      a.update_by AS "updateBy",
-	  a.update_date AS "updateDate",
-	  a.remarks,
-	  a.del_flag AS "delFlag",
-	  c.name AS "companyName" 
-            
-      </sql>
-      
-      <sql id="zjSystemJoins">
-    	LEFT JOIN sys_company c ON c.id = a.company_id
+	<sql id="ZjSystemColumns">
+		a.id,
+		a.company_id AS "companyId",
+		a.name,
+		a.spbm,
+		a.spsj,
+		a.ywgn,
+		a.jsdwmc,
+		a.jsdwlxr,
+		a.jsdwlxdh,
+		a.xtjsys,
+		a.zjly,
+		a.xtlb,
+		a.dqjsjd,
+		a.jsfs,
+		a.cjdwmc,
+		a.cjdwlxr,
+		a.cjdwlxdh,
+		a.htqssj,
+		a.htydwcsj,
+		a.htqsdwbdqsj,
+		a.yfhtje,
+		a.xtjsyj,
+		a.jsyqmb,
+		a.jsxmjpcd,
+		a.jpcdsm,
+		a.ygsydx,
+		a.ygsygm,
+		a.yjhtrsysj,
+		a.bswz,
+		a.smfl,
+		a.aqjb,
+		a.jhjrwllx,
+		a.syfw,
+		a.sfyqtxtdj,
+		a.djqtxtmc,
+		a.sfxnhbs,
+		a.xnhrjcsmc,
+		a.sfybf,
+		a.bffs,
+		a.bfdwz,
+		a.sjbfl,
+		a.yyrz,
+		a.xthxjh,
+		a.xtjxjsyy,
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag",
+		c.name AS "companyName"
+
 	</sql>
-      
-      <select id="queryAllList" resultType="ZjSystems">
-      SELECT
-      <include refid="ZjSystemColumns" />
-      FROM drs_system_zaijian a
-      <include refid="zjSystemJoins" />
-      <where>
-      a.del_flag = #{zjSystems.delFlag}
-      <if test="zjSystems.name != null and zjSystems.name != ''">
-      AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
-      </if>
-	 </where>
-	 ORDER BY a.id DESC
+
+	<sql id="zjSystemJoins">
+		LEFT JOIN sys_company c ON c.id = a.company_id
+	</sql>
+
+	<select id="queryAllList" resultType="ZjSystems">
+		SELECT
+		<include refid="ZjSystemColumns" />
+		FROM drs_system_zaijian a
+		<include refid="zjSystemJoins" />
+		<where>
+			a.del_flag = #{zjSystems.delFlag}
+			<if test="zjSystems.name != null and zjSystems.name != ''">
+				AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
+			</if>
+		</where>
+		ORDER BY a.id DESC
 	</select>
-      
-      
-      <!-- 根据当前部门查询 -->
+
+
+	<!-- 根据当前部门查询 -->
 	<select id="queryListByCompanyId" resultType="ZjSystems">
-      SELECT
-      <include refid="ZjSystemColumns" />
-      FROM drs_system_zaijian a
-      <include refid="zjSystemJoins" />
-      <where>
-      a.del_flag = #{zjSystems.delFlag}
-      <if test="zjSystems.name != null and zjSystems.name != ''">
-      AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
-      </if>
-       <foreach collection="page.params" index="key" item="value" separator="" >
-            <if test="value != null and value !=''" >
-                <if test="key=='companyIds'" >
-                	AND a.company_id IN 
-     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
-         			   #{id}
-        			</foreach>
-                </if>
-            </if>
-        </foreach>
-	 </where>
-	 ORDER BY a.id DESC
+		SELECT
+		<include refid="ZjSystemColumns" />
+		FROM drs_system_zaijian a
+		<include refid="zjSystemJoins" />
+		<where>
+			a.del_flag = #{zjSystems.delFlag}
+			<if test="zjSystems.name != null and zjSystems.name != ''">
+				AND a.name LIKE CONCAT('%',#{zjSystems.name},'%')
+			</if>
+			<if test="zjSystems.companyName != null and zjSystems.companyName != ''">
+				AND c.name LIKE CONCAT('%',#{zjSystems.companyName},'%')
+			</if>
+			<foreach collection="page.params" index="key" item="value"
+				separator="">
+				<if test="value != null and value !=''">
+					<if test="key=='companyIds'">
+						AND a.company_id IN
+						<foreach collection="value" item="id" open="(" close=")"
+							separator=",">
+							#{id}
+						</foreach>
+					</if>
+				</if>
+			</foreach>
+		</where>
+		ORDER BY a.id DESC
 	</select>
-	
-	
-     <!-- 添加多条数据 -->
-	<insert  id="saveAll"  statementType="STATEMENT" >
+
+
+	<!-- 添加多条数据 -->
+	<insert id="saveAll" statementType="STATEMENT">
 		INSERT INTO drs_system_zaijian
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">

@@ -10,11 +10,11 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private static final long serialVersionUID = 1L;
 
-	private Integer companyId; // 所属部门ID
-	
-	@Transient
+    private Integer companyId; // 所属部门ID
+
+    @Transient
     private String companyName; // 单位名称（所属部门）
-	
+
     private String name;
 
     private String spbm;
@@ -34,8 +34,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
     private Integer zjly;
 
     private Integer xtlb;
-    
-    
+
     private Integer dqjsjd;
 
     private Integer jsfs;
@@ -104,17 +103,15 @@ public class ZjSystems extends BasePo<ZjSystems> {
         super();
     }
 
-
-
     public String getName() {
-		return name;
-	}
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getSpbm() {
+    public String getSpbm() {
         return spbm;
     }
 
@@ -177,7 +174,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
     public void setZjly(Integer zjly) {
         this.zjly = zjly;
     }
-
 
     public Integer getDqjsjd() {
         return dqjsjd;
@@ -331,7 +327,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.aqjb = aqjb;
     }
 
-
     public Integer getSyfw() {
         return syfw;
     }
@@ -363,7 +358,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
     public void setSfxnhbs(Integer sfxnhbs) {
         this.sfxnhbs = sfxnhbs;
     }
-
 
     public Integer getSfybf() {
         return sfybf;
@@ -421,55 +415,44 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.xtjxjsyy = xtjxjsyy;
     }
 
+    public Integer getCompanyId() {
+        return companyId;
+    }
 
-	public Integer getCompanyId() {
-		return companyId;
-	}
+    public void setCompanyId(Integer companyId) {
+        this.companyId = companyId;
+    }
 
+    public String getCompanyName() {
+        return companyName;
+    }
 
-	public void setCompanyId(Integer companyId) {
-		this.companyId = companyId;
-	}
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
 
+    public Integer getXtlb() {
+        return xtlb;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public void setXtlb(Integer xtlb) {
+        this.xtlb = xtlb;
+    }
 
+    public Integer getJhjrwllx() {
+        return jhjrwllx;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public void setJhjrwllx(Integer jhjrwllx) {
+        this.jhjrwllx = jhjrwllx;
+    }
 
+    public String getXnhrjcsmc() {
+        return xnhrjcsmc;
+    }
 
-	public Integer getXtlb() {
-		return xtlb;
-	}
+    public void setXnhrjcsmc(String xnhrjcsmc) {
+        this.xnhrjcsmc = xnhrjcsmc;
+    }
 
-
-	public void setXtlb(Integer xtlb) {
-		this.xtlb = xtlb;
-	}
-
-
-	public Integer getJhjrwllx() {
-		return jhjrwllx;
-	}
-
-
-	public void setJhjrwllx(Integer jhjrwllx) {
-		this.jhjrwllx = jhjrwllx;
-	}
-
-
-	public String getXnhrjcsmc() {
-		return xnhrjcsmc;
-	}
-
-
-	public void setXnhrjcsmc(String xnhrjcsmc) {
-		this.xnhrjcsmc = xnhrjcsmc;
-	}
-
-    
 }
