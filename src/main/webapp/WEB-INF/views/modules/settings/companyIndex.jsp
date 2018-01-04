@@ -289,6 +289,12 @@
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label">2018年度总指标金额（万元）：</label>
+				<div class="col-sm-7">
+					<input type="text" name="total2018" isNonnegative="true" class="form-control" placeholder="2018年度部门信息化系统预算" required>
+				</div>
+			</div>
+			<div class="form-group">
 				<label class="col-sm-3 control-label">排序：</label>
 				<div class="col-sm-7">
 					<input type="text" name="sort" digits="true" class="form-control" required>

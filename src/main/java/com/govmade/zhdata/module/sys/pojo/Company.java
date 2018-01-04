@@ -74,6 +74,8 @@ public class Company extends BasePo<Company> {
     
     private Double total2017;
     
+    private Double total2018;
+    
     @Transient
     private String types; //类型
 
@@ -406,6 +408,14 @@ public class Company extends BasePo<Company> {
         return "Company [parentId=" + parentId + ", parentName=" + parentName + ", name=" + name + ", code="
                 + code + ", address=" + address + ", sort=" + sort + ", type=" + type + ", level=" + level
                 + ", types=" + types + ", count=" + count + "]";
+    }
+
+    public Double getTotal2018() {
+        return total2018;
+    }
+
+    public void setTotal2018(Double total2018) {
+        this.total2018 = total2018;
     }
     
     
