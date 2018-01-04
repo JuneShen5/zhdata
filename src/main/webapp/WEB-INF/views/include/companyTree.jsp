@@ -13,7 +13,10 @@
 </style>
 
 <!-- 添加子级菜单的上级菜单 -->
-<div id="" class="company_tree" style="display:none; position: absolute;">
+<div id="" class="company_tree vali-ignore" style="display:none; position: absolute;">
+	<div class="input-group tree-input">
+		<input id="treeSearchInput" type="text" class="form-control" placeholder="请输入名称">
+	</div><!-- /input-group -->
 	<ul id="menuTree" class="ztree company_tree_ul" style="margin-top:0; width:100%; height: 300px;"></ul>
 </div>
 
@@ -117,6 +120,36 @@
 		console.log("event: ", event)
 		if (!(event.target.id == "menuBtn" || event.target.className == "citySel" || event.target.className == "company_tree" || $(event.target).parents(".company_tree").length>0)) {
 			hideMenu();
+		}
+	}
+
+	$(function () {
+		$(document).on('input', '#treeSearchInput', function () {
+//			var inputText = $('#treeSearchInput').val();
+			var inputText = $(this).val();
+            menuSearch(inputText);
+        });
+    });
+	// 搜索功能
+	function menuSearch(searchText) {
+		var treeObj = $.fn.zTree.getZTreeObj("menuTree");
+		var allNodes = treeObj.getNodesByParamFuzzy("name", "", null);
+		$.each(allNodes, function (index, allNode) {
+			$('#'+allNode.tId).children('a').removeClass('high-light-red');
+		});
+		if (searchText !== ''){
+			var nodes = treeObj.getNodesByParamFuzzy("name", searchText, null);
+			$.each(nodes, function (index, node) {
+				$('#'+node.tId).children('a').addClass('high-light-red');
+			});
+			var scrollTop = $('.company_tree').scrollTop();
+			console.log(scrollTop);
+			if (nodes[0] == undefined) {
+				return
+			}
+			var offsetTop = $('#'+nodes[0].tId).children('a').offset().top;
+            console.log(offsetTop);
+			$('.company_tree').animate({scrollTop:offsetTop-scrollTop-150},500);
 		}
 	}
 	

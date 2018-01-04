@@ -39,9 +39,6 @@
 	padding: 0;
 	margin-bottom: 10px;
 }
-.high-light-red{
-	background-color: #f2dede!important;
-}
 </style>
 </head>
 

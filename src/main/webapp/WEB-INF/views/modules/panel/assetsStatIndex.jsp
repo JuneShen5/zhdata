@@ -263,7 +263,10 @@ ul, li {
 		    var thisSearchType = $('select[name=searchType]').val();
 //            $('.search-container').find('.search-input').attr('sName', thisSearchType);
 			var thisValue = $('.search-container').find('.search-input').val();
-			var searchObj = {};
+			var searchObj = {
+                name:"",
+                companyName:""
+			};
             searchObj[thisSearchType] = thisValue;
             $('.loading-area').show();
             $.ajax({
