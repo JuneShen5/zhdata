@@ -94,7 +94,6 @@ public class InformationController extends BaseController<Information>{
         }
             
         
-        
         Integer roleId=UserUtils.getCurrentUser().getRoleId();
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         List<Integer> comList=Lists.newArrayList();
