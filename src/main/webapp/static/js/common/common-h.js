@@ -97,7 +97,7 @@ var TableInit = function(tableOption,btnOption) {
     var LayerEvent = function(ele, options) {
         this.$element = ele;
         this.options = $.extend({}, LayerEvent.DEFAULTS, options);
-        this.init();
+        this.initFormPlugins();
     };
     LayerEvent.DEFAULTS = {
         title: '未命名弹出框',
@@ -111,8 +111,9 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.init = function () {
         if (this.options.onlyConfirm === false || this.options.onlyConfirm === undefined){
-            this.initContainer();
+            var layerIndex = this.initContainer();
         }
+        return layerIndex;
     };
     // 弹框容器初始化---列表
     LayerEvent.prototype.initContainer = function () {
@@ -132,7 +133,7 @@ var TableInit = function(tableOption,btnOption) {
             btnText.push(btns.text);
             btnFunction.push(btns.event);
         });
-        layer.open({
+        var openIndex = layer.open({
             title: this.options.title,
             type : this.options.type,
             area : this.options.containerSize,
@@ -151,7 +152,8 @@ var TableInit = function(tableOption,btnOption) {
             },
             content : this.$element
         });
-        this.initFormPlugins();
+        // this.initFormPlugins();
+        return openIndex;
     };
     // 确认弹框
     LayerEvent.prototype.initConfirm = function () {
@@ -519,7 +521,7 @@ var TableInit = function(tableOption,btnOption) {
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
         // var layerSubmitBtn = this.$element.parents('.layui-layer').find('.layui-layer-btn0');
-        this.$element.parents('.layui-layer').on('click', '.layui-layer-btn0', function () {
+        this.$element.parents('.layui-layer').one('click', '.layui-layer-btn0', function () {
             $(this).hide();
             $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
         });
@@ -527,10 +529,19 @@ var TableInit = function(tableOption,btnOption) {
             url : that.options.submitUrl,
             type : 'post',
             success : function(data){
-                layer.close(layer.index);
-                $(that.options.dataTable).bootstrapTable('refresh');
-                layer.msg(data);
-                that.resetLayerForm();
+                if (data.status === 1){
+                    console.log(that.openLayerIndex);
+                    layer.closeAll('page');
+                    $(that.options.dataTable).bootstrapTable('refresh');
+                    layer.msg(data.message);
+                    that.resetLayerForm();
+                } else if (data.status === 0){
+                    // layer.msg(data.message);
+                    that.$element.find('form').find('input[name=name]').focus().parents('.form-group').removeClass('has-success,has-error').addClass('has-error');
+                    that.$element.find('form').find('input[name=name]').parent().find('span.help-block').html('<i class="fa fa-times-circle"></i> 名称重复');
+                }
+                that.$element.parents('.layui-layer').find('.layui-layer-btn0').show();
+                that.$element.parents('.layui-layer').find('.a-disabled').remove();
             },
             error : function(XmlHttpRequest, textStatus, errorThrown){
                 layer.close(layer.index);
@@ -538,22 +549,29 @@ var TableInit = function(tableOption,btnOption) {
                 layer.msg("数据操作失败!");
                 that.resetLayerForm();
             },
-            resetForm : true
+            // resetForm : true
         });
         return false;
     };
     LayerEvent.prototype.openAdd = function () {
-        this.validate();
+        var openLayerIndex = this.initContainer();
+        console.log(this.openLayerIndex);
+        this.validate(openLayerIndex);
     };
     LayerEvent.prototype.openDetail = function () {
+        this.openLayerIndex = this.init();
+        console.log(this.openLayerIndex);
         this.loadData(this.getRowData());
         this.forbiddenForm();
     };
     LayerEvent.prototype.openEdit = function () {
+        this.openLayerIndex = this.init();
+        console.log(this.openLayerIndex);
         this.validate();
         this.loadData(this.getRowData());
         // 验证初始化
-        this.validate();
+        // this.validate(this.openLayerIndex);
+        this.$element.find('form').validate().form();
     };
     LayerEvent.prototype.deleteRow = function () {
         this.initConfirm();

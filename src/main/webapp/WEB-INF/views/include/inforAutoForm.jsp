@@ -146,7 +146,7 @@
 	<div class="form-group ele-hide" data-parent="manageStyle">
 		<label class="col-sm-3 control-label">所属系统名称：</label>
 		<div class="col-sm-7">
-			<select name="systemId" class="form-control">
+			<select name="systemId" class="select-chosen">
 				<option value=""></option>
 				<c:forEach var="sys" items="${fns:getList('sys')}">
 					<option value="${sys.id}">${sys.name}</option>
