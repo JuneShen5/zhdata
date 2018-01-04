@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -47,15 +48,15 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         super(fileName, title, rowName, dataList, response);
     }
     
-    public ExportExcelTemplate(String fileName, String title, String templatFile, String[] rowName,
+    public ExportExcelTemplate(HttpServletRequest request,String fileName, String title, String templatFile, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
-        super(fileName, title, templatFile, rowName, dataList, response);
+        super(request,fileName, title, templatFile, rowName, dataList, response);
     }  
     
-    public ExportExcelTemplate(String fileName, String title, String templatFile,
-            String[] rowName, List<Map<String, Object>> infoList) throws IOException {
-        super(fileName, title, templatFile, rowName, infoList);
-    }
+//    public ExportExcelTemplate(String fileName, String title, String templatFile,
+//            String[] rowName, List<Map<String, Object>> infoList) throws IOException {
+//        super(fileName, title, templatFile, rowName, infoList);
+//    }
 
     @Override
     protected void exportValue(XSSFSheet sheet) {

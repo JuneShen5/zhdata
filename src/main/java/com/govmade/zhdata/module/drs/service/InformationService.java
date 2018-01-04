@@ -86,14 +86,14 @@ public class InformationService extends BaseService<Information> {
     }
 
     public void saveInformation(Information info) {
-        try {
+//        try {
             if (this.saveSelective(info) > 0 && info.getElementList().size() > 0) {
                 this.infoDao.saveRelation(info);
             }
-        } catch (Exception e) {
-            // 保存失败
-            e.printStackTrace();
-        }
+//        } catch (Exception e) {
+//            // 保存失败
+//            e.printStackTrace();
+//        }
     }
 
     public void updateInformation(Information info) {

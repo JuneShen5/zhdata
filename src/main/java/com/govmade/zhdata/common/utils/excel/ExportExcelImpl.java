@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.util.HSSFColor;
@@ -49,10 +50,10 @@ public abstract class ExportExcelImpl{
     protected XSSFWorkbook workbook = null;
     
     private OutputStream out = null;
-    private String templatePath = ExportExcelImpl.class.getResource("excelTemplate/").getPath();
+//    private String templatePath = ExportExcelImpl.class.getResource("excelTemplate/").getPath();
     
 //    private String templatePath = System.getProperty("user.dir")+"\\src\\main\\webapp\\static\\file\\";
-    
+
     protected CellStyle columnTopStyle = null;
     
     protected CellStyle style = null;
@@ -73,11 +74,11 @@ public abstract class ExportExcelImpl{
         this.response = response;
     }
     
-    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
+    public ExportExcelImpl(HttpServletRequest request,String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList,HttpServletResponse response) throws IOException{
         this(fileName, title, rowName,  dataList,response);
-        System.out.println("templatePath:"+templatePath);
-        System.out.println(templatePath+templatFile);
-        File  fi = new File(templatePath+templatFile);
+       
+        String templatePath = request.getSession().getServletContext().getRealPath("static/excel/excelTemplate");
+        File  fi = new File(templatePath+"/"+templatFile);
         InputStream in;
         try {
             in = new FileInputStream(fi);
@@ -87,22 +88,22 @@ public abstract class ExportExcelImpl{
         this.workbook = new XSSFWorkbook(in);
     }
     
-    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList) throws IOException{
-        this.fileName = fileName;   //导出的文件名
-        this.dataList = dataList;   //查询出来的实体数据
-        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
-//        this.rowName = rowName;
-        this.title = title;       //sheet名
-       
-        File  fi = new File(templatePath+templatFile);
-        InputStream in;
-        try {
-            in = new FileInputStream(fi);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException("模板文件不存在");
-        }
-        this.workbook = new XSSFWorkbook(in);
-    }
+//    public ExportExcelImpl(String fileName,String title,String templatFile,String[] rowName,List<Map<String, Object>>  dataList) throws IOException{
+//        this.fileName = fileName;   //导出的文件名
+//        this.dataList = dataList;   //查询出来的实体数据
+//        this.rowName = ChangeRowName(rowName);    //传过来的 中文名_因文名_类型_company 组成的数组
+////        this.rowName = rowName;
+//        this.title = title;       //sheet名
+//       
+//        File  fi = new File(templatePath+templatFile);
+//        InputStream in;
+//        try {
+//            in = new FileInputStream(fi);
+//        } catch (FileNotFoundException e) {
+//            throw new RuntimeException("模板文件不存在");
+//        }
+//        this.workbook = new XSSFWorkbook(in);
+//    }
     
 
     public String[] ChangeRowName(String[] rowName){

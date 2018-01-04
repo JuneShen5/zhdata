@@ -2,27 +2,31 @@ package com.govmade.zhdata.common.utils.excel;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +38,6 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
-import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -66,9 +69,18 @@ public class ImportExcelImpl{
     protected Sheet sheet;
 
     /**
-     * 标题行号
+     * 错误数据的模板文件
      */
-    private int headerNum;
+    private String errorDataExcel;       
+    
+    /**
+     * 错误数据的模板文件
+     */
+    private Integer headerNum;
+    /**
+     * 文件名
+     */
+    private String fileName;
     
     /**
      * 控制每次从第几行数据开始读
@@ -79,6 +91,8 @@ public class ImportExcelImpl{
      * 控制每次从第几列数据开始读
      */
     protected int columnIndex = 1;
+    
+    protected HttpServletRequest request;
     
     /**
      * 控制读取多少条后返回
@@ -102,6 +116,22 @@ public class ImportExcelImpl{
     
     protected String[] unSelect = {"input","dateselect","textarea"}; //不用做关联的inputtype
 //    protected String[] Select = {"checkbox","element","select"}; //一对一关联的或一对多关联的
+    
+    protected List<Map<String,Integer>> someErrorDataCoordinate= new ArrayList<Map<String,Integer>>();//错误数据的坐标
+   
+    protected List<Map<String,Integer>> AllErrorDataCoordinate= new ArrayList<Map<String,Integer>>();//错误数据的坐标
+    
+    public List<Map<String, Integer>> getAllErrorDataCoordinate() {
+        return AllErrorDataCoordinate;
+    }
+
+    public void setAllErrorDataCoordinate() {
+        if(someErrorDataCoordinate.size()>0){
+            AllErrorDataCoordinate.addAll(someErrorDataCoordinate);
+        }
+    }
+
+
     /**
      * 无参构造
      */
@@ -109,57 +139,6 @@ public class ImportExcelImpl{
         super();
     }
     
-  
-    /**
-     * 构造函数
-     * 
-     * @param path 导入文件，读取第一个工作表
-     * @param headerNum 标题行号，数据行号=标题行号+1
-     * @throws InvalidFormatException
-     * @throws IOException
-     */
-    public ImportExcelImpl(String fileName, int headerNum) throws InvalidFormatException, IOException {
-        this(new File(fileName), headerNum);
-    }
-
-    /**
-     * 构造函数
-     * 
-     * @param path 导入文件对象，读取第一个工作表
-     * @param headerNum 标题行号，数据行号=标题行号+1
-     * @throws InvalidFormatException
-     * @throws IOException
-     */
-    public ImportExcelImpl(File file, int headerNum) throws InvalidFormatException, IOException {
-        this(file, headerNum, 0);
-    }
-
-    /**
-     * 构造函数
-     * 
-     * @param path 导入文件
-     * @param headerNum 标题行号，数据行号=标题行号+1
-     * @param sheetIndex 工作表编号
-     * @throws InvalidFormatException
-     * @throws IOException
-     */
-    public ImportExcelImpl(String fileName, int headerNum, int sheetIndex) throws InvalidFormatException,
-            IOException {
-        this(new File(fileName), headerNum, sheetIndex);
-    }
-
-    /**
-     * 构造函数
-     * 
-     * @param path 导入文件对象
-     * @param headerNum 标题行号，数据行号=标题行号+1
-     * @param sheetIndex 工作表编号
-     * @throws InvalidFormatException
-     * @throws IOException
-     */
-    public ImportExcelImpl(File file, int headerNum, int sheetIndex) throws InvalidFormatException, IOException {
-        this(file.getName(), new FileInputStream(file), headerNum, sheetIndex);
-    }
 
     /**
      * 构造函数
@@ -170,9 +149,9 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(MultipartFile multipartFile, int headerNum, int sheetIndex)
+    public ImportExcelImpl(HttpServletRequest request,MultipartFile multipartFile, int headerNum, int sheetIndex)
             throws InvalidFormatException, IOException {
-        this(multipartFile.getOriginalFilename(), multipartFile.getInputStream(), headerNum, sheetIndex);
+        this(request,multipartFile.getOriginalFilename(), multipartFile.getInputStream(), headerNum, sheetIndex);
     }
 
     /**
@@ -184,7 +163,7 @@ public class ImportExcelImpl{
      * @throws InvalidFormatException
      * @throws IOException
      */
-    public ImportExcelImpl(String fileName, InputStream is, int headerNum, int sheetIndex)
+    public ImportExcelImpl(HttpServletRequest request,String fileName, InputStream is, int headerNum, int sheetIndex)
             throws InvalidFormatException, IOException {
         if (StringUtils.isBlank(fileName)) {
             throw new RuntimeException("导入文档为空!");
@@ -200,6 +179,8 @@ public class ImportExcelImpl{
         }
         this.sheet = this.wb.getSheetAt(sheetIndex);
         this.headerNum = headerNum;
+        this.fileName = fileName;
+        this.request = request;
         log.debug("Initialize success.");
     }
     
@@ -224,9 +205,10 @@ public class ImportExcelImpl{
      * @return List<Map<String, String>>
      * @throws Exception*********
      */
-    public void uploadAndRead(int startRow,int columnIndex, int commitRow) throws Exception{
-      this.columnIndex = columnIndex;
-      this.commitRow = commitRow;
+    public void uploadAndRead(int startRow,int columnIndex, int commitRow, String errorDataExcel) throws Exception{
+       this.columnIndex = columnIndex;
+       this.commitRow = commitRow;
+       this.errorDataExcel = errorDataExcel;
        Row nameEnRow = sheet.getRow(startRow-2);  //英文名称行
        Row inputTypeRow = sheet.getRow(startRow-1); //输入框及类型行
        int lastCellNum = nameEnRow.getLastCellNum(); //总共的列数
@@ -249,12 +231,9 @@ public class ImportExcelImpl{
      * @throws Exception
      */
     public List<Map<String, String>> readExcel(Map<String, String> titleAndAttribute,int startRow) throws Exception{
-        System.out.println("startRow1:"+startRow);
-        System.out.println("commitRow:"+commitRow);
         List<Map<String, String>> resolut = new ArrayList<Map<String, String>>();//存放最终结果
-        
         int lastCellNum = nameEnMap.size(); //总共的列数
-        
+        someErrorDataCoordinate.clear();
         for (int rowIndex = startRow;  sheet.getRow(rowIndex)!=null; rowIndex++) {
             Row Datarow = sheet.getRow(rowIndex);
             Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
@@ -265,31 +244,7 @@ public class ImportExcelImpl{
                     continue;  //类型行没有数据直接跳过
                 }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
                     value = getCellValue(cell);   //没有关联的数据直接获取
-                }
-//                else if(Arrays.asList(oneToMoreSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
-//                    //有关联一对一的数据，获取关联的ID
-//                    int _rowIndex; //用于记录错误的行和列
-//                    int _columnIndex ;
-//                    if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
-//                        String name = getCellValue(cell);
-//                       /* Map<label,value>*/
-//                        String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
-//                        if(ID==null || ID==""){
-//                            _rowIndex = rowIndex+1; 
-//                            _columnIndex = columnIndex+1;
-//                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
-//                        }else{
-//                            value = ID;
-//                        }
-//                    }else{
-//                        _rowIndex = rowIndex+1; 
-//                        _columnIndex = columnIndex+1;
-//                        throw new RuntimeException("数据不能为空,位置："+_rowIndex+"行"+_columnIndex+"列");
-////                        value = null;
-//                    }
-                    
-//                }
-            else{
+                }else{
                     //有关联的数据，获取关联的ID
                     int _rowIndex; //用于记录错误的行和列
                     int _columnIndex ;
@@ -297,10 +252,15 @@ public class ImportExcelImpl{
                         String name = getCellValue(cell);
                        /* Map<label,value>*/
                         String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
-                        if(ID==null || ID==""){
-                            _rowIndex = rowIndex+1; 
-                            _columnIndex = columnIndex+1;
-                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
+                        if(ID==null || ID=="" || ID=="null"){
+//                            _rowIndex = rowIndex+1; 
+//                            _columnIndex = columnIndex+1;
+//                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
+                            Map<String,Integer> oneErrorDataCoordinate = new HashMap<String, Integer>();
+                            oneErrorDataCoordinate.put("rowIndex", rowIndex);
+                            oneErrorDataCoordinate.put("columnIndex", columnIndex);
+                            someErrorDataCoordinate.add(oneErrorDataCoordinate);
+                            break;
                         }else{
                             value = ID;
                         }
@@ -320,7 +280,6 @@ public class ImportExcelImpl{
         }
         return resolut;
     }
-    
    
    /**
     * 获取单元格值
@@ -329,7 +288,6 @@ public class ImportExcelImpl{
     */
     public String getCellValue(Cell cell) {
     	String val = "";
-        try {
             if (cell != null) {
                 if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
                     cell.setCellType(Cell.CELL_TYPE_STRING);
@@ -344,9 +302,7 @@ public class ImportExcelImpl{
                     val = cell.getErrorCellValue()+"";
                 }
             }
-        } catch (Exception e) {
-            return val;
-        }
+       
         return val;
     }
     /**
@@ -380,18 +336,13 @@ public class ImportExcelImpl{
             case "checkbox":
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
-//                    System.out.println("dictMap"+dictMap);
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Map<String,String> checkDic = dictMap.get(inputValue);
-//                System.out.println("checkDic:"+checkDic);
-//                System.out.println("inputValue:"+inputValue);
                 m = Pattern.compile(regEx).matcher(name);  
                 Array = m.replaceAll(",").split(",");
                 for(int i=0;i<Array.length;i++){
                     String checkId = checkDic.get(Array[i]);
-//                    System.out.println("Array[i]:"+Array[i]);
-//                    System.out.println("checkId:"+checkId);
                     if(!(checkId == "" || checkId == null)){
                         _Id += checkId+",";
                     }
@@ -512,7 +463,6 @@ public class ImportExcelImpl{
     protected void getAllDictToList(){
         Map<String, Map<String,String>> resultMap = new HashMap<String, Map<String,String>>(); 
         List<Dict> dictList = SysUtils.getDictList();
-        try{
             for(Dict dict : dictList){
                 if(resultMap.containsKey(dict.getType())){//map中异常批次已存在，将该数据存放到同一个key（key存放的是异常批次）的map中 
                     resultMap.get(dict.getType()).put(dict.getLabel(), dict.getValue()); 
@@ -524,11 +474,78 @@ public class ImportExcelImpl{
 
             } 
 
-            }catch(Exception e){
-            e.printStackTrace();
-            } 
         this.dictMap = resultMap;
-//        System.out.println("resultMap"+resultMap);
+    }
+
+    /**
+     * 将错误数据保存起来用于下载
+     * @throws IOException
+     */
+    public String creatErrorDataExcel() throws IOException {
+        if(AllErrorDataCoordinate.size()>0){
+            String templatePath = request.getSession().getServletContext().getRealPath("static/excel/excelTemplate");
+            File  fi = new File(templatePath+"/"+errorDataExcel);
+            InputStream in;
+            try {
+                in = new FileInputStream(fi);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException("模板文件不存在");
+            }
+            Workbook errorDataExcelWb =  new XSSFWorkbook(in);
+            Sheet errorDataSheet = errorDataExcelWb.getSheetAt(0);
+            int lastColum;
+            if(errorDataSheet.getLastRowNum()>1){
+              //模板中有些东西的复制类型行
+                int errorDataLastRowNum = errorDataSheet.getLastRowNum();
+                Row errorDataNameEnRow = errorDataSheet.getRow(errorDataLastRowNum);
+                lastColum = errorDataNameEnRow.getLastCellNum();
+                Row errorDatainputRow = errorDataSheet.createRow(errorDataLastRowNum+1);
+                Row importRow = sheet.getRow(errorDataLastRowNum+1);
+                for(int i=0; i<lastColum; i++){
+                    errorDatainputRow.createCell(i).setCellValue(importRow.getCell(i).getStringCellValue());
+                }
+                
+            }else{
+                //模板中没写东西的直接复制前三行
+                lastColum = sheet.getRow(1).getLastCellNum();
+                for(int i=0;i<3;i++){
+                    for(int j=0;j<lastColum;j++){
+                        errorDataSheet.createRow(i).createCell(j).setCellFormula(sheet.getRow(i).getCell(j).getStringCellValue());
+                    }
+                }
+            }
+//            Sheet nameEnRow = errorDataExcel.getSheetAt(1).getRow(startRow-2);  //英文名称行
+            //定义背景颜色
+            XSSFCellStyle style = (XSSFCellStyle) errorDataExcelWb.createCellStyle();
+            style.setFillForegroundColor(HSSFColor.RED.index);
+            style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND); 
+            
+            for(int m=0;m<AllErrorDataCoordinate.size();m++){
+                Row newRow = errorDataSheet.createRow(errorDataSheet.getLastRowNum()+1+m);//模板中创建的行
+                Map<String ,Integer> Coordinate = AllErrorDataCoordinate.get(m); //获取行列的坐标
+                Row errorRow = sheet.getRow(Coordinate.get("rowIndex"));   //获取导入文件中错误数据的哪一行
+                //将导入文件中的错误数据保存到模板文件中
+                for(int n=0;n<lastColum;n++){
+                    try {
+                        newRow.createCell(n).setCellValue(errorRow.getCell(n).getStringCellValue());
+                    } catch (Exception e) {
+                        // TODO Auto-generated catch block
+//                        e.printStackTrace();
+                        continue; //在数据导出的时候有些cell没有创建过，这边以免错误就直接跳过这类cell
+                    }
+                }
+                newRow.getCell(Coordinate.get("columnIndex")).setCellStyle(style);//将模板文件中的错误数据背景色标红
+            }
+            String outFileName = System.currentTimeMillis()+".xlsx";
+            String errorDataExcelPath = request.getSession().getServletContext().getRealPath("static/excel/errorDataExcel");
+            FileOutputStream fout = new FileOutputStream(errorDataExcelPath+"/"+outFileName);
+            errorDataExcelWb.write(fout);
+            fout.close();
+            return request.getContextPath()+"/static/excel/errorDataExcel/"+outFileName;
+        }else{
+            return "";
+        }
+      
     }
 
 }

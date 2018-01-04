@@ -727,12 +727,15 @@ var TableInit = function(tableOption,btnOption) {
 		});
 		
 		uploader.on("uploadAccept", function( file, data){
+			console.log("111111");
+			console.log(data);
+			console.log(ctx);
 			if(data=="上传成功！"){
 				$("#message").text(data).css("color", "#1ab394");
 				layer.close(importDataLayer);
 				$(tableId).bootstrapTable('refresh');
 			}else{
-				$("#message").text(data).css("color", "#ed5565");
+				$("#message").html(data).css("color", "#ed5565");
 			}
 //		    if ( data.success=="0") {
 //		        // 通过return false来告诉组件，此文件上传有错。
@@ -743,6 +746,7 @@ var TableInit = function(tableOption,btnOption) {
 	
 		/*    完成上传完了，成功或者失败，先删除进度条。 */
 		uploader.on( 'uploadComplete', function( file ) {
+			console.log("22222");
 		     $( '#'+file.id ).find('.progress').fadeOut();
 		});
 		setTimeout(function () {

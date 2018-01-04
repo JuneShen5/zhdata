@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.ss.usermodel.Row;
@@ -52,9 +53,9 @@ public class ExportExcelData extends ExportExcelImpl {
         super(fileName, title, rowName, dataList, response);
     }
     
-    public ExportExcelData(String fileName, String title, String templatFile, String[] rowName,
+    public ExportExcelData(HttpServletRequest request,String fileName, String title, String templatFile, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
-        super(fileName, title, templatFile, rowName, dataList, response);
+        super(request,fileName, title, templatFile, rowName, dataList, response);
     }  
     
     @Override
@@ -134,10 +135,7 @@ public class ExportExcelData extends ExportExcelImpl {
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
-//                System.out.println("dictMap:"+dictMap);
-//                System.out.println("id:"+Id);
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
-//                System.out.println("inputValue:"+inputValue);
                 name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
             case "check":
@@ -288,6 +286,5 @@ public class ExportExcelData extends ExportExcelImpl {
                 e.printStackTrace();
                 } 
             this.dictMap = resultMap;
-//            System.out.println("resultMap"+resultMap);
         }
 }  
