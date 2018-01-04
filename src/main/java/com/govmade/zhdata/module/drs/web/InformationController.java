@@ -117,6 +117,7 @@ public class InformationController extends BaseController<Information>{
                 Map<String, Object> map = Maps.newHashMap();
                 map.put("id", s.getId());
                 map.put("companyId", s.getCompanyId());
+                map.put("departId", s.getDepartId());
                 map.put("companyName", s.getCompanyName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
@@ -137,11 +138,28 @@ public class InformationController extends BaseController<Information>{
                 map.put("rightRelation", s.getRightRelation());
                 map.put("manageStyle", s.getManageStyle());
                 map.put("releaseDate", s.getReleaseDate());
-                if(s.getIsAudit()==0){
+                switch (s.getIsAudit()) {
+                case 0:
+                    map.put("auditName", "未发布");
+                    break;
+                case 1:
+                    map.put("auditName", "已发布未审核");
+                    break;
+                case 2:
+                    map.put("auditName", "已发布已审核");
+                    break;
+                case 3:
+                    map.put("auditName", "已发布审核不通过");
+                    break;
+                default:
+                    map.put("auditName", "未发布");
+                    break;
+                }
+                /*if(s.getIsAudit()==0){
                     map.put("auditName", "待审核");
                 }else{
                     map.put("auditName", "已审核");
-                }
+                }*/
                 map.put("elementList", s.getElementList());
                 String info = s.getInfo();
                 if (!StringUtils.isBlank(info))
@@ -451,6 +469,30 @@ public class InformationController extends BaseController<Information>{
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
+    
+    /**
+     * 信息资源发布
+     * 
+     * @param info
+     * @return
+     */
+    @RequestMapping(value = "release", method = RequestMethod.GET)
+    public ResponseEntity<String> updateRelease(Information info) {
+        try {
+            Company company = this.companyService.queryByInfoId(info.getId());
+            if (company != null) {
+                info.setDepartId(company.getId());
+            } else {
+                info.setDepartId(info.getCompanyId());
+            }
+            info.setIsAudit(1);
+            this.infoService.updateSelective(info);
+            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
     
     /**
      * 发布审核-审核不通过

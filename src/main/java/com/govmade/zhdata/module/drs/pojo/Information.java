@@ -13,7 +13,9 @@ public class Information extends BasePo<Information> {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer companyId;
+    private Integer companyId; //信息资源提供方（所属机构）
+    
+    private Integer departId; //审核机构
 
     private Integer systemId;
 
@@ -294,6 +296,14 @@ public class Information extends BasePo<Information> {
                 + ", releaseDate=" + releaseDate + ", isAuthorize=" + isAuthorize + ", companyName="
                 + companyName + ", systemName=" + systemName + ", elementIds=" + elementIds
                 + ", elementList=" + elementList + ", count=" + count + "]";
+    }
+
+    public Integer getDepartId() {
+        return departId;
+    }
+
+    public void setDepartId(Integer departId) {
+        this.departId = departId;
     }
 
 }

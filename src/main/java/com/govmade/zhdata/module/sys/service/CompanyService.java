@@ -131,5 +131,9 @@ public class CompanyService extends BaseService<Company>{
         Company company = new Company();
         return companyDao.findAll(company);
     }
+
+    public Company queryByInfoId(Integer id) {
+        return this.companyDao.queryByInfoId(id);
+    }
     
 }

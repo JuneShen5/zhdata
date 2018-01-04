@@ -179,4 +179,11 @@
             #{id}
         </foreach>
 	</delete>
+	
+	<!-- 根据信息资源ID查找机构 -->
+	<select id="queryByInfoId">
+	SELECT p.* FROM sys_company a LEFT JOIN sys_company p ON p.id=a.parent_id
+	WHERE a.id=(SELECT company_id FROM drs_information WHERE id=#{id}
+	) AND a.del_flag=0 AND p.type NOT IN (1,2)
+</select>
 </mapper>

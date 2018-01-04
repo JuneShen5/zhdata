@@ -6,6 +6,7 @@
         <id property="id" column="id" />
         <result property="companyName" column="companyName" />
         <result property="companyId" column="companyId" />
+         <result property="departId" column="departId" />
 		<result property="systemId" column="systemId" />
 		<result property="nameEn" column="nameEn" />
 		<result property="nameCn" column="nameCn" />
@@ -57,6 +58,7 @@
 	<sql id="informationColumns">
 		a.id,
 		a.company_id AS "companyId",
+		a.depart_id AS "departId",
 		a.system_id AS "systemId",
 		a.name_en AS "nameEn",
 		a.name_cn AS "nameCn",
