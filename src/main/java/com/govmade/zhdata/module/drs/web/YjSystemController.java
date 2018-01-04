@@ -15,10 +15,15 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseController;
 import com.govmade.zhdata.common.persistence.BaseService;
+import com.govmade.zhdata.common.persistence.Message;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
+import com.govmade.zhdata.module.drs.pojo.NjSystems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
+import com.govmade.zhdata.module.drs.pojo.ZjSystems;
+import com.govmade.zhdata.module.drs.service.NjSystemService;
 import com.govmade.zhdata.module.drs.service.YjSystemService;
+import com.govmade.zhdata.module.drs.service.ZjSystemService;
 
 @Controller
 @RequestMapping(value = "assets/yjSystem")
@@ -31,6 +36,12 @@ public class YjSystemController extends BaseController<YjSystems>{
 
     @Autowired
     private YjSystemService yjSystemService;
+    
+    @Autowired
+    private NjSystemService njSystemService;
+    
+    @Autowired
+    private ZjSystemService zjSystemService;
 
     @Override
     protected void getFileName(){
@@ -96,16 +107,56 @@ public class YjSystemController extends BaseController<YjSystems>{
      * @return
      */
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(YjSystems yjSystems) {
+    public ResponseEntity<Message> save(YjSystems yjSystems) {
         try {
+            String name=yjSystems.getName();
+            Integer companyId=yjSystems.getCompanyId();
+            NjSystems record1=new NjSystems();
+            record1.setName(name);
+            record1.setCompanyId(companyId);
+            NjSystems njSystems=this.njSystemService.queryOne(record1);
+            ZjSystems record2=new ZjSystems();
+            record2.setName(name);
+            record2.setCompanyId(companyId);
+            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
+            YjSystems record3=new YjSystems();
+            record3.setName(name);
+            record3.setCompanyId(companyId);
+            YjSystems yjSystems1=this.yjSystemService.queryOne(record3);
+            Message message1=new Message();
+            message1.setStatus(0);
+            message1.setMessage("系统名称已经存在，请重新填写！");
+            
             if (yjSystems.getId() == null) {
                 yjSystems.preInsert();
-                this.yjSystemService.saveSelective(yjSystems);
+                if (null==njSystems && null==zjSystems && null==yjSystems1) {
+                    this.yjSystemService.saveSelective(yjSystems);
+                    Message message=new Message();
+                    message.setStatus(1);
+                    message.setMessage(Global.INSERT_SUCCESS);
+                    return ResponseEntity.ok(message);
+                }else {
+                    return ResponseEntity.ok(message1);
+                }
+                
             } else {
                 yjSystems.preUpdate();
-                this.yjSystemService.updateSelective(yjSystems);
+                Message message2=new Message();
+                message2.setStatus(1);
+                message2.setMessage(Global.UPDATE_SUCCESS);
+                
+                if (null==njSystems && null==zjSystems && null==yjSystems1) {
+                    this.yjSystemService.updateSelective(yjSystems);
+                    return ResponseEntity.ok(message2);
+                }else if (yjSystems1!=null&&yjSystems1.getId().intValue()==yjSystems.getId().intValue()) {
+                    this.yjSystemService.updateSelective(yjSystems);
+                    return ResponseEntity.ok(message2);
+                } else {
+                    return ResponseEntity.ok(message1);
+                }
+               
             }
-            return ResponseEntity.ok(Global.INSERT_SUCCESS);
+            
         } catch (Exception e) {
             e.printStackTrace();
         }

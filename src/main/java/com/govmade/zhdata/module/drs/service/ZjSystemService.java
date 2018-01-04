@@ -55,8 +55,10 @@ public class ZjSystemService extends BaseService<ZjSystems> {
         PageHelper.startPage(page.getPageNum(), page.getPageSize());
         ZjSystems zjSystems = JsonUtil.readValue(page.getObj(), ZjSystems.class);
         try {
-            String str = new String(zjSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
-            zjSystems.setName(str);
+            String name = new String(zjSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
+            String companyName = new String(zjSystems.getCompanyName().getBytes("ISO-8859-1"), "UTF-8");
+            zjSystems.setName(name);
+            zjSystems.setCompanyName(companyName);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -108,7 +108,7 @@ h3 {
 								<div class="select-area" style="display: none">
 									<select id="chartSelect1" name="chartSelect1" class="" multiple data-width="fit">
 									</select>
-									<button id="selectBtn1" class="btn btn-primary">确认</button>
+									<button id="selectBtn1" class="btn btn-primary">确定</button>
 								</div>
 								<div class="ibox float-e-margins">
 									<div class="ibox-content echarts-name">

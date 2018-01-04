@@ -7,12 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.abel533.entity.Example;
-import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
-import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
@@ -21,7 +18,6 @@ import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.sys.dao.CompanyDao;
 import com.govmade.zhdata.module.sys.mapper.CompanyMapper;
 import com.govmade.zhdata.module.sys.pojo.Company;
-import com.govmade.zhdata.module.sys.pojo.Role;
 
 @Service
 public class CompanyService extends BaseService<Company>{

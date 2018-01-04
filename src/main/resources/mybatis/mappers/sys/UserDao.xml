@@ -17,22 +17,26 @@
 		a.mobile,
 		a.photo,
 		a.user_type AS "userType",
-		a.login_ip AS "loginIp",
-		a.login_date AS	"loginDate",
-		a.login_flag AS	"loginFlag",
+		a.login_ip AS
+		"loginIp",
+		a.login_date AS "loginDate",
+		a.login_flag AS "loginFlag",
 		a.create_by AS "createById",
 		a.create_date AS "createDate",
-		a.update_by AS "updateById",
+		a.update_by
+		AS "updateById",
 		a.update_date AS "updateDate",
 		a.remarks,
-		a.del_flag AS "delFlag",
+		a.del_flag AS
+		"delFlag",
 		c.name AS "companyName",
 		r.name AS "roleName"
 	</sql>
 
-    <sql id="userJoins">
+	<sql id="userJoins">
 		LEFT JOIN sys_company c ON c.id = a.company_id
-		LEFT JOIN sys_role r ON r.id = a.role_id
+		LEFT JOIN
+		sys_role r ON r.id = a.role_id
 	</sql>
 
 	<!-- 根据编号获得用户 -->
@@ -55,13 +59,16 @@
 			<if test="name != null and name != ''">
 				AND a.name LIKE CONCAT('%',#{name},'%')
 			</if>
+			<if test="loginName != null and loginName != ''">
+				AND a.login_name LIKE CONCAT('%',#{loginName},'%')
+			</if>
 		</where>
-<!-- 		WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.name LIKE CONCAT('%',#{name},'%')
- -->		ORDER BY a.id
+		<!-- WHERE a.del_flag = #{DEL_FLAG_NORMAL} AND a.name LIKE CONCAT('%',#{name},'%') -->
+		ORDER BY a.id
 	</select>
-	
-	   <!-- 添加多条数据 -->
-	<insert  id="saveAll"  statementType="STATEMENT" >
+
+	<!-- 添加多条数据 -->
+	<insert id="saveAll" statementType="STATEMENT">
 		INSERT INTO sys_user
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">
@@ -76,5 +83,5 @@
 			</foreach>
 		</foreach>
 	</insert>
-	
+
 </mapper>

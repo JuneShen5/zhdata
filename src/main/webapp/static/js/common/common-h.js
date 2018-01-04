@@ -1,102 +1,103 @@
 /*** 公用功能---begin ***/
-    // 表格初始化、表格按钮创建
-var TableInit = function(tableOption,btnOption) {
-        var oTableInit = {
-            // 初始化Table
-            Init : function () {
-                // 设置默认值
-                tableOption.toolbar = (tableOption.toolbar === undefined) ? '#toolbar' : '#' + tableOption.toolbar;
-                tableOption.pageNumber = (tableOption.pageNumber === undefined) ? 1 : tableOption.pageNumber;
-                tableOption.pageSize = (tableOption.pageSize === undefined) ? 10 : tableOption.pageSize;
-                var tableInitParams = {
-                    method: 'get',
-                    toolbar: tableOption.toolbar, // 工具按钮用哪个容器
-                    striped: true, // 是否显示行间隔色
-                    pagination: true, // 是否显示分页（*）
-                    queryParams: oTableInit.queryParams, // 传递参数（*）
-                    sidePagination: "server", // 分页方式：client客户端分页，server服务端分页（*）
-                    pageNumber: parseInt(tableOption.pageNumber), // 初始化加载第一页，默认第一页
-                    pageSize: parseInt(tableOption.pageSize), // 每页的记录行数（*）
-                    pageList: [10, 25, 50, 100], // 可供选择的每页的行数（*）
-                    showColumns: true, // 是否显示所有的列
-                    showRefresh: true, // 是否显示刷新按钮
-                    iconSize: 'outline',
-                    icons: {
-                        refresh: 'glyphicon-repeat',
-                        columns: 'glyphicon-list'
-                    },
-                    uniqueId: "id" // 每一行的唯一标识，一般为主键列
-                };
-                if (tableOption.url === undefined && tableOption.data !== undefined){
-                    delete tableInitParams['url'];
-                    tableInitParams['data'] = tableOption.data;
-                }else {
-                    delete tableInitParams['data'];
-                    tableInitParams['url'] = tableOption.url;
-                }
-                $('#' + tableOption.tableId).bootstrapTable(tableInitParams);
-                $('#' + tableOption.tableId).on('post-body.bs.table', function (e) {
-                    $(this).find('thead').removeClass('ele-hide');
-                });
-            },
 
-            // 得到查询的参数
-            queryParams : function (params) {
-                $(tableOption.toolbar).find(".form-control").each(function (index, item) {
+// 表格初始化、表格按钮创建
+var TableInit = function(tableOption,btnOption) {
+    var oTableInit = {
+        // 初始化Table
+        Init : function () {
+            // 设置默认值
+            tableOption.toolbar = (tableOption.toolbar === undefined) ? '#toolbar' : '#' + tableOption.toolbar;
+            tableOption.pageNumber = (tableOption.pageNumber === undefined) ? 1 : tableOption.pageNumber;
+            tableOption.pageSize = (tableOption.pageSize === undefined) ? 10 : tableOption.pageSize;
+            var tableInitParams = {
+                method: 'get',
+                toolbar: tableOption.toolbar, // 工具按钮用哪个容器
+                striped: true, // 是否显示行间隔色
+                pagination: true, // 是否显示分页（*）
+                queryParams: oTableInit.queryParams, // 传递参数（*）
+                sidePagination: "server", // 分页方式：client客户端分页，server服务端分页（*）
+                pageNumber: parseInt(tableOption.pageNumber), // 初始化加载第一页，默认第一页
+                pageSize: parseInt(tableOption.pageSize), // 每页的记录行数（*）
+                pageList: [10, 25, 50, 100], // 可供选择的每页的行数（*）
+                showColumns: true, // 是否显示所有的列
+                showRefresh: true, // 是否显示刷新按钮
+                iconSize: 'outline',
+                icons: {
+                    refresh: 'glyphicon-repeat',
+                    columns: 'glyphicon-list'
+                },
+                uniqueId: "id" // 每一行的唯一标识，一般为主键列
+            };
+            if (tableOption.url === undefined && tableOption.data !== undefined){
+                delete tableInitParams['url'];
+                tableInitParams['data'] = tableOption.data;
+            }else {
+                delete tableInitParams['data'];
+                tableInitParams['url'] = tableOption.url;
+            }
+            $('#' + tableOption.tableId).bootstrapTable(tableInitParams);
+            $('#' + tableOption.tableId).on('post-body.bs.table', function (e) {
+                $(this).find('thead').removeClass('ele-hide');
+            });
+        },
+
+        // 得到查询的参数
+        queryParams : function (params) {
+            $(tableOption.toolbar).find(".form-control").each(function (index, item) {
+                if ($(this).attr("sName") !== undefined) {
+                    tableOption.obj[$(this).attr("sName")] = $(this).val();
+                }
+            });
+            console.log("obj: ", tableOption.obj);
+            if ($(".search-list").length > 0) {
+                $(".search-list").find(".form-control").each(function (index, item) {
                     if ($(this).attr("sName") !== undefined) {
                         tableOption.obj[$(this).attr("sName")] = $(this).val();
                     }
-                })
-                console.log("obj: ", tableOption.obj);
-                if ($(".search-list").length > 0) {
-                    $(".search-list").find(".form-control").each(function (index, item) {
-                        if ($(this).attr("sName") !== undefined) {
-                            tableOption.obj[$(this).attr("sName")] = $(this).val();
-                        }
-                    });
-                }
-                var temp = {
-                    pageNum: params.offset / params.limit + 1,
-                    pageSize: params.limit,
-                    obj: JSON.stringify(tableOption.obj)
-                };
-                return temp;
-            },
-
-            // 设置表格按钮
-            InitButton : function (row) {
-                var html = '';
-                btnOption.btnNeed = (btnOption.btnNeed === undefined) ? 'default' : btnOption.btnNeed;
-                if (btnOption.btnNeed === 'default') {
-                    html += '<div class="btn-group">';
-                    html += '<button type="button" class="btn btn-white detail-btn" onclick="datailRow(\''
-                        + row.id
-                        + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-                    html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
-                        + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-                    html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
-                        + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
-                    html += '</div>';
-                } else if (btnOption.btnNeed && btnOption.btnNeed !== 'default') {
-                    html += '<div class="btn-group">';
-                    $.each(btnOption.button, function (index, btns) {
-                        btns.color = (btns.color === undefined || btns.color === '') ? 'btn-white' : btns.color;
-                        btns.icon = (btns.icon === undefined || btns.icon === '') ? 'fa-circle' : btns.icon;
-                        html += '<button class="detail-btn btn ' + btns.color + '" id="' + btns.id + '" onclick="' + btns.event + '(\'' + row.id + '\')"><i class="fa ' + btns.icon + '"></i>&nbsp;' + btns.text + '</button>';
-                    });
-                    html += '</div>';
-                }
-                return html;
+                });
             }
-        };
-        return oTableInit;
+            var temp = {
+                pageNum: params.offset / params.limit + 1,
+                pageSize: params.limit,
+                obj: JSON.stringify(tableOption.obj)
+            };
+            return temp;
+        },
+
+        // 设置表格按钮
+        InitButton : function (row) {
+            var html = '';
+            btnOption.btnNeed = (btnOption.btnNeed === undefined) ? 'default' : btnOption.btnNeed;
+            if (btnOption.btnNeed === 'default') {
+                html += '<div class="btn-group">';
+                html += '<button type="button" class="btn btn-white detail-btn" onclick="datailRow(\''
+                    + row.id
+                    + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+                html += '</div>';
+            } else if (btnOption.btnNeed && btnOption.btnNeed !== 'default') {
+                html += '<div class="btn-group">';
+                $.each(btnOption.button, function (index, btns) {
+                    btns.color = (btns.color === undefined || btns.color === '') ? 'btn-white' : btns.color;
+                    btns.icon = (btns.icon === undefined || btns.icon === '') ? 'fa-circle' : btns.icon;
+                    html += '<button class="detail-btn btn ' + btns.color + '" id="' + btns.id + '" onclick="' + btns.event + '(\'' + row.id + '\')"><i class="fa ' + btns.icon + '"></i>&nbsp;' + btns.text + '</button>';
+                });
+                html += '</div>';
+            }
+            return html;
+        }
     };
+    return oTableInit;
+};
 ;(function () {
     // 弹框初始化及相关方法
     var LayerEvent = function(ele, options) {
         this.$element = ele;
         this.options = $.extend({}, LayerEvent.DEFAULTS, options);
-        this.init();
+        this.initFormPlugins();
     };
     LayerEvent.DEFAULTS = {
         title: '未命名弹出框',
@@ -110,8 +111,9 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.init = function () {
         if (this.options.onlyConfirm === false || this.options.onlyConfirm === undefined){
-            this.initContainer();
+            var layerIndex = this.initContainer();
         }
+        return layerIndex;
     };
     // 弹框容器初始化---列表
     LayerEvent.prototype.initContainer = function () {
@@ -131,7 +133,7 @@ var TableInit = function(tableOption,btnOption) {
             btnText.push(btns.text);
             btnFunction.push(btns.event);
         });
-        layer.open({
+        var openIndex = layer.open({
             title: this.options.title,
             type : this.options.type,
             area : this.options.containerSize,
@@ -150,7 +152,8 @@ var TableInit = function(tableOption,btnOption) {
             },
             content : this.$element
         });
-        this.initFormPlugins();
+        // this.initFormPlugins();
+        return openIndex;
     };
     // 确认弹框
     LayerEvent.prototype.initConfirm = function () {
@@ -191,6 +194,9 @@ var TableInit = function(tableOption,btnOption) {
 
         // 时间插件
         $('.datepicker').datepicker({
+            startView: 1,
+            format: 'yyyy-mm',
+            minViewMode: 1,
             todayBtn: "linked",
             keyboardNavigation: false,
             forceParse: false,
@@ -515,7 +521,7 @@ var TableInit = function(tableOption,btnOption) {
     LayerEvent.prototype.defaultSubmit = function () {
         var that = this;
         // var layerSubmitBtn = this.$element.parents('.layui-layer').find('.layui-layer-btn0');
-        this.$element.parents('.layui-layer').on('click', '.layui-layer-btn0', function () {
+        this.$element.parents('.layui-layer').one('click', '.layui-layer-btn0', function () {
             $(this).hide();
             $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
         });
@@ -523,10 +529,19 @@ var TableInit = function(tableOption,btnOption) {
             url : that.options.submitUrl,
             type : 'post',
             success : function(data){
-                layer.close(layer.index);
-                $(that.options.dataTable).bootstrapTable('refresh');
-                layer.msg(data);
-                that.resetLayerForm();
+                if (data.status === 1){
+                    console.log(that.openLayerIndex);
+                    layer.closeAll('page');
+                    $(that.options.dataTable).bootstrapTable('refresh');
+                    layer.msg(data.message);
+                    that.resetLayerForm();
+                } else if (data.status === 0){
+                    // layer.msg(data.message);
+                    that.$element.find('form').find('input[name=name]').focus().parents('.form-group').removeClass('has-success,has-error').addClass('has-error');
+                    that.$element.find('form').find('input[name=name]').parent().find('span.help-block').html('<i class="fa fa-times-circle"></i> 名称重复');
+                }
+                that.$element.parents('.layui-layer').find('.layui-layer-btn0').show();
+                that.$element.parents('.layui-layer').find('.a-disabled').remove();
             },
             error : function(XmlHttpRequest, textStatus, errorThrown){
                 layer.close(layer.index);
@@ -534,22 +549,29 @@ var TableInit = function(tableOption,btnOption) {
                 layer.msg("数据操作失败!");
                 that.resetLayerForm();
             },
-            resetForm : true
+            // resetForm : true
         });
         return false;
     };
     LayerEvent.prototype.openAdd = function () {
-        this.validate();
+        var openLayerIndex = this.initContainer();
+        console.log(this.openLayerIndex);
+        this.validate(openLayerIndex);
     };
     LayerEvent.prototype.openDetail = function () {
+        this.openLayerIndex = this.init();
+        console.log(this.openLayerIndex);
         this.loadData(this.getRowData());
         this.forbiddenForm();
     };
     LayerEvent.prototype.openEdit = function () {
+        this.openLayerIndex = this.init();
+        console.log(this.openLayerIndex);
         this.validate();
         this.loadData(this.getRowData());
         // 验证初始化
-        this.validate();
+        // this.validate(this.openLayerIndex);
+        this.$element.find('form').validate().form();
     };
     LayerEvent.prototype.deleteRow = function () {
         this.initConfirm();

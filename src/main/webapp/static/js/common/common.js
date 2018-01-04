@@ -52,7 +52,7 @@ $(function() {
         }
         $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
             // that.$element.find('form').validate().element($(this));
-            $(this).valid();
+            // $(this).valid();
 
         });
     });

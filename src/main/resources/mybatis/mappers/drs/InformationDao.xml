@@ -176,40 +176,44 @@
 		COUNT(1)
 		FROM
 		drs_information a
+		LEFT JOIN sys_company c ON c.id = a.company_id
 		WHERE 
 		a.del_flag = 0
 		<foreach collection="page.params" index="key" item="value" separator="" >
             <if test="value != null and value !=''" >
                 <if test="key=='nameEn'" >
-                    AND name_en like '%${value}%'
+                    AND a.name_en like '%${value}%'
                 </if>
 				<if test="key=='nameCn'" >
-                    AND name_cn like '%${value}%'
+                    AND a.name_cn like '%${value}%'
                 </if>
 				<if test="key=='isAudit'" >
-                    AND is_audit = '${value}'
+                    AND a.is_audit = '${value}'
                 </if>
                 <if test="key=='companyIds'" >
                    <!--  AND company_id = '${value}' -->
-                   AND company_id IN 
+                   AND a.company_id IN 
      			   <foreach collection="value" item="id" open="("  close=")" separator=",">
          			   #{id}
         			</foreach>
                 </if>
                 <if test="key=='companyId'" >
-                    AND company_id = '${value}'
+                    AND a.company_id = '${value}'
                 </if>
                 <if test="key=='infoType1'" >
-                    AND info_type1 = '${value}'
+                    AND a.info_type1 = '${value}'
                 </if>
                  <if test="key=='infoType2'" >
-                    AND info_type2 = '${value}'
+                    AND a.info_type2 = '${value}'
                 </if>
                 <if test="key=='shareType'" >
-                    and share_type = '${value}'
+                    and a.share_type = '${value}'
                 </if>
                 <if test="key=='openType'" >
-                    and open_type = '${value}'
+                    and a.open_type = '${value}'
+                </if>
+                <if test="key=='companyName'" >
+                    AND c.name LIKE CONCAT('%','${value}','%')
                 </if>
                <!--  <if test="key!='name'"> 
                     AND json_extract(info,'$."${key}"') like '%#{value}%'
@@ -245,48 +249,52 @@
         c1.name AS "elementList.companyName",
         e.company_id AS "elementList.companyId",
         d.label AS "elementList.dataTypeName"
-        FROM (SELECT * FROM drs_information
+        FROM (SELECT i.* FROM drs_information i
+        LEFT JOIN sys_company c ON c.id = i.company_id
         WHERE
-        del_flag = 0
+        i.del_flag = 0
         <foreach collection="page.params" index="key" item="value" separator="" >
             <if test="value != null and value !=''" >
                 <if test="key=='nameEn'" >
-                    AND name_en like '%${value}%'
+                    AND i.name_en like '%${value}%'
                 </if>
 				<if test="key=='nameCn'" >
-                    AND name_cn like '%${value}%'
+                    AND i.name_cn like '%${value}%'
                 </if>
 				<if test="key=='isAudit'" >
-                    AND is_audit = '${value}'
+                    AND i.is_audit = '${value}'
                 </if>
                 <if test="key=='companyIds'" >
                 <!--     AND company_id = '${value}' -->
-                	AND company_id IN 
+                	AND i.company_id IN 
      			   <foreach collection="value" item="id" open="("  close=")" separator=",">
          			   #{id}
         			</foreach>
                 </if>
                 <if test="key=='companyId'" >
-                    AND company_id = '${value}'
+                    AND i.company_id = '${value}'
                 </if>
                 <if test="key=='infoType1'" >
-                    AND info_type1 = '${value}'
+                    AND i.info_type1 = '${value}'
                 </if>
                  <if test="key=='infoType2'" >
-                    AND info_type2 = '${value}'
+                    AND i.info_type2 = '${value}'
                 </if>
                 <if test="key=='shareType'" >
-                    AND share_type = '${value}'
+                    AND i.share_type = '${value}'
                 </if>
                 <if test="key=='openType'" >
-                    AND open_type = '${value}'
+                    AND i.open_type = '${value}'
+                </if>
+                <if test="key=='companyName'" >
+                    AND c.name LIKE CONCAT('%','${value}','%')
                 </if>
                <!--  <if test="key!='name'"> 
                     and json_extract(info,'$."${key}"') like '%#{value}%'
                 </if>  -->
             </if>
         </foreach>
-         ORDER BY id DESC
+         ORDER BY i.id DESC
         <if test="page.isPage==true">
         LIMIT #{page.startRow}, #{page.endRow}
         </if> 

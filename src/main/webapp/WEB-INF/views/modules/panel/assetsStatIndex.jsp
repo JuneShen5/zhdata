@@ -158,6 +158,11 @@ ul, li {
 .pswp__preloader__icn{
 	margin-left: 48%;
 }
+	.no-result-area{
+		text-align: center;
+		line-height: 138px;
+		font-size: 16px;
+	}
 </style>
 <body class="white-bg-bg skin-7">
 	<div class="wrapper wrapper-content animated fadeInRight">
@@ -168,7 +173,11 @@ ul, li {
 			</div>
 			<div class="search-container form-inline clearfix" style="display: none;">
 				<div class="form-group">
-					<input class="form-control col-sm-8 search-input" placeholder="请输入系统名称" />
+					<select type="text" name="searchType" class="form-control col-sm-6" style="margin-right: 5px">
+						<option value="name">系统名称</option>
+						<option value="companyName">单位名称</option>
+					</select>
+					<input class="form-control col-sm-8 search-input" placeholder="请输入搜索项名称" />
 					<div class="input-group-btn col-sm-4">
 						<button class="btn btn-primary search-btn">搜索</button>
 					</div>
@@ -184,6 +193,10 @@ ul, li {
 					</div>
 					<p>载入中...</p>
 				</div>
+				<!-- 未搜索到部门 -->
+				<div class="no-result-area" style="display: none;">
+					<p><i class="fa fa-ban" aria-hidden="true"></i> 未搜索到结果！</p>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -191,11 +204,7 @@ ul, li {
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script type="text/javascript">
 	$(function(){
-//		layer.open({
-//			type: 3,
-//	  		title: '等待载入',
-//	  		content: '载入中...'
-//		});
+	    // 请求顶部总数
 		$.ajax({
             url: "${ctx}/panel/ass/querySum",
             type: 'get',
@@ -235,7 +244,7 @@ ul, li {
                     $("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
 				$.each(data.rows, function(index,dataList){
 				    var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
-				    $('.search-container').find('select').append(searchHtml);
+//				    $('.search-container').find('select').append(searchHtml);
 					var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
 						listHtml += '<div class="panel panel-default  panel-item">';
 						listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
@@ -251,7 +260,11 @@ ul, li {
 
 		// 选择资源条目
 		$('.search-btn').on('click', function () {
+		    var thisSearchType = $('select[name=searchType]').val();
+//            $('.search-container').find('.search-input').attr('sName', thisSearchType);
 			var thisValue = $('.search-container').find('.search-input').val();
+			var searchObj = {};
+            searchObj[thisSearchType] = thisValue;
             $('.loading-area').show();
             $.ajax({
                 url: "${ctx}/assets/yjSystem/list",
@@ -259,7 +272,7 @@ ul, li {
                 data: {
                     pageNum: 1,
                     pageSize: 6,
-                    obj: JSON.stringify({'name': thisValue})
+                    obj: JSON.stringify(searchObj)
                 },
                 success: function (data) {
                     $('.loading-area').hide();
@@ -270,10 +283,12 @@ ul, li {
                     // 分页相关设置
                     var totalCounts = data.total;
                     var pageNum = Math.ceil(totalCounts/pageSize);
+                    if (totalCounts>0){
                     // 拼接部门详细资源
                     $.each(data.rows, function(index,dataList){
+                        $('.no-result-area').hide();
                         var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
-                        $('.search-container').find('select').append(searchHtml);
+//                        $('.search-container').find('select').append(searchHtml);
                         var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                         listHtml += '<div class="panel panel-default  panel-item">';
                         listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
@@ -285,6 +300,11 @@ ul, li {
                     });
 
                     paginatorInit(pageSize,totalCounts,pageNum);
+                    }else {
+                        $('.no-result-area').show();
+                        paginatorInit(6,1,0);
+                        $('#pageInfo').html('总共 <strong>' + 0 + '</strong> 个部门，总共 <strong>' + 0 + '</strong> 页，当前第 <strong>' + 0 + '</strong> 页');
+					}
                 }
             });
         });
@@ -330,7 +350,7 @@ ul, li {
                             // 拼接部门详细资源
                             $.each(data.rows, function(index,dataList){
                                 var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
-                                $('.search-container').find('select').append(searchHtml);
+//                                $('.search-container').find('select').append(searchHtml);
                                 var listHtml = '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
                                 listHtml += '<div class="panel panel-default  panel-item">';
                                 listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';

@@ -33,6 +33,7 @@
 		a.total2015,
 		a.total2016,
 		a.total2017,
+		a.total2018,
 		a.create_by AS "createBy.id",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy.id",
