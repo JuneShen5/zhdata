@@ -151,7 +151,7 @@ public class ZjSystemController extends BaseController<ZjSystems>{
                 if (null==njSystems && null==zjSystems1 && null==yjSystems) {
                     this.zjSystemService.updateSelective(zjSystems);
                     return ResponseEntity.ok(message2);
-                }else if (zjSystems1!=null&&zjSystems1.getId().intValue()==njSystems.getId().intValue()) {
+                }else if (zjSystems1!=null&&zjSystems1.getId().intValue()==zjSystems.getId().intValue()) {
                     this.zjSystemService.updateSelective(zjSystems);
                     return ResponseEntity.ok(message2);
                 } else {
