@@ -61,14 +61,9 @@
 							</div>
 						</div>
 						<div class="search-list">
-							<div class="check-search hide">
+							<!--<div class="check-search hide">
 								<label class="">审核状态：</label>
 								<div class="check-search-item" style="width:200px;">
-									<!-- <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
-										<option value="">全部</option>
-										<option value=0 selected>未审核</option>
-										<option value=1>已审核</option>
-									</select> -->
 									 <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
 									<option value="">全部</option>
 									<c:forEach var="dict" items="${fns:getDictList('audit_status')}">
@@ -76,7 +71,7 @@
 									</c:forEach>
 								</select>
 								</div>
-							</div>
+							</div>-->
 							<div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
@@ -205,7 +200,8 @@
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
 		var obj = {
-			isAuthorize:1
+			isAuthorize: 2,
+            isAudit: 1
 		};
 
         var editTitle = "信息资源修改";
