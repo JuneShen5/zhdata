@@ -311,7 +311,7 @@
 				area : [ '100%', '100%' ],
 				scrollbar : false,
 				zIndex : 100,
-				btn : [ '审核通过' ],
+				btn : [ '审核通过', '审核不通过' ],
 				btn1 : function(index, layero) {
 					var ids = id;
 		            $.ajax({

@@ -209,6 +209,11 @@
             </thead>        
         </table>
     </div>
+
+    <!-- 角色为admin时选择发布部门弹框 -->
+    <div id="role_layer_form" style="display: none" class="ibox-content">
+        <%--<%@include file="/WEB-INF/views/include/companyTree.jsp"%>--%>
+    </div>
     
 	<!-- excel导入导出-->
 	<c:set var="type" value="2" />
@@ -314,21 +319,17 @@
             html += '<div class="btn-group">';
             html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-//            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
-//                + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-//            html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
-//                + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             // 审核功能按钮
-            if (row.isAudit === 0){
+            if (row.isAudit === 0 || row.isAudit === 3){
                 html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
-                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-red" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             } else if (row.isAudit === 1){
-//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
             }
             html += '</div>';
             return html;
@@ -392,22 +393,22 @@
             }})
         };
 
-        // 判断是否审核
+        // 判断是否发布
         function dataIsAudit(type) {
             if (type == 0) {
-                return "发布审核";
+                return "发布";
             } else if (type == 1) {
-                return "已审核"
+                return "已发布"
             }
         }
         // 单独审批
         function releaseAudit (id, status) {
             if (status == 1) {
-                layer.msg('已通过审核')
+                layer.msg('已发布')
                 return;
             }
             console.log("id: ", id);
-            var ids = id;
+//            var ids = id;
             /*$.ajax({
                 url: url + 'setAudit',
                 type: 'post',
@@ -420,34 +421,44 @@
             })*/
             $("input[name=code]").closest(".form-group").show();
             var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
-            layer.open({
-                title: '审核',
+            var layerIndex = layer.open({
+                title: '发布审核确认',
                 type : 1,
-                area : [ '100%', '100%' ],
+                area : [ '90%', '95%' ],
                 scrollbar : false,
                 zIndex : 100,
-                btn : [ '审核通过' ],
+                btn : [ '确认发布', '不发布' ],
                 btn1 : function(index, layero) {
-                    var ids = id;
+//                    var ids = id;
                     $.ajax({
-                        url: url + 'setAudit',
+                        url: url + 'setAudit123',
                         type: 'post',
-                        data: {ids: ids},
+                        data: {
+                            ids: row.id,
+                            companyId: row.companyId
+                        },
                         dataType: 'json',
                         success: function (res) {
-                            layer.msg("通过审核!")
-                            parent.updateCount();
-                            $(tableId).bootstrapTable('refresh');
+                            if (row.departId === 0){
+                                layer.msg("发布成功!");
+                            }
+//                            layer.msg("发布成功!");
+//                            parent.updateCount();
+//                            $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
-                            layer.msg('审核不通过，请重试')
+                            if (row.departId === 0){
+                                layer.msg('发布不成功，请重试');
+                                releaseCompanyChoice();
+                            }
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
                         }
                     });
-                    layer.close(layer.index);
-                    endMethod(formId, "close");
                 },
                 btn2: function () {
-                    notThrough(id);
+//                    notThrough(id);
                     endMethod(formId, "close");
                 },
                 end : function() {
@@ -478,10 +489,36 @@
             },500);
             // checkbox
             $('.i-checks').iCheck('disable');
-            var data1 = $(elementTableId).bootstrapTable('getData');
             //合并单元格
-            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
-        };
+//            var data1 = $(elementTableId).bootstrapTable('getData');
+//            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        }
+
+        // 发布审核选择发布方单位
+        function releaseCompanyChoice() {
+            $('#role_layer_form').find('.company_tree').show();
+            var layerIndex = layer.open({
+                title: '信息资源发布方选择',
+                type : 1,
+                area : [ '50%', '80%' ],
+                scrollbar : false,
+                zIndex : 100,
+                btn : [ '确定', '取消' ],
+                yes : function(index, layero) {
+//                    $('#notThrough_form').submit();
+//                    endMethod('#role_layer_form', "close");
+                    layer.msg("OK!");
+                    layer.close(layerIndex);
+                },
+                end : function() {
+//                    endMethod('#notThrough_form', "close");
+                },
+                content : $('#role_layer_form'),
+                cancel : function () {
+//                    endMethod('#notThrough_form', "close");
+                }
+            })
+        }
 
         function notThrough (id) {
             layer.open({
@@ -662,7 +699,7 @@
             layeForm = layer.open({
                 title: '信息项详情',
                 type : 1,
-                area : [ '100%', '100%' ],
+                area : [ '95%', '90%' ],
                 scrollbar : false,
                 zIndex : 100,
                 content : l,
