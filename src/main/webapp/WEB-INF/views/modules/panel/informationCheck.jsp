@@ -72,6 +72,7 @@
 								</select>
 								</div>
 							</div>-->
+
 							<div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
@@ -193,6 +194,7 @@
 			</div>
 		</form>
 	</div>
+	<c:set var="user" value="${fns:getCurrentUser()}" />
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 		var tableId = '#systemTable';
@@ -201,8 +203,9 @@
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
 		var obj = {
-			isAuthorize: 1,
-            isAudit: 1
+			isAuthorize: 0,
+            isAudit: 1,
+            departId: ${user.companyId}
 		};
 
         var editTitle = "信息资源修改";
@@ -403,13 +406,13 @@
 		    			type : 'post',
 		    			success : function(data){
 		    				layer.close(layer.index);
-//		    				$(tableId).bootstrapTable('refresh');
+		    				$(tableId).bootstrapTable('refresh');
 		    				layer.msg(data);
 		    				endMethod('#notThrough_form');
 		    			},
 		    			error : function(XmlHttpRequest, textStatus, errorThrown){
 		    				layer.close(layer.index);
-//		    				$(tableId).bootstrapTable('refresh');
+		    				$(tableId).bootstrapTable('refresh');
 		    				layer.msg("数据操作失败!");
 		    				endMethod('#notThrough_form');
 		    			},
