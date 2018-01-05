@@ -105,6 +105,14 @@ public class InformationController extends BaseController<Information>{
             //map.put("companyId", companyId);
             map.put("companyIds", comList);
             page.setParams(map);
+        }else if (roleId!=1&& information.getIsAuthorize()==2) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            //map.put("companyId", companyId);
+            map.put("departIds", comList);
+            page.setParams(map);
         }
         Integer isAuditCount=this.infoService.queryIsAuditCount(comList);
         

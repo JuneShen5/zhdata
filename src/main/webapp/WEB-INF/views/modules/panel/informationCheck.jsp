@@ -64,11 +64,17 @@
 							<div class="check-search hide">
 								<label class="">审核状态：</label>
 								<div class="check-search-item" style="width:200px;">
-									<select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
+									<!-- <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
 										<option value="">全部</option>
 										<option value=0 selected>未审核</option>
 										<option value=1>已审核</option>
-									</select>
+									</select> -->
+									 <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
+									<option value="">全部</option>
+									<c:forEach var="dict" items="${fns:getDictList('audit_status')}">
+										<option value="${dict.value}">${dict.label}</option>
+									</c:forEach>
+								</select>
 								</div>
 							</div>
 							<div class="check-search">
