@@ -90,7 +90,7 @@
 							<th data-field="companyName">资源提供方</th>
 							<th data-field="departName">审核部门</th>
 							<th data-field="auditName">状态</th>
-							<th data-width="25%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-width="5%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
