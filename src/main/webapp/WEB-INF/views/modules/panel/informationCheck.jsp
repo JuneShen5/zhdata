@@ -203,11 +203,16 @@
 		var formId = '#eform'; //form id
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
-		var obj = {
-			isAuthorize: 0,
-            isAudit: 1,
-            departId: ${user.companyId}
-		};
+		var thisRole = ${user.roleId};
+        var obj = {
+            isAuthorize: 0,
+            isAudit: 1
+        };
+		if (thisRole === 1){
+            obj['departId'] = '';
+		} else {
+            obj['departId'] = ${user.companyId};
+		}
 
         var editTitle = "信息资源修改";
         var detailTitle = "待办事宜详情";

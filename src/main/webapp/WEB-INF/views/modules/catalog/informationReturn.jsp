@@ -202,7 +202,7 @@
 		var url = '${ctx}/catalog/information/';
 		var obj = {
 			isAuthorize: 1,
-            isAudit: 1
+            isAudit: 3
 		};
 
         var editTitle = "信息资源修改";
