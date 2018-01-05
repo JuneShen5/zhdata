@@ -123,6 +123,9 @@ public class InformationController extends BaseController<Information>{
         
         try {
             Long total = infoService.getTotal(page);
+          /*  if (condition) {
+                
+            }*/
             List<Information> iList = this.infoService.queryList(page);
             List<Map<String, Object>> list = Lists.newArrayList();
             for (Information s : iList) {
@@ -131,6 +134,7 @@ public class InformationController extends BaseController<Information>{
                 map.put("companyId", s.getCompanyId());
                 map.put("departId", s.getDepartId());
                 map.put("companyName", s.getCompanyName());
+                map.put("departName", s.getDepartName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
                 map.put("tbName", s.getTbName());
@@ -473,6 +477,26 @@ public class InformationController extends BaseController<Information>{
     @RequestMapping(value ="updateReason" , method = RequestMethod.POST)
     public ResponseEntity<String> updateReason(Information infor){
         try {
+            this.infoService.updateSelective(infor);
+            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    
+    /**
+     * 
+     * 信息资源-注销审核（未发布状态）
+     * 
+     * @param infor
+     * @return
+     */
+    @RequestMapping(value ="cancelAudit" , method = RequestMethod.POST)
+    public ResponseEntity<String> cancelAudit(Information infor){
+        try {
+            infor.setIsAudit(Global.RELEASE_NO);
             this.infoService.updateSelective(infor);
             return ResponseEntity.ok(Global.UPDATE_SUCCESS);
         } catch (Exception e) {
