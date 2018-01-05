@@ -92,8 +92,10 @@
                             <div class="check-search-item" style="width:200px;">
                                 <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
                                     <option value=''>全部</option>
-                                    <option value=0>待审核</option>
-                                    <option value=1>已审核</option>
+                                    <option value=0>待发布</option>
+                                    <option value=1>待审核</option>
+                                     <option value=2>已审核</option>
+                                     <option value=3>审核不通过</option>
                                 </select>
                             </div>
                         </div>
