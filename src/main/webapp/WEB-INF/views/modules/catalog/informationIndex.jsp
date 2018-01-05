@@ -220,7 +220,14 @@
 
     <!-- 角色为admin时选择发布部门弹框 -->
     <div id="role_layer_form" style="display: none" class="ibox-content">
-        <%--<%@include file="/WEB-INF/views/include/companyTree.jsp"%>--%>
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发布部门：</label>
+            <div class="col-sm-9">
+                <input id="" name="releaseId" class="form-control citySelId hide" type="text">
+                <input id="" name="releaseName" class="form-control citySel" type="text" ReadOnly required />
+                <%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+            </div>
+        </div>
     </div>
     
 	<!-- excel导入导出-->
@@ -455,10 +462,10 @@
 //                            $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
-                            if (row.departId === 0){
+//                            if (row.departId === 0){
                                 layer.msg('发布不成功，请重试');
                                 releaseCompanyChoice();
-                            }
+//                            }
 //                            layer.msg('发布不成功，请重试');
 //                            layer.close(layerIndex);
 //                            endMethod(formId, "close");

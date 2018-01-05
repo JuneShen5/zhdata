@@ -194,6 +194,7 @@
 			</div>
 		</form>
 	</div>
+
 	<c:set var="user" value="${fns:getCurrentUser()}" />
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
