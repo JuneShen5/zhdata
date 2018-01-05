@@ -204,6 +204,9 @@
                 <if test="key=='companyId'" >
                     AND a.company_id = '${value}'
                 </if>
+                 <if test="key=='departId'" >
+                	AND i.depart_id = '${value}'
+                </if>
                 <if test="key=='infoType1'" >
                     AND a.info_type1 = '${value}'
                 </if>

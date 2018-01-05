@@ -88,7 +88,7 @@
 							<th data-field="nameEn">信息资源代码</th>
 							<th data-field="nameCn">信息资源名称</th>
 							<th data-field="companyName">资源提供方</th>
-							<th data-field="departId">审核部门</th>
+							 <th data-field="departName">审核部门</th>
 							<th data-field="auditName">状态</th>
 							<th data-width="25%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
