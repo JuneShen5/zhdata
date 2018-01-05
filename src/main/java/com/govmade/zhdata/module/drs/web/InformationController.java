@@ -449,7 +449,7 @@ public class InformationController extends BaseController<Information>{
     
     
     /**
-     * 待办事宜-审核通过
+     * 待办事宜-审核通过(包括批量审核)
      * 
      * @param ids
      * @return

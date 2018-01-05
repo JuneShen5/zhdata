@@ -205,7 +205,7 @@
                     AND a.company_id = '${value}'
                 </if>
                  <if test="key=='departId'" >
-                	AND i.depart_id = '${value}'
+                	AND a.depart_id = '${value}'
                 </if>
                 <if test="key=='infoType1'" >
                     AND a.info_type1 = '${value}'
@@ -474,10 +474,10 @@
 	</insert>
 	
 	<update id="updateAllAudit">
-	UPDATE drs_information SET is_audit = 1
-	WHERE del_flag = 0
+	UPDATE drs_information SET is_audit = 2
+	WHERE del_flag = 0 AND is_audit=1
 	<if test=" comList !=null and comList.size() >0 ">
-		AND company_id IN
+		AND depart_id IN
     	<foreach collection="comList" item="id" open="("  close=")" separator=",">
             #{id}
         </foreach>
