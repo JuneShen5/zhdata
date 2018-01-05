@@ -64,6 +64,7 @@
  	};
  	
  	$(function () {
+ 		// 取到数据，初始化树插件
  		$.ajax({
  			url: "/zhdata/settings/company/list", 
  			data: {
@@ -75,6 +76,10 @@
 	            	item.pId = item.parentId
 	            })
 	            childQuery(data)
+		 		// 给所有的选项加上点击事件（由于原有的事件并不能行）
+				$('.company_tree_ul .chk').click(function () {
+					onCheckOut($(this))
+				})
  			}
  		})
  	})
@@ -85,8 +90,8 @@
 	}
 
 	function onCheck(e, treeId, treeNode) {
-		console.log("e: ", e)
-		nodes = companyTree.getCheckedNodes(true),
+		// console.log("e: ", e)
+		nodes = companyTree.getCheckedNodes(true)
 		v = "";
 		id = "";
 		for (var i=0, l=nodes.length; i<l; i++) {
@@ -94,12 +99,21 @@
 			id = nodes[i].id;
 		}
 		if (v.length > 0 ) v = v.substring(0, v.length-1);
-		var $ulDiv = $(e.currentTarget).closest('.company_tree');
-		$ulDiv.siblings(".citySel").val(v);
-		$ulDiv.siblings(".citySelId").val(id);
-		$ulDiv.siblings(".citySel").blur();
-		console.log("v: ", v);
-		hideMenu();
+		setTimeout(function () {
+			var $ulDiv = $('.company_tree_ul .chk[state=true]').closest('.company_tree');
+			// var $ulDiv = $(e.currentTarget).closest('.company_tree');
+			$ulDiv.siblings(".citySel").val(v);
+			$ulDiv.siblings(".citySelId").val(id);
+			$ulDiv.siblings(".citySel").blur();
+			console.log("v: ", v);
+			hideMenu();
+		}, 0)
+	}
+
+	// 选中dom节点
+	function onCheckOut (that) {
+		$('.company_tree_ul .chk').attr('state', false)
+		that.attr('state', true)
 	}
 
 	$(".citySel").click(function () {
@@ -110,7 +124,9 @@
 		$("body").bind("mousedown", onBodyDown);
 		// 回显
 		var val = $(this).siblings("input[name=companyId]").val();
-		companyTree.checkNode(companyTree.getNodeByParam("id", val, null), true, true);
+		if (val) {
+			companyTree.checkNode(companyTree.getNodeByParam("id", val, null), true, true);
+		}
 	})
 	function hideMenu() {
 		$(".company_tree").fadeOut("fast");
