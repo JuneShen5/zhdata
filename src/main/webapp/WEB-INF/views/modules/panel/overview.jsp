@@ -155,7 +155,7 @@ h3 {
 								<div class="select-area" style="display: none">
 									<select id="chartSelect2" name="chartSelect2" class="" multiple data-width="fit">
 									</select>
-									<button id="selectBtn2" class="btn btn-primary">确认</button>
+									<button id="selectBtn2" class="btn btn-primary">确定</button>
 								</div>
 	  							<div class="ibox float-e-margins">
 	  								<div class="ibox-content">

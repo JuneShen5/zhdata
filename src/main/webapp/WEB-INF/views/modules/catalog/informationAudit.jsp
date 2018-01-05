@@ -47,19 +47,19 @@
                                 <button type="button" id="searchFor"
                                 	onclick="tableSearch()"
 									class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-								<button type="button" id=""
+								<!-- <button type="button" id=""
                                 	onclick="searchMore()" 
-									class="btn btn-primary btn-drop"><span class="caret"></span></button>
+									class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<div class="text-center">
 								<button id="examineButton" data-toggle="modal" class="btn btn-yellow"
 									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 审核通过</button>
 								<button id="examineButton2" data-toggle="modal" class="btn btn-red"
 										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键审核</button>
 							</div>
-						</div>
+						</div> -->
 						<div class="search-list">
 							<!--<div class="check-search hide">
 								<label class="">审核状态：</label>
@@ -72,12 +72,12 @@
 								</select>
 								</div>
 							</div>-->
-							<div class="check-search">
+							<!-- <div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
 									<input type="text" sName="nameEn" class="form-control">
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -705,13 +705,13 @@
 			html += '<div class="btn-group">';
 			html += '<button type="button" class="btn btn-white" onclick="datailRowBefore('
 					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="editRow('
+           /*  html += '<button type="button" class="btn btn-white" onclick="editRow('
                 + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
 			if (itemState == 0) {
 				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
 					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;发布审核</button>';
 			}
-			html += '</div>';
+			html += '</div>'; */
 			return html;
 		}
 

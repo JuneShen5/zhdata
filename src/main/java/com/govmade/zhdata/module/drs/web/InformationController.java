@@ -62,13 +62,26 @@ public class InformationController extends BaseController<Information>{
         return "modules/catalog/informationIndex";
     }
 
-    // 跳转至信息资源审查页面
+    // 跳转至信息资源-待办事宜页面
     @RequestMapping(value="check",method = RequestMethod.GET)
     public String toInfoCheck() {
         return "modules/panel/informationCheck";
     }
+    
+ // 跳转至信息资源-未审核资源页面
+    @RequestMapping(value="audit",method = RequestMethod.GET)
+    public String toInfoAudit() {
+        return "modules/catalog/informationAudit";
+    }
+    
+ // 跳转至信息资源-已退回资源页面
+    @RequestMapping(value="return",method = RequestMethod.GET)
+    public String toInfoReturn() {
+        return "modules/catalog/informationReturn";
+    }
+    
 
-    // 跳转至目录检索页面
+    // 跳转至信息资源-已审核资源页面
     @RequestMapping(value="retrieval",method = RequestMethod.GET)
     public String toRetrieval() {
         return "modules/catalog/retrievalIndex";
@@ -104,14 +117,6 @@ public class InformationController extends BaseController<Information>{
             map=page.getParams();
             //map.put("companyId", companyId);
             map.put("companyIds", comList);
-            page.setParams(map);
-        }else if (roleId!=1&& information.getIsAuthorize()==2) {
-            comList.add(companyId);
-            findAllSubNode(companyId, comList);
-            Map<String, Object> map=Maps.newHashMap();
-            map=page.getParams();
-            //map.put("companyId", companyId);
-            map.put("departIds", comList);
             page.setParams(map);
         }
         Integer isAuditCount=this.infoService.queryIsAuditCount(comList);

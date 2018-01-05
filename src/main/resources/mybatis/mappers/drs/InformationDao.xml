@@ -7,6 +7,7 @@
         <result property="companyName" column="companyName" />
         <result property="companyId" column="companyId" />
          <result property="departId" column="departId" />
+         <result property="departName" column="departName" />
 		<result property="systemId" column="systemId" />
 		<result property="nameEn" column="nameEn" />
 		<result property="nameCn" column="nameCn" />
@@ -84,7 +85,8 @@
 		a.update_date AS "updateDate",
 		a.remarks,
 		a.del_flag AS "delFlag",
-		c.name AS "companyName"
+		c.name AS "companyName",
+		co.name AS "departName"
 	</sql>
 	
     <sql id="shareOpen">
@@ -276,12 +278,8 @@
                 <if test="key=='companyId'" >
                     AND i.company_id = '${value}'
                 </if>
-                <if test="key=='departIds'" >
-                <!--     AND company_id = '${value}' -->
-                	AND i.depart_id IN 
-     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
-         			   #{id}
-        			</foreach>
+                <if test="key=='departId'" >
+                	AND i.depart_id = '${value}'
                 </if>
                 <if test="key=='infoType1'" >
                     AND i.info_type1 = '${value}'
@@ -312,6 +310,7 @@
         LEFT JOIN drs_info_element ie ON ie.info_id=a.id
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
+        LEFT JOIN sys_company co ON co.id = a.depart_id
         LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
         ORDER BY a.id DESC
     </select>
