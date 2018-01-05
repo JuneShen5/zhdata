@@ -328,7 +328,7 @@
 		                    $(tableId).bootstrapTable('refresh');
 		                },
 		                error: function () {
-		                	layer.msg('审核不通过，请重试')
+		                	layer.msg('审核失败，请重试')
 		                }
 		            })
 		            layer.close(layer.index);
@@ -373,6 +373,7 @@
         }
 
         function notThrough (id) {
+            $('#notThrough_form').find('input[name=id]').val(id);
         	layer.open({
 				title: '不通过理由',
 				type : 1,
@@ -402,13 +403,13 @@
 		    			type : 'post',
 		    			success : function(data){
 		    				layer.close(layer.index);
-		    				$(tableId).bootstrapTable('refresh');
+//		    				$(tableId).bootstrapTable('refresh');
 		    				layer.msg(data);
 		    				endMethod('#notThrough_form');
 		    			},
 		    			error : function(XmlHttpRequest, textStatus, errorThrown){
 		    				layer.close(layer.index);
-		    				$(tableId).bootstrapTable('refresh');
+//		    				$(tableId).bootstrapTable('refresh');
 		    				layer.msg("数据操作失败!");
 		    				endMethod('#notThrough_form');
 		    			},
@@ -709,7 +710,7 @@
                 + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
 			if (itemState == 0) {
 				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
-					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;发布审核</button>';
+					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;审核</button>';
 			}
 			html += '</div>';
 			return html;

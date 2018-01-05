@@ -42,7 +42,7 @@
 							<th data-field="id">id</th>
 							<th data-field="loginName">用户名</th>
 							<th data-field="name">姓名</th>
-							<th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
+							<th data-field="Score" data-formatter="userTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -141,6 +141,23 @@
 //            //parent.location.reload();
 //            console.log($(".logo", window.parent.document).text());
 //        });
+
+		// 定义表格按钮
+        function userTableButton(index, row, element) {
+            var html = '';
+            html += '<div class="btn-group">';
+            html += '<button type="button" class="btn btn-white" onclick="datailRow(\''
+                 + row.id
+                 + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                 + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+            if (row.id !== 1){
+				html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+					 + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            }
+            html += '</div>';
+            return html;
+        }
 
         // 选择条件搜索
         function conditionalSearch() {
