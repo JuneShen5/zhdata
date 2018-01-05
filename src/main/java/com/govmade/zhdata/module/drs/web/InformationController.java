@@ -1,7 +1,6 @@
 package com.govmade.zhdata.module.drs.web;
 
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -106,6 +105,14 @@ public class InformationController extends BaseController<Information>{
             //map.put("companyId", companyId);
             map.put("companyIds", comList);
             page.setParams(map);
+        }else if (roleId!=1&& information.getIsAuthorize()==2) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            //map.put("companyId", companyId);
+            map.put("departIds", comList);
+            page.setParams(map);
         }
         Integer isAuditCount=this.infoService.queryIsAuditCount(comList);
         
@@ -155,11 +162,6 @@ public class InformationController extends BaseController<Information>{
                     map.put("auditName", "未发布");
                     break;
                 }
-                /*if(s.getIsAudit()==0){
-                    map.put("auditName", "待审核");
-                }else{
-                    map.put("auditName", "已审核");
-                }*/
                 map.put("elementList", s.getElementList());
                 String info = s.getInfo();
                 if (!StringUtils.isBlank(info))
@@ -410,6 +412,34 @@ public class InformationController extends BaseController<Information>{
     
     
     /**
+     * 信息资源发布
+     * 
+     * @param info
+     * @return
+     */
+    @RequestMapping(value = "release", method = RequestMethod.GET)
+    public ResponseEntity<String> updateRelease(Information info) {
+        try {
+            if (null==info.getDepartId()) {
+                Company company = this.companyService.queryByInfoId(info.getId());
+                if (company != null) {
+                    info.setDepartId(company.getId());
+                } else {
+                    info.setDepartId(info.getCompanyId());
+                }
+            }
+            info.setIsAudit(1);
+            this.infoService.updateSelective(info);
+            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    
+    
+    /**
      * 待办事宜-审核通过
      * 
      * @param ids
@@ -425,6 +455,25 @@ public class InformationController extends BaseController<Information>{
             e.printStackTrace();
             throw new Exception(Global.HANDLE_ERROR);
         }
+    }
+    
+  
+    
+    /**
+     * 发布审核-审核不通过
+     * 
+     * @param infor
+     * @return
+     */
+    @RequestMapping(value ="updateReason" , method = RequestMethod.POST)
+    public ResponseEntity<String> updateReason(Information infor){
+        try {
+            this.infoService.updateSelective(infor);
+            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
     
@@ -470,46 +519,7 @@ public class InformationController extends BaseController<Information>{
     }
     
     
-    /**
-     * 信息资源发布
-     * 
-     * @param info
-     * @return
-     */
-    @RequestMapping(value = "release", method = RequestMethod.GET)
-    public ResponseEntity<String> updateRelease(Information info) {
-        try {
-            Company company = this.companyService.queryByInfoId(info.getId());
-            if (company != null) {
-                info.setDepartId(company.getId());
-            } else {
-                info.setDepartId(info.getCompanyId());
-            }
-            info.setIsAudit(1);
-            this.infoService.updateSelective(info);
-            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
-    
-    /**
-     * 发布审核-审核不通过
-     * 
-     * @param infor
-     * @return
-     */
-    @RequestMapping(value ="updateReason" , method = RequestMethod.POST)
-    public ResponseEntity<String> updateReason(Information infor){
-        try {
-            this.infoService.updateSelective(infor);
-            return ResponseEntity.ok(Global.UPDATE_SUCCESS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }
+  
 
     @Override
     protected void getFileName() {
