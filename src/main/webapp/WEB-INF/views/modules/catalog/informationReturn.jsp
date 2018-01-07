@@ -55,9 +55,9 @@
 						<div class="form-group">
 							<div class="text-center">
 								<button id="examineButton" data-toggle="modal" class="btn btn-yellow"
-									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 审核通过</button>
+									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 发布资源</button>
 								<button id="examineButton2" data-toggle="modal" class="btn btn-red"
-										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键审核</button>
+										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键发布</button>
 							</div>
 						</div>
 						<div class="search-list">
@@ -90,7 +90,8 @@
 							<th data-field="companyName">资源提供方</th>
 							 <th data-field="departName">审核部门</th>
 							<th data-field="auditName">状态</th>
-							<th data-width="25%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-field="reason">审核意见</th>
+							<th data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -298,10 +299,10 @@
         }
         // 判断是否审核
         function dataIsAudit(type) {
-            if (type == 0) {
-                return "发布审核";
-            } else if (type == 1) {
-                return "已审核"
+            if (type === 1 || type === 3) {
+                return "发布";
+            } else if (type == 2 || type === 4) {
+                return "已发布"
             }
         }
         // 单独审批
@@ -701,18 +702,24 @@
         }
 
 		function checkTableButton(index, row, element) {
-			var html = '';
-			html += '<div class="btn-group">';
-			html += '<button type="button" class="btn btn-white" onclick="datailRowBefore('
-					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="editRow('
-                + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-			if (itemState == 0) {
-				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
-					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;发布审核</button>';
-			}
-			html += '</div>';
-			return html;
+            var html = '';
+            html += '<div class="btn-group">';
+            html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
+                + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+            // 审核功能按钮
+            if (row.isAudit === 0 || row.isAudit === 3){
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-red" onclick="deleteRow(\''
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            } else if (row.isAudit === 1){
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+            }
+            html += '</div>';
+            return html;
 		}
 
 

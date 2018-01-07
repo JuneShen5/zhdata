@@ -76,10 +76,14 @@
 	            	item.pId = item.parentId
 	            })
 	            childQuery(data)
+				console.log($('.company_tree_ul .chk').attr('id'));
 		 		// 给所有的选项加上点击事件（由于原有的事件并不能行）
 				$('.company_tree_ul .chk').click(function () {
 					onCheckOut($(this))
-				})
+				});
+                $('.company_tree_ul .chk').siblings('a').click(function () {
+                    onCheckOut($(this).siblings('.company_tree_ul .chk'))
+                });
  			}
  		})
  	})
@@ -102,6 +106,7 @@
 		setTimeout(function () {
 			var $ulDiv = $('.company_tree_ul .chk[state=true]').closest('.company_tree');
 			// var $ulDiv = $(e.currentTarget).closest('.company_tree');
+			console.log($('.company_tree_ul .chk').attr('state'));
 			$ulDiv.siblings(".citySel").val(v);
 			$ulDiv.siblings(".citySelId").val(id);
 			$ulDiv.siblings(".citySel").blur();
@@ -112,6 +117,7 @@
 
 	// 选中dom节点
 	function onCheckOut (that) {
+ 	    console.log(that);
 		$('.company_tree_ul .chk').attr('state', false)
 		that.attr('state', true)
 	}

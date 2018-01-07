@@ -411,9 +411,9 @@
 
         // 判断是否发布
         function dataIsAudit(type) {
-            if (type == 0) {
+            if (type === 0 || type === 3) {
                 return "发布";
-            } else if (type == 1) {
+            } else if (type == 1 || type === 2) {
                 return "已发布"
             }
         }
@@ -446,6 +446,7 @@
                 btn : [ '确认发布', '不发布' ],
                 btn1 : function(index, layero) {
 //                    var ids = id;
+
                     $.ajax({
                         url: url + 'setAudit123',
                         type: 'post',

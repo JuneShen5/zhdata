@@ -439,6 +439,9 @@
         html += '<button type="button" class="btn btn-white" onclick="openRetrievalLayer(\''
             + row.id
             + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+        html += '<button type="button" class="btn btn-red" onclick="checkCancel(\''
+            + row.id
+            + '\')"><i class="fa fa-times-circle-o"></i>&nbsp;注销</button>';
         html += '</div>';
         return html;
     }
@@ -449,6 +452,34 @@
         mTable = new TableInit2($(tableId2));
         mTable.Init();
         datailRow(id);
+    }
+    // 注销审核
+	function checkCancel(id) {
+        $.ajax({
+            url: url + 'cancelAudit',
+            type: 'post',
+            data: {
+                id: row.id
+            },
+            dataType: 'json',
+            success: function (res) {
+                if (row.departId === 0){
+                    layer.msg("发布成功!");
+                }
+//                            layer.msg("发布成功!");
+//                            parent.updateCount();
+//                            $(tableId).bootstrapTable('refresh');
+            },
+            error: function () {
+//                            if (row.departId === 0){
+                layer.msg('发布不成功，请重试');
+                releaseCompanyChoice();
+//                            }
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+            }
+        });
     }
 
     /* 四级联动相关方法---begain*/
