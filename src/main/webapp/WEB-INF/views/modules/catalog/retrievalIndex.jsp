@@ -273,7 +273,7 @@
     var toolbar = '#toolbar';
     var url = '${ctx}/catalog/information/';
     var obj = {
-        isAudit : 1,
+        isAudit : 2,
         isAuthorize:1
     };
     var editTitle = "共享开放修改";
