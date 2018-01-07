@@ -455,30 +455,29 @@
     }
     // 注销审核
 	function checkCancel(id) {
-        $.ajax({
-            url: url + 'cancelAudit',
-            type: 'post',
-            data: {
-                id: row.id
-            },
-            dataType: 'json',
-            success: function (res) {
-                if (row.departId === 0){
-                    layer.msg("发布成功!");
-                }
+        var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+        layer.confirm('确定撤销此条资源？', {icon: 3, title:'提示'}, function(index){
+            $.ajax({
+                url: url + 'cancelAudit123',
+                type: 'post',
+                data: {
+                    id: row.id
+                },
+                dataType: 'json',
+                success: function (res) {
+                    layer.msg("撤销审核成功!");
 //                            layer.msg("发布成功!");
 //                            parent.updateCount();
 //                            $(tableId).bootstrapTable('refresh');
-            },
-            error: function () {
-//                            if (row.departId === 0){
-                layer.msg('发布不成功，请重试');
-                releaseCompanyChoice();
-//                            }
+                },
+                error: function () {
+                    layer.msg('操作失败，请重试');
 //                            layer.msg('发布不成功，请重试');
 //                            layer.close(layerIndex);
 //                            endMethod(formId, "close");
-            }
+                }
+            });
+            layer.close(layer.index);
         });
     }
 

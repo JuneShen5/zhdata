@@ -123,7 +123,7 @@
 							</ul>
 						</div>
 						<c:set var="user" value="${fns:getCurrentUser()}" />
-						<a href="#" class="name btn-signout"><i class="iconfont gm-user"></i>${user.name}</a>
+						<a href="#" class="name btn-signout js-login-role"><i class="iconfont gm-user"></i>${user.name}</a>
 						<a href="/zhdata/login/system_logout" class="btn-signout btn-sign-out"><i class="iconfont gm-closeb"></i>退出</a>
 						<!-- <div class="theme-skin">
 							<a href="#" class="btn-signout theme" style="margin-right: 15px;"
@@ -200,6 +200,12 @@
 //                message: '广州珠海资源普查系统'
 //            }
 //        })
+
+        // 获取当前登录用户
+        $(function () {
+            $('.js-login-role').attr('role', ${user.roleId});
+		});
+
 		$(function () {
 			$(".J_menuItem").each(function (index) {
 				$(this).attr('id', index+1);

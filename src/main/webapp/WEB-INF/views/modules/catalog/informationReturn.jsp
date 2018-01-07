@@ -184,6 +184,18 @@
 		</table>
 	</div>
 
+	<!-- 角色为admin时选择发布部门弹框 -->
+	<div id="role_layer_form" style="display: none" class="ibox-content">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">发布部门：</label>
+			<div class="col-sm-9">
+				<input id="" name="releaseId" class="form-control citySelId hide" type="text">
+				<input id="" name="releaseName" class="form-control citySel" type="text" ReadOnly required />
+				<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+			</div>
+		</div>
+	</div>
+
 	<div id="notThrough_layer" style="display: none" class="ibox-content form-horizontal">
 		<form id="notThrough_form" class="form-horizontal">
 			<input type="text" name="id" class="hide">
@@ -297,7 +309,7 @@
             //合并单元格
             mergeCells(data1, "dataTypeName", 1, $(elementTableId));
         }
-        // 判断是否审核
+        // 判断是否发布
         function dataIsAudit(type) {
             if (type === 1 || type === 3) {
                 return "发布";
@@ -305,72 +317,148 @@
                 return "已发布"
             }
         }
-        // 单独审批
-        function releaseAudit (id) {
-        	$("input[name=code]").closest(".form-group").show();
-			var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
-			layer.open({
-				title: '审核',
-				type : 1,
-				area : [ '100%', '100%' ],
-				scrollbar : false,
-				zIndex : 100,
-				btn : [ '审核通过', '审核不通过' ],
-				btn1 : function(index, layero) {
-					var ids = id;
-		            $.ajax({
-		                url: url + 'setAudit',
-		                type: 'post',
-		                data: {ids: ids},
-		                dataType: 'json',
-		                success: function (res) {
-		                    layer.msg("通过审核!")
-		    				parent.updateCount();
-		                    $(tableId).bootstrapTable('refresh');
-		                },
-		                error: function () {
-		                	layer.msg('审核不通过，请重试')
-		                }
-		            })
-		            layer.close(layer.index);
-					endMethod(formId, "close");
-				},
-				btn2: function () {
-                	notThrough(id);
-					endMethod(formId, "close");
-				},
-				end : function() {
-					endMethod(formId, "close");
-				},
-				content : $(layerId),
-				cancel : function () {
-					endMethod(formId, "close");
-				}
-			});
-			// loadData(row);
-			loadToData(row, 'eform')
-			// 然后将所有表单中的选项做一个禁选中操作
-			$(formId).find("input").each(function () {
-				$(this).attr("disabled","disabled");
-			});
-			$(formId).find("textarea").each(function () {
-				$(this).attr("disabled","disabled");
-			});
-			// 判断select
-			$(formId).find("select").prop("disabled", true);
-			$(formId).find("select").trigger("chosen:updated");
-			setTimeout(function(){
-				$(formId).find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
-				$(formId).find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");
-				$(formId).find(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
-				// i-ckeck将自动验证去掉
-				$(formId).find('.i-checks').closest(".form-group").removeClass("has-success");
-			},500);
-			// checkbox
-			$('.i-checks').iCheck('disable');
-            var data1 = $(elementTableId).bootstrapTable('getData');
-        	//合并单元格
-        	mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        // 单独发布
+        function releaseAudit (id, status) {
+            if (status == 1) {
+                layer.msg('已发布')
+                return;
+            }
+            console.log("id: ", id);
+//            var ids = id;
+            /*$.ajax({
+                url: url + 'setAudit',
+                type: 'post',
+                data: {ids: ids},
+                dataType: 'json',
+                success: function (res) {
+                    layer.msg("通过审核!")
+                    $(tableId).bootstrapTable('refresh');
+                }
+            })*/
+            $("input[name=code]").closest(".form-group").show();
+            var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+            var layerIndex = layer.open({
+                title: '发布审核确认',
+                type : 1,
+                area : [ '90%', '95%' ],
+                scrollbar : false,
+                zIndex : 100,
+                btn : [ '确认发布', '不发布' ],
+                btn1 : function(index, layero) {
+//                    var ids = id;
+                    releaseCompanyChoice(row);
+                },
+                btn2: function () {
+//                    notThrough(id);
+                    endMethod(formId, "close");
+                },
+                end : function() {
+                    endMethod(formId, "close");
+                },
+                content : $(layerId),
+                cancel : function () {
+                    endMethod(formId, "close");
+                }
+            });
+            loadToData(row, 'eform');
+            // 然后将所有表单中的选项做一个禁选中操作
+            $(formId).find("input").each(function () {
+                $(this).attr("disabled","disabled");
+            });
+            $(formId).find("textarea").each(function () {
+                $(this).attr("disabled","disabled");
+            });
+            // 判断select
+            $(formId).find("select").prop("disabled", true);
+            $(formId).find("select").trigger("chosen:updated");
+            setTimeout(function(){
+                $(formId).find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
+                $(formId).find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");
+                $(formId).find(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
+                // i-ckeck将自动验证去掉
+                $(formId).find('.i-checks').closest(".form-group").removeClass("has-success");
+            },500);
+            // checkbox
+            $('.i-checks').iCheck('disable');
+            //合并单元格
+//            var data1 = $(elementTableId).bootstrapTable('getData');
+//            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        }
+        // 发布审核选择发布方单位
+        function releaseCompanyChoice(row) {
+            var thisRole = parseInt($('.js-login-role',window.parent.document).attr('role'));
+            if (thisRole === 1) {
+				$('#role_layer_form').find('.company_tree').show();
+				var layerIndex = layer.open({
+					title: '信息资源发布方选择',
+					type : 1,
+					area : [ '50%', '80%' ],
+					scrollbar : false,
+					zIndex : 100,
+					btn : [ '确定', '取消' ],
+					yes : function(index, layero) {
+	//                    $('#notThrough_form').submit();
+	//                    endMethod('#role_layer_form', "close");
+						layer.msg("OK!");
+						// layer.close(layerIndex);
+						var selectCompany = $('#role_layer_form').find('.citySelId').val();
+						$.ajax({
+							url: url + 'setAudit123',
+							type: 'post',
+							data: {
+								ids: row.id,
+								companyId: row.companyId,
+								departId: selectCompany
+							},
+							dataType: 'json',
+							success: function (res) {
+								layer.msg("发布成功!");
+	//                            layer.msg("发布成功!");
+	//                            parent.updateCount();
+	//                            $(tableId).bootstrapTable('refresh');
+							},
+							error: function () {
+								layer.msg('发布不成功，请重试');
+	//                            layer.msg('发布不成功，请重试');
+	//                            layer.close(layerIndex);
+	//                            endMethod(formId, "close");
+							}
+						});
+					},
+					end : function() {
+	//                    endMethod('#notThrough_form', "close");
+					},
+					content : $('#role_layer_form'),
+					cancel : function () {
+	//                    endMethod('#notThrough_form', "close");
+					}
+				});
+            } else {
+                layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        url: url + 'setAudit123',
+                        type: 'post',
+                        data: {
+                            ids: row.id,
+                            companyId: row.companyId,
+                            departId: ''
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.msg("发布成功!");
+                            // parent.updateCount();
+                            // $(tableId).bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            layer.msg('操作失败，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
         }
 
         function notThrough (id) {

@@ -417,7 +417,7 @@
                 return "已发布"
             }
         }
-        // 单独审批
+        // 单独发布
         function releaseAudit (id, status) {
             if (status == 1) {
                 layer.msg('已发布')
@@ -446,33 +446,7 @@
                 btn : [ '确认发布', '不发布' ],
                 btn1 : function(index, layero) {
 //                    var ids = id;
-
-                    $.ajax({
-                        url: url + 'setAudit123',
-                        type: 'post',
-                        data: {
-                            ids: row.id,
-                            companyId: row.companyId
-                        },
-                        dataType: 'json',
-                        success: function (res) {
-                            if (row.departId === 0){
-                                layer.msg("发布成功!");
-                            }
-//                            layer.msg("发布成功!");
-//                            parent.updateCount();
-//                            $(tableId).bootstrapTable('refresh');
-                        },
-                        error: function () {
-//                            if (row.departId === 0){
-                                layer.msg('发布不成功，请重试');
-                                releaseCompanyChoice();
-//                            }
-//                            layer.msg('发布不成功，请重试');
-//                            layer.close(layerIndex);
-//                            endMethod(formId, "close");
-                        }
-                    });
+                    releaseCompanyChoice(row);
                 },
                 btn2: function () {
 //                    notThrough(id);
@@ -512,29 +486,80 @@
         }
 
         // 发布审核选择发布方单位
-        function releaseCompanyChoice() {
-            $('#role_layer_form').find('.company_tree').show();
-            var layerIndex = layer.open({
-                title: '信息资源发布方选择',
-                type : 1,
-                area : [ '50%', '80%' ],
-                scrollbar : false,
-                zIndex : 100,
-                btn : [ '确定', '取消' ],
-                yes : function(index, layero) {
+        function releaseCompanyChoice(row) {
+            var thisRole = parseInt($('.js-login-role',window.parent.document).attr('role'));
+            if (thisRole === 1) {
+                $('#role_layer_form').find('.company_tree').show();
+                var layerIndex = layer.open({
+                    title: '信息资源发布方选择',
+                    type : 1,
+                    area : [ '50%', '80%' ],
+                    scrollbar : false,
+                    zIndex : 100,
+                    btn : [ '确定', '取消' ],
+                    yes : function(index, layero) {
 //                    $('#notThrough_form').submit();
 //                    endMethod('#role_layer_form', "close");
-                    layer.msg("OK!");
-                    layer.close(layerIndex);
-                },
-                end : function() {
+                        layer.msg("OK!");
+                        // layer.close(layerIndex);
+                        var selectCompany = $('#role_layer_form').find('.citySelId').val();
+                        $.ajax({
+                            url: url + 'setAudit123',
+                            type: 'post',
+                            data: {
+                                ids: row.id,
+                                companyId: row.companyId,
+                                departId: selectCompany
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                layer.msg("发布成功!");
+//                            layer.msg("发布成功!");
+//                            parent.updateCount();
+//                            $(tableId).bootstrapTable('refresh');
+                            },
+                            error: function () {
+                                layer.msg('发布不成功，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                            }
+                        });
+                    },
+                    end : function() {
 //                    endMethod('#notThrough_form', "close");
-                },
-                content : $('#role_layer_form'),
-                cancel : function () {
+                    },
+                    content : $('#role_layer_form'),
+                    cancel : function () {
 //                    endMethod('#notThrough_form', "close");
-                }
-            })
+                    }
+                });
+            } else {
+                layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        url: url + 'setAudit123',
+                        type: 'post',
+                        data: {
+                            ids: row.id,
+                            companyId: row.companyId,
+                            departId: ''
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.msg("发布成功!");
+                           // parent.updateCount();
+                           // $(tableId).bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            layer.msg('操作失败，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                        }
+                    });
+                    layer.close(index);
+                });
+            }
         }
 
         function notThrough (id) {
