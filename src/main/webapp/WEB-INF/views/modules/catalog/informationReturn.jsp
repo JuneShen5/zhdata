@@ -424,7 +424,7 @@
 							success: function (res) {
 								layer.msg("发布成功!");
                             layer.closeAll('page');
-							parent.updateCountReturn();
+							updateCount();
                         	$(tableId).bootstrapTable('refresh');
                             },
 							error: function () {
@@ -457,7 +457,7 @@
                         success: function (res) {
                             layer.msg("发布成功!");
                             layer.closeAll('page');
-                            parent.updateCountReturn();
+                            updateCount();
                             $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {

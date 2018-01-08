@@ -58,6 +58,50 @@ $(function() {
     });
 });
 
+// 消息栏数量设置
+function updateCount () {
+    var count1 = '';
+    var count2 = '';
+    $.ajax({
+        url: url+'list',
+        data: {
+            pageNum:1,
+            pageSize:6,
+            obj:JSON.stringify({isAudit: 1,
+                isAuthorize:1,
+                nameCn:"",
+                nameEn:""
+            }),
+            companyIds:""
+
+        },
+        success: function (res) {
+            $('#message_count1', window.parent.document).text(res.total);
+            count1 = res.total;
+            $('#message_number', window.parent.document).text(count1+count2);
+        }
+    });
+    $.ajax({
+        url: url+'list',
+        data: {
+            pageNum:1,
+            pageSize:6,
+            obj:JSON.stringify({isAudit: 3,
+                isAuthorize:1,
+                nameCn:"",
+                nameEn:""
+            }),
+            companyIds:""
+
+        },
+        success: function (res) {
+            $('#message_count2', window.parent.document).text(res.total);
+            count2 = res.total;
+            $('#message_number', window.parent.document).text(count1+count2);
+        }
+    });
+}
+
 var TableInit = function() {
 	var oTableInit = new Object();
 	// 初始化Table
@@ -87,8 +131,7 @@ var TableInit = function() {
 		});
         $(tableId).on('load-success.bs.table', function (e, data) {
         	if (data.startRow !== null){
-                $('#message_number', window.parent.document).text(data.startRow);
-                $('#message_count', window.parent.document).text(data.startRow);
+                updateCount();
 			}
         });
 	};

@@ -500,7 +500,6 @@
                     yes : function(index, layero) {
 //                    $('#notThrough_form').submit();
 //                    endMethod('#role_layer_form', "close");
-                        layer.msg("OK!");
                         // layer.close(layerIndex);
                         var selectCompany = $('#role_layer_form').find('.citySelId').val();
                         $.ajax({
@@ -515,7 +514,7 @@
                             success: function (res) {
                                 layer.msg("发布成功!");
                                 layer.closeAll('page');
-                                parent.updateCount();
+                                updateCount();
                                 $(tableId).bootstrapTable('refresh');
                             },
                             error: function () {
@@ -548,7 +547,7 @@
                         success: function (res) {
                             layer.msg("发布成功!");
                             layer.closeAll('page');
-                            parent.updateCount();
+                            updateCount();
                             $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
