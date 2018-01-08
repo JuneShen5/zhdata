@@ -468,7 +468,7 @@
                     layer.msg("撤销审核成功!");
 //                            layer.msg("发布成功!");
 //                            parent.updateCount();
-//                            $(tableId).bootstrapTable('refresh');
+					$(tableId).bootstrapTable('refresh');
                 },
                 error: function () {
                     layer.msg('操作失败，请重试');

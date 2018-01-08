@@ -327,7 +327,7 @@
 				btn1 : function(index, layero) {
 					var ids = id;
 		            $.ajax({
-		                url: url + 'setAudit123',
+		                url: url + 'setAudit',
 		                type: 'post',
 		                data: {ids: ids},
 		                dataType: 'json',

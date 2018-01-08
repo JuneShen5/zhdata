@@ -399,10 +399,10 @@
 					yes : function(index, layero) {
 						var selectCompany = $('#role_layer_form').find('.citySelId').val();
 						$.ajax({
-							url: url + 'setAudit',
+							url: url + 'release',
 							type: 'post',
 							data: {
-								ids: row.id,
+								id: row.id,
 								companyId: row.companyId,
 								departId: selectCompany
 							},
@@ -410,8 +410,8 @@
 							success: function (res) {
 								layer.msg("发布成功!");
                             layer.closeAll('page');
-                        //                            layer.msg("发布成功!");
-                        //                            parent.updateCount();
+//                            layer.msg("发布成功!");
+//                            parent.updateCount();
                         	$(tableId).bootstrapTable('refresh');
                             },
 							error: function () {
@@ -436,7 +436,7 @@
                         url: url + 'setAudit',
                         type: 'post',
                         data: {
-                            ids: row.id,
+                            id: row.id,
                             companyId: row.companyId,
                             departId: ''
                         },
@@ -797,7 +797,7 @@
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
                 html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
                     + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
-                html += '<button type="button" class="btn btn-red" onclick="deleteRow(\''
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             } else if (row.isAudit === 1){
                 html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
