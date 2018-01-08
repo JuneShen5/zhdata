@@ -35,8 +35,8 @@
  }
 </style>
 <body class="white-bg skin-7">
-	<div class="wrapper-content animated fadeInRight">
-		<div class="ibox float-e-margins wrapper-main">
+	<div class="wrapper wrapper-content animated fadeInRight">
+		<div class="ibox float-e-margins">
 			<div class="ibox-content">
 				<div id="toolbar">
 					<div class="form-inline">

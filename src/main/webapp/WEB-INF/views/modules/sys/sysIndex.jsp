@@ -90,10 +90,18 @@
 								</li>
 								<li class="divider"></li> -->
 								<li>
-									<a href="#" class="other-url" url="/zhdata/catalog/information/check" id="75" name="待办事宜">
+									<a href="#" class="other-url" url="/zhdata/catalog/information/audit" id="10" name="未审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i>
-											信息资源有<i id="message_count" style="color: #f00;"></i>条待审核
+											信息资源有<i id="message_count1" style="color: #f00;"></i>条<strong style="color: #0090cc;">待审核</strong>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#" class="other-url" url="/zhdata/catalog/information/return" id="11" name="已退回资源" onclick="$('.cataloginformationreturn').attr('src', $('.cataloginformationreturn').attr('src'))">
+										<div>
+											<i class="fa fa-envelope fa-fw"></i>
+											信息资源有<i id="message_count2" style="color: #f00;"></i>条<strong style="color: #0090cc;">已退回</strong>
 										</div>
 									</a>
 								</li>
@@ -239,7 +247,8 @@
 		// 查询需要审核的消息
 		$(function () {
 			updateCount();
-		})
+            updateCountReturn();
+		});
 		
 		function updateCount () {
 			$.ajax({
@@ -247,20 +256,43 @@
 				data: {
 					pageNum:1,
 					pageSize:6,
-					obj:JSON.stringify({isAudit: 0,
+					obj:JSON.stringify({isAudit: 1,
 						isAuthorize:1,
 						nameCn:"",
 						nameEn:""
 						}),
 					companyIds:""
-					
+
 				},
 				success: function (res) {
-					$('#message_number').text(res.total);
-					$('#message_count').text(res.total);
+					$('#message_count1').text(res.total);
+                    var count2 = parseInt($('#message_count2').text());
+//                    console.log('as:'+);
+                    $('#message_number').text(res.total+count2);
 				}
 			})
 		}
+        function updateCountReturn () {
+            $.ajax({
+                url: '${ctx}/catalog/information/list',
+                data: {
+                    pageNum:1,
+                    pageSize:6,
+                    obj:JSON.stringify({isAudit: 3,
+                        isAuthorize:1,
+                        nameCn:"",
+                        nameEn:""
+                    }),
+                    companyIds:""
+
+                },
+                success: function (res) {
+                    $('#message_count2').text(res.total);
+                    var count1 = parseInt($('#message_count1').text());
+                    $('#message_number').text(res.total+count1);
+                }
+            })
+        }
 		</script>
 	</body>
 
