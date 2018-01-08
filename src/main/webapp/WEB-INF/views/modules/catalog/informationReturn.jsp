@@ -52,14 +52,14 @@
 									class="btn btn-primary btn-drop"><span class="caret"></span></button>
 							</div>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<div class="text-center">
 								<button id="examineButton" data-toggle="modal" class="btn btn-yellow"
 									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 发布资源</button>
 								<button id="examineButton2" data-toggle="modal" class="btn btn-red"
 										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键发布</button>
 							</div>
-						</div>
+						</div>-->
 						<div class="search-list">
 							<!--<div class="check-search hide">
 								<label class="">审核状态：</label>
@@ -397,13 +397,9 @@
 					zIndex : 100,
 					btn : [ '确定', '取消' ],
 					yes : function(index, layero) {
-	//                    $('#notThrough_form').submit();
-	//                    endMethod('#role_layer_form', "close");
-						layer.msg("OK!");
-						// layer.close(layerIndex);
 						var selectCompany = $('#role_layer_form').find('.citySelId').val();
 						$.ajax({
-							url: url + 'setAudit123',
+							url: url + 'setAudit',
 							type: 'post',
 							data: {
 								ids: row.id,
@@ -413,10 +409,11 @@
 							dataType: 'json',
 							success: function (res) {
 								layer.msg("发布成功!");
-	//                            layer.msg("发布成功!");
-	//                            parent.updateCount();
-	//                            $(tableId).bootstrapTable('refresh');
-							},
+                            layer.closeAll('page');
+                        //                            layer.msg("发布成功!");
+                        //                            parent.updateCount();
+                        	$(tableId).bootstrapTable('refresh');
+                            },
 							error: function () {
 								layer.msg('发布不成功，请重试');
 	//                            layer.msg('发布不成功，请重试');
@@ -436,7 +433,7 @@
             } else {
                 layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
                     $.ajax({
-                        url: url + 'setAudit123',
+                        url: url + 'setAudit',
                         type: 'post',
                         data: {
                             ids: row.id,
@@ -446,8 +443,8 @@
                         dataType: 'json',
                         success: function (res) {
                             layer.msg("发布成功!");
-                            // parent.updateCount();
-                            // $(tableId).bootstrapTable('refresh');
+                            layer.closeAll('page');
+                            $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
                             layer.msg('操作失败，请重试');
@@ -456,7 +453,7 @@
 //                            endMethod(formId, "close");
                         }
                     });
-                    layer.close(index);
+//                    layer.close(index);
                 });
             }
         }

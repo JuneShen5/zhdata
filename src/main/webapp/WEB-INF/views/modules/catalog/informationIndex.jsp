@@ -504,7 +504,7 @@
                         // layer.close(layerIndex);
                         var selectCompany = $('#role_layer_form').find('.citySelId').val();
                         $.ajax({
-                            url: url + 'setAudit123',
+                            url: url + 'setAudit',
                             type: 'post',
                             data: {
                                 ids: row.id,
@@ -514,9 +514,10 @@
                             dataType: 'json',
                             success: function (res) {
                                 layer.msg("发布成功!");
-//                            layer.msg("发布成功!");
-//                            parent.updateCount();
-//                            $(tableId).bootstrapTable('refresh');
+                                layer.closeAll('page');
+//                                layer.msg("发布成功!");
+//                                parent.updateCount();
+                                $(tableId).bootstrapTable('refresh');
                             },
                             error: function () {
                                 layer.msg('发布不成功，请重试');
@@ -537,7 +538,7 @@
             } else {
                 layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
                     $.ajax({
-                        url: url + 'setAudit123',
+                        url: url + 'setAudit',
                         type: 'post',
                         data: {
                             ids: row.id,
@@ -547,8 +548,10 @@
                         dataType: 'json',
                         success: function (res) {
                             layer.msg("发布成功!");
-                           // parent.updateCount();
-                           // $(tableId).bootstrapTable('refresh');
+                            layer.closeAll('page');
+//                                layer.msg("发布成功!");
+//                                parent.updateCount();
+                            $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
                             layer.msg('操作失败，请重试');
@@ -557,7 +560,7 @@
 //                            endMethod(formId, "close");
                         }
                     });
-                    layer.close(index);
+//                    layer.close(index);
                 });
             }
         }
