@@ -447,7 +447,7 @@
             } else {
                 layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
                     $.ajax({
-                        url: url + 'setAudit',
+                        url: url + 'release',
                         type: 'post',
                         data: {
                             id: row.id,

@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.poi.hssf.util.HSSFColor.GOLD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -426,7 +427,7 @@ public class InformationController extends BaseController<Information>{
      * @param info
      * @return
      */
-    @RequestMapping(value = "release", method = RequestMethod.GET)
+    @RequestMapping(value = "release", method = RequestMethod.POST)
     public ResponseEntity<String> updateRelease(Information info) {
         try {
             if (null==info.getDepartId()) {
@@ -477,6 +478,7 @@ public class InformationController extends BaseController<Information>{
     @RequestMapping(value ="updateReason" , method = RequestMethod.POST)
     public ResponseEntity<String> updateReason(Information infor){
         try {
+            infor.setIsAudit(Global.AUDIT_FLAG_NO1);
             this.infoService.updateSelective(infor);
             return ResponseEntity.ok(Global.UPDATE_SUCCESS);
         } catch (Exception e) {
@@ -488,7 +490,7 @@ public class InformationController extends BaseController<Information>{
     
     /**
      * 
-     * 信息资源-注销审核（未发布状态）
+     * 信息资源-注销审核（返回至未发布状态）
      * 
      * @param infor
      * @return

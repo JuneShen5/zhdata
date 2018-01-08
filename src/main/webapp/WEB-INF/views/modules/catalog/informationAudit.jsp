@@ -374,7 +374,7 @@
 
         function notThrough (id) {
         	layer.open({
-				title: '不通过理由',
+				title: '审核意见',
 				type : 1,
 				area : [ '40%', '60%' ],
 				scrollbar : false,
