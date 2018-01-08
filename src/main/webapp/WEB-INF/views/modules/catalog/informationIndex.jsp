@@ -515,8 +515,7 @@
                             success: function (res) {
                                 layer.msg("发布成功!");
                                 layer.closeAll('page');
-//                                layer.msg("发布成功!");
-//                                parent.updateCount();
+                                parent.updateCount();
                                 $(tableId).bootstrapTable('refresh');
                             },
                             error: function () {
@@ -549,8 +548,7 @@
                         success: function (res) {
                             layer.msg("发布成功!");
                             layer.closeAll('page');
-//                                layer.msg("发布成功!");
-//                                parent.updateCount();
+                            parent.updateCount();
                             $(tableId).bootstrapTable('refresh');
                         },
                         error: function () {
