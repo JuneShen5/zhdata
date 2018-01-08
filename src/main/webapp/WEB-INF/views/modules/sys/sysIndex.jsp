@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
+		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>  
 		<title>珠海市政府数据资源普查系统</title>
 		<%@ include file="/WEB-INF/views/include/head.jsp"%>
 		<link rel="stylesheet" href="${ctxStatic}/css/index.css">
