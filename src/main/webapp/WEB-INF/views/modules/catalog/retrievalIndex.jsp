@@ -441,7 +441,7 @@
             + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
         html += '<button type="button" class="btn btn-red" onclick="checkCancel(\''
             + row.id
-            + '\')"><i class="fa fa-times-circle-o"></i>&nbsp;撤销审核</button>';
+            + '\')"><i class="fa fa-times-circle-o"></i>&nbsp;注销审核</button>';
         html += '</div>';
         return html;
     }
@@ -456,7 +456,7 @@
     // 注销审核
 	function checkCancel(id) {
         var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
-        layer.confirm('确定撤销此条已审核资源（此操作将此条资源退回至未发布状态）？', {icon: 3, title:'提示'}, function(index){
+        layer.confirm('确定注销此条已审核资源（此操作将此条资源退回至未发布状态）？', {icon: 3, title:'提示'}, function(index){
             $.ajax({
                 url: url + 'cancelAudit',
                 type: 'post',
@@ -465,7 +465,7 @@
                 },
                 dataType: 'json',
                 success: function (res) {
-                    layer.msg("撤销审核成功!");
+                    layer.msg("注销审核成功!");
 //                            layer.msg("发布成功!");
 //                            parent.updateCount();
 					$(tableId).bootstrapTable('refresh');

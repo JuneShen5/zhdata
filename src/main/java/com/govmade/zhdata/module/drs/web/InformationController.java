@@ -437,7 +437,7 @@ public class InformationController extends BaseController<Information>{
                     info.setDepartId(info.getCompanyId());
                 }
             }
-            info.setIsAudit(1);
+            info.setIsAudit(Global.AUDIT_FLAG_NO);
             this.infoService.updateSelective(info);
             return ResponseEntity.ok(Global.UPDATE_SUCCESS);
         } catch (Exception e) {
