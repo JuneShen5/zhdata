@@ -7866,3 +7866,12 @@ blockquote:nth-child(1) {
 	width: 100%;
 	/*background-color: #fff;*/
 }
+td.font-red{
+	color: #f05656;
+}
+.col-reason{
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}

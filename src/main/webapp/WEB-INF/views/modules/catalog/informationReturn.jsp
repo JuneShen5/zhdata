@@ -47,9 +47,9 @@
                                 <button type="button" id="searchFor"
                                 	onclick="tableSearch()"
 									class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-								<button type="button" id=""
+								<!--<button type="button" id=""
                                 	onclick="searchMore()" 
-									class="btn btn-primary btn-drop"><span class="caret"></span></button>
+									class="btn btn-primary btn-drop"><span class="caret"></span></button>-->
 							</div>
 						</div>
 						<!--<div class="form-group">
@@ -71,26 +71,26 @@
 									</c:forEach>
 								</select>
 								</div>
-							</div>-->
+							</div>
 							<div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
 									<input type="text" sName="nameEn" class="form-control">
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
 				<table id="systemTable">
 					<thead class="ele-hide">
 						<tr>
-							<th data-checkbox="true"></th>
-							<th data-field="nameEn">信息资源代码</th>
+							<%--<th data-checkbox="true"></th>--%>
+							<%--<th data-field="nameEn">信息资源代码</th>--%>
 							<th data-field="nameCn">信息资源名称</th>
 							<th data-field="companyName">资源提供方</th>
 							 <th data-field="departName">审核部门</th>
-							<th data-field="auditName">状态</th>
-							<th data-field="reason">审核意见</th>
+							<th data-field="auditName" data-class="font-red">状态</th>
+							<th data-class="font-red" data-formatter="auditReason">审核意见</th>
 							<th data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
@@ -286,6 +286,20 @@
             }, 500);
             changeInit();
         });
+
+//        $(function () {
+//			$(document).on('mouseenter', 'td.font-red', function () {
+//			    var reason = $(this).
+//				$(this).attr({'data-toggle': 'tooltip','title': '!!!'});
+//            });
+//        });
+
+		function auditReason(index, row, element) {
+            var html = '';
+            html += '<div class="col-reason" title="'+row.reason+'">'+row.reason+'</div>';
+//            html += row.reason;
+            return html;
+        }
 
         // 动态的将数据赋值进去
         function loadLinkageSel (data) {
