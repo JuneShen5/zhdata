@@ -13,10 +13,21 @@ public class Information extends BasePo<Information> {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer companyId;
-
+    private Integer companyId; //信息资源提供方（所属机构）
+    
+    @Transient
+    private String companyName;
+    
+    private Integer departId; //审核机构
+    
+    @Transient
+    private String departName;
+    
     private Integer systemId;
 
+    @Transient
+    private String systemName;
+    
     private String nameEn; // 信息资源代码
 
     private String nameCn;
@@ -56,11 +67,6 @@ public class Information extends BasePo<Information> {
     @Transient
     private Integer isAuthorize; // 是否需要数据权限控制 0为否 1为是
 
-    @Transient
-    private String companyName;
-
-    @Transient
-    private String systemName;
 
     @Transient
     private String elementIds;
@@ -285,15 +291,34 @@ public class Information extends BasePo<Information> {
 
     @Override
     public String toString() {
-        return "Information [companyId=" + companyId + ", systemId=" + systemId + ", nameEn=" + nameEn
-                + ", nameCn=" + nameCn + ", tbName=" + tbName + ", isOpen=" + isOpen + ", openType="
-                + openType + ", shareType=" + shareType + ", shareMode=" + shareMode + ", shareCondition="
-                + shareCondition + ", infoType1=" + infoType1 + ", infoType2=" + infoType2 + ", isAudit="
-                + isAudit + ", info=" + info + ", code=" + code + ", reason=" + reason + ", resourceFormat="
-                + resourceFormat + ", rightRelation=" + rightRelation + ", manageStyle=" + manageStyle
-                + ", releaseDate=" + releaseDate + ", isAuthorize=" + isAuthorize + ", companyName="
-                + companyName + ", systemName=" + systemName + ", elementIds=" + elementIds
+        return "Information [companyId=" + companyId + ", companyName=" + companyName + ", departId="
+                + departId + ", departName=" + departName + ", systemId=" + systemId + ", systemName="
+                + systemName + ", nameEn=" + nameEn + ", nameCn=" + nameCn + ", tbName=" + tbName
+                + ", isOpen=" + isOpen + ", openType=" + openType + ", shareType=" + shareType
+                + ", shareMode=" + shareMode + ", shareCondition=" + shareCondition + ", infoType1="
+                + infoType1 + ", infoType2=" + infoType2 + ", isAudit=" + isAudit + ", info=" + info
+                + ", code=" + code + ", reason=" + reason + ", resourceFormat=" + resourceFormat
+                + ", rightRelation=" + rightRelation + ", manageStyle=" + manageStyle + ", releaseDate="
+                + releaseDate + ", isAuthorize=" + isAuthorize + ", elementIds=" + elementIds
                 + ", elementList=" + elementList + ", count=" + count + "]";
     }
+
+    public Integer getDepartId() {
+        return departId;
+    }
+
+    public void setDepartId(Integer departId) {
+        this.departId = departId;
+    }
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
+    }
+    
+    
 
 }

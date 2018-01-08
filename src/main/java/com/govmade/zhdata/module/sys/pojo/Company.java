@@ -82,21 +82,6 @@ public class Company extends BasePo<Company> {
     @Transient
     private Integer count;
     
-    /*树形结构要用*/  
-    @Transient
-    private Company parent;
-    
-    @Transient
-    private boolean isLeaf;
-    
-    @Transient
-    private int rootId;
-    
-    @Transient
-    private int childSize;
-    
-    @Transient
-    private List<Company> children= Lists.newArrayList();
 
     public Company() {
         super();
@@ -181,51 +166,7 @@ public class Company extends BasePo<Company> {
     public void setTypes(String types) {
         this.types = types;
     }
-
     
-    
-    public Company getParent() {
-        return parent;
-    }
-
-    public void setParent(Company parent) {
-        this.parent = parent;
-    }
-
-    public boolean isLeaf() {
-        return isLeaf;
-    }
-
-    public void setLeaf(boolean isLeaf) {
-        this.isLeaf = isLeaf;
-    }
-
-    public int getRootId() {
-        return rootId;
-    }
-
-    public void setRootId(int rootId) {
-        this.rootId = rootId;
-    }
-
-    public int getChildSize() {
-        return childSize;
-    }
-
-    public void setChildSize(int childSize) {
-        this.childSize = childSize;
-    }
-
-    
-    public List<Company> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<Company> children) {
-        this.children = children;
-    }
-    
-
     public String getCreditCode() {
 		return creditCode;
 	}

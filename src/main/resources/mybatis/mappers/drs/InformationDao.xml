@@ -6,6 +6,8 @@
         <id property="id" column="id" />
         <result property="companyName" column="companyName" />
         <result property="companyId" column="companyId" />
+         <result property="departId" column="departId" />
+         <result property="departName" column="departName" />
 		<result property="systemId" column="systemId" />
 		<result property="nameEn" column="nameEn" />
 		<result property="nameCn" column="nameCn" />
@@ -57,6 +59,7 @@
 	<sql id="informationColumns">
 		a.id,
 		a.company_id AS "companyId",
+		a.depart_id AS "departId",
 		a.system_id AS "systemId",
 		a.name_en AS "nameEn",
 		a.name_cn AS "nameCn",
@@ -82,7 +85,8 @@
 		a.update_date AS "updateDate",
 		a.remarks,
 		a.del_flag AS "delFlag",
-		c.name AS "companyName"
+		c.name AS "companyName",
+		co.name AS "departName"
 	</sql>
 	
     <sql id="shareOpen">
@@ -200,6 +204,9 @@
                 <if test="key=='companyId'" >
                     AND a.company_id = '${value}'
                 </if>
+                 <if test="key=='departId'" >
+                	AND a.depart_id = '${value}'
+                </if>
                 <if test="key=='infoType1'" >
                     AND a.info_type1 = '${value}'
                 </if>
@@ -274,6 +281,9 @@
                 <if test="key=='companyId'" >
                     AND i.company_id = '${value}'
                 </if>
+                <if test="key=='departId'" >
+                	AND i.depart_id = '${value}'
+                </if>
                 <if test="key=='infoType1'" >
                     AND i.info_type1 = '${value}'
                 </if>
@@ -303,6 +313,7 @@
         LEFT JOIN drs_info_element ie ON ie.info_id=a.id
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
+        LEFT JOIN sys_company co ON co.id = a.depart_id
         LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
         ORDER BY a.id DESC
     </select>
@@ -463,10 +474,10 @@
 	</insert>
 	
 	<update id="updateAllAudit">
-	UPDATE drs_information SET is_audit = 1
-	WHERE del_flag = 0
+	UPDATE drs_information SET is_audit = 2
+	WHERE del_flag = 0 AND is_audit=1
 	<if test=" comList !=null and comList.size() >0 ">
-		AND company_id IN
+		AND depart_id IN
     	<foreach collection="comList" item="id" open="("  close=")" separator=",">
             #{id}
         </foreach>
@@ -497,7 +508,7 @@
 	
 	<!-- 根据待审核查询信息资源 -->
 	<select id="queryIsAuditCount" resultType="Integer">
-		SELECT COUNT(*) FROM drs_information WHERE del_flag=0 AND is_audit=0 
+		SELECT COUNT(*) FROM drs_information WHERE del_flag=0 AND is_audit=1 
 		<if test=" comList !=null and comList.size() >0 ">
 		AND company_id IN
     	<foreach collection="comList" item="id" open="("  close=")" separator=",">

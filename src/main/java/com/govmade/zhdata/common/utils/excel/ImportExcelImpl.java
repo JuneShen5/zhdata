@@ -260,6 +260,7 @@ public class ImportExcelImpl{
                             oneErrorDataCoordinate.put("rowIndex", rowIndex);
                             oneErrorDataCoordinate.put("columnIndex", columnIndex);
                             someErrorDataCoordinate.add(oneErrorDataCoordinate);
+                            rowMap.clear();
                             break;
                         }else{
                             value = ID;
@@ -273,8 +274,10 @@ public class ImportExcelImpl{
                 }
                 rowMap.put(nameEnMap.get(columnIndex), value);
             }
-            resolut.add(rowMap);
-            if(resolut.size()%(this.commitRow) == 0){  
+            if(rowMap.size()>0){
+                resolut.add(rowMap);
+            }
+            if(resolut.size()%(this.commitRow) == 0 && resolut.size()>0){  
                 return resolut; 
             }
         }

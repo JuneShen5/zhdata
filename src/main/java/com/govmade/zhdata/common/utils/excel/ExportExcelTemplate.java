@@ -1,5 +1,4 @@
 package com.govmade.zhdata.common.utils.excel;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,9 +8,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationConstraint;
 import org.apache.poi.xssf.usermodel.XSSFDataValidationHelper;
@@ -31,7 +34,6 @@ import com.govmade.zhdata.module.sys.pojo.Role;
 import com.govmade.zhdata.module.sys.pojo.Site;
 
 
-
 /** 
  * 导出Excel公共方法 
  *  
@@ -42,6 +44,8 @@ public class ExportExcelTemplate extends ExportExcelImpl {
     
     protected Map<String, List<String>> dictMap = null;
     protected String[] unSelect = {"input","dateselect","textarea","element","linkageSelect"}; //不用做关联的inputtype
+    
+//    protected Sheet infoattachedSheet;
     
     public ExportExcelTemplate(String fileName, String title, String[] rowName,
             List<Map<String, Object>> dataList, HttpServletResponse response) throws Exception {
@@ -64,8 +68,10 @@ public class ExportExcelTemplate extends ExportExcelImpl {
       Row inputTypeRow = sheet.getRow(lastRowNum); //获取input_inputValue那一行
       Row selectBoxRow= sheet.createRow(lastRowNum+1);//用于存储下拉选框
       int lastCellNum =  inputTypeRow.getLastCellNum();   //模板中的总列数
-      List<List<String>> attachedSheetList = new ArrayList<List<String>>();//存放所以需要放入附页中的信息
+      List<List<String>> attachedSheetList = new ArrayList<List<String>>();//存放所有需要放入下拉附页中的信息
+      List< List<Map<String, Object>>> attachedSheetLink = new ArrayList<List<Map<String, Object>>>();//存放所有需要放入下拉附页中的信息
       int attachedMaxLen = 0; //用于存放附页中需要的行数
+      String linkValueTitle =""; //初始换联系信息的标题
       for (int columnIndex = 0; columnIndex <lastCellNum; columnIndex++) {
           String  inputValue = "";
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
@@ -100,7 +106,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                   if("checkbox".equals(columType)||"check".equals(columType)){
                       inputValue="多选框";
                   }else{
-                      inputValue = "参考附页"; 
+                      inputValue = "参考下拉选框附页"; 
                   }
                   templateValue.add(0, sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue());//将那一列的中文名放到第一个
                   if(templateValue.size()>attachedMaxLen){
@@ -110,7 +116,7 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                   attachedSheetList.add(templateValue);//存放所以需要放入附页中的信息
               }
           }else if("dateselect".equals(CellValArr[0])){
-              inputValue = "2017-10-1";
+              inputValue = "2017-10";
           }else if("linkageSelect".equals(CellValArr[0])){
               //有联动的
               List<Map<String, Object>> linkageTemplateValue = getLinkSelect(CellValArr[1]); //下拉选框数据
@@ -118,30 +124,34 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                   if(inputTypeRow.getCell(columnIndex+1).getStringCellValue().equals(CellVal)){
                       columnIndex++;
                   }else{
+                      inputValue="参考联动选框附页";
                       break;
                   }
               }  //这边用于跳过联动的子数据，以免多次生成模板
               
-              Sheet attachedSheet = workbook.getSheetAt(2);
-              workbook.setSheetName(2, "信息资源分类附页");
-//              for(int i=0;i<500;i++){
-//                  attachedSheet.createRow(i);
-//              }
-              attachedLinkSheetFunc(attachedSheet,linkageTemplateValue);
+              attachedSheetLink.add(linkageTemplateValue);
+              linkValueTitle = sheet.getRow(lastRowNum-2).getCell(columnIndex).getStringCellValue();
+//              Sheet attachedLinkSheet = workbook.getSheetAt(2);
+//              workbook.setSheetName(2, "联动选框附页");
+//              attachedLinkSheetFunc(attachedLinkSheet,linkageTemplateValue);
               
           }
           selectBoxRow.createCell(columnIndex).setCellValue(inputValue);//下拉选框的提示内容
        }
       
       if(attachedSheetList.size()>0){
-          attachedSheetFunc(attachedSheetList,attachedMaxLen);   //设置附页信息
+          attachedSheetFunc(attachedSheetList,attachedMaxLen);   //设置下拉选框附页信息
+      }
+      
+      if(attachedSheetLink.size()>0){
+          attachedLinkSheetFunc(attachedSheetLink,linkValueTitle);   //设置联动选框附页信息
       }
   }
     
-  //添加附页信息
+    //添加下拉选框附页信息
     private void attachedSheetFunc(List<List<String>> valueList,int maxMapLen){
         Sheet attachedSheet = workbook.getSheetAt(1);
-        workbook.setSheetName(1, "附页");
+        workbook.setSheetName(1, "下拉选框附页");
         for(int i=0;i<maxMapLen;i++){
             attachedSheet.createRow(i);
         }
@@ -152,31 +162,91 @@ public class ExportExcelTemplate extends ExportExcelImpl {
         }
     }
     
+    //将树形结构的数据存入到附页中
+    @SuppressWarnings("unchecked")
+    private void attachedLinkSheetFunc(List< List<Map<String, Object>>> attachedSheetLink,String linkValueTitle){
+        Sheet attachedLinkSheet = workbook.getSheetAt(2);
+        workbook.setSheetName(2, "联动选框附页");
+        
+        Row titleRow = attachedLinkSheet.createRow(0);
+        Row valueRow = attachedLinkSheet.createRow(1);
+        
+        for(List<Map<String, Object>> valueList:attachedSheetLink){
+            //设置标题行
+            titleRow.createCell(valueRow.getLastCellNum()+1).setCellValue(linkValueTitle.substring(0,linkValueTitle.length() - 1));
+          
+            for(Map<String, Object> infoSort:valueList){
+                int _i=i;
+                attachedLinkSheet = attachedLinkChild(attachedLinkSheet,(List<Map<String, Object>>)infoSort.get("children"),i);
+                attachedLinkSheet.getRow(_i+1).createCell(j).setCellValue(infoSort.get("name").toString());
+                attachedLinkSheet.addMergedRegion(new CellRangeAddress(_i+1, i, j, j));// 设置单元格合并
+            }
+        }
+        
+    }
+//    private void attachedLinkSheetFunc(Sheet attachedSheet,List<Map<String, Object>> valueList){
+//        for(Map<String, Object> infoSort:valueList){
+//            int _i=i;
+//            attachedSheet = attachedLinkChild(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"),i);
+//            attachedSheet.getRow(_i+1).createCell(j).setCellValue(infoSort.get("name").toString());
+//            attachedSheet.addMergedRegion(new CellRangeAddress(_i+1, i, j, j));// 设置单元格合并
+//        }
+//    }
+    
     //将联动信息添加到附表
     private Integer i =0; //行
-    private Integer j =-1;// 列
-//    private Integer _i = 1;
+    private Integer j =0;// 列
     @SuppressWarnings("unchecked")
-    private void attachedLinkSheetFunc(Sheet attachedSheet,List<Map<String, Object>> valueList){
+    private Sheet attachedLinkChild(Sheet attachedSheet,List<Map<String, Object>> valueList,Integer _i){
         j++;
-//        int _i=1;
-        for(Map<String, Object> infoSort:valueList){
-//            System.out.println("name"+infoSort.getName());
-            if(((List<Map<String, Object>>)infoSort.get("children")).size()>0){
-                attachedLinkSheetFunc(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"));
-//                System.out.println("操作的列："+j);
-//                System.out.println("从第几行开始："+i);
-//                System.out.println("合并的行数"+(i-_i));
-//                System.out.println("---------------");
-//                _i = i;
-            }else{
-                i++;
-                attachedSheet.createRow(i);
-            }
-            attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
-        }
-        j--;
+            for(Map<String, Object> infoSort:valueList){
+              if(((List<Map<String, Object>>)infoSort.get("children")).size()>0){
+                  attachedLinkChild(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"),i);
+                  attachedSheet.getRow(_i+1).createCell(j).setCellValue(infoSort.get("name").toString());
+                  attachedSheet.addMergedRegion(new CellRangeAddress(_i+1, i, j, j));// 设置单元格合并
+                  _i = i;
+              }else{
+                  i++;
+                  
+                try {//判断所要的行是否存在，不在的话就创建，可用于第二个联动数据的存储
+                    attachedSheet.getRow(i).createCell(j);
+                } catch (Exception e) {
+                    attachedSheet.createRow(i);
+                }
+                attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
+              }
+          }
+            j--;
+          return attachedSheet;
     }
+    
+//    //将联动信息添加到附表  这种方式的话单元格合并无法处理
+//    private Integer i =0; //行
+//    private Integer j =-1;// 列
+////    private Integer _i = 1;
+//    @SuppressWarnings("unchecked")
+//    private void attachedLinkSheetFunc2(Sheet attachedSheet,List<Map<String, Object>> valueList){
+//        j++;
+////        int _i=1;
+//        for(Map<String, Object> infoSort:valueList){
+////            System.out.println("name"+infoSort.getName());
+//            if(((List<Map<String, Object>>)infoSort.get("children")).size()>0){
+//                attachedLinkSheetFunc(attachedSheet,(List<Map<String, Object>>)infoSort.get("children"));
+////                System.out.println("操作的列："+j);
+////                System.out.println("从第几行开始："+i);
+////                System.out.println("合并的行数"+(i-_i));
+////                System.out.println("---------------");
+////                _i = i;
+//            }else{
+//                i++;
+//                attachedSheet.createRow(i);
+//            }
+//            attachedSheet.getRow(i).createCell(j).setCellValue(infoSort.get("name").toString());
+//        }
+//        j--;
+//    }
+    
+   
     
     
     /**
@@ -205,8 +275,8 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                 }
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 templateValue = dictMap.get(inputValue);
-                System.out.println("inputValue:"+inputValue);
-                System.out.println("templateValue:"+templateValue);
+//                System.out.println("inputValue:"+inputValue);
+//                System.out.println("templateValue:"+templateValue);
                 break;
             case "companyselect":
                 List<Company>  companyList = SysUtils.getCompanyList(); //单存的列表
