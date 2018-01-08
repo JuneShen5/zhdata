@@ -160,7 +160,7 @@ public class InformationController extends BaseController<Information>{
                     map.put("auditName", "未发布");
                     break;
                 case 1:
-                    map.put("auditName", "未审核");
+                    map.put("auditName", "待审核");
                     break;
                 case 2:
                     map.put("auditName", "已审核");
