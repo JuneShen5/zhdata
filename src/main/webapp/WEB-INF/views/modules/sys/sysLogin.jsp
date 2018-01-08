@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>  
 <title>珠海市政府数据资源普查系统</title>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static" />
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>

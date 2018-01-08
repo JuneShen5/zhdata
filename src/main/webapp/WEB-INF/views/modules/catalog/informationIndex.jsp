@@ -90,12 +90,20 @@
                         <div class="check-search">
                             <label class="">审核状态：</label>
                             <div class="check-search-item" style="width:200px;">
-                                <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
+                               <!--  <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
                                     <option value=''>全部</option>
-                                    <option value=0>待审核</option>
-                                    <option value=1>已审核</option>
-                                </select>
-                            </div>
+                                    <option value=0>待发布</option>
+                                    <option value=1>待审核</option>
+                                     <option value=2>已审核</option>
+                                     <option value=3>审核不通过</option>
+                                </select>  -->
+                                <select type="text" sName="isAudit" class="form-control search-chosen select-chosen">
+									<option value="">全部</option>
+									<c:forEach var="dict" items="${fns:getDictList('audit_status')}">
+										<option value="${dict.value}">${dict.label}</option>
+									</c:forEach>
+								</select>
+							</div>
                         </div>
                         <div class="check-search">
                             <label class="">信息资源提供方：</label>
@@ -112,6 +120,7 @@
                             <th data-field="nameEn">信息资源代码</th>
                             <th data-field="nameCn">信息资源名称</th>
                             <th data-field="companyName">信息资源提供方</th>
+                            <th data-field="departName">审核部门</th>
                             <th data-field="auditName">审核状态</th>
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
@@ -208,6 +217,18 @@
                    </tr>
             </thead>        
         </table>
+    </div>
+
+    <!-- 角色为admin时选择发布部门弹框 -->
+    <div id="role_layer_form" style="display: none" class="ibox-content">
+        <div class="form-group">
+            <label class="col-sm-3 control-label">发布部门：</label>
+            <div class="col-sm-9">
+                <input id="" name="releaseId" class="form-control citySelId hide" type="text">
+                <input id="" name="releaseName" class="form-control citySel" type="text" ReadOnly required />
+                <%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+            </div>
+        </div>
     </div>
     
 	<!-- excel导入导出-->
@@ -314,21 +335,17 @@
             html += '<div class="btn-group">';
             html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-//            html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
-//                + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-//            html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
-//                + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             // 审核功能按钮
-            if (row.isAudit === 0){
+            if (row.isAudit === 0 || row.isAudit === 3){
                 html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
                 html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
                     + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             } else if (row.isAudit === 1){
-//                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
-//                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
             }
             html += '</div>';
             return html;
@@ -392,22 +409,22 @@
             }})
         };
 
-        // 判断是否审核
+        // 判断是否发布
         function dataIsAudit(type) {
-            if (type == 0) {
-                return "发布审核";
-            } else if (type == 1) {
-                return "已审核"
+            if (type === 0 || type === 3) {
+                return "发布";
+            } else if (type == 1 || type === 2) {
+                return "已发布"
             }
         }
-        // 单独审批
+        // 单独发布
         function releaseAudit (id, status) {
             if (status == 1) {
-                layer.msg('已通过审核')
+                layer.msg('已发布')
                 return;
             }
             console.log("id: ", id);
-            var ids = id;
+//            var ids = id;
             /*$.ajax({
                 url: url + 'setAudit',
                 type: 'post',
@@ -420,34 +437,19 @@
             })*/
             $("input[name=code]").closest(".form-group").show();
             var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
-            layer.open({
-                title: '审核',
+            var layerIndex = layer.open({
+                title: '发布审核确认',
                 type : 1,
-                area : [ '100%', '100%' ],
+                area : [ '90%', '95%' ],
                 scrollbar : false,
                 zIndex : 100,
-                btn : [ '审核通过' ],
+                btn : [ '确认发布', '不发布' ],
                 btn1 : function(index, layero) {
-                    var ids = id;
-                    $.ajax({
-                        url: url + 'setAudit',
-                        type: 'post',
-                        data: {ids: ids},
-                        dataType: 'json',
-                        success: function (res) {
-                            layer.msg("通过审核!")
-                            parent.updateCount();
-                            $(tableId).bootstrapTable('refresh');
-                        },
-                        error: function () {
-                            layer.msg('审核不通过，请重试')
-                        }
-                    });
-                    layer.close(layer.index);
-                    endMethod(formId, "close");
+//                    var ids = id;
+                    releaseCompanyChoice(row);
                 },
                 btn2: function () {
-                    notThrough(id);
+//                    notThrough(id);
                     endMethod(formId, "close");
                 },
                 end : function() {
@@ -478,10 +480,88 @@
             },500);
             // checkbox
             $('.i-checks').iCheck('disable');
-            var data1 = $(elementTableId).bootstrapTable('getData');
             //合并单元格
-            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
-        };
+//            var data1 = $(elementTableId).bootstrapTable('getData');
+//            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        }
+
+        // 发布审核选择发布方单位
+        function releaseCompanyChoice(row) {
+            var thisRole = parseInt($('.js-login-role',window.parent.document).attr('role'));
+            if (thisRole === 1) {
+                $('#role_layer_form').find('.company_tree').show();
+                var layerIndex = layer.open({
+                    title: '信息资源发布方选择',
+                    type : 1,
+                    area : [ '50%', '80%' ],
+                    scrollbar : false,
+                    zIndex : 100,
+                    btn : [ '确定', '取消' ],
+                    yes : function(index, layero) {
+//                    $('#notThrough_form').submit();
+//                    endMethod('#role_layer_form', "close");
+                        layer.msg("OK!");
+                        // layer.close(layerIndex);
+                        var selectCompany = $('#role_layer_form').find('.citySelId').val();
+                        $.ajax({
+                            url: url + 'release',
+                            type: 'post',
+                            data: {
+                                id: row.id,
+                                companyId: row.companyId,
+                                departId: selectCompany
+                            },
+                            dataType: 'json',
+                            success: function (res) {
+                                layer.msg("发布成功!");
+                                layer.closeAll('page');
+                                parent.updateCount();
+                                $(tableId).bootstrapTable('refresh');
+                            },
+                            error: function () {
+                                layer.msg('发布不成功，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                            }
+                        });
+                    },
+                    end : function() {
+//                    endMethod('#notThrough_form', "close");
+                    },
+                    content : $('#role_layer_form'),
+                    cancel : function () {
+//                    endMethod('#notThrough_form', "close");
+                    }
+                });
+            } else {
+                layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        url: url + 'release',
+                        type: 'post',
+                        data: {
+                            id: row.id,
+                            companyId: row.companyId,
+                            departId: ''
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.msg("发布成功!");
+                            layer.closeAll('page');
+                            parent.updateCount();
+                            $(tableId).bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            layer.msg('操作失败，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                        }
+                    });
+//                    layer.close(index);
+                });
+            }
+        }
 
         function notThrough (id) {
             layer.open({
@@ -662,7 +742,7 @@
             layeForm = layer.open({
                 title: '信息项详情',
                 type : 1,
-                area : [ '100%', '100%' ],
+                area : [ '95%', '90%' ],
                 scrollbar : false,
                 zIndex : 100,
                 content : l,

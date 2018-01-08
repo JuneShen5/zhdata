@@ -69,9 +69,25 @@ public class Global {
     /**
      * 审核标记（0：未审核；1：审核；）
      */
-    public static final int AUDIT_FLAG_NO = 0;
+   /* public static final int AUDIT_FLAG_NO = 0;
     
-    public static final int AUDIT_FLAG_YES = 1;
+    public static final int AUDIT_FLAG_YES = 1;*/
+    
+    
+    
+    /**
+     * 状态(0：未发布，1：已发布未审核，2：已发布已审核，3：已发布审核不通过)
+     */
+    public static final int RELEASE_NO = 0;
+    
+    public static final int AUDIT_FLAG_NO = 1;
+    
+    public static final int AUDIT_FLAG_YES = 2;
+    
+    public static final int AUDIT_FLAG_NO1 = 3;
+    
+    
+    
     
     /**
      * 增/删/改

@@ -142,6 +142,7 @@
 						<th data-field="nameEn">信息资源编号</th>
 						<th data-field="nameCn">信息资源名称</th>
 						<th data-field="companyName">信息资源提供方</th>
+						 <th data-field="departName">审核部门</th>
 						<th data-field="name" data-formatter="initRetrievalTableButton">操作</th>
 					</tr>
 					</thead>
@@ -272,7 +273,7 @@
     var toolbar = '#toolbar';
     var url = '${ctx}/catalog/information/';
     var obj = {
-        isAudit : 1,
+        isAudit : 2,
         isAuthorize:1
     };
     var editTitle = "共享开放修改";
@@ -438,6 +439,9 @@
         html += '<button type="button" class="btn btn-white" onclick="openRetrievalLayer(\''
             + row.id
             + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+        html += '<button type="button" class="btn btn-red" onclick="checkCancel(\''
+            + row.id
+            + '\')"><i class="fa fa-times-circle-o"></i>&nbsp;注销审核</button>';
         html += '</div>';
         return html;
     }
@@ -448,6 +452,33 @@
         mTable = new TableInit2($(tableId2));
         mTable.Init();
         datailRow(id);
+    }
+    // 注销审核
+	function checkCancel(id) {
+        var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+        layer.confirm('确定注销此条已审核资源（此操作将此条资源退回至未发布状态）？', {icon: 3, title:'提示'}, function(index){
+            $.ajax({
+                url: url + 'cancelAudit',
+                type: 'post',
+                data: {
+                    id: row.id
+                },
+                dataType: 'json',
+                success: function (res) {
+                    layer.msg("注销审核成功!");
+//                            layer.msg("发布成功!");
+//                            parent.updateCount();
+					$(tableId).bootstrapTable('refresh');
+                },
+                error: function () {
+                    layer.msg('操作失败，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                }
+            });
+            layer.close(layer.index);
+        });
     }
 
     /* 四级联动相关方法---begain*/

@@ -7851,3 +7851,27 @@ blockquote:nth-child(1) {
 .menu-selected{
 	background-color: #d1dbe5;
 }
+
+/*树插件选中高亮*/
+.high-light-red{
+	background-color: #f2dede!important;
+}
+
+.vali-ignore .form-control{
+	border-color: #aaa!important;
+	margin-top: 0;
+}
+.tree-input{
+	/*position: fixed;*/
+	width: 100%;
+	/*background-color: #fff;*/
+}
+td.font-red{
+	color: #f05656;
+}
+.col-reason{
+	max-width: 200px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+	white-space: nowrap;
+}

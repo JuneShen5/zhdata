@@ -47,19 +47,19 @@
                                 <button type="button" id="searchFor"
                                 	onclick="tableSearch()"
 									class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-								<button type="button" id=""
+								<!--<button type="button" id=""
                                 	onclick="searchMore()" 
-									class="btn btn-primary btn-drop"><span class="caret"></span></button>
+									class="btn btn-primary btn-drop"><span class="caret"></span></button>-->
 							</div>
 						</div>
-						<div class="form-group">
+						<!--<div class="form-group">
 							<div class="text-center">
 								<button id="examineButton" data-toggle="modal" class="btn btn-yellow"
-									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 审核通过</button>
+									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 发布资源</button>
 								<button id="examineButton2" data-toggle="modal" class="btn btn-red"
-										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键审核</button>
+										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键发布</button>
 							</div>
-						</div>
+						</div>-->
 						<div class="search-list">
 							<!--<div class="check-search hide">
 								<label class="">审核状态：</label>
@@ -71,27 +71,27 @@
 									</c:forEach>
 								</select>
 								</div>
-							</div>-->
-
+							</div>
 							<div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
 									<input type="text" sName="nameEn" class="form-control">
 								</div>
-							</div>
+							</div>-->
 						</div>
 					</div>
 				</div>
 				<table id="systemTable">
 					<thead class="ele-hide">
 						<tr>
-							<th data-checkbox="true"></th>
-							<th data-field="nameEn">信息资源代码</th>
+							<%--<th data-checkbox="true"></th>--%>
+							<%--<th data-field="nameEn">信息资源代码</th>--%>
 							<th data-field="nameCn">信息资源名称</th>
 							<th data-field="companyName">资源提供方</th>
 							 <th data-field="departName">审核部门</th>
-							<th data-field="auditName">状态</th>
-							<th data-width="25%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-field="auditName" data-class="font-red">状态</th>
+							<th data-class="font-red" data-formatter="auditReason">审核意见</th>
+							<th data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -184,6 +184,18 @@
 		</table>
 	</div>
 
+	<!-- 角色为admin时选择发布部门弹框 -->
+	<div id="role_layer_form" style="display: none" class="ibox-content">
+		<div class="form-group">
+			<label class="col-sm-3 control-label">发布部门：</label>
+			<div class="col-sm-9">
+				<input id="" name="releaseId" class="form-control citySelId hide" type="text">
+				<input id="" name="releaseName" class="form-control citySel" type="text" ReadOnly required />
+				<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
+			</div>
+		</div>
+	</div>
+
 	<div id="notThrough_layer" style="display: none" class="ibox-content form-horizontal">
 		<form id="notThrough_form" class="form-horizontal">
 			<input type="text" name="id" class="hide">
@@ -194,8 +206,6 @@
 			</div>
 		</form>
 	</div>
-
-	<c:set var="user" value="${fns:getCurrentUser()}" />
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 		var tableId = '#systemTable';
@@ -203,16 +213,10 @@
 		var formId = '#eform'; //form id
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
-		var thisRole = ${user.roleId};
-        var obj = {
-            isAuthorize: 0,
-            isAudit: 1
-        };
-		if (thisRole === 1){
-            obj['departId'] = '';
-		} else {
-            obj['departId'] = ${user.companyId};
-		}
+		var obj = {
+			isAuthorize: 1,
+            isAudit: 3
+		};
 
         var editTitle = "信息资源修改";
         var detailTitle = "待办事宜详情";
@@ -283,6 +287,20 @@
             changeInit();
         });
 
+//        $(function () {
+//			$(document).on('mouseenter', 'td.font-red', function () {
+//			    var reason = $(this).
+//				$(this).attr({'data-toggle': 'tooltip','title': '!!!'});
+//            });
+//        });
+
+		function auditReason(index, row, element) {
+            var html = '';
+            html += '<div class="col-reason" title="'+row.reason+'">'+row.reason+'</div>';
+//            html += row.reason;
+            return html;
+        }
+
         // 动态的将数据赋值进去
         function loadLinkageSel (data) {
             linkRelInfo.changeValues(data, true);
@@ -305,86 +323,158 @@
             //合并单元格
             mergeCells(data1, "dataTypeName", 1, $(elementTableId));
         }
-        // 判断是否审核
+        // 判断是否发布
         function dataIsAudit(type) {
-            if (type == 0) {
-                return "发布审核";
-            } else if (type == 1) {
-                return "已审核"
+            if (type === 1 || type === 3) {
+                return "发布";
+            } else if (type == 2 || type === 4) {
+                return "已发布"
             }
         }
-        // 单独审批
-        function releaseAudit (id) {
-        	$("input[name=code]").closest(".form-group").show();
-			var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
-			layer.open({
-				title: '审核',
-				type : 1,
-				area : [ '100%', '100%' ],
-				scrollbar : false,
-				zIndex : 100,
-				btn : [ '审核通过', '审核不通过' ],
-				btn1 : function(index, layero) {
-					var ids = id;
-		            $.ajax({
-		                url: url + 'setAudit',
-		                type: 'post',
-		                data: {ids: ids},
-		                dataType: 'json',
-		                success: function (res) {
-		                    layer.msg("通过审核!")
-		    				parent.updateCount();
-		                    $(tableId).bootstrapTable('refresh');
-		                },
-		                error: function () {
-		                	layer.msg('审核失败，请重试')
-		                }
-		            })
-		            layer.close(layer.index);
-					endMethod(formId, "close");
-				},
-				btn2: function () {
-                	notThrough(id);
-					endMethod(formId, "close");
-				},
-				end : function() {
-					endMethod(formId, "close");
-				},
-				content : $(layerId),
-				cancel : function () {
-					endMethod(formId, "close");
-				}
-			});
-			// loadData(row);
-			loadToData(row, 'eform')
-			// 然后将所有表单中的选项做一个禁选中操作
-			$(formId).find("input").each(function () {
-				$(this).attr("disabled","disabled");
-			});
-			$(formId).find("textarea").each(function () {
-				$(this).attr("disabled","disabled");
-			});
-			// 判断select
-			$(formId).find("select").prop("disabled", true);
-			$(formId).find("select").trigger("chosen:updated");
-			setTimeout(function(){
-				$(formId).find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
-				$(formId).find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");
-				$(formId).find(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
-				// i-ckeck将自动验证去掉
-				$(formId).find('.i-checks').closest(".form-group").removeClass("has-success");
-			},500);
-			// checkbox
-			$('.i-checks').iCheck('disable');
-            var data1 = $(elementTableId).bootstrapTable('getData');
-        	//合并单元格
-        	mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        // 单独发布
+        function releaseAudit (id, status) {
+            if (status == 1) {
+                layer.msg('已发布')
+                return;
+            }
+            console.log("id: ", id);
+//            var ids = id;
+            /*$.ajax({
+                url: url + 'setAudit',
+                type: 'post',
+                data: {ids: ids},
+                dataType: 'json',
+                success: function (res) {
+                    layer.msg("通过审核!")
+                    $(tableId).bootstrapTable('refresh');
+                }
+            })*/
+            $("input[name=code]").closest(".form-group").show();
+            var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+            var layerIndex = layer.open({
+                title: '发布审核确认',
+                type : 1,
+                area : [ '90%', '95%' ],
+                scrollbar : false,
+                zIndex : 100,
+                btn : [ '确认发布', '不发布' ],
+                btn1 : function(index, layero) {
+//                    var ids = id;
+                    releaseCompanyChoice(row);
+                },
+                btn2: function () {
+//                    notThrough(id);
+                    endMethod(formId, "close");
+                },
+                end : function() {
+                    endMethod(formId, "close");
+                },
+                content : $(layerId),
+                cancel : function () {
+                    endMethod(formId, "close");
+                }
+            });
+            loadToData(row, 'eform');
+            // 然后将所有表单中的选项做一个禁选中操作
+            $(formId).find("input").each(function () {
+                $(this).attr("disabled","disabled");
+            });
+            $(formId).find("textarea").each(function () {
+                $(this).attr("disabled","disabled");
+            });
+            // 判断select
+            $(formId).find("select").prop("disabled", true);
+            $(formId).find("select").trigger("chosen:updated");
+            setTimeout(function(){
+                $(formId).find(".linkagesel-select-div").find(".LinkageSel").prop("disabled", true);
+                $(formId).find(".linkagesel-select-div").find(".LinkageSel").trigger("chosen:updated");
+                $(formId).find(".linkagesel-select-group-info ").children(".control-label").removeClass("has-error-tips has-success-tips");
+                // i-ckeck将自动验证去掉
+                $(formId).find('.i-checks').closest(".form-group").removeClass("has-success");
+            },500);
+            // checkbox
+            $('.i-checks').iCheck('disable');
+            //合并单元格
+//            var data1 = $(elementTableId).bootstrapTable('getData');
+//            mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        }
+        // 发布审核选择发布方单位
+        function releaseCompanyChoice(row) {
+            var thisRole = parseInt($('.js-login-role',window.parent.document).attr('role'));
+            if (thisRole === 1) {
+				$('#role_layer_form').find('.company_tree').show();
+				var layerIndex = layer.open({
+					title: '信息资源发布方选择',
+					type : 1,
+					area : [ '50%', '80%' ],
+					scrollbar : false,
+					zIndex : 100,
+					btn : [ '确定', '取消' ],
+					yes : function(index, layero) {
+						var selectCompany = $('#role_layer_form').find('.citySelId').val();
+						$.ajax({
+							url: url + 'release',
+							type: 'post',
+							data: {
+								id: row.id,
+								companyId: row.companyId,
+								departId: selectCompany
+							},
+							dataType: 'json',
+							success: function (res) {
+								layer.msg("发布成功!");
+                            layer.closeAll('page');
+							parent.updateCountReturn();
+                        	$(tableId).bootstrapTable('refresh');
+                            },
+							error: function () {
+								layer.msg('发布不成功，请重试');
+	//                            layer.msg('发布不成功，请重试');
+	//                            layer.close(layerIndex);
+	//                            endMethod(formId, "close");
+							}
+						});
+					},
+					end : function() {
+	//                    endMethod('#notThrough_form', "close");
+					},
+					content : $('#role_layer_form'),
+					cancel : function () {
+	//                    endMethod('#notThrough_form', "close");
+					}
+				});
+            } else {
+                layer.confirm('确认发布此资源？', {icon: 3, title:'提示'}, function(index){
+                    $.ajax({
+                        url: url + 'release',
+                        type: 'post',
+                        data: {
+                            id: row.id,
+                            companyId: row.companyId,
+                            departId: ''
+                        },
+                        dataType: 'json',
+                        success: function (res) {
+                            layer.msg("发布成功!");
+                            layer.closeAll('page');
+                            parent.updateCountReturn();
+                            $(tableId).bootstrapTable('refresh');
+                        },
+                        error: function () {
+                            layer.msg('操作失败，请重试');
+//                            layer.msg('发布不成功，请重试');
+//                            layer.close(layerIndex);
+//                            endMethod(formId, "close");
+                        }
+                    });
+//                    layer.close(index);
+                });
+            }
         }
 
         function notThrough (id) {
-            $('#notThrough_form').find('input[name=id]').val(id);
         	layer.open({
-				title: '审核意见',
+				title: '不通过理由',
 				type : 1,
 				area : [ '40%', '60%' ],
 				scrollbar : false,
@@ -711,18 +801,24 @@
         }
 
 		function checkTableButton(index, row, element) {
-			var html = '';
-			html += '<div class="btn-group">';
-			html += '<button type="button" class="btn btn-white" onclick="datailRowBefore('
-					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="editRow('
-                + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
-			if (itemState == 0) {
-				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
-					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;审核</button>';
-			}
-			html += '</div>';
-			return html;
+            var html = '';
+            html += '<div class="btn-group">';
+            html += '<button type="button" class="btn btn-white" onclick="datailRowBefore(\''
+                + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+            // 审核功能按钮
+            if (row.isAudit === 0 || row.isAudit === 3){
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+                html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+            } else if (row.isAudit === 1){
+                html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
+                    + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
+            }
+            html += '</div>';
+            return html;
 		}
 
 

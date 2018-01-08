@@ -74,6 +74,7 @@ public class EchartsController {
         // 存入部门信息
         Integer companyId = UserUtils.getCurrentUser().getCompanyId();
         Company company = companySersvice.queryById(companyId);
+        nodeJson.put("id", company.getId());
         nodeJson.put("name", company.getName());
         nodeJson.put("category", 0);
         nodeJson.put("value", 60);
@@ -86,6 +87,7 @@ public class EchartsController {
         List<Systems> systemList = systemService.queryListByWhere(systems);
         if (systemList.size() > 0) {
             for (Systems s : systemList) {
+                nodeJson.put("id", s.getId());
                 nodeJson.put("name", s.getNameCn());
                 nodeJson.put("category", 1);
                 nodeJson.put("value", 55);
@@ -102,6 +104,7 @@ public class EchartsController {
                 if (infoList.size()>0) {
                     num1=num;
                     for (Information i : infoList) {
+                        nodeJson.put("name", i.getId());
                         nodeJson.put("name", i.getNameCn());
                         nodeJson.put("category", 2);
                         nodeJson.put("value", 45);
@@ -117,6 +120,7 @@ public class EchartsController {
                            int num2=num;
                            for (Element e : eleList) {
                               /* System.out.println("eNameCn="+e.getNameCn());*/
+                               nodeJson.put("id", e.getId());
                                nodeJson.put("name", e.getNameCn());
                                nodeJson.put("category", 3);
                                nodeJson.put("value", 40);

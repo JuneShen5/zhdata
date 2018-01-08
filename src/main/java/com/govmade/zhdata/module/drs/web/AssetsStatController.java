@@ -157,14 +157,25 @@ public class AssetsStatController {
         for (Company c : companylList) {
             Integer companyId=c.getId();
             Map<String, Object> map2=Maps.newHashMap();
-            Systems sys=new Systems();
+           /* Systems sys=new Systems();
             sys.setCompanyId(companyId);
             sys.setDelFlag(Global.DEL_FLAG_NORMAL);
             Integer sCount=0;
             Integer sCount1=this.systemMapper.selectCount(sys);
             if (sCount1 >0) {
                 sCount=sCount1;
+            }*/
+            
+            YjSystems yjSystems =new YjSystems();
+            yjSystems.setCompanyId(companyId);
+            yjSystems.setDelFlag(Global.DEL_FLAG_NORMAL);
+            Integer sCount=0;
+            Integer sCount1=this.yjSystemMapper.selectCount(yjSystems);
+            if (sCount1>0) {
+                sCount=sCount1;
             }
+            
+            
             Element ele=new Element();
             ele.setCompanyId(companyId);
             ele.setDelFlag(Global.DEL_FLAG_NORMAL);

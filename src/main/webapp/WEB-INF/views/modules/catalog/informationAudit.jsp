@@ -47,19 +47,19 @@
                                 <button type="button" id="searchFor"
                                 	onclick="tableSearch()"
 									class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
-								<button type="button" id=""
+								<!-- <button type="button" id=""
                                 	onclick="searchMore()" 
-									class="btn btn-primary btn-drop"><span class="caret"></span></button>
+									class="btn btn-primary btn-drop"><span class="caret"></span></button> -->
 							</div>
 						</div>
-						<div class="form-group">
+						<!-- <div class="form-group">
 							<div class="text-center">
 								<button id="examineButton" data-toggle="modal" class="btn btn-yellow"
 									onclick="batchAudit()"><i class="fa fa-calendar-check-o"></i> 审核通过</button>
 								<button id="examineButton2" data-toggle="modal" class="btn btn-red"
 										onclick="batchAuditAll()"><i class="fa fa-calendar-check-o"></i> 一键审核</button>
 							</div>
-						</div>
+						</div> -->
 						<div class="search-list">
 							<!--<div class="check-search hide">
 								<label class="">审核状态：</label>
@@ -72,13 +72,12 @@
 								</select>
 								</div>
 							</div>-->
-
-							<div class="check-search">
+							<!-- <div class="check-search">
 								<label class="">信息资源代码：</label>
 								<div class="check-search-item">
 									<input type="text" sName="nameEn" class="form-control">
 								</div>
-							</div>
+							</div> -->
 						</div>
 					</div>
 				</div>
@@ -89,9 +88,9 @@
 							<th data-field="nameEn">信息资源代码</th>
 							<th data-field="nameCn">信息资源名称</th>
 							<th data-field="companyName">资源提供方</th>
-							 <th data-field="departName">审核部门</th>
+							<th data-field="departName">审核部门</th>
 							<th data-field="auditName">状态</th>
-							<th data-width="25%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-width="5%" data-formatter="checkTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -194,8 +193,6 @@
 			</div>
 		</form>
 	</div>
-
-	<c:set var="user" value="${fns:getCurrentUser()}" />
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 		var tableId = '#systemTable';
@@ -203,16 +200,10 @@
 		var formId = '#eform'; //form id
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
-		var thisRole = ${user.roleId};
-        var obj = {
-            isAuthorize: 0,
+		var obj = {
+			isAuthorize: 1,
             isAudit: 1
-        };
-		if (thisRole === 1){
-            obj['departId'] = '';
-		} else {
-            obj['departId'] = ${user.companyId};
-		}
+		};
 
         var editTitle = "信息资源修改";
         var detailTitle = "待办事宜详情";
@@ -337,7 +328,7 @@
 		                    $(tableId).bootstrapTable('refresh');
 		                },
 		                error: function () {
-		                	layer.msg('审核失败，请重试')
+		                	layer.msg('审核不通过，请重试')
 		                }
 		            })
 		            layer.close(layer.index);
@@ -382,7 +373,6 @@
         }
 
         function notThrough (id) {
-            $('#notThrough_form').find('input[name=id]').val(id);
         	layer.open({
 				title: '审核意见',
 				type : 1,
@@ -715,13 +705,13 @@
 			html += '<div class="btn-group">';
 			html += '<button type="button" class="btn btn-white" onclick="datailRowBefore('
 					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="editRow('
+           /*  html += '<button type="button" class="btn btn-white" onclick="editRow('
                 + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
 			if (itemState == 0) {
 				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
-					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;审核</button>';
+					+ row.id + ')"><i class="fa fa-calendar-check-o"></i>&nbsp;发布审核</button>';
 			}
-			html += '</div>';
+			html += '</div>'; */
 			return html;
 		}
 

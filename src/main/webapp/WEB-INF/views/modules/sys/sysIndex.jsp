@@ -7,6 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
+		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>  
 		<title>珠海市政府数据资源普查系统</title>
 		<%@ include file="/WEB-INF/views/include/head.jsp"%>
 		<link rel="stylesheet" href="${ctxStatic}/css/index.css">
@@ -90,10 +91,18 @@
 								</li>
 								<li class="divider"></li> -->
 								<li>
-									<a href="#" class="other-url" url="/zhdata/catalog/information/check" id="75" name="待办事宜">
+									<a href="#" class="other-url" url="/zhdata/catalog/information/audit" id="10" name="未审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i>
-											信息资源有<i id="message_count" style="color: #f00;"></i>条待审核
+											信息资源有<i id="message_count1" style="color: #f00;"></i>条<strong style="color: #0090cc;">待审核</strong>
+										</div>
+									</a>
+								</li>
+								<li>
+									<a href="#" class="other-url" url="/zhdata/catalog/information/return" id="11" name="已退回资源" onclick="$('.cataloginformationreturn').attr('src', $('.cataloginformationreturn').attr('src'))">
+										<div>
+											<i class="fa fa-envelope fa-fw"></i>
+											信息资源有<i id="message_count2" style="color: #f00;"></i>条<strong style="color: #0090cc;">已退回</strong>
 										</div>
 									</a>
 								</li>
@@ -123,7 +132,7 @@
 							</ul>
 						</div>
 						<c:set var="user" value="${fns:getCurrentUser()}" />
-						<a href="#" class="name btn-signout"><i class="iconfont gm-user"></i>${user.name}</a>
+						<a href="#" class="name btn-signout js-login-role"><i class="iconfont gm-user"></i>${user.name}</a>
 						<a href="/zhdata/login/system_logout" class="btn-signout btn-sign-out"><i class="iconfont gm-closeb"></i>退出</a>
 						<!-- <div class="theme-skin">
 							<a href="#" class="btn-signout theme" style="margin-right: 15px;"
@@ -200,6 +209,12 @@
 //                message: '广州珠海资源普查系统'
 //            }
 //        })
+
+        // 获取当前登录用户
+        $(function () {
+            $('.js-login-role').attr('role', ${user.roleId});
+		});
+
 		$(function () {
 			$(".J_menuItem").each(function (index) {
 				$(this).attr('id', index+1);
@@ -233,7 +248,8 @@
 		// 查询需要审核的消息
 		$(function () {
 			updateCount();
-		})
+            updateCountReturn();
+		});
 		
 		function updateCount () {
 			$.ajax({
@@ -241,20 +257,43 @@
 				data: {
 					pageNum:1,
 					pageSize:6,
-					obj:JSON.stringify({isAudit: 0,
+					obj:JSON.stringify({isAudit: 1,
 						isAuthorize:1,
 						nameCn:"",
 						nameEn:""
 						}),
 					companyIds:""
-					
+
 				},
 				success: function (res) {
-					$('#message_number').text(res.total);
-					$('#message_count').text(res.total);
+					$('#message_count1').text(res.total);
+                    var count2 = parseInt($('#message_count2').text());
+//                    console.log('as:'+);
+                    $('#message_number').text(res.total+count2);
 				}
 			})
 		}
+        function updateCountReturn () {
+            $.ajax({
+                url: '${ctx}/catalog/information/list',
+                data: {
+                    pageNum:1,
+                    pageSize:6,
+                    obj:JSON.stringify({isAudit: 3,
+                        isAuthorize:1,
+                        nameCn:"",
+                        nameEn:""
+                    }),
+                    companyIds:""
+
+                },
+                success: function (res) {
+                    $('#message_count2').text(res.total);
+                    var count1 = parseInt($('#message_count1').text());
+                    $('#message_number').text(res.total+count1);
+                }
+            })
+        }
 		</script>
 	</body>
 
