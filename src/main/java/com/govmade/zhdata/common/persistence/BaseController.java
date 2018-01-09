@@ -113,6 +113,10 @@ public abstract class BaseController<T> {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(importDataReturnMsg(importExcel,"数据读取过程中出现未知错误"));
            }//查询excel中的数据
            
+           if(dataList.size()==0 && importExcel.getSomeErrorDataCoordinate().size()>0){ //用于处理本次循环读取中所有数据都错的情况
+               importExcel.setAllErrorDataCoordinate(); //每次数据保存成功后将其中的错误数据寄存好
+           }
+           
            if(dataList.size()!=0){
                //循环将数据的核心与非核心字段区分开，非核心的存入info中
                for(Map<String, String> excelData :dataList){  //dataList  Map<nameEn,value>中的value是大小的驼峰
@@ -173,6 +177,7 @@ public abstract class BaseController<T> {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+            System.out.println("错误数据文件创建失败！");
             return "错误数据文件创建失败！";
         }
            _errorNumMsg = "，其中有"+_errorNum+"条错误数据（<a href=\""+errorDataExcelPath+"\">点击下载）,请修改完后重新上传！";

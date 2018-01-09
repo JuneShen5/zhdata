@@ -132,6 +132,10 @@ public class ImportExcelImpl{
     }
 
 
+    public List<Map<String, Integer>> getSomeErrorDataCoordinate() {
+        return someErrorDataCoordinate;
+    }
+
     /**
      * 无参构造
      */
@@ -513,7 +517,7 @@ public class ImportExcelImpl{
                 lastColum = sheet.getRow(1).getLastCellNum();
                 for(int i=0;i<3;i++){
                     for(int j=0;j<lastColum;j++){
-                        errorDataSheet.createRow(i).createCell(j).setCellFormula(sheet.getRow(i).getCell(j).getStringCellValue());
+                        errorDataSheet.createRow(i).createCell(j).setCellValue(sheet.getRow(i).getCell(j).getStringCellValue());
                     }
                 }
             }
