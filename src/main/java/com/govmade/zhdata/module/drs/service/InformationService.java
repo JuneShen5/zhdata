@@ -276,11 +276,16 @@ public class InformationService extends BaseService<Information> {
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
                 
-                if (jsonArray.length()>0 && JSONObject.fromObject(jsonArray.substring(1,jsonArray.length()-1)).size()>0) {
-                    // json数组转List对象
-                    elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
-                    information.setElementList(elements);
+                try {
+                    if (JSONObject.fromObject(jsonArray.substring(1,jsonArray.length()-1)).size()>0) {
+                        // json数组转List对象
+                        elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
+                        information.setElementList(elements);
+                    }
+                } catch (Exception e) {
+                    //elementids如果为空的话会返回-100，这边就直接忽略转换报错了
                 }
+                
                 Company company=this.companyService.queryById(information.getCompanyId());
                 information.setCode(company.getCreditCode());
                 this.saveInformation(information);
