@@ -219,9 +219,35 @@
 			$(".J_menuItem").each(function (index) {
 				$(this).attr('id', index+1);
 			});
+			$('#side-menu').on('click', function () {
+				$('#homeIndex').find('.dropdown').removeClass('open').find('.dropdown-toggle').attr('aria-expanded', 'false');
+            });
+			// 菜单栏点击事件
 			$(document).on('click', '.J_menuItem', function () {
-                $(".J_menuItem").removeClass('menu-selected');
-                $(this).addClass('menu-selected');
+				var $this = $(this);
+                var thisMenu = $('#side-menu');
+                thisMenu.find('li').removeClass('active');
+                thisMenu.find('ul').removeClass('in').attr('aria-expanded', 'false');
+                thisMenu.find('a.doubleTapToGo').removeClass('doubleTapToGo');
+                $('.J_menuItem').removeClass('menu-selected');
+                $this.addClass('menu-selected');
+                $this.parents('ul').addClass('in').attr('aria-expanded', 'true');
+                $this.parents('ul').prev().addClass('doubleTapToGo');
+                $this.parents('ul').parent().addClass('active');
+            });
+            // 标签栏点击事件
+			$('.tabs-container').on('click', '.tabs-item', function () {
+				var thisTabId = $(this).attr('tab');
+				var thisMenuItem = $('.J_menuItem[id='+thisTabId+']');
+				var thisMenu = $('#side-menu');
+                thisMenu.find('li').removeClass('active');
+                thisMenu.find('ul').removeClass('in').attr('aria-expanded', 'false');
+                thisMenu.find('a.doubleTapToGo').removeClass('doubleTapToGo');
+                $('.J_menuItem').removeClass('menu-selected');
+                thisMenuItem.addClass('menu-selected');
+                thisMenuItem.parents('ul').addClass('in').attr('aria-expanded', 'true');
+                thisMenuItem.parents('ul').prev().addClass('doubleTapToGo');
+                thisMenuItem.parents('ul').parent().addClass('active');
             });
 		});
 		  themeInit();

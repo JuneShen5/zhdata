@@ -178,6 +178,13 @@ h3 {
 <script	src="${ctxStatic}/js/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
 <script	src="${ctxStatic}/js/plugins/bootstrap-select/js/i18n/defaults-zh_CN.min.js"></script>
 <script>
+    // 点击document关闭dropdown
+    $(function () {
+        $(document).on('click', function () {
+            $('#homeIndex .dropdown', window.parent.document).removeClass('open').find('.dropdown-toggle').attr('aria-expanded', 'false');
+        });
+    });
+
     // 部门资源
 	// 获取数据
 	$(function () {

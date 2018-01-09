@@ -1,4 +1,10 @@
 /*** 公用功能---begin ***/
+// 点击document关闭dropdown
+$(function () {
+    $(document).on('click', function () {
+        $('#homeIndex .dropdown', window.parent.document).removeClass('open').find('.dropdown-toggle').attr('aria-expanded', 'false');
+    });
+});
 
 // 表格初始化、表格按钮创建
 var TableInit = function(tableOption,btnOption) {
