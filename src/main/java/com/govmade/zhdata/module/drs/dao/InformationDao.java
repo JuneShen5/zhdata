@@ -56,7 +56,7 @@ public interface InformationDao extends BaseDao<Information> {
 
     public int delete(@Param("idList")List<String> idList);
 
-    public Integer queryIsAuditCount(@Param("comList")List<Integer> comList);
+    public Integer queryIsAuditCount(@Param("comList")List<Integer> comList, @Param("isAudit")Integer isAudit);
 
 
 }

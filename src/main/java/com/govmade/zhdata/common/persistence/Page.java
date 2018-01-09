@@ -13,7 +13,11 @@ public class Page<T> {
 
     private Integer pageSize = 10;// 每页显示的记录数，默认是10
 
-    private Integer startRow;   //空余时当信息资源待审核数量
+    private Integer startRow;  
+    
+    private Integer auditCount;  //信息资源待审核数量
+    
+    private Integer returnCount;  //信息资源已退回数量
 
     private Integer endRow;
 
@@ -147,6 +151,22 @@ public class Page<T> {
     public void startPage() {
         this.startRow = pageNum > 0 ? (pageNum - 1) * pageSize : 0;
         this.endRow =  pageSize;
+    }
+
+    public Integer getAuditCount() {
+        return auditCount;
+    }
+
+    public void setAuditCount(Integer auditCount) {
+        this.auditCount = auditCount;
+    }
+
+    public Integer getReturnCount() {
+        return returnCount;
+    }
+
+    public void setReturnCount(Integer returnCount) {
+        this.returnCount = returnCount;
     }
 
 }

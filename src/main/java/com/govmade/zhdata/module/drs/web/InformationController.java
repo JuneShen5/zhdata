@@ -120,7 +120,11 @@ public class InformationController extends BaseController<Information>{
             map.put("companyIds", comList);
             page.setParams(map);
         }
-        Integer isAuditCount=this.infoService.queryIsAuditCount(comList);
+        Integer isAudit1=1;
+        Integer auditCount=this.infoService.queryIsAuditCount(comList,isAudit1);  //信息资源待审核数量
+        
+        Integer isAudit2=3;
+        Integer returnCount=this.infoService.queryIsAuditCount(comList,isAudit2); //信息资源已退回数量
         
         try {
             Long total = infoService.getTotal(page);
@@ -181,7 +185,9 @@ public class InformationController extends BaseController<Information>{
             Page<Map<String, Object>> resPage = new Page<Map<String, Object>>();
             resPage.setTotal(total);
             resPage.setRows(list);
-            resPage.setStartRow(isAuditCount);  //startRow暂时用作待审核数量
+            resPage.setAuditCount(auditCount);
+            resPage.setReturnCount(returnCount);
+            
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
             e.printStackTrace();
