@@ -6,8 +6,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +24,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -294,13 +297,22 @@ public class ImportExcelImpl{
     * @return
     */
     public String getCellValue(Cell cell) {
+//        System.out.println("type:"+cell.getCellType());
     	String val = "";
             if (cell != null) {
-                if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                    cell.setCellType(Cell.CELL_TYPE_STRING);
-                    val = cell.getStringCellValue();
+                if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC ) {
+                    if (DateUtil.isCellDateFormatted(cell)) { 
+//                        System.out.println("shijian");
+                        Date date  =cell.getDateCellValue();
+                        val =new SimpleDateFormat(this.format).format(date); 
+                      }else {
+                          cell.setCellType(Cell.CELL_TYPE_STRING);
+                          val = cell.getStringCellValue();
+                      }
+//                    System.out.println("NUMERIC:"+val);
                 } else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                     val = cell.getStringCellValue();
+//                    System.out.println("STRING:"+val);
                 } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     val = cell.getCellFormula();
                 } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
