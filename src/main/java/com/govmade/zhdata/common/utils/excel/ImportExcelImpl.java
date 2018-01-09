@@ -552,6 +552,17 @@ public class ImportExcelImpl{
             }
             String outFileName = System.currentTimeMillis()+".xlsx";
             String errorDataExcelPath = request.getSession().getServletContext().getRealPath("static/excel/errorDataExcel");
+            File errorDataExcelPathFile =new File(errorDataExcelPath); 
+          //如果文件夹不存在则创建    
+            if  (!errorDataExcelPathFile .exists()  && !errorDataExcelPathFile .isDirectory())      
+            {       
+                System.out.println("//不存在");  
+                errorDataExcelPathFile .mkdir();    
+            } else   
+            {  
+                System.out.println("//目录存在");  
+            }  
+
             FileOutputStream fout = new FileOutputStream(errorDataExcelPath+"/"+outFileName);
             errorDataExcelWb.write(fout);
             fout.close();
