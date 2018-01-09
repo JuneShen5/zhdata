@@ -88,7 +88,6 @@ public class LoginController {
         response.setDateHeader("Expires", 0);
         // 为了手机客户端方便使用数字验证码
         String verifyCode = VerifyCodeUtil.generateTextCode(VerifyCodeUtil.TYPE_NUM_ONLY, 4, null);
-        System.out.println("verifyCode1======"+verifyCode);
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
         session.setAttribute(Global.SESSION_SECURITY_CODE, verifyCode);
@@ -111,12 +110,12 @@ public class LoginController {
      * @param response
      * @return
      */
-    @RequestMapping(value = "verifyCodeNum", method = RequestMethod.GET)
-    public ResponseEntity<String>  verifyCodeNum(HttpServletResponse response) {
-        Subject currentUser = SecurityUtils.getSubject();
-        String verifyCode = currentUser.getSession().getAttribute(Global.SESSION_SECURITY_CODE).toString();
-        return ResponseEntity.ok(verifyCode);
-    }
+//    @RequestMapping(value = "verifyCodeNum", method = RequestMethod.GET)
+//    public ResponseEntity<String>  verifyCodeNum(HttpServletResponse response) {
+//        Subject currentUser = SecurityUtils.getSubject();
+//        String verifyCode = currentUser.getSession().getAttribute(Global.SESSION_SECURITY_CODE).toString();
+//        return ResponseEntity.ok(verifyCode);
+//    }
     
     
     /**

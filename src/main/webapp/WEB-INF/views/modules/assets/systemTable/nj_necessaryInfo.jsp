@@ -9,7 +9,7 @@
         <div class="col-sm-7 column-content">
             <select name="jsjpcd" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('project_urgency')}">
+                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
