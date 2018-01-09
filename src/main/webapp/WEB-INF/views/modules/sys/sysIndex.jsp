@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
 		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>
-		<title>珠海市政府数据资源普查系统</title>
+		<title>珠海市政府数据资产普查系统</title>
 		<%@ include file="/WEB-INF/views/include/head.jsp"%>
 		<link rel="stylesheet" href="${ctxStatic}/css/index.css">
 		<link rel="stylesheet" href="${ctxStatic}/css/skin/skin.css">
@@ -73,7 +73,7 @@
 				<div class="row">
 					<div class="pull-left" style="margin-top: 15px;font-size: 24px;">
 						<img style="width: 50px;vertical-align: bottom;" class="logo" src="${ctxStatic}/images/skin/skin-1/dnalogo.png"/>
-						珠海市政府数据资源普查系统
+						珠海市政府数据资产普查系统
 					</div>
 					<div class="pull-right rel btn-group-wrapper">
 						<div class="dropdown message-group btn-signout">
@@ -219,9 +219,35 @@
 			$(".J_menuItem").each(function (index) {
 				$(this).attr('id', index+1);
 			});
+			$('#side-menu').on('click', function () {
+				$('#homeIndex').find('.dropdown').removeClass('open').find('.dropdown-toggle').attr('aria-expanded', 'false');
+            });
+			// 菜单栏点击事件
 			$(document).on('click', '.J_menuItem', function () {
-                $(".J_menuItem").removeClass('menu-selected');
-                $(this).addClass('menu-selected');
+				var $this = $(this);
+                var thisMenu = $('#side-menu');
+                thisMenu.find('li').removeClass('active');
+                thisMenu.find('ul').removeClass('in').attr('aria-expanded', 'false');
+                thisMenu.find('a.doubleTapToGo').removeClass('doubleTapToGo');
+                $('.J_menuItem').removeClass('menu-selected');
+                $this.addClass('menu-selected');
+                $this.parents('ul').addClass('in').attr('aria-expanded', 'true');
+                $this.parents('ul').prev().addClass('doubleTapToGo');
+                $this.parents('ul').parent().addClass('active');
+            });
+            // 标签栏点击事件
+			$('.tabs-container').on('click', '.tabs-item', function () {
+				var thisTabId = $(this).attr('tab');
+				var thisMenuItem = $('.J_menuItem[id='+thisTabId+']');
+				var thisMenu = $('#side-menu');
+                thisMenu.find('li').removeClass('active');
+                thisMenu.find('ul').removeClass('in').attr('aria-expanded', 'false');
+                thisMenu.find('a.doubleTapToGo').removeClass('doubleTapToGo');
+                $('.J_menuItem').removeClass('menu-selected');
+                thisMenuItem.addClass('menu-selected');
+                thisMenuItem.parents('ul').addClass('in').attr('aria-expanded', 'true');
+                thisMenuItem.parents('ul').prev().addClass('doubleTapToGo');
+                thisMenuItem.parents('ul').parent().addClass('active');
             });
 		});
 		  themeInit();

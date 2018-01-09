@@ -1,4 +1,8 @@
 $(function() {
+	// 点击document关闭dropdown
+	$(document).on('click', function () {
+		$('#homeIndex .dropdown', window.parent.document).removeClass('open').find('.dropdown-toggle').attr('aria-expanded', 'false');
+	});
 
 	// 1.初始化Table
 	oTable = new TableInit();
