@@ -502,7 +502,7 @@ public class ImportExcelImpl{
             Sheet errorDataSheet = errorDataExcelWb.getSheetAt(0);
             int lastColum;
             if(errorDataSheet.getLastRowNum()>1){
-              //模板中有些东西的复制类型行
+              //模板中有东西的复制类型行(模板文件中缺类型这一行)
                 int errorDataLastRowNum = errorDataSheet.getLastRowNum();
                 Row errorDataNameEnRow = errorDataSheet.getRow(errorDataLastRowNum);
                 lastColum = errorDataNameEnRow.getLastCellNum();
@@ -516,11 +516,17 @@ public class ImportExcelImpl{
                 //模板中没写东西的直接复制前三行
                 lastColum = sheet.getRow(1).getLastCellNum();
                 for(int i=0;i<3;i++){
+                    errorDataSheet.createRow(i);
                     for(int j=0;j<lastColum;j++){
-                        errorDataSheet.createRow(i).createCell(j).setCellValue(sheet.getRow(i).getCell(j).getStringCellValue());
+                        errorDataSheet.getRow(i).createCell(j).setCellValue(sheet.getRow(i).getCell(j).getStringCellValue());
                     }
                 }
             }
+            
+            for(int j=0;j<2;j++){
+                errorDataSheet.getRow(errorDataSheet.getLastRowNum()-j).setZeroHeight(true);//将行隐藏
+            }
+            
 //            Sheet nameEnRow = errorDataExcel.getSheetAt(1).getRow(startRow-2);  //英文名称行
             //定义背景颜色
             XSSFCellStyle style = (XSSFCellStyle) errorDataExcelWb.createCellStyle();
