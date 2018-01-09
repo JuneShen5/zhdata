@@ -89,6 +89,10 @@
                           title="验证码" width="90" height="34"
                           src="${pageContext.request.contextPath}/login/verifyCode?random=0.7304289337922849"
                           autocomplete="off">
+                          
+                          <!-- 用于测试 -->
+                      	 <input type=hidden name="verifyCodeNum" value="">
+                       
                   </div>
                   <input class="btn btn-default btn-submit btn-block" type="submit" value="登 录"/>&nbsp;&nbsp;
                   <a
@@ -193,7 +197,25 @@
 //刷新验证码
 $("#vimg").click(function () {
     $("#vimg").attr("src", "${pageContext.request.contextPath}/login/verifyCode?random=" + Math.random());
+    setTimeout(function(){getVerifyCodeNum()},100)    //用于测试
 });
+
+
+
+//用于测试
+$(function(){
+	getVerifyCodeNum();
+})
+
+
+//用于测试
+function getVerifyCodeNum(){
+	var url = "${pageContext.request.contextPath}/login/verifyCodeNum?random=" + Math.random();
+	$.get(url,function(result){
+		$("input[name='verifyCodeNum']").val(result);
+	})
+}
+
 </script>
 
 	<%--<%@include file="../common/dialog.jsp"%>--%>

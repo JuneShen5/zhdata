@@ -17,6 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -87,6 +88,7 @@ public class LoginController {
         response.setDateHeader("Expires", 0);
         // 为了手机客户端方便使用数字验证码
         String verifyCode = VerifyCodeUtil.generateTextCode(VerifyCodeUtil.TYPE_NUM_ONLY, 4, null);
+        System.out.println("verifyCode1======"+verifyCode);
         Subject currentUser = SecurityUtils.getSubject();
         Session session = currentUser.getSession();
         session.setAttribute(Global.SESSION_SECURITY_CODE, verifyCode);
@@ -102,6 +104,21 @@ public class LoginController {
         }
     }
 
+    
+    /**
+     * 用于测试
+     * 
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "verifyCodeNum", method = RequestMethod.GET)
+    public ResponseEntity<String>  verifyCodeNum(HttpServletResponse response) {
+        Subject currentUser = SecurityUtils.getSubject();
+        String verifyCode = currentUser.getSession().getAttribute(Global.SESSION_SECURITY_CODE).toString();
+        return ResponseEntity.ok(verifyCode);
+    }
+    
+    
     /**
      * 帐号注销 退出
      * 

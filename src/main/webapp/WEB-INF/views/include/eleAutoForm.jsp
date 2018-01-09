@@ -47,18 +47,18 @@
 			<input type="text" name="len" class="form-control" placeholder="标明该信息项在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）" required>
 		</div>
 	</div>
-	<c:set var="user" value="${fns:getCurrentUser()}" />
+	<%-- <c:set var="user" value="${fns:getCurrentUser()}" />
 		<div class="form-group">
 			<label class="col-sm-3 control-label">来源部门：</label>
 			<c:choose>
 				<c:when test="${user.roleId==1}">
 					<div class="col-sm-7">
-						<%-- <select name="companyId" class="select-chosen" required>
+						<select name="companyId" class="select-chosen" required>
 							<option value=""></option>
 							<c:forEach var="company" items="${fns:getList('company')}">
 								<option value="${company.id}">${company.name}</option>
 							</c:forEach>
-						</select> --%>
+						</select>
 						<input id="" name="companyId" class="form-control citySelId hide" type="text">
 						<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required />
 						<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
@@ -72,22 +72,17 @@
 				</div>
 			</c:otherwise>
 		</c:choose>
+	</div> --%>
+	
+<div class="form-group">
+	<label class="col-sm-3 control-label">来源部门：</label>
+	<div class="col-sm-7">
+		<input id="" name="companyId" class="form-control citySelId hide" type="text"> 
+			<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required />
+		<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 	</div>
-<%--<div class="form-group">
-     <label class="col-sm-3 control-label">来源部门：</label>
-    <div class="col-sm-7">
-        <select name="companyId" class="select-chosen" required>
-            <option value=""></option>
-            <c:forEach var="company" items="${fns:getList('company')}">
-                <option value="${company.id}">${company.name}</option>
-            </c:forEach>
-        </select>
-        <input id="" name="companyId" class="form-control citySelId hide" type="text">
-        <input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required/>
-        <%@include file="/WEB-INF/views/include/companyTree.jsp"%>
-    </div>
-</div> --%>
-	<div class="form-group">
+</div>
+<div class="form-group">
 		<label class="col-sm-3 control-label">数据标记：</label>
 		<div class="col-sm-7">
 			<select name="dataLabel" class="select-chosen" required>
