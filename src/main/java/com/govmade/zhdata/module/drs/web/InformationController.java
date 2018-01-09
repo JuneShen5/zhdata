@@ -567,7 +567,7 @@ public class InformationController extends BaseController<Information>{
 
     @Override
     protected void getReadExcelStarLine() {
-        super.commitRow = 500;
+        super.commitRow = 200;
         super.startRow = 3;
         super.columnIndex = 0;
     }

@@ -150,7 +150,7 @@ public class ElementController extends BaseController<Element>{
 
     @Override
     protected void getReadExcelStarLine() {
-        super.commitRow = 500;
+        super.commitRow = 200;
         super.startRow = 3;
         super.columnIndex = 0;
     }

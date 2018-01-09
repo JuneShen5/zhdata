@@ -136,7 +136,6 @@ public abstract class BaseController<T> {
                            }
                            info +=   "\"" + nameEn.trim() + "\":\"" + info_value + "\",";
                        }
-                       
                    }
                    info = info.substring(0, info.length() - 1);
                    info += "}";

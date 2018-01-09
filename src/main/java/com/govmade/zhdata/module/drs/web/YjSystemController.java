@@ -52,7 +52,7 @@ public class YjSystemController extends BaseController<YjSystems>{
     
     @Override
     protected void getReadExcelStarLine(){
-        super.commitRow = 500;
+        super.commitRow = 200;
         super.startRow = 6;
         super.columnIndex = 1;
     }       

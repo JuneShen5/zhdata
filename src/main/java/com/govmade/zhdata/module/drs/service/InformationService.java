@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.sf.json.JSONObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -273,14 +275,13 @@ public class InformationService extends BaseService<Information> {
                 
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
-                if (StringUtils.isNotBlank(jsonArray)) {
+                if (JSONObject.fromObject(jsonArray.substring(1,jsonArray.length()-1)).size()>0) {
                     // json数组转List对象
                     elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                     information.setElementList(elements);
                 }
                 Company company=this.companyService.queryById(information.getCompanyId());
                 information.setCode(company.getCreditCode());
-                System.out.println("information:"+information);
                 this.saveInformation(information);
            }
     }

@@ -534,7 +534,7 @@ public class ImportExcelImpl{
             style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND); 
             
             for(int m=0;m<AllErrorDataCoordinate.size();m++){
-                Row newRow = errorDataSheet.createRow(errorDataSheet.getLastRowNum()+1+m);//模板中创建的行
+                Row newRow = errorDataSheet.createRow(errorDataSheet.getLastRowNum()+1);//模板中创建的行
                 Map<String ,Integer> Coordinate = AllErrorDataCoordinate.get(m); //获取行列的坐标
                 Row errorRow = sheet.getRow(Coordinate.get("rowIndex"));   //获取导入文件中错误数据的哪一行
                 //将导入文件中的错误数据保存到模板文件中
