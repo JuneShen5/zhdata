@@ -251,8 +251,6 @@
 		});
 		
 		function updateCount () {
-		    var count1 = '';
-            var count2 = '';
 			$.ajax({
 				url: '${ctx}/catalog/information/list',
 				data: {
@@ -267,30 +265,11 @@
 
 				},
 				success: function (res) {
-					$('#message_count1').text(res.total);
-                    count1 = res.total;
-                    $('#message_number').text(count1+count2);
+					$('#message_count1').text(res.auditCount);
+                    $('#message_count2').text(res.returnCount);
+                    $('#message_number').text(res.auditCount+res.returnCount);
 				}
 			});
-            $.ajax({
-                url: '${ctx}/catalog/information/list',
-                data: {
-                    pageNum:1,
-                    pageSize:6,
-                    obj:JSON.stringify({isAudit: 3,
-                        isAuthorize:1,
-                        nameCn:"",
-                        nameEn:""
-                    }),
-                    companyIds:""
-
-                },
-                success: function (res) {
-                    $('#message_count2').text(res.total);
-                    count2 = res.total;
-                    $('#message_number').text(count1+count2);
-                }
-            });
 		}
 		</script>
 	</body>
