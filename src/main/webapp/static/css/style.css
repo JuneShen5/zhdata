@@ -7875,3 +7875,35 @@ td.font-red{
 	text-overflow:ellipsis;
 	white-space: nowrap;
 }
+
+/*导入导出相关样式*/
+h4.uploader-info{
+	line-height: 29px;
+	margin: 0;
+}
+#file-message{
+	position: relative;
+}
+#file-message .progress{
+	height: 10px;
+	margin: 0;
+}
+#file-message .item{
+	padding-left: 50px;
+	width: 100%;
+}
+.uploader-unfail{
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	padding: 0;
+}
+#importForm .float-e-margins{
+	position: relative;
+}
+.font-color-green{
+	color: #1ab394;
+}
+.font-color-red{
+	color: #ed5565;
+}

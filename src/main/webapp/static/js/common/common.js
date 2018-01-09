@@ -985,14 +985,14 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			    mimeTypes: 'Excel/*'
 			}
 		});
-	
-		uploader.on( 'fileQueued', function( file ) {
-			var html = '<div style="display: inline-block; vertical-align: top;"><img src="${ctxStatic}/js/plugins/webuploader/img/excel.png"  alt="excel" /></div>'+
-						'<div id="' + file.id + '" class="item" style="display: inline-block; vertical-align: top;">' +
-				        '<h4 class="info">' + file.name + '</h4>' +
-				    '</div>'
-			$("#file-message").html(html);
-		});
+
+        uploader.on( 'fileQueued', function( file ) {
+            var html = '<div style="position: absolute;"><img src="../static/js/plugins/webuploader/img/excel.png"  alt="excel" /></div>'+
+                '<div id="' + file.id + '" class="item" style="display: inline-block; vertical-align: top;">' +
+                '<h4 class="uploader-info">' + file.name + '</h4>' +
+                '</div>';
+            $("#file-message").html(html);
+        });
 	
 		// 文件上传过程中创建进度条实时显示。
 		uploader.on( 'uploadProgress', function( file, percentage ) {
@@ -1005,23 +1005,24 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 		          '</div>' +
 		        '</div>').appendTo( $li ).find('.progress-bar');
 		    }
-		    $("#message").text("上传中");
+            $("#message").addClass('uploader-unfail').removeClass('font-color-green font-color-red');
+            $("#message").html('<i class="fa fa-spinner" aria-hidden="true"></i> '+'上传中...');
 		    $percent.css( 'width', percentage * 100 + '%' );
 		});
-	
-		uploader.on("uploadAccept", function( file, data){
-			if(data=="上传成功！"){
-				$("#message").text(data).css("color", "#1ab394");
-				layer.close(importDataLayer);
-				$(tableId).bootstrapTable('refresh');
-			}else{
-				$("#message").text(data).css("color", "#ed5565");
-			}
+
+        uploader.on("uploadAccept", function( file, data){
+            if(data=="数据导入完成"){
+                $("#message").html('<i class="fa fa-check"></i> '+data).addClass('font-color-green');
+                layer.close(importDataLayer);
+                $('#' + mainTableOption.tableId).bootstrapTable('refresh');
+            }else{
+                $("#message").removeClass('uploader-unfail').html('<i class="fa fa-times-circle" aria-hidden="true"></i> '+data).addClass('font-color-red');
+            }
 //		    if ( data.success=="0") {
 //		        // 通过return false来告诉组件，此文件上传有错。
 //		        return false;
 //		    }
-		});
+        });
 		/*    完成上传完了，成功或者失败，先删除进度条。 */
 		uploader.on( 'uploadComplete', function( file ) {
 		     $( '#'+file.id ).find('.progress').fadeOut();
