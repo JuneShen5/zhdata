@@ -74,9 +74,9 @@
 							</div>-->
 
 							<div class="check-search">
-								<label class="">信息资源代码：</label>
+								<label class="">信息资源提供方：</label>
 								<div class="check-search-item">
-									<input type="text" sName="nameEn" class="form-control">
+									<input type="text" sName="companyName" class="form-control">
 								</div>
 							</div>
 						</div>
@@ -332,8 +332,8 @@
 		                data: {ids: ids},
 		                dataType: 'json',
 		                success: function (res) {
-		                    layer.msg("通过审核!")
-		    				parent.updateCount();
+		                    layer.msg("通过审核!");
+		    				updateCount();
 		                    $(tableId).bootstrapTable('refresh');
 		                },
 		                error: function () {
@@ -413,6 +413,7 @@
 		    			success : function(data){
 		    				layer.close(layer.index);
 		    				$(tableId).bootstrapTable('refresh');
+                            updateCount();
 		    				layer.msg(data);
 		    				endMethod('#notThrough_form');
 		    			},
@@ -744,8 +745,7 @@
                     success: function (data) {
                         layer.msg('审核成功！');
                         $(tableId).bootstrapTable('refresh');
-                        $('#message_number', window.parent.document).text('0');
-                        $('#message_count', window.parent.document).text('0');
+                        updateCount();
                     }
                 });
                 layer.close(index);
@@ -774,9 +774,7 @@
                     success: function (res) {
                         layer.msg("通过审核!")
                         $(tableId).bootstrapTable('refresh');
-                        var msgCount = parseInt($('#message_number', window.parent.document).text());
-                        $('#message_number', window.parent.document).text(msgCount-postData.length);
-                        $('#message_count', window.parent.document).text(msgCount-postData.length);
+                        updateCount();
                     }
                 });
 			}

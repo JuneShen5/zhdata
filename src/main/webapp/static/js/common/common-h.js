@@ -621,6 +621,7 @@ var TableInit = function(tableOption,btnOption) {
 	var importForm = '#importForm';
 	var exportBox = '#exportData';
 	var importBox = '#importData';
+	// var tableId = '#' + mainTableOption.tableId;
 	
 	$(function(){
 		rowName();
@@ -679,6 +680,7 @@ var TableInit = function(tableOption,btnOption) {
 	function importData(attributeType) {
 		$("#file-message").html("");//清空上次上传后的提示信息
 		$("#message").html("");
+		$('#message').addClass('uploader-unfail');
 		console.log("attributeType:",attributeType)
 	var importDataLayer	= layer.open({
 			type : 1,
@@ -726,9 +728,9 @@ var TableInit = function(tableOption,btnOption) {
 		});
 	
 		uploader.on( 'fileQueued', function( file ) {
-			var html = '<div style="display: inline-block; vertical-align: top;"><img src="${ctxStatic}/js/plugins/webuploader/img/excel.png"  alt="excel" /></div>'+
+			var html = '<div style="position: absolute;"><img src="../static/js/plugins/webuploader/img/excel.png"  alt="excel" /></div>'+
 						'<div id="' + file.id + '" class="item" style="display: inline-block; vertical-align: top;">' +
-				        '<h4 class="info">' + file.name + '</h4>' +
+				        '<h4 class="uploader-info">' + file.name + '</h4>' +
 				    '</div>';
 			$("#file-message").html(html);
 		});
@@ -744,20 +746,18 @@ var TableInit = function(tableOption,btnOption) {
 		          '</div>' +
 		        '</div>').appendTo( $li ).find('.progress-bar');
 		    }
-		    $("#message").text("上传中");
+            $("#message").addClass('uploader-unfail').removeClass('font-color-green font-color-red');
+		    $("#message").html('<i class="fa fa-spinner" aria-hidden="true"></i> '+'上传中...');
 		    $percent.css( 'width', percentage * 100 + '%' );
 		});
 		
 		uploader.on("uploadAccept", function( file, data){
-			console.log("111111");
-			console.log(data);
-			console.log(ctx);
-			if(data=="上传成功！"){
-				$("#message").text(data).css("color", "#1ab394");
+			if(data=="数据导入完成"){
+				$("#message").html('<i class="fa fa-check"></i> '+data).addClass('font-color-green');
 				layer.close(importDataLayer);
-				$(tableId).bootstrapTable('refresh');
+				$('#' + mainTableOption.tableId).bootstrapTable('refresh');
 			}else{
-				$("#message").html(data).css("color", "#ed5565");
+				$("#message").removeClass('uploader-unfail').html('<i class="fa fa-times-circle" aria-hidden="true"></i> '+data).addClass('font-color-red');
 			}
 //		    if ( data.success=="0") {
 //		        // 通过return false来告诉组件，此文件上传有错。

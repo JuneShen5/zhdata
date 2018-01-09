@@ -7,7 +7,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
-		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>  
+		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>
 		<title>珠海市政府数据资源普查系统</title>
 		<%@ include file="/WEB-INF/views/include/head.jsp"%>
 		<link rel="stylesheet" href="${ctxStatic}/css/index.css">
@@ -248,7 +248,6 @@
 		// 查询需要审核的消息
 		$(function () {
 			updateCount();
-            updateCountReturn();
 		});
 		
 		function updateCount () {
@@ -266,34 +265,12 @@
 
 				},
 				success: function (res) {
-					$('#message_count1').text(res.total);
-                    var count2 = parseInt($('#message_count2').text());
-//                    console.log('as:'+);
-                    $('#message_number').text(res.total+count2);
+					$('#message_count1').text(res.auditCount);
+                    $('#message_count2').text(res.returnCount);
+                    $('#message_number').text(res.auditCount+res.returnCount);
 				}
-			})
+			});
 		}
-        function updateCountReturn () {
-            $.ajax({
-                url: '${ctx}/catalog/information/list',
-                data: {
-                    pageNum:1,
-                    pageSize:6,
-                    obj:JSON.stringify({isAudit: 3,
-                        isAuthorize:1,
-                        nameCn:"",
-                        nameEn:""
-                    }),
-                    companyIds:""
-
-                },
-                success: function (res) {
-                    $('#message_count2').text(res.total);
-                    var count1 = parseInt($('#message_count1').text());
-                    $('#message_number').text(res.total+count1);
-                }
-            })
-        }
 		</script>
 	</body>
 
