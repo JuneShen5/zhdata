@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
 <link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>  
-<title>珠海市政府数据资源普查系统</title>
+<title>珠海市政府数据资产普查系统</title>
 <c:set var="ctxStatic" value="${pageContext.request.contextPath}/static" />
 <c:set var="ctx" value="${pageContext.request.contextPath}"/>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,7 +41,7 @@
     <div class="login-wrapper register-page">
       <div class="title">
     		<img class="logo" src="${ctxStatic}/images/skin/skin-1/dnalogo.png"/>
-           珠海市政府数据资源普查系统
+           珠海市政府数据资产普查系统
     	</div>
       <div class="login-box clearfix">
         <!--<div class="pull-left register-page-case content-left">

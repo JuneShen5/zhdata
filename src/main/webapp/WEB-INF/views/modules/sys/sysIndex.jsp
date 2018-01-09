@@ -8,7 +8,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta name="renderer" content="webkit">
 		<link rel="icon" href="${ctxStatic}/images/icon/1.ico" type="image/x-icon"/>
-		<title>珠海市政府数据资源普查系统</title>
+		<title>珠海市政府数据资产普查系统</title>
 		<%@ include file="/WEB-INF/views/include/head.jsp"%>
 		<link rel="stylesheet" href="${ctxStatic}/css/index.css">
 		<link rel="stylesheet" href="${ctxStatic}/css/skin/skin.css">
@@ -73,7 +73,7 @@
 				<div class="row">
 					<div class="pull-left" style="margin-top: 15px;font-size: 24px;">
 						<img style="width: 50px;vertical-align: bottom;" class="logo" src="${ctxStatic}/images/skin/skin-1/dnalogo.png"/>
-						珠海市政府数据资源普查系统
+						珠海市政府数据资产普查系统
 					</div>
 					<div class="pull-right rel btn-group-wrapper">
 						<div class="dropdown message-group btn-signout">
