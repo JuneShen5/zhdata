@@ -540,7 +540,8 @@ public class ImportExcelImpl{
                 //将导入文件中的错误数据保存到模板文件中
                 for(int n=0;n<lastColum;n++){
                     try {
-                        newRow.createCell(n).setCellValue(errorRow.getCell(n).getStringCellValue());
+                        newRow.createCell(n).setCellValue(getCellValue(errorRow.getCell(n)));
+//                        newRow.createCell(n).setCellValue(errorRow.getCell(n).getStringCellValue());
                     } catch (Exception e) {
                         // TODO Auto-generated catch block
 //                        e.printStackTrace();
