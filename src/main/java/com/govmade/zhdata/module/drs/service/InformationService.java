@@ -275,7 +275,8 @@ public class InformationService extends BaseService<Information> {
                 
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
-                if (JSONObject.fromObject(jsonArray.substring(1,jsonArray.length()-1)).size()>0) {
+                
+                if (jsonArray.length()>0 && JSONObject.fromObject(jsonArray.substring(1,jsonArray.length()-1)).size()>0) {
                     // json数组转List对象
                     elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                     information.setElementList(elements);
