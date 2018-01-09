@@ -177,7 +177,7 @@ public class DBMSMetaUtil {
             meta.getPrimaryKeys(catalog, schemaPattern, tableNamePattern);  
             //  
             result = parseResultSetToMapList(rs);  
-            System.out.println("result="+result);
+            //System.out.println("result="+result);
             for (Map<String, Object> map : result) {
                 String nameEn=map.get("COLUMN_NAME").toString();
                 String nameCn=(String) map.get("REMARKS");
@@ -194,7 +194,7 @@ public class DBMSMetaUtil {
                 map.put("length", length);
                 
                 list.add(map);
-                System.out.println("columnlist="+list);
+                //System.out.println("columnlist="+list);
             }
         } catch (Exception e) {  
             e.printStackTrace();  

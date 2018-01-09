@@ -32,6 +32,7 @@
 				/static/** = anon
 				/login = anon
 				/login/verifyCode = anon
+				/login/verifyCodeNum = anon
 				/upload/** = anon
 				/** = authc
 			</value>
