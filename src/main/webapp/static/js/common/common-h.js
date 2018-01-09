@@ -621,6 +621,7 @@ var TableInit = function(tableOption,btnOption) {
 	var importForm = '#importForm';
 	var exportBox = '#exportData';
 	var importBox = '#importData';
+	// var tableId = '#' + mainTableOption.tableId;
 	
 	$(function(){
 		rowName();
@@ -752,10 +753,11 @@ var TableInit = function(tableOption,btnOption) {
 			console.log("111111");
 			console.log(data);
 			console.log(ctx);
-			if(data=="上传成功！"){
+            console.log(importDataLayer);
+			if(data=="数据导入完成"){
 				$("#message").text(data).css("color", "#1ab394");
 				layer.close(importDataLayer);
-				$(tableId).bootstrapTable('refresh');
+				$('#' + mainTableOption.tableId).bootstrapTable('refresh');
 			}else{
 				$("#message").html(data).css("color", "#ed5565");
 			}
