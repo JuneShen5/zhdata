@@ -128,9 +128,6 @@ public class InformationController extends BaseController<Information>{
         
         try {
             Long total = infoService.getTotal(page);
-          /*  if (condition) {
-                
-            }*/
             List<Information> iList = this.infoService.queryList(page);
             List<Map<String, Object>> list = Lists.newArrayList();
             for (Information s : iList) {
