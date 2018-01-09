@@ -1014,7 +1014,7 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
             if(data=="数据导入完成"){
                 $("#message").html('<i class="fa fa-check"></i> '+data).addClass('font-color-green');
                 layer.close(importDataLayer);
-                $('#' + mainTableOption.tableId).bootstrapTable('refresh');
+                $(tableId).bootstrapTable('refresh');
             }else{
                 $("#message").removeClass('uploader-unfail').html('<i class="fa fa-times-circle" aria-hidden="true"></i> '+data).addClass('font-color-red');
             }
