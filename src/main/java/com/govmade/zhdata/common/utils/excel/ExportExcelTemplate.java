@@ -43,7 +43,7 @@ import com.govmade.zhdata.module.sys.pojo.Site;
 public class ExportExcelTemplate extends ExportExcelImpl {
     
     protected Map<String, List<String>> dictMap = null;
-    protected String[] unSelect = {"input","dateselect","textarea","element","linkageSelect"}; //不用做关联的inputtype
+    protected String[] unSelect = {"input","dateselect","textarea","element","linkageSelect","double"}; //不用做关联的inputtype
     
 //    protected Sheet infoattachedSheet;
     
@@ -76,6 +76,10 @@ public class ExportExcelTemplate extends ExportExcelImpl {
           String  inputValue = "";
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
           String[] CellValArr = CellVal.split("_");
+          
+          
+          
+          
           if(!Arrays.asList(unSelect).contains(CellValArr[0])){
               //有关联字段的数据
               String columType = CellValArr[0];
@@ -117,6 +121,8 @@ public class ExportExcelTemplate extends ExportExcelImpl {
               }
           }else if("dateselect".equals(CellValArr[0])){
               inputValue = "2017-10";
+          }else if("double".equals(CellValArr[0])){
+              inputValue = "0.000";
           }else if("linkageSelect".equals(CellValArr[0])){
               //有联动的
               List<Map<String, Object>> linkageTemplateValue = getLinkSelect(CellValArr[1]); //下拉选框数据

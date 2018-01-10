@@ -80,7 +80,7 @@ public abstract class BaseController<T> {
            importExcel = new ImportExcelImpl(request,file,0,0);
            getReadExcelStarLine();
            getFileName();
-           importExcel.uploadAndRead(startRow,columnIndex,commitRow,templatFile);
+           importExcel.setParams(startRow,columnIndex,commitRow,templatFile);
          } catch (Exception e) {
          e.printStackTrace();
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("导入初始化出错，导入失败！");
@@ -98,7 +98,7 @@ public abstract class BaseController<T> {
        attribute.setDelFlag(0);
        List<Attribute> attributeList = attributeService.querAllyList(attribute);
        Map<String,Integer>  attributeMap = new HashMap<String, Integer>();
-       for(Attribute att:attributeList){ 
+       for(Attribute att:attributeList){
            //这边查出来的getNameEn是大小写的驼峰
            attributeMap.put(att.getNameEn(), att.getIsCore());
        }
@@ -173,10 +173,9 @@ public abstract class BaseController<T> {
            String errorDataExcelPath;
         try {
             errorDataExcelPath = importExcel.creatErrorDataExcel();
-        } catch (IOException e) {
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            System.out.println("错误数据文件创建失败！");
             return "错误数据文件创建失败！";
         }
            _errorNumMsg = "，其中有"+_errorNum+"条错误数据（<a href=\""+errorDataExcelPath+"\">点击下载）,请修改完后重新上传！";
@@ -201,8 +200,8 @@ public abstract class BaseController<T> {
            String _chTableName = chTableName+"数据";
            String _enTableName = chTableName+"数据";
 //          String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
-              ExportExcelImpl  exportExcel = new ExportExcelData(request,_chTableName,_enTableName,templatFile,rowName,DataList,response);
-              exportExcel.export();
+           ExportExcelImpl  exportExcel = new ExportExcelData(request,_chTableName,_enTableName,templatFile,rowName,DataList,response);
+           exportExcel.export();
           } catch (Exception e1) {
               e1.printStackTrace();
           }
