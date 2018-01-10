@@ -248,18 +248,16 @@ public class ImportExcelImpl{
             Row Datarow = sheet.getRow(rowIndex);
             Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
             for (int columnIndex = this.columnIndex ; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
-               System.out.println("inputTypeMap:"+inputTypeMap.get(columnIndex).trim());
               
                 String value =""; //excel每一格读取的值
                 Cell cell = Datarow.getCell(columnIndex);
-                System.out.println("value:"+getCellValue(cell));
                 if("".equals(inputTypeMap.get(columnIndex).trim()) ){
                     continue;  //类型行没有数据直接跳过
                 }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex))){ //.trim().split("_")[0]
                     value = getCellValue(cell);   //没有关联的数据直接获取
                 }else if("double".equals(inputTypeMap.get(columnIndex).trim()) ){ //浮点型数据
                     value = getCellValue(cell);
-                    if(value=="" || value==null){
+                    if(value.length()==0 || value=="" || value==null ){
                         value="0.00"; //数据为空的时候
                     }else if(!value.matches(doubleReg)){ //数据格式出错
                         Map<String,Integer> oneErrorDataCoordinate = new HashMap<String, Integer>();
@@ -277,7 +275,7 @@ public class ImportExcelImpl{
                         String name = getCellValue(cell);
                        /* Map<label,value>*/
                         String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
-                        if(ID==null || ID=="" || ID=="null"){
+                        if(ID.length()==0 || ID==null || ID=="" || ID=="null"){
 //                            _rowIndex = rowIndex+1; 
 //                            _columnIndex = columnIndex+1;
 //                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");
