@@ -59,7 +59,7 @@ public class ImportExcelImpl{
     //log4j输出
     private Logger log = LoggerFactory.getLogger(ImportExcelImpl.class);
     // 时间的格式
-    private String format="yyyy-MM-dd";
+    private String format="yyyy-MM";
     
     /**
      * 工作薄对象
@@ -297,22 +297,18 @@ public class ImportExcelImpl{
     * @return
     */
     public String getCellValue(Cell cell) {
-//        System.out.println("type:"+cell.getCellType());
     	String val = "";
             if (cell != null) {
                 if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC ) {
                     if (DateUtil.isCellDateFormatted(cell)) { 
-//                        System.out.println("shijian");
                         Date date  =cell.getDateCellValue();
                         val =new SimpleDateFormat(this.format).format(date); 
                       }else {
                           cell.setCellType(Cell.CELL_TYPE_STRING);
                           val = cell.getStringCellValue();
                       }
-//                    System.out.println("NUMERIC:"+val);
                 } else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                     val = cell.getStringCellValue();
-//                    System.out.println("STRING:"+val);
                 } else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     val = cell.getCellFormula();
                 } else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
