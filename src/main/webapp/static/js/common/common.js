@@ -50,14 +50,16 @@ $(function() {
     $('.js-hasChild').on('change', function () {
         var parentName = $(this).attr('name');
         if ($(this).val() === '1') {
-            $('[data-parent=' + parentName + ']').slideDown().find('input,select,textarea').prop('required', true).val('');
+            $('[data-parent=' + parentName + ']').slideDown().find('input:not(.chosen-search input),select,textarea').prop('required', true).val('');
+            // $('.chosen-search').find('input').prop('required', false);
         }else {
-            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+            $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
         }
         $('[data-parent=' + parentName + ']').find('input,select,textarea').each(function () {
             // that.$element.find('form').validate().element($(this));
             // $(this).valid();
-
+            // $(this).find('.chosen-search').children('input').prop('required', false);
+            // console.log($(this).find('.chosen-search').children('input').length);
         });
     });
 });
@@ -286,7 +288,7 @@ function endMethod (closeId, status) {
     // 将相关下拉框选项隐藏
     $('.js-hasChild').each(function (index) {
         var parentName = $(this).attr('name');
-        $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input,select,textarea').prop('required', false).val('');
+        $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
     });
 	try{
 		if(resetPage) {
@@ -546,9 +548,9 @@ function loadData(row) {
     $('.js-hasChild').each(function (index) {
         var parentName = $(this).attr('name');
         if ($(this).val() === '1') {
-            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', true);
         }else {
-            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+            $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
         }
     });
 }
@@ -643,9 +645,9 @@ function loadToData(row, formId) {
     $('.js-hasChild').each(function (index) {
         var parentName = $(this).attr('name');
         if ($(this).val() === '1') {
-            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input,select,textarea').prop('required', true);
+            $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', true);
         }else {
-            $('[data-parent=' + parentName + ']').slideUp().find('input,select,textarea').prop('required', false).val('');
+            $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
         }
     });
 }

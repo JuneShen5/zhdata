@@ -17,7 +17,7 @@
 	<div class="input-group tree-input">
 		<input id="treeSearchInput" type="text" class="form-control" placeholder="请输入名称">
 	</div><!-- /input-group -->
-	<ul id="menuTree" class="ztree company_tree_ul" style="margin-top:0; width:100%; height: 300px;"></ul>
+	<ul id="menuTree" class="ztree company_tree_ul" style="position: relative;margin-top:0; width:100%; height: 300px;"></ul>
 </div>
 
 <!-- [if !IE]> -->
@@ -166,9 +166,9 @@
 			if (nodes[0] == undefined) {
 				return
 			}
-			var offsetTop = $('#'+nodes[0].tId).children('a').offset().top;
+			var offsetTop = $('#'+nodes[0].tId).children('a').position().top;
             console.log(offsetTop);
-			$('.company_tree').animate({scrollTop:offsetTop-scrollTop-150},500);
+			$('.company_tree').stop().animate({scrollTop:offsetTop-scrollTop},500);
 		}
 	}
 	
