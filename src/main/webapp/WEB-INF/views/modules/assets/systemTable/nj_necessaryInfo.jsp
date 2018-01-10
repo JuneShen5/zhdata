@@ -36,7 +36,7 @@
             <label class="control-label">建设预期目标</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设此系统的业务目标等" required>
+            <textarea name="jsyqmb" hasNoSpace="true" class="form-control" rows="3" placeholder="建设此系统的业务目标等" required></textarea>
         </div>
     </div>
     <div class="form-group">

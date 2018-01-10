@@ -7,7 +7,7 @@
             <label class="control-label">系统建设/立项依据</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtjsyj" placeholder="权责清单、政策等相关文件" required>
+            <textarea name="xtjsyj" hasNoSpace="true" class="form-control" rows="3" placeholder="权责清单、政策等相关文件" required></textarea>
         </div>
     </div>
 
@@ -16,7 +16,7 @@
             <label class="control-label">建设预期目标</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jsyqmb" placeholder="建设此系统的业务目标等" required>
+            <textarea name="jsyqmb" hasNoSpace="true" class="form-control" rows="3" placeholder="建设此系统的业务目标等" required></textarea>
         </div>
     </div>
 
@@ -39,7 +39,7 @@
             <label class="control-label">紧迫程度说明</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jpcdsm" placeholder="根据单位具体情况进行说明" required>
+            <textarea name="jpcdsm" hasNoSpace="true" class="form-control" rows="3" placeholder="根据单位具体情况进行说明" required></textarea>
         </div>
     </div>
 
