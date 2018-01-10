@@ -53,7 +53,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer aqjb;
 
-    private String yjr;   //已接入网络类型
+    private String yjr;   //已接入（网络类型）
 
     private Integer wllxsyfw;
 
