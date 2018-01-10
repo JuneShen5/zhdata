@@ -104,6 +104,9 @@ public class ImportExcelImpl{
     
     private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
     
+    String doubleReg = "^[0-9]+(.[0-9]+)?$"; 
+    
+    
     protected Map<String, Map<String,String>> dictMap = new HashMap<String, Map<String,String>>(); //存放数据字典
     protected Map<String,Integer> companyMap = new HashMap<String, Integer>();
     protected Map<String,Integer> siteMap =  new HashMap<String, Integer>();
@@ -212,7 +215,7 @@ public class ImportExcelImpl{
      * @return List<Map<String, String>>
      * @throws Exception*********
      */
-    public void uploadAndRead(int startRow,int columnIndex, int commitRow, String errorDataExcel) throws Exception{
+    public void setParams(int startRow,int columnIndex, int commitRow, String errorDataExcel) throws Exception{
        this.columnIndex = columnIndex;
        this.commitRow = commitRow;
        this.errorDataExcel = errorDataExcel;
@@ -245,12 +248,27 @@ public class ImportExcelImpl{
             Row Datarow = sheet.getRow(rowIndex);
             Map<String, String> rowMap= Maps.newHashMap(); //每一行的数据
             for (int columnIndex = this.columnIndex ; columnIndex < lastCellNum; columnIndex++) {//等于1不取第一列数据,第一行是id
+               System.out.println("inputTypeMap:"+inputTypeMap.get(columnIndex).trim());
+              
                 String value =""; //excel每一格读取的值
                 Cell cell = Datarow.getCell(columnIndex);
+                System.out.println("value:"+getCellValue(cell));
                 if("".equals(inputTypeMap.get(columnIndex).trim()) ){
                     continue;  //类型行没有数据直接跳过
-                }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex).trim().split("_")[0])){
+                }else if(Arrays.asList(unSelect).contains(inputTypeMap.get(columnIndex))){ //.trim().split("_")[0]
                     value = getCellValue(cell);   //没有关联的数据直接获取
+                }else if("double".equals(inputTypeMap.get(columnIndex).trim()) ){ //浮点型数据
+                    value = getCellValue(cell);
+                    if(value=="" || value==null){
+                        value="0.00"; //数据为空的时候
+                    }else if(!value.matches(doubleReg)){ //数据格式出错
+                        Map<String,Integer> oneErrorDataCoordinate = new HashMap<String, Integer>();
+                        oneErrorDataCoordinate.put("rowIndex", rowIndex);
+                        oneErrorDataCoordinate.put("columnIndex", columnIndex);
+                        someErrorDataCoordinate.add(oneErrorDataCoordinate);
+                        rowMap.clear();
+                        break;
+                    }
                 }else{
                     //有关联的数据，获取关联的ID
                     int _rowIndex; //用于记录错误的行和列
@@ -317,8 +335,10 @@ public class ImportExcelImpl{
                     val = cell.getErrorCellValue()+"";
                 }
             }
-       
-        return val;
+//       System.out.println("CellType:"+cell.getCellType());
+//       System.out.println("val:"+val);
+//       System.out.println("----------");
+        return val.trim();
     }
     /**
      *  根据关联的实体数据获取ID值（dict表中不一定全是数字）
@@ -496,7 +516,7 @@ public class ImportExcelImpl{
      * 将错误数据保存起来用于下载
      * @throws IOException
      */
-    public String creatErrorDataExcel() throws IOException {
+    public String creatErrorDataExcel() throws Exception {
         if(AllErrorDataCoordinate.size()>0){
             String templatePath = request.getSession().getServletContext().getRealPath("static/excel/excelTemplate");
             File  fi = new File(templatePath+"/"+errorDataExcel);
