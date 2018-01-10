@@ -33,7 +33,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Integer zjly;
 
-    private Integer xtlb;
+    private String xtlb;    //系统类别
 
     private Integer dqjsjd;
 
@@ -61,19 +61,19 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private String jpcdsm;
 
-    private String ygsydx;
+    private String ygsydx;  //预估使用对象
 
     private String ygsygm;
 
     private String yjhtrsysj;
 
-    private Integer bswz;
+    private String bswz;    //部署位置
 
     private Integer smfl;
 
     private Integer aqjb;
 
-    private Integer jhjrwllx;
+    private String jhjrwllx;    //计划接入网络类型
 
     private Integer syfw;
 
@@ -303,13 +303,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.yjhtrsysj = yjhtrsysj;
     }
 
-    public Integer getBswz() {
-        return bswz;
-    }
-
-    public void setBswz(Integer bswz) {
-        this.bswz = bswz;
-    }
 
     public Integer getSmfl() {
         return smfl;
@@ -431,21 +424,6 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.companyName = companyName;
     }
 
-    public Integer getXtlb() {
-        return xtlb;
-    }
-
-    public void setXtlb(Integer xtlb) {
-        this.xtlb = xtlb;
-    }
-
-    public Integer getJhjrwllx() {
-        return jhjrwllx;
-    }
-
-    public void setJhjrwllx(Integer jhjrwllx) {
-        this.jhjrwllx = jhjrwllx;
-    }
 
     public String getXnhrjcsmc() {
         return xnhrjcsmc;
@@ -454,5 +432,31 @@ public class ZjSystems extends BasePo<ZjSystems> {
     public void setXnhrjcsmc(String xnhrjcsmc) {
         this.xnhrjcsmc = xnhrjcsmc;
     }
+
+    public String getXtlb() {
+        return xtlb;
+    }
+
+    public void setXtlb(String xtlb) {
+        this.xtlb = xtlb;
+    }
+
+    public String getBswz() {
+        return bswz;
+    }
+
+    public void setBswz(String bswz) {
+        this.bswz = bswz;
+    }
+
+    public String getJhjrwllx() {
+        return jhjrwllx;
+    }
+
+    public void setJhjrwllx(String jhjrwllx) {
+        this.jhjrwllx = jhjrwllx;
+    }
+    
+    
 
 }

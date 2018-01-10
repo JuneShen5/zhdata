@@ -31,15 +31,15 @@ public class NjSystems extends BasePo<NjSystems> {
 
     private Integer zjdwqk;
 
-    private Integer jsfs;
+    private String jsfs;   //建设方式
 
     private String lxr;
 
     private String lxdh;
 
-    private Integer xtlb;
+    private String xtlb;  //系统类别
 
-    private Integer jsjpcd;
+    private Integer jsjpcd;   //建设紧迫程度
 
     private String xtjcsjyq;
 
@@ -47,7 +47,7 @@ public class NjSystems extends BasePo<NjSystems> {
 
     private String jsyqmb;
 
-    private String ygsydx;
+    private String ygsydx;  //预估使用对象
 
     private String ygsygm;
 
@@ -199,20 +199,22 @@ public class NjSystems extends BasePo<NjSystems> {
         this.companyName = companyName;
     }
 
-    public Integer getJsfs() {
+    public String getJsfs() {
         return jsfs;
     }
 
-    public void setJsfs(Integer jsfs) {
+    public void setJsfs(String jsfs) {
         this.jsfs = jsfs;
     }
 
-    public Integer getXtlb() {
+    public String getXtlb() {
         return xtlb;
     }
 
-    public void setXtlb(Integer xtlb) {
+    public void setXtlb(String xtlb) {
         this.xtlb = xtlb;
     }
+
+   
 
 }

@@ -45,15 +45,15 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private String trsysj;
 
-    private Integer xtlb;
+    private String xtlb;   //系统类别
 
-    private Integer bswz;
+    private String bswz;   //部署位置
 
     private Integer smfl;
 
     private Integer aqjb;
 
-    private Integer yjr;
+    private String yjr;   //已接入网络类型
 
     private Integer wllxsyfw;
 
@@ -109,7 +109,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer bffs;
 
-    private String bfdwz;
+    private String bfdwz;   //备份点位置
 
     private String sjbfl;
 
@@ -123,7 +123,7 @@ public class YjSystems extends BasePo<YjSystems> {
 
     private Integer jszl;
 
-    private Integer zjly;
+    private String zjly;   //资金来源
 
     private Double jsje;
 
@@ -316,22 +316,7 @@ public class YjSystems extends BasePo<YjSystems> {
         this.trsysj = trsysj;
     }
 
-    public Integer getXtlb() {
-        return xtlb;
-    }
-
-    public void setXtlb(Integer xtlb) {
-        this.xtlb = xtlb;
-    }
-
-
-    public Integer getBswz() {
-        return bswz;
-    }
-
-    public void setBswz(Integer bswz) {
-        this.bswz = bswz;
-    }
+   
 
     public Integer getSmfl() {
         return smfl;
@@ -349,13 +334,7 @@ public class YjSystems extends BasePo<YjSystems> {
         this.aqjb = aqjb;
     }
 
-    public Integer getYjr() {
-        return yjr;
-    }
-
-    public void setYjr(Integer yjr) {
-        this.yjr = yjr;
-    }
+   
 
     public Integer getWllxsyfw() {
         return wllxsyfw;
@@ -629,13 +608,7 @@ public class YjSystems extends BasePo<YjSystems> {
         this.jszl = jszl;
     }
 
-    public Integer getZjly() {
-        return zjly;
-    }
-
-    public void setZjly(Integer zjly) {
-        this.zjly = zjly;
-    }
+  
 
     public Double getJsje() {
         return jsje;
@@ -875,6 +848,38 @@ public class YjSystems extends BasePo<YjSystems> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getXtlb() {
+        return xtlb;
+    }
+
+    public void setXtlb(String xtlb) {
+        this.xtlb = xtlb;
+    }
+
+    public String getBswz() {
+        return bswz;
+    }
+
+    public void setBswz(String bswz) {
+        this.bswz = bswz;
+    }
+
+    public String getYjr() {
+        return yjr;
+    }
+
+    public void setYjr(String yjr) {
+        this.yjr = yjr;
+    }
+
+    public String getZjly() {
+        return zjly;
+    }
+
+    public void setZjly(String zjly) {
+        this.zjly = zjly;
     }
     
     
