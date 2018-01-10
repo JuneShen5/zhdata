@@ -49,8 +49,8 @@
                                 <th data-checkbox="true"></th>
                                 <th data-field="id">序号</th>
                                 <th data-field="name">信息系统名称</th>
-                                <th data-field="ywgn">业务功能</th>
                                 <th data-field="companyName">单位名称</th>
+                                <th data-field="spbm">审批部门</th>
                                 <th data-field="spsj">审批时间</th>
                                 <th data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
