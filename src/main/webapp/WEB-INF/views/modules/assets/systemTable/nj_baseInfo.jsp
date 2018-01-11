@@ -121,12 +121,16 @@
             <label class="control-label">建设方式</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="jsfs" class="form-control" required>
+            <div class="form-contact column-content">
+                <input type="text" class="form-control" hasNoSpace="true" name="jsfs" placeholder="建设方式" required>
+            </div>
+            <!-- 备用选择框 -->
+            <!--<select name="jsfs" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('construction_mode')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>
+            </select>-->
         </div>
     </div>
     <div class="form-group">
@@ -155,12 +159,15 @@
             <label class="control-label">系统类别</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="xtlb" class="form-control" required>
+            <div class="form-contact column-content">
+                <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="系统类别" required>
+            </div>
+            <!--<select name="xtlb" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>
+            </select>-->
         </div>
     </div>
 </fieldset>
