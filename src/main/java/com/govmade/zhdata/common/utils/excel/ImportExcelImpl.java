@@ -275,7 +275,7 @@ public class ImportExcelImpl{
                         String name = getCellValue(cell);
                        /* Map<label,value>*/
                         String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
-                        if(ID.length()==0 || ID==null || ID=="" || ID=="null"){
+                        if(ID==null || ID=="" || ID=="null"){
 //                            _rowIndex = rowIndex+1; 
 //                            _columnIndex = columnIndex+1;
 //                            throw new RuntimeException("数据'"+getCellValue(cell)+"'未查询到关联数据,位置："+_rowIndex+"行"+_columnIndex+"列");

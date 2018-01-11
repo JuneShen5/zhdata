@@ -190,21 +190,32 @@ public abstract class BaseController<T> {
     * @param response
     */
    @RequestMapping(value = "exportData", method = RequestMethod.POST)
-   public void exportData(Page<T> page,HttpServletRequest request,HttpServletResponse response){
+   public ResponseEntity<String> exportData(Page<T> page,HttpServletRequest request,HttpServletResponse response){
        page.setIsPage(false);
        String [] rowName =  page.getObj().split(",");; //头部
+       long begin = System.currentTimeMillis();
+       
        List<Map<String, Object>> DataList = queryDataForExp(); //查询出全部实体数据
+       
+       long queryend = System.currentTimeMillis();
+       long result = (queryend - begin)/1000;
+       System.out.println("查询数据耗时:" + result + "秒");
+       
        //获取实体数据
        try {
            getFileName();
            String _chTableName = chTableName+"数据";
            String _enTableName = chTableName+"数据";
-//          String chTableName = new String( name.getBytes("ISO8859-1"), "UTF-8" );
            ExportExcelImpl  exportExcel = new ExportExcelData(request,_chTableName,_enTableName,templatFile,rowName,DataList,response);
            exportExcel.export();
+           long saveend = System.currentTimeMillis();  
+           long result2 = (saveend - queryend)/1000;
+           System.out.println("导出耗时:" + result2 + "秒");
+           
           } catch (Exception e1) {
               e1.printStackTrace();
           }
+       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("导出失败");
    }
 //   
    protected abstract List<Map<String, Object>> queryDataForExp();

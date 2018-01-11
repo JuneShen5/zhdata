@@ -13,6 +13,7 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 
+import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.utils.DrsUtils;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
@@ -61,25 +62,40 @@ public class ExportExcelData extends ExportExcelImpl {
     @Override
     protected void exportValue(XSSFSheet sheet) {
         int lastRowNum = sheet.getLastRowNum();
-        Row titelRow = sheet.getRow(lastRowNum-1); //获取英文字段的行
+        Row nameEnRow = sheet.getRow(lastRowNum-1); //获取英文字段的行
         Row inputTypeRow = sheet.getRow(lastRowNum);
-        int lastCellNum =  titelRow.getLastCellNum();   //模板中的总列数
+        int lastCellNum =  nameEnRow.getLastCellNum();   //模板中的总列数
         //将查询出的数据设置到sheet对应的单元格中
+        Map<Integer, String> nameEnMap= Maps.newHashMap(); //存放字段英文名
+        Map<Integer, String> inputTypeMap= Maps.newHashMap(); //存放inputType
+        Map<Integer, String> inputTypeValueMap= Maps.newHashMap();//存放inputTypeValue
+        
+        for(int j=0;j<lastCellNum;j++){ //这边将英文字段以及字段类型整理好
+            nameEnMap.put(j,nameEnRow.getCell(j).getStringCellValue());
+            if(inputTypeRow.getCell(j).getStringCellValue().length()>0){
+                String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
+                inputTypeMap.put(j, inputTypeArr[0]);
+                if(inputTypeArr.length>1){
+                    inputTypeValueMap.put(j, inputTypeArr[1]);
+                }else{
+                    inputTypeValueMap.put(j, "");
+                }
+            }else{
+                inputTypeMap.put(j, "");
+                inputTypeValueMap.put(j, "");
+            }
+        }
         for(int i=0;i<dataList.size();i++){
             Row newRow = sheet.createRow(lastRowNum+i+1);
             for(int j=0;j<lastCellNum;j++){
-               String nameEn = titelRow.getCell(j).getStringCellValue(); //获取excel模板中英文那一列
-               String data =  (String) dataList.get(i).get(nameEn); //根据英文那一列一次获取实体数据list中的值
-//               newRow.createCell(j).setCellValue(data);
+               String data =  (String) dataList.get(i).get(nameEnMap.get(j)); //根据英文那一列一次获取实体数据list中的值
                if(  data != null && inputTypeRow.getCell(j).getStringCellValue().length()>0 ){
                    //获取excel存放inputtype那一行的值
-                   String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
-                   String columType = inputTypeArr[0];
-                   if(Arrays.asList(unSelect).contains(columType)){
+                   if(Arrays.asList(unSelect).contains(inputTypeMap.get(j))){
                        newRow.createCell(j).setCellValue(data);//没有关联表的数据
                    }else{
                        //有关联表的数据
-                       String value = getTemplateValue(inputTypeArr,data);
+                       String value = getTemplateValue(inputTypeMap.get(j),inputTypeValueMap.get(j),data);
                        newRow.createCell(j).setCellValue(value);
                    }
                }
@@ -94,23 +110,23 @@ public class ExportExcelData extends ExportExcelImpl {
      * @param sheet
      * @param lastRowNum
      */
-    private void changeLinkValue(XSSFSheet sheet, int lastRowNum){
-        Row inputTypeRow = sheet.getRow(lastRowNum);
-        int lastCellNum =  sheet.getRow(lastRowNum-1).getLastCellNum();   //模板中的总列数
-        for(int j=0;j<lastCellNum;j++){
-          String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
-          String columType = inputTypeArr[0];
-          if(!Arrays.asList(unSelect).contains(columType)){
-              for(int i=lastRowNum+1;i<dataList.size();i++){
-                  Row nowRow = sheet.getRow(i);
-                  XSSFCell nowCell = (XSSFCell) nowRow.getCell(j);
-                  String value = getTemplateValue(inputTypeArr,nowCell.getStringCellValue());
-                  nowCell.setCellValue(value);
-              }
-                
-          }
-        }
-    }
+//    private void changeLinkValue(XSSFSheet sheet, int lastRowNum){
+//        Row inputTypeRow = sheet.getRow(lastRowNum);
+//        int lastCellNum =  sheet.getRow(lastRowNum-1).getLastCellNum();   //模板中的总列数
+//        for(int j=0;j<lastCellNum;j++){
+//          String[] inputTypeArr = inputTypeRow.getCell(j).getStringCellValue().split("_");
+//          String columType = inputTypeArr[0];
+//          if(!Arrays.asList(unSelect).contains(columType)){
+//              for(int i=lastRowNum+1;i<dataList.size();i++){
+//                  Row nowRow = sheet.getRow(i);
+//                  XSSFCell nowCell = (XSSFCell) nowRow.getCell(j);
+//                  String value = getTemplateValue(inputTypeArr,nowCell.getStringCellValue());
+//                  nowCell.setCellValue(value);
+//              }
+//                
+//          }
+//        }
+//    }
  
     /**
      *  根据关联的ID值获取实体数据
@@ -119,15 +135,16 @@ public class ExportExcelData extends ExportExcelImpl {
      * @param data 管理数据的ID值
      * @return
      */
-        protected String getTemplateValue(String[] inputTypeArr,String Id){
-            String inputType = inputTypeArr[0];
+        protected String getTemplateValue(String inputType,String inputTypeValue,String Id){
+            if(inputType == ""){
+                return "";
+            }
             String inputValue = "";
             String name = "";
             switch(inputType)
             {
             case "select":
-                
-                inputValue =  StringUtil.toUnderScoreCase(inputTypeArr[1]); //传过来的是大写的驼峰为了避免联动字段出错
+                inputValue =  StringUtil.toUnderScoreCase(inputTypeValue); //传过来的是大写的驼峰为了避免联动字段出错
                 name = getSelect(inputValue,Id);
                 break;
             case "dictselect":
@@ -135,7 +152,7 @@ public class ExportExcelData extends ExportExcelImpl {
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
-                inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
+                inputValue = StringUtil.toUnderScoreCase(inputTypeValue);
                 name = dictMap.get(inputValue).get(String.valueOf(Id));
                 break;
             case "check":
@@ -143,7 +160,7 @@ public class ExportExcelData extends ExportExcelImpl {
                 if(this.dictMap.size() == 0){
                     getAllDictToList();
                 }
-                inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
+                inputValue = StringUtil.toUnderScoreCase(inputTypeValue);
                 Map<String,String> checkDic = dictMap.get(inputValue);
 //                Matcher m = Pattern.compile(regEx).matcher(Id);
 //                String[] idArray = m.replaceAll(",").split(",");
