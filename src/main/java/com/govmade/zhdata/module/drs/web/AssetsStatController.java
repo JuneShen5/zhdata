@@ -187,6 +187,7 @@ public class AssetsStatController {
             Information info=new Information();
             info.setCompanyId(companyId);
             info.setDelFlag(Global.DEL_FLAG_NORMAL);
+            info.setIsAudit(Global.AUDIT_FLAG_YES);
             Integer iCount=0;
             Integer inCount=this.informationMapper.selectCount(info);
             if (inCount >0) {

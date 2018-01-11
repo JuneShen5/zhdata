@@ -212,7 +212,7 @@
                       <th data-field="nameCn">中文名称</th>
                       <th data-field="len">数据长度</th>
                       <th data-field="companyName">来源部门</th>
-                      <th data-field="source">来源</th>
+                     <!--  <th data-field="source">来源</th>  -->
                       <th data-field="Score" data-formatter="elementTableButton">操作</th>    
                    </tr>
             </thead>        
