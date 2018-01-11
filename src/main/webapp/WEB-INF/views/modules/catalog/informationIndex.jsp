@@ -125,7 +125,7 @@
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
                             </c:forEach>
-                            <th data-field="name" data-formatter="initInfoTableButton">操作</th>
+                            <th data-width="300px" data-field="name" data-formatter="initInfoTableButton">操作</th>
                         </tr>
                     </thead>
                 </table>

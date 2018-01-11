@@ -63,7 +63,7 @@
                                 <th data-field="companyName">单位名称</th>
                                 <th data-field="spbm">审批部门</th>
                                 <th data-field="spsj">审批时间</th>
-                                <th data-field="Score" data-formatter="mainTableBtn">操作</th>
+                                <th data-width="230px" data-field="Score" data-formatter="mainTableBtn">操作</th>
                             </tr>
                         </thead>
                     </table>

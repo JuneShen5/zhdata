@@ -91,7 +91,7 @@
 							 <th data-field="departName">审核部门</th>
 							<th data-field="auditName" data-class="font-red">状态</th>
 							<th data-class="font-red" data-formatter="auditReason">审核意见</th>
-							<th data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-width="300px" data-formatter="checkTableButton">操作</th>
 						</tr>
 					</thead>
 				</table>
