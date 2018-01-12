@@ -727,11 +727,11 @@
                         totalRows:dataEles.length
                     });
                     flag=false;
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:1,isAudit:3};
                     layer.close(layeForm2);
                 },
                 end : function() {
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:1,isAudit:3};
                     flag=false;
                     layer.close(layeForm2);
                 },

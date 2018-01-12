@@ -204,15 +204,17 @@
 		var toolbar = '#toolbar';
 		var url = '${ctx}/catalog/information/';
 		var thisRole = ${user.roleId};
+		var thisCompanyId = '';
+        if (thisRole === 1){
+            thisCompanyId = '';
+        } else {
+            thisCompanyId = ${user.companyId};
+        }
         var obj = {
             isAuthorize: 0,
-            isAudit: 1
+            isAudit: 1,
+            departId: thisCompanyId
         };
-		if (thisRole === 1){
-            obj['departId'] = '';
-		} else {
-            obj['departId'] = ${user.companyId};
-		}
 
         var editTitle = "信息资源修改";
         var detailTitle = "待办事宜详情";
@@ -638,11 +640,11 @@
                         totalRows:dataEles.length
                     });
                     flag=false;
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:0,isAudit:1,departId:thisCompanyId};
                     layer.close(layeForm2);
                 },
                 end : function() {
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:0,isAudit:1,departId:thisCompanyId};
                     flag=false;
                     layer.close(layeForm2);
                 },

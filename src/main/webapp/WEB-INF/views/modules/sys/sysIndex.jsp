@@ -91,7 +91,7 @@
 								</li>
 								<li class="divider"></li> -->
 								<li>
-									<a href="#" class="other-url" url="/zhdata/catalog/information/audit" id="10" name="未审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
+									<a href="#" class="other-url" url="/zhdata/catalog/information/audit" id="10" name="待审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i>
 											信息资源有<i id="message_count1" style="color: #f00;"></i>条<strong style="color: #0090cc;">待审核</strong>
