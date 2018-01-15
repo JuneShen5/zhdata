@@ -952,6 +952,15 @@
                 index += count;
             }
         }
+
+        // 设置导入导出权限控制
+        $(function () {
+           if ($('.js-login-role', window.parent.document).attr('role') === '1'){
+               $('input[name=authorize]').val('0');
+           }else {
+               $('input[name=authorize]').val('1');
+           }
+        });
     </script>
     
     
