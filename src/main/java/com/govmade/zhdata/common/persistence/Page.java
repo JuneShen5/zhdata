@@ -32,6 +32,8 @@ public class Page<T> {
     private String queryParams;
 
     private String tableName;
+    
+    private String authorize;    //是否授权 ：0否 1是
 
     private Long total;// 总记录数
 
@@ -167,6 +169,14 @@ public class Page<T> {
 
     public void setReturnCount(Integer returnCount) {
         this.returnCount = returnCount;
+    }
+
+    public String getAuthorize() {
+        return authorize;
+    }
+
+    public void setAuthorize(String authorize) {
+        this.authorize = authorize;
     }
 
 }
