@@ -142,7 +142,7 @@ public class RoleController extends BaseController<Role>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
+    protected List<Map<String, Object>> queryDataForExp(Page<Role> page) {
         List<Role> role = roleService.queryForExport();
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (Role data : role) {

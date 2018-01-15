@@ -179,7 +179,7 @@ public class UserController extends BaseController<User>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
+    protected List<Map<String, Object>> queryDataForExp(Page<User> page) {
         List<User> user = userService.queryForExport();
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (User data : user) {

@@ -50,6 +50,18 @@
 			<!-- <if test="njSystems.companyName != null and njSystems.companyName != ''">
 				AND c.name LIKE CONCAT('%',#{njSystems.companyName},'%')
 			</if> -->
+			<foreach collection="page.params" index="key" item="value"
+				separator="">
+				<if test="value != null and value !=''">
+					<if test="key=='companyIds'">
+						AND a.company_id IN
+						<foreach collection="value" item="id" open="(" close=")"
+							separator=",">
+							#{id}
+						</foreach>
+					</if>
+				</if>
+			</foreach>
 		</where>
 		ORDER BY a.id DESC
 	</select>

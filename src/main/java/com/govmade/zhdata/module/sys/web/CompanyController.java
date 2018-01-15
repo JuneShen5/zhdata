@@ -16,6 +16,7 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseController;
 import com.govmade.zhdata.common.persistence.BaseService;
+import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -165,7 +166,7 @@ public class CompanyController extends BaseController<Company>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
+    protected List<Map<String, Object>> queryDataForExp(Page<Company> page) {
         Company company = new Company();
         company.setTypes("1,2");
         List<Company> comList=this.companyService.queryAllList(company);

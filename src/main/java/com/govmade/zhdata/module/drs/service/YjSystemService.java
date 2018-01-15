@@ -88,9 +88,23 @@ public class YjSystemService extends BaseService<YjSystems> {
     }
     
     
-    public List<YjSystems> queryForExport() {
+    public List<YjSystems> queryForExport(Page<YjSystems> page) {
+        //新增数据权限
+        User user=UserUtils.getCurrentUser();
+        Integer roleId=user.getRoleId();
+        if (roleId!=1) {
+            Integer companyId=user.getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            map.put("companyIds", comList);
+            page.setParams(map);
+        }
+        
         YjSystems yjSystems = new YjSystems();
-        return yjSystemDao.queryAllList(yjSystems);
+        return yjSystemDao.queryAllList(yjSystems,page);
     }
 
     

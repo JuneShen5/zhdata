@@ -195,7 +195,7 @@ public abstract class BaseController<T> {
        String [] rowName =  page.getObj().split(",");; //头部
        long begin = System.currentTimeMillis();
        
-       List<Map<String, Object>> DataList = queryDataForExp(); //查询出全部实体数据
+       List<Map<String, Object>> DataList = queryDataForExp(page); //查询出全部实体数据
        
        long queryend = System.currentTimeMillis();
        long result = (queryend - begin)/1000;
@@ -218,6 +218,6 @@ public abstract class BaseController<T> {
        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("导出失败");
    }
 //   
-   protected abstract List<Map<String, Object>> queryDataForExp();
+   protected abstract List<Map<String, Object>> queryDataForExp(Page<T> page);
        
 }

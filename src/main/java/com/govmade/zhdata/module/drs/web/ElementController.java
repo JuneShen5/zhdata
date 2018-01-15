@@ -161,7 +161,7 @@ public class ElementController extends BaseController<Element>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
+    protected List<Map<String, Object>> queryDataForExp(Page<Element> page) {
         List<Element> elementList = elementService.queryForExport();
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (Element data : elementList) {

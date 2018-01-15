@@ -11,7 +11,7 @@ import com.govmade.zhdata.module.drs.pojo.ZjSystems;
 
 public interface ZjSystemDao extends BaseDao<ZjSystems>{
 
-    public List<ZjSystems> queryAllList (@Param("zjSystems") ZjSystems zjSystems);
+    public List<ZjSystems> queryAllList (@Param("zjSystems") ZjSystems zjSystems, @Param("page")Page<ZjSystems> page);
     
     public int saveAll(@Param("dataList")List<Map<String, String>> dataList);
     

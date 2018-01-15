@@ -66,9 +66,9 @@ public class ZjSystemController extends BaseController<ZjSystems>{
      * 导出数据时查询所有数据
      */
     @Override
-    public  List<Map<String, Object>> queryDataForExp() {
+    public  List<Map<String, Object>> queryDataForExp(Page<ZjSystems> page) {
             
-        List<ZjSystems> zjSystemsList = zjSystemService.queryForExport();
+        List<ZjSystems> zjSystemsList = zjSystemService.queryForExport(page);
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (ZjSystems data : zjSystemsList) {
             infoList.add(MapUtil.beansToMap(data));
