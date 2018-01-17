@@ -18,6 +18,8 @@ public class NjSystems extends BasePo<NjSystems> {
     private String name;
 
     private Integer smfl;
+    
+    private Integer sftmcl; //是否脱密处理
 
     private String spbm;
 
@@ -48,6 +50,8 @@ public class NjSystems extends BasePo<NjSystems> {
     private String jsyqmb;
 
     private String ygsydx;  //预估使用对象
+    
+    private String ygsydxxxsm; //预估使用对象详细说明
 
     private String ygsygm;
 
@@ -71,7 +75,16 @@ public class NjSystems extends BasePo<NjSystems> {
         this.smfl = smfl;
     }
 
-    public String getSpbm() {
+    
+    public Integer getSftmcl() {
+		return sftmcl;
+	}
+
+	public void setSftmcl(Integer sftmcl) {
+		this.sftmcl = sftmcl;
+	}
+
+	public String getSpbm() {
         return spbm;
     }
 
@@ -174,8 +187,17 @@ public class NjSystems extends BasePo<NjSystems> {
     public void setYgsydx(String ygsydx) {
         this.ygsydx = ygsydx;
     }
+ 
+    
+    public String getYgsydxxxsm() {
+		return ygsydxxxsm;
+	}
 
-    public String getYgsygm() {
+	public void setYgsydxxxsm(String ygsydxxxsm) {
+		this.ygsydxxxsm = ygsydxxxsm;
+	}
+
+	public String getYgsygm() {
         return ygsygm;
     }
 

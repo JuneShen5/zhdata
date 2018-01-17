@@ -74,7 +74,7 @@ public class NjSystemController  extends BaseController<NjSystems>{
             infoList.add(MapUtil.beansToMap(data));
         }
         return infoList;
-    }       
+    }
     /**
      * 拟建系统查询
      * 

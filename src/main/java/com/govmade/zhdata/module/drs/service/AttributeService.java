@@ -80,5 +80,8 @@ public class AttributeService extends BaseService<Attribute> {
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(attribute, example);
     }
+    
+    
+    
 
 }
