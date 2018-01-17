@@ -214,34 +214,30 @@ ul, li {
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script type="text/javascript">
-	var searchObj = {name: '', companyName: ''};
+	var searchObj = {name: '', companyName: '', isAuthorize:1};
 	$(function(){
 	    // 请求顶部总数
 		$.ajax({
             url: "${ctx}/panel/ass/querySum",
             type: 'get',
             data:{
-            	obj:JSON.stringify({
-            		name: '', 
-            		companyName: '',
-            		isAuthorize:1
-            	})
+            	obj:JSON.stringify(searchObj)
             }, 
             success: function (data) {
                 $('.search-container').show();
                 // 拼接顶部信息资源统计
                 var topHtml1 = '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息系统总数 : <em>';
-                topHtml1 += data.ysCount + " 个 ";
-                topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += data.ysCount;
+                topHtml1 += '</em> 个 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
-                topHtml1 += data.ywjSum + " 万元 ";
-                topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += data.ywjSum;
+                topHtml1 += '</em> 万元 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-red"><i class="fa fa-bar-chart"></i></div><div class="content top-penal"><p>预估年度运维金额 : <em>';
-                topHtml1 += data.ygywSum + " 万元 ";
-                topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += data.ygywSum;
+                topHtml1 += '</em> 万元 </p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
             }
 		});
@@ -320,6 +316,20 @@ ul, li {
 			searchObj.name = '';
             searchObj.companyName = '';
             searchObj[thisSearchType] = thisValue;
+            // 获取搜索结果总数及资金数目
+            $.ajax({
+                url: "${ctx}/panel/ass/querySum",
+                type: 'get',
+                data:{
+                    obj:JSON.stringify(searchObj)
+                },
+                success: function (data) {
+                    // 拼接顶部信息资源统计搜索后修改
+					$('.box-1').find('.top-penal em').val(data.ysCount);
+                    $('.box-2').find('.top-penal em').val(data.ywjSum);
+                    $('.box-3').find('.top-penal em').val(data.ygywSum);
+                }
+            });
             $('.loading-area').show();
             $.ajax({
                 url: "${ctx}/assets/yjSystem/list",
@@ -483,6 +493,10 @@ ul, li {
                 $('#pageInfo').html('总共 <strong>' + totalCounts + '</strong> 个部门，总共 <strong>' + pageNum + '</strong> 页，当前第 <strong>' + num + '</strong> 页');
             }
         });
+    }
+
+    function getSearchResult() {
+
     }
 	
     </script>
