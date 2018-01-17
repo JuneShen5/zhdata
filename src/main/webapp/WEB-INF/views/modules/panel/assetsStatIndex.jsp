@@ -231,11 +231,11 @@ ul, li {
                 topHtml1 += data.ysCount;
                 topHtml1 += '</em> 个 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
+                topHtml1 += '<div class="small-box box-2"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
                 topHtml1 += data.ywjSum;
                 topHtml1 += '</em> 万元 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
-                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-red"><i class="fa fa-bar-chart"></i></div><div class="content top-penal"><p>预估年度运维金额 : <em>';
+                topHtml1 += '<div class="small-box box-3"><div class="icon-container text-center btn-red"><i class="fa fa-bar-chart"></i></div><div class="content top-penal"><p>预估年度运维金额 : <em>';
                 topHtml1 += data.ygywSum;
                 topHtml1 += '</em> 万元 </p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
@@ -325,9 +325,9 @@ ul, li {
                 },
                 success: function (data) {
                     // 拼接顶部信息资源统计搜索后修改
-					$('.box-1').find('.top-penal em').val(data.ysCount);
-                    $('.box-2').find('.top-penal em').val(data.ywjSum);
-                    $('.box-3').find('.top-penal em').val(data.ygywSum);
+					$('.box-1').find('.top-penal em').text(data.ysCount);
+                    $('.box-2').find('.top-penal em').text(data.ywjSum || '0');
+                    $('.box-3').find('.top-penal em').text(data.ygywSum || '0');
                 }
             });
             $('.loading-area').show();
