@@ -30,7 +30,20 @@
             </select>
         </div>
     </div>
-
+    
+    <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">是否脱密处理</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <select name="sftmcl" class="form-control" required>
+                <option value="">== 请选择 ==</option>
+                <c:forEach var="dict" items="${fns:getDictList('yes_no')}">
+                    <option value="${dict.value}">${dict.label}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-sm-3 column-title">
             <label class="control-label">安全级别</label>

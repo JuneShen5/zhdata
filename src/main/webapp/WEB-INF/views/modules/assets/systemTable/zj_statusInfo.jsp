@@ -89,10 +89,19 @@
 
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
-            <label class="control-label">已付合同金额或比例</label>
+            <label class="control-label">已付合同金额</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" name="yfhtje" placeholder="已付合同金额（万元）或比例（%）" required>
+            <input type="text" class="form-control" name="yfhtje" placeholder="已付合同金额（万元）" required>            
+        </div>
+    </div>
+    
+    <div class="form-group">
+        <div class="col-sm-3 column-title form-border-left">
+            <label class="control-label">已付合同金额比例</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" name="yfhtjebl" placeholder="已付合同金额比例" required>            
         </div>
     </div>
 </fieldset>

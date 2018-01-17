@@ -56,7 +56,16 @@
             </select>-->
         </div>
     </div>
-
+    
+    <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">预估使用对象详细说明</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" hasNoSpace="true" name="ygsydxxxsm" placeholder="预估使用对象详细说明" required>
+       </div>
+       </div>
+       
     <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
             <label class="control-label">预估使用规模（注册用户个数/个）</label>

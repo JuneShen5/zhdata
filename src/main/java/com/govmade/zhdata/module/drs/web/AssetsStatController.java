@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
+import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.SystemDao;
@@ -94,11 +95,11 @@ public class AssetsStatController {
 
     
     /**
-     * 系统统计-已建系统、年度系统运维总金额等的统计
+     * 系统统计-已建系统、年度系统运维总金额等的统计--根据部门权限查询
      * 
      * @return
      */
-    @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
+    /*@RequestMapping(value="ass/querySum",method=RequestMethod.GET)
     public ResponseEntity<Map<String, Object>> querySum(){
         
         Integer roleId=UserUtils.getCurrentUser().getRoleId();
@@ -115,13 +116,13 @@ public class AssetsStatController {
         if (ysCount1 >0) {
             ysCount=ysCount1;
         }
-        Double ywjSum=0.00;
+        Double ywjSum=0.0000;
         Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems(),comList);
         if (ywjSum1!=null) {
             ywjSum=ywjSum1;
         }
         
-        Double ygywSum=0.00;
+        Double ygywSum=0.0000;
         Double ygywSum1=this.yjSystemDao.queryYgywSum(new YjSystems(),comList);
         if (ygywSum1!=null) {
             ygywSum=ygywSum1;
@@ -135,7 +136,57 @@ public class AssetsStatController {
         
         
         
+    }*/
+    
+    
+    @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
+    public ResponseEntity<YjSystems> querySum(Page<YjSystems> page){
+      
+       YjSystems yjSystems= JsonUtil.readValue(page.getObj(), YjSystems.class);
+       
+       
+       Integer roleId=UserUtils.getCurrentUser().getRoleId();
+       Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+       List<Integer> comList=Lists.newArrayList();
+        if (roleId!=1&&yjSystems.getIsAuthorize()==1) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+        }
+        YjSystems yjSystems2=this.yjSystemService.querySum(yjSystems,comList);
+        
+        
+        
+        /*Map<String, Object> map=Maps.newHashMap();
+        Integer ysCount=0;
+        Integer ysCount1=this.yjSystemDao.querySysCount(new YjSystems(),comList);
+        if (ysCount1 >0) {
+            ysCount=ysCount1;
+        }
+        Double ywjSum=0.0000;
+        Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems(),comList);
+        if (ywjSum1!=null) {
+            ywjSum=ywjSum1;
+        }
+        
+        Double ygywSum=0.0000;
+        Double ygywSum1=this.yjSystemDao.queryYgywSum(new YjSystems(),comList);
+        if (ygywSum1!=null) {
+            ygywSum=ygywSum1;
+        }
+        
+        map.put("ysCount", ysCount);
+        map.put("ywjSum", ywjSum);
+        map.put("ygywSum", ygywSum);*/
+        
+        return ResponseEntity.ok(yjSystems2);
+        
+        
+        
     }
+    
+    
+    
+  
     
     
     /**

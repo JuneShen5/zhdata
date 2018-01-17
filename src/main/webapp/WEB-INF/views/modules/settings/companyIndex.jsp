@@ -125,7 +125,7 @@
 					<div class="Validform_checktip"></div>
 				</div>
 			</div>
-			<div class="form-group">
+			<!--<div class="form-group">
 				<label class="col-sm-3 control-label">部门信息化分管领导姓名：</label>
 				<div class="col-sm-7">
 					<input type="text" name="ldxm" hasNoSpace="true" class="form-control" required>
@@ -290,7 +290,7 @@
 				<div class="col-sm-7">
 					<input type="text" name="total2018" isNonnegative="true" class="form-control" placeholder="2018年度部门信息化系统预算" required>
 				</div>
-			</div>
+			</div>-->
 			<div class="form-group">
 				<label class="col-sm-3 control-label">排序：</label>
 				<div class="col-sm-7">

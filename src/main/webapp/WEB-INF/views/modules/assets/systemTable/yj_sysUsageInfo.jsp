@@ -31,6 +31,14 @@
         
     </div>
     <div class="form-group ele-hide" data-parent="sfjsxt">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">使用对象详细说明</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <input type="text" class="form-control" hasNoSpace="true" name="sydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体">
+       </div>
+       </div>
+    <div class="form-group ele-hide" data-parent="sfjsxt">
         <div class="col-sm-3 column-title form-border-left">
             <label class="control-label">用户规模</label>
         </div>

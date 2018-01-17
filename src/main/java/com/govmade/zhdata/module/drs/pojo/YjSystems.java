@@ -14,7 +14,20 @@ public class YjSystems extends BasePo<YjSystems> {
 
     @Transient
     private String companyName; // 单位名称（所属部门）
+    
+    @Transient
+    private Integer ysCount;   //已建系统数量
 
+    @Transient
+    private Double ywjSum;   //年度运维金额
+    
+    @Transient
+    private Double ygywSum;   //预估年度运维金额
+    
+    @Transient
+    private Integer isAuthorize;  //是否授权
+    
+    
     private String name;  //系统名称
 
     private String jsyj;
@@ -50,6 +63,8 @@ public class YjSystems extends BasePo<YjSystems> {
     private String bswz;   //部署位置
 
     private Integer smfl;
+    
+    private Integer sftmcl;  //是否脱密处理
 
     private Integer aqjb;
 
@@ -86,6 +101,8 @@ public class YjSystems extends BasePo<YjSystems> {
     private Integer sfjsxt;
 
     private String sydx; // 使用对象
+    
+    private String sydxxxsm; //使用对象详细说明
 
     private String yhgm;
 
@@ -326,7 +343,16 @@ public class YjSystems extends BasePo<YjSystems> {
         this.smfl = smfl;
     }
 
-    public Integer getAqjb() {
+    
+    public Integer getSftmcl() {
+		return sftmcl;
+	}
+
+	public void setSftmcl(Integer sftmcl) {
+		this.sftmcl = sftmcl;
+	}
+
+	public Integer getAqjb() {
         return aqjb;
     }
 
@@ -464,7 +490,15 @@ public class YjSystems extends BasePo<YjSystems> {
         this.sydx = sydx;
     }
 
-    public String getYhgm() {
+    public String getSydxxxsm() {
+		return sydxxxsm;
+	}
+
+	public void setSydxxxsm(String sydxxxsm) {
+		this.sydxxxsm = sydxxxsm;
+	}
+
+	public String getYhgm() {
         return yhgm;
     }
 
@@ -881,6 +915,39 @@ public class YjSystems extends BasePo<YjSystems> {
     public void setZjly(String zjly) {
         this.zjly = zjly;
     }
+
+    public Integer getYsCount() {
+        return ysCount;
+    }
+
+    public void setYsCount(Integer ysCount) {
+        this.ysCount = ysCount;
+    }
+
+    public Double getYwjSum() {
+        return ywjSum;
+    }
+
+    public void setYwjSum(Double ywjSum) {
+        this.ywjSum = ywjSum;
+    }
+
+    public Double getYgywSum() {
+        return ygywSum;
+    }
+
+    public void setYgywSum(Double ygywSum) {
+        this.ygywSum = ygywSum;
+    }
+
+    public Integer getIsAuthorize() {
+        return isAuthorize;
+    }
+
+    public void setIsAuthorize(Integer isAuthorize) {
+        this.isAuthorize = isAuthorize;
+    }
+    
     
     
 

@@ -130,4 +130,9 @@ public class YjSystemService extends BaseService<YjSystems> {
     public void saveAll(List<Map<String, String>> dataList) {
         yjSystemDao.saveAll(dataList);
     }
+
+
+    public YjSystems querySum(YjSystems yjSystems, List<Integer> comList) {
+        return this.yjSystemDao.querySum(yjSystems,comList);
+    }
 }
