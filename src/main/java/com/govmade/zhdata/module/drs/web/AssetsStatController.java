@@ -1,5 +1,8 @@
 package com.govmade.zhdata.module.drs.web;
 
+import java.io.UnsupportedEncodingException;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -9,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.github.abel533.entity.Example;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
@@ -25,7 +27,6 @@ import com.govmade.zhdata.module.drs.mapper.SystemMapper;
 import com.govmade.zhdata.module.drs.mapper.YjSystemMapper;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Information;
-import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.sys.mapper.CompanyMapper;
@@ -143,7 +144,14 @@ public class AssetsStatController {
     public ResponseEntity<YjSystems> querySum(Page<YjSystems> page){
       
        YjSystems yjSystems= JsonUtil.readValue(page.getObj(), YjSystems.class);
-       
+       if (yjSystems.getCompanyName()!=null) {
+           try {
+            String companyName=new String (yjSystems.getCompanyName().getBytes("ISO-8859-1"), "UTF-8");
+            yjSystems.setCompanyName(companyName);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
        
        Integer roleId=UserUtils.getCurrentUser().getRoleId();
        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
@@ -186,9 +194,29 @@ public class AssetsStatController {
     
     
     
-  
+    public static void main(String[] args) {
+        //double x= 3421.58655;
+        double x1=1.253;
+        double x2=2.56;
+        double  x=x1/x2;
+        double  x3=x1/x2 *100;
+        System.out.println(x);  
+        System.out.println(x*100);  
+        NumberFormat nf = NumberFormat.getInstance();
+        nf.setRoundingMode(RoundingMode.HALF_UP);//设置四舍五入
+        nf.setMinimumFractionDigits(4);//设置最小保留几位小数
+        nf.setMaximumFractionDigits(4);//设置最大保留几位小数
+        System.out.println(nf.format(x));  //3,421.5866
+        
+        NumberFormat nf2 = NumberFormat.getInstance();
+        nf2.setRoundingMode(RoundingMode.HALF_UP);//设置四舍五入
+        nf2.setMinimumFractionDigits(2);//设置最小保留几位小数
+        nf2.setMaximumFractionDigits(2);//设置最大保留几位小数
+        System.out.println(nf2.format(x3));  //3,421.5866
+        
+    }
     
-    
+      
     /**
      * 根据父级查询子级
      * 
