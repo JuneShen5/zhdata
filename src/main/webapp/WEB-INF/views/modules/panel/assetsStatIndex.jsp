@@ -226,7 +226,7 @@ ul, li {
             		companyName: '',
             		isAuthorize:1
             	})
-            },
+            }, 
             success: function (data) {
                 $('.search-container').show();
                 // 拼接顶部信息资源统计

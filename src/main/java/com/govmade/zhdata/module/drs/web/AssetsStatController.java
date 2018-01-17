@@ -141,13 +141,14 @@ public class AssetsStatController {
     
     @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
     public ResponseEntity<YjSystems> querySum(Page<YjSystems> page){
+      
        YjSystems yjSystems= JsonUtil.readValue(page.getObj(), YjSystems.class);
        
        
        Integer roleId=UserUtils.getCurrentUser().getRoleId();
        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
        List<Integer> comList=Lists.newArrayList();
-        if (roleId!=1) {
+        if (roleId!=1&&yjSystems.getIsAuthorize()==1) {
             comList.add(companyId);
             findAllSubNode(companyId, comList);
         }
