@@ -50,6 +50,8 @@ public class YjSystems extends BasePo<YjSystems> {
     private String bswz;   //部署位置
 
     private Integer smfl;
+    
+    private Integer sftmcl;  //是否脱密处理
 
     private Integer aqjb;
 
@@ -86,6 +88,8 @@ public class YjSystems extends BasePo<YjSystems> {
     private Integer sfjsxt;
 
     private String sydx; // 使用对象
+    
+    private String sydxxxsm; //使用对象详细说明
 
     private String yhgm;
 
@@ -326,7 +330,16 @@ public class YjSystems extends BasePo<YjSystems> {
         this.smfl = smfl;
     }
 
-    public Integer getAqjb() {
+    
+    public Integer getSftmcl() {
+		return sftmcl;
+	}
+
+	public void setSftmcl(Integer sftmcl) {
+		this.sftmcl = sftmcl;
+	}
+
+	public Integer getAqjb() {
         return aqjb;
     }
 
@@ -464,7 +477,15 @@ public class YjSystems extends BasePo<YjSystems> {
         this.sydx = sydx;
     }
 
-    public String getYhgm() {
+    public String getSydxxxsm() {
+		return sydxxxsm;
+	}
+
+	public void setSydxxxsm(String sydxxxsm) {
+		this.sydxxxsm = sydxxxsm;
+	}
+
+	public String getYhgm() {
         return yhgm;
     }
 

@@ -55,6 +55,16 @@
         </div>
     </div>
     <div class="form-group">
+        <div class="col-sm-3 column-title">
+            <label class="control-label">预估使用对象详细说明</label>
+        </div>
+        <div class="col-sm-7 column-content">
+            <div class="form-contact column-content">
+                <input type="text" class="form-control" hasNoSpace="true" name="ygsydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体">
+            </div>
+          </div>
+    </div>
+    <div class="form-group">
         <div class="col-sm-3 column-title form-border-left">
             <label class="control-label">预估使用规模（注册用户数/个）</label>
         </div>

@@ -51,7 +51,9 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private String htqsdwbdqsj;
 
-    private String yfhtje;
+    private Double yfhtje;  //已付合同金额
+    
+    private String yfhtjebl;  //已付合同金额比例
 
     private String xtjsyj;
 
@@ -62,6 +64,8 @@ public class ZjSystems extends BasePo<ZjSystems> {
     private String jpcdsm;
 
     private String ygsydx;  //预估使用对象
+    
+    private String ygsydxxxsm; //预估使用对象详细说明
 
     private String ygsygm;
 
@@ -70,6 +74,8 @@ public class ZjSystems extends BasePo<ZjSystems> {
     private String bswz;    //部署位置
 
     private Integer smfl;
+    
+    private Integer sftmcl;  //是否脱密处理
 
     private Integer aqjb;
 
@@ -239,15 +245,24 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.htqsdwbdqsj = htqsdwbdqsj;
     }
 
-    public String getYfhtje() {
+    public Double getYfhtje() {
         return yfhtje;
     }
 
-    public void setYfhtje(String yfhtje) {
+    public void setYfhtje(Double yfhtje) {
         this.yfhtje = yfhtje;
     }
 
-    public String getXtjsyj() {
+    
+    public String getYfhtjebl() {
+		return yfhtjebl;
+	}
+
+	public void setYfhtjebl(String yfhtjebl) {
+		this.yfhtjebl = yfhtjebl;
+	}
+
+	public String getXtjsyj() {
         return xtjsyj;
     }
 
@@ -287,7 +302,15 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.ygsydx = ygsydx;
     }
 
-    public String getYgsygm() {
+    public String getYgsydxxxsm() {
+		return ygsydxxxsm;
+	}
+
+	public void setYgsydxxxsm(String ygsydxxxsm) {
+		this.ygsydxxxsm = ygsydxxxsm;
+	}
+
+	public String getYgsygm() {
         return ygsygm;
     }
 
@@ -312,7 +335,15 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.smfl = smfl;
     }
 
-    public Integer getAqjb() {
+    public Integer getSftmcl() {
+		return sftmcl;
+	}
+
+	public void setSftmcl(Integer sftmcl) {
+		this.sftmcl = sftmcl;
+	}
+
+	public Integer getAqjb() {
         return aqjb;
     }
 
