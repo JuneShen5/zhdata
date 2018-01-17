@@ -1,6 +1,5 @@
 package com.govmade.zhdata.common.persistence;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -190,13 +189,13 @@ public abstract class BaseController<T> {
     * @param response
     */
    @RequestMapping(value = "exportData", method = RequestMethod.POST)
-   public ResponseEntity<String> exportData(Page<T> page,HttpServletRequest request,HttpServletResponse response){
+   public void exportData(Page<T> page,HttpServletRequest request,HttpServletResponse response){
        page.setIsPage(false);
        String [] rowName =  page.getObj().split(",");; //头部
        long begin = System.currentTimeMillis();
        
        List<Map<String, Object>> DataList = queryDataForExp(); //查询出全部实体数据
-       
+       System.out.println("DataList:"+DataList.size());
        long queryend = System.currentTimeMillis();
        long result = (queryend - begin)/1000;
        System.out.println("查询数据耗时:" + result + "秒");
@@ -215,7 +214,7 @@ public abstract class BaseController<T> {
           } catch (Exception e1) {
               e1.printStackTrace();
           }
-       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("导出失败");
+//       return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("导出失败");
    }
 //   
    protected abstract List<Map<String, Object>> queryDataForExp();

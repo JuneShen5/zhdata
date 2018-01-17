@@ -77,9 +77,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
           String CellVal = inputTypeRow.getCell(columnIndex).getStringCellValue(); //获取inputType_inputTypeValue
           String[] CellValArr = CellVal.split("_");
           
-          
-          
-          
           if(!Arrays.asList(unSelect).contains(CellValArr[0])){
               //有关联字段的数据
               String columType = CellValArr[0];
@@ -277,7 +274,6 @@ public class ExportExcelTemplate extends ExportExcelImpl {
             case "checkbox":
                 if(this.dictMap == null){
                     getAllDictToList();
-                    System.out.println("dictMap:"+dictMap);
                 }
                 inputValue = StringUtil.toUnderScoreCase(inputTypeArr[1]);
                 templateValue = dictMap.get(inputValue);
