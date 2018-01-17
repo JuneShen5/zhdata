@@ -220,6 +220,13 @@ ul, li {
 		$.ajax({
             url: "${ctx}/panel/ass/querySum",
             type: 'get',
+            data:{
+            	obj:JSON.stringify({
+            		name: '', 
+            		companyName: '',
+            		isAuthorize:1
+            	})
+            }, 
             success: function (data) {
                 $('.search-container').show();
                 // 拼接顶部信息资源统计

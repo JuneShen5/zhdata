@@ -225,4 +225,25 @@
 		</if>
 
 	</select>
+	
+	
+	
+	<select id="querySum" resultType="YjSystems">
+
+	SELECT COUNT(*) AS ysCount,SUM(a.ywje) AS ywjSum ,SUM(a.jsje) *0.1 AS ygywSum
+	FROM drs_system_yijian a
+	LEFT JOIN sys_company c ON c.id=a.company_id
+	WHERE
+	a.del_flag=0 
+	<if test=" comList !=null and comList.size() >0 ">
+			AND a.company_id IN
+			<foreach collection="comList" item="id" open="(" close=")"
+				separator=",">
+				#{id}
+			</foreach>
+		</if>
+		<if test="yjSystems.companyName != null and yjSystems.companyName != ''">
+				AND c.name LIKE CONCAT('%',#{yjSystems.companyName},'%')
+			</if>
+</select>
 </mapper>      
