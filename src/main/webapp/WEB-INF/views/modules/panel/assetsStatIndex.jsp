@@ -214,6 +214,7 @@ ul, li {
 
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script type="text/javascript">
+	var searchObj = {name: '', companyName: ''};
 	$(function(){
 	    // 请求顶部总数
 		$.ajax({
@@ -230,6 +231,10 @@ ul, li {
                 topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
                 topHtml1 += data.ywjSum + " 万元 ";
                 topHtml1 += '</em></p></div></div></div>';
+                topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
+                topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-red"><i class="fa fa-bar-chart"></i></div><div class="content top-penal"><p>预估年度运维金额 : <em>';
+                topHtml1 += data.ygywSum + " 万元 ";
+                topHtml1 += '</em></p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
             }
 		});
@@ -240,7 +245,7 @@ ul, li {
 			data: {
                 pageNum: 1,
                 pageSize: 6,
-                obj: JSON.stringify({'name': ''})
+                obj: JSON.stringify(searchObj)
 			},
 			success: function (data) {
 //                layer.close(layer.index);
@@ -305,10 +310,8 @@ ul, li {
 		    var thisSearchType = $('select[name=searchType]').val();
 //            $('.search-container').find('.search-input').attr('sName', thisSearchType);
 			var thisValue = $('.search-container').find('.search-input').val();
-			var searchObj = {
-                name:"",
-                companyName:""
-			};
+			searchObj.name = '';
+            searchObj.companyName = '';
             searchObj[thisSearchType] = thisValue;
             $('.loading-area').show();
             $.ajax({
@@ -411,7 +414,7 @@ ul, li {
                         data: {
                             pageNum: num,
                             pageSize: 6,
-                            obj: JSON.stringify({'name': ''})
+                            obj: JSON.stringify(searchObj)
                         },
                         success: function (data) {
                             $('.loading-area').hide();
