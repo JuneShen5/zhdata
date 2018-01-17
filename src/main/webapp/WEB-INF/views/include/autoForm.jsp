@@ -1,5 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fns" uri="/WEB-INF/tlds/fns.tld" %>
+<!DOCTYPE html>
 <c:set var="isCore" value="2" />
+<c:set var="type" value="2" />
 <c:forEach var="att" items="${fns:getAttList(type,isCore)}">
 	<div
 		class="form-group">
@@ -80,3 +84,4 @@
 	</div>
 </c:forEach>
 
+</html>

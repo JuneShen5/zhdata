@@ -159,6 +159,30 @@ public class UserController extends BaseController<User>{
         }
     }
 
+    /**
+     * 重置密码
+     * 
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "resetPwd", method = RequestMethod.GET)
+    public ResponseEntity<String> resetPwd(Integer id){
+        try {
+            User user=new User();
+            user.setId(id);
+            String salt=CipherUtil.createSalt();
+            user.setPassword(CipherUtil.createPwdEncrypt("abc123456", salt));
+            user.setSalt(salt);
+            user.preUpdate();
+            this.userService.updateSelective(user);
+            return ResponseEntity.ok("密码重置成功！");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }
+    
+    
     @Override
     protected void getFileName() {
         super.chTableName = "用户机构";

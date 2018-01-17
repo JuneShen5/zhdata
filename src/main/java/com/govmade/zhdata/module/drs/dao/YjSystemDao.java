@@ -21,4 +21,6 @@ public interface YjSystemDao extends BaseDao<YjSystems> {
 
     public Integer querySysCount(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
 
+    public Double queryYgywSum(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
+
 }

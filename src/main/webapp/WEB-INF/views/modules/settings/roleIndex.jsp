@@ -188,6 +188,7 @@
 	function resetPage () {
 		zTree.checkAllNodes(false);
 	}
+
 </script>
 
 <script src="${ctxStatic}/js/common/common.js"></script>

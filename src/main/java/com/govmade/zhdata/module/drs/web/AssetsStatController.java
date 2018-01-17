@@ -66,6 +66,11 @@ public class AssetsStatController {
     @Autowired
     private YjSystemService yjSystemService;
     
+    /**
+     * 跳转至系统统计页面
+     * 
+     * @return
+     */
     @RequestMapping(value = "ass",method = RequestMethod.GET)
     public String toLink() {
         return "modules/panel/assetsStatIndex";
@@ -77,7 +82,15 @@ public class AssetsStatController {
         return "modules/panel/overview";
     }*/
     
-    
+    /**
+     * 跳转至部门基本信息页面
+     * 
+     * @return
+     */
+    @RequestMapping(value = "companyInfo",method = RequestMethod.GET)
+    public String toCompanyInfo() {
+        return "modules/panel/companyInfo";
+    }
 
     
     /**
@@ -107,8 +120,16 @@ public class AssetsStatController {
         if (ywjSum1!=null) {
             ywjSum=ywjSum1;
         }
+        
+        Double ygywSum=0.00;
+        Double ygywSum1=this.yjSystemDao.queryYgywSum(new YjSystems(),comList);
+        if (ygywSum1!=null) {
+            ygywSum=ygywSum1;
+        }
+        
         map.put("ysCount", ysCount);
         map.put("ywjSum", ywjSum);
+        map.put("ygywSum", ygywSum);
         
         return ResponseEntity.ok(map);
         

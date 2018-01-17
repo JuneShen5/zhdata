@@ -87,6 +87,7 @@ public class InformationController extends BaseController<Information>{
     public String toRetrieval() {
         return "modules/catalog/retrievalIndex";
     }
+    
     /**
      * 查询信息资源
      * 
