@@ -175,7 +175,7 @@
                 btn : [ '确定', '取消' ]
             }, function() {
                 $.ajax({
-                    url : "/zhdata/settings/menu/list",
+                    url : "/zhdata/settings/user/resetPwd",
                     type: 'GET',
                     data: {
                         id: id
