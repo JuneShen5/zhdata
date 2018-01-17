@@ -154,6 +154,8 @@
             if (row.id !== 1){
 				html += '<button type="button" class="btn btn-white" onclick="deleteRow(\''
 					 + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+                html += '<button type="button" class="btn btn-white" onclick="resetRow(\''
+                    + row.id + '\')"><i class="fa fa-history"></i>&nbsp;重置密码</button>';
             }
             html += '</div>';
             return html;
@@ -165,6 +167,28 @@
             $('#sName').attr('sName', searchType);
             $(tableId).bootstrapTable('refresh');
             obj[searchType] = '';
+        }
+
+        // 重置部门密码
+        function resetRow(id) {
+            var layerIndex = layer.confirm('您确定要重置该部门密码么？', {
+                btn : [ '确定', '取消' ]
+            }, function() {
+                $.ajax({
+                    url : "/zhdata/settings/menu/list",
+                    type: 'GET',
+                    data: {
+                        id: id
+                    },
+                    success : function(data) {
+                        layer.close(layerIndex);
+                        layer.msg(data);
+                    },
+                    error: function (error) {
+                        layer.msg(error);
+                    }
+                })
+            });
         }
 	</script>
 
