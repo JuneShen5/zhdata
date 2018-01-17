@@ -65,9 +65,9 @@ public class YjSystemController extends BaseController<YjSystems>{
      * 导出数据时查询所有数据
      */
     @Override
-    public  List<Map<String, Object>> queryDataForExp() {
+    public  List<Map<String, Object>> queryDataForExp(Page<YjSystems> page) {
         
-        List<YjSystems> yjSystemsList = yjSystemService.queryForExport();
+        List<YjSystems> yjSystemsList = yjSystemService.queryForExport(page);
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (YjSystems data : yjSystemsList) {
             infoList.add(MapUtil.beansToMap(data));

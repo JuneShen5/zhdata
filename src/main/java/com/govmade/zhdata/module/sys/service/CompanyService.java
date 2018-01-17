@@ -14,6 +14,7 @@ import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.sys.dao.CompanyDao;
 import com.govmade.zhdata.module.sys.mapper.CompanyMapper;
@@ -47,6 +48,12 @@ public class CompanyService extends BaseService<Company>{
          } catch (Exception e) {
              e.printStackTrace();
          }
+    
+    	Integer roleId=UserUtils.getCurrentUser().getRoleId();
+        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        if (roleId!=1) {
+            company.setId(companyId);
+        }
     	 List<Company> list = companyDao.findAll(company);
     	 
     	 return new PageInfo<Company>(list);

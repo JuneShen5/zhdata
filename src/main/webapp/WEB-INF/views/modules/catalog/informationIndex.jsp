@@ -125,7 +125,7 @@
                             <c:forEach var="att" items="${fns:getAttList(2,2)}">
                                 <c:if test="${att.isShow=='1'}"><th data-field="${att.nameEn}">${att.nameCn}</th></c:if>
                             </c:forEach>
-                            <th data-field="name" data-formatter="initInfoTableButton">操作</th>
+                            <th data-width="300px" data-field="name" data-formatter="initInfoTableButton">操作</th>
                         </tr>
                     </thead>
                 </table>
@@ -212,7 +212,7 @@
                       <th data-field="nameCn">中文名称</th>
                       <th data-field="len">数据长度</th>
                       <th data-field="companyName">来源部门</th>
-                      <th data-field="source">来源</th>
+                     <!--  <th data-field="source">来源</th>  -->
                       <th data-field="Score" data-formatter="elementTableButton">操作</th>    
                    </tr>
             </thead>        
@@ -952,6 +952,15 @@
                 index += count;
             }
         }
+
+        // 设置导入导出权限控制
+        $(function () {
+           if ($('.js-login-role', window.parent.document).attr('role') === '1'){
+               $('input[name=authorize]').val('0');
+           }else {
+               $('input[name=authorize]').val('1');
+           }
+        });
     </script>
     
     

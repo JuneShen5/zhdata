@@ -91,7 +91,7 @@
 							 <th data-field="departName">审核部门</th>
 							<th data-field="auditName" data-class="font-red">状态</th>
 							<th data-class="font-red" data-formatter="auditReason">审核意见</th>
-							<th data-formatter="checkTableButton" class="col-sm-4">操作</th>
+							<th data-width="300px" data-formatter="checkTableButton">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -727,11 +727,11 @@
                         totalRows:dataEles.length
                     });
                     flag=false;
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:1,isAudit:3};
                     layer.close(layeForm2);
                 },
                 end : function() {
-                    obj={isAuthorize:1};
+                    obj={isAuthorize:1,isAudit:3};
                     flag=false;
                     layer.close(layeForm2);
                 },

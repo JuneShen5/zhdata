@@ -143,7 +143,7 @@
 						<th data-field="nameCn">信息资源名称</th>
 						<th data-field="companyName">信息资源提供方</th>
 						 <th data-field="departName">审核部门</th>
-						<th data-field="name" data-formatter="initRetrievalTableButton">操作</th>
+						<th data-width="230px" data-field="name" data-formatter="initRetrievalTableButton">操作</th>
 					</tr>
 					</thead>
 				</table>

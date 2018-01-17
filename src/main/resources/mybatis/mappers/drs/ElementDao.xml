@@ -194,7 +194,7 @@
 		 SELECT a.id,a.name_cn AS nameCn,a.element_id AS elementId,COUNT(a.element_id) AS count
 		 FROM
 			(SELECT e.id,e.name_cn,ie.element_id,ie.info_id FROM drs_element e 
-			LEFT JOIN drs_info_element ie ON ie.element_id=e.id WHERE e.del_flag='0')a
+			 JOIN drs_info_element ie ON ie.element_id=e.id WHERE e.del_flag='0')a    
 		GROUP BY a.element_id  ORDER BY COUNT(a.element_id) DESC LIMIT 0,9
 	</select>
 	

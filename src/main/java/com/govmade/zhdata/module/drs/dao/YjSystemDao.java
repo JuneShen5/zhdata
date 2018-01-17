@@ -11,7 +11,7 @@ import com.govmade.zhdata.module.drs.pojo.YjSystems;
 
 public interface YjSystemDao extends BaseDao<YjSystems> {
 
-    public List<YjSystems> queryAllList (@Param("yjSystems") YjSystems yjSystems);
+    public List<YjSystems> queryAllList (@Param("yjSystems") YjSystems yjSystems, @Param("page")Page<YjSystems> page);
     
     public int saveAll(@Param("dataList")List<Map<String, String>> dataList);
     
@@ -20,5 +20,7 @@ public interface YjSystemDao extends BaseDao<YjSystems> {
     public List<YjSystems> queryListByCompanyId(@Param("yjSystems")YjSystems yjSystems, @Param("page")Page<YjSystems> page);
 
     public Integer querySysCount(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
+
+    public Double queryYgywSum(@Param("yjSystems")YjSystems yjSystems, @Param("comList")List<Integer> comList);
 
 }

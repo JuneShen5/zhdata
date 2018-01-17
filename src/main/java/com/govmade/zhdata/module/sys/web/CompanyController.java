@@ -12,12 +12,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseController;
 import com.govmade.zhdata.common.persistence.BaseService;
+import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.common.utils.UserUtils;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.service.CompanyService;
 
@@ -38,14 +41,15 @@ public class CompanyController extends BaseController<Company>{
 
     /**
      * 
-     * 查询部门列表
+     * 部门基本信息-查询部门列表
      * 
      * @param page
      * @return
      */
-    /*@RequestMapping(value = "list", method = RequestMethod.GET)
+    @RequestMapping(value = "allist", method = RequestMethod.GET)
     public ResponseEntity<Page<Company>> list(Page<Company> page) {
         try {
+            
             PageInfo<Company> pageInfo = companyService.findAll(page);
             List<Company> companyList = pageInfo.getList();
             Page<Company> resPage = new Page<Company>();
@@ -57,8 +61,15 @@ public class CompanyController extends BaseController<Company>{
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-    }*/
+    }
     
+    
+    /**
+     * 机构管理-查询部门-树结构数据
+     * 
+     * @param company
+     * @return
+     */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<List<Company>> list(Company company) {
         try {
@@ -165,7 +176,7 @@ public class CompanyController extends BaseController<Company>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
+    protected List<Map<String, Object>> queryDataForExp(Page<Company> page) {
         Company company = new Company();
         company.setTypes("1,2");
         List<Company> comList=this.companyService.queryAllList(company);

@@ -66,9 +66,9 @@ public class NjSystemController  extends BaseController<NjSystems>{
      * 导出数据时查询所有数据
      */
     @Override
-    public  List<Map<String, Object>> queryDataForExp() {
+    public  List<Map<String, Object>> queryDataForExp(Page<NjSystems> page) {
         
-        List<NjSystems> njSystemsList = njSystemService.queryForExport();
+        List<NjSystems> njSystemsList = njSystemService.queryForExport(page);
         List<Map<String, Object>> infoList = Lists.newArrayList();
         for (NjSystems data : njSystemsList) {
             infoList.add(MapUtil.beansToMap(data));

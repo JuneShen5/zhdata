@@ -101,9 +101,23 @@ public class ZjSystemService extends BaseService<ZjSystems> {
         return this.updateByExampleSelective(zjSystems, example);
     }
 
-    public List<ZjSystems> queryForExport() {
+    public List<ZjSystems> queryForExport(Page<ZjSystems> page) {
+        //新增数据权限
+        User user=UserUtils.getCurrentUser();
+        Integer roleId=user.getRoleId();
+        if (roleId!=1) {
+            Integer companyId=user.getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            map.put("companyIds", comList);
+            page.setParams(map);
+        }
+        
         ZjSystems zjSystems = new ZjSystems();
-        return zjSystemDao.queryAllList(zjSystems);
+        return zjSystemDao.queryAllList(zjSystems,page);
     }
 
     // 保存多条数据

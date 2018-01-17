@@ -292,10 +292,11 @@ public class InformationService extends BaseService<Information> {
            }
     }
 
-    public List<Information> queryForExport() {
-        Page<Information> page = new Page<Information>();
+    public List<Information> queryForExport(Page<Information> page) {
+        /*Page<Information> page = new Page<Information>();*/
         page.setIsPage(false);
         return infoDao.queryListByPage(page);
+        
     }
 
     public List<Information> queryByCompanyIds(List<Integer> comList) {

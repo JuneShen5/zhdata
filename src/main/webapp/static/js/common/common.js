@@ -931,9 +931,33 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			area : [ '60%', '50%' ],
 			zIndex : 100,
 			yes : function(index, layero) {
-				layer.close(index);
 				$(exportForm).attr("action",uploaderServer+"/exportData");
 				$(exportForm).submit();
+                // $(exportForm).ajaxSubmit({
+                 //    url : uploaderServer+"/exportData",
+                 //    type : 'post',
+                 //    success : function(data){
+                 //        if(window.FileReader) {
+                 //            var read = new FileReader();
+                 //            read.readAsDataURL(data);
+                 //            read.onload = function (e) {
+                 //                var src = e.target.result;
+                 //                console.log(src);
+                 //            };
+                 //            alert("supported by your browser!");
+                 //        }
+                 //        else {
+                 //            alert("Not supported by your browser!");
+                 //        }
+                 //    	// $('#exportForm').append('<iframe src="'+data+'"></iframe>');
+                 //        // layer.close(index);
+                 //    },
+                 //    error : function(XmlHttpRequest, textStatus, errorThrown){
+                 //        console.log(XMLHttpRequest.status);
+                 //        console.log(XMLHttpRequest.readyState);
+                 //        console.log(textStatus);
+                 //    }
+                // });
 			},
 			end : function() {
 				$(exportForm).resetForm();
@@ -989,7 +1013,8 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 			    title: 'Excel',
 			    extensions: 'xls,xlsx',
 			    mimeTypes: 'Excel/*'
-			}
+			},
+            fileSingleSizeLimit: 5120000//限制上传单个文件大小
 		});
 
         uploader.on( 'fileQueued', function( file ) {
@@ -1028,6 +1053,17 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 //		        // 通过return false来告诉组件，此文件上传有错。
 //		        return false;
 //		    }
+        });
+        uploader.on("error", function (type) {
+        	var errorMsg = '';
+            if (type == "Q_TYPE_DENIED") {
+                errorMsg = "请上传xls、xlsx格式文件";
+            } else if (type == "F_EXCEED_SIZE") {
+                errorMsg = "文件大小不能超过5M";
+            }else {
+                errorMsg = "上传出错！请检查后重新上传！错误代码"+type;
+            }
+            $("#message").empty().removeClass('uploader-unfail').html('<i class="fa fa-times-circle" aria-hidden="true"></i> '+errorMsg).addClass('font-color-red')
         });
 		/*    完成上传完了，成功或者失败，先删除进度条。 */
 		uploader.on( 'uploadComplete', function( file ) {

@@ -60,8 +60,8 @@
 							<th data-field="nameCn">信息项名称</th>
 							<th data-field="dataTypeName">数据类型</th>
 							<th data-field="len">数据长度</th>
-							<th data-field="companyName">来源部门</th>
-							<th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
+							<!-- <th data-field="companyName">来源部门</th> -->
+							<th data-width="230px" data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>

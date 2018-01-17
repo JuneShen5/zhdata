@@ -78,7 +78,7 @@
 	<label class="col-sm-3 control-label">来源部门：</label>
 	<div class="col-sm-7">
 		<input id="" name="companyId" class="form-control citySelId hide" type="text"> 
-			<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly required />
+			<input id="" name="companyName" class="form-control citySel" type="text" ReadOnly />
 		<%@include file="/WEB-INF/views/include/companyTree.jsp"%>
 	</div>
 </div>

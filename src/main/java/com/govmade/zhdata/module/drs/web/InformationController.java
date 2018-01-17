@@ -576,8 +576,26 @@ public class InformationController extends BaseController<Information>{
     }
 
     @Override
-    protected List<Map<String, Object>> queryDataForExp() {
-        List<Information> informationList = infoService.queryForExport();
+    protected List<Map<String, Object>> queryDataForExp(Page<Information> page) {
+        //新增数据权限
+        Integer roleId=UserUtils.getCurrentUser().getRoleId();
+        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        List<Integer> comList=Lists.newArrayList();
+        Integer isAuthorize=0;
+        if (page.getAuthorize()!=null) {
+            isAuthorize=Integer.valueOf(page.getAuthorize());
+        }
+        if (roleId!=1&& isAuthorize==1) {
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            //map.put("companyId", companyId);
+            map.put("companyIds", comList);
+            page.setParams(map);
+        }
+        
+        List<Information> informationList = infoService.queryForExport(page);
         List<Map<String, Object>> infoList = Lists.newArrayList();
         String info = "";
         for (Information data : informationList) {

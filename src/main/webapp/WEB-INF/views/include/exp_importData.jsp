@@ -15,6 +15,7 @@
 				<input type="checkbox" nameCn="信息项" nameEn="elementIds" inputType="element" inputValue="" checked/>
 				信息项
 			</div> -->
+			<input type="hidden" name="authorize" value="">
 			<input type="hidden" name="obj" value="">
 		</form>
 	</div>
