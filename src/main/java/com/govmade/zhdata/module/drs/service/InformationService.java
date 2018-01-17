@@ -249,8 +249,8 @@ public class InformationService extends BaseService<Information> {
         return this.infoMapper.selectCount(record);
     }
 
-//    @SuppressWarnings("unchecked")
-    public void saveAll(List<Map<String,String>> dataList) {
+    @SuppressWarnings("unchecked")
+    public void saveAlll(List<Map<String,String>> dataList) {
            for(Map<String,String> infoMap :dataList){
                 Information information = new Information();
                 information.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
@@ -290,6 +290,10 @@ public class InformationService extends BaseService<Information> {
                 information.setCode(company.getCreditCode());
                 this.saveInformation(information);
            }
+    }
+    
+    public void saveAll(List<Map<String,String>> dataList) {
+        infoDao.saveAll(dataList);
     }
 
     public List<Information> queryForExport(Page<Information> page) {

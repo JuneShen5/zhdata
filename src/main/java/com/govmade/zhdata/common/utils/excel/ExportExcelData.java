@@ -19,6 +19,7 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
+import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.pojo.Systems;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
@@ -43,6 +44,7 @@ public class ExportExcelData extends ExportExcelImpl {
     protected Map<String,String> sysMap = new HashMap<String, String>();
     protected Map<String,String> elementMap =  new HashMap<String, String>();
     protected Map<String,String> infoSortMap =  new HashMap<String, String>();
+    protected Map<String,String> infoMap =  new HashMap<String, String>();
     
     private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
     
@@ -272,6 +274,15 @@ public class ExportExcelData extends ExportExcelImpl {
                         }
                     }
                     name = sysMap.get(Id);
+                    break;
+                case "info":
+                    if(this.infoMap.size() == 0){
+                        List<Information> infoList = SysUtils.getInfoList();
+                        for(Information info : infoList){
+                            infoMap.put(String.valueOf(info.getId()), info.getNameCn());
+                        }
+                    }
+                    name = infoMap.get(Id);
                     break;
                 default:
                     break;

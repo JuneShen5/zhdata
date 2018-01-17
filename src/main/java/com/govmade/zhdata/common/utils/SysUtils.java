@@ -11,9 +11,11 @@ import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.persistence.RedisService;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
+import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.drs.service.ElementService;
 import com.govmade.zhdata.module.drs.service.InfoSortService;
+import com.govmade.zhdata.module.drs.service.InformationService;
 import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -55,10 +57,12 @@ public class SysUtils {
     
     @Autowired
     private ElementService elementService;
-
     
     @Autowired
     private InfoSortService infosortservice;
+    
+    @Autowired
+    private InformationService informationService;
 
     private static SysUtils sysUtils;
 
@@ -77,6 +81,7 @@ public class SysUtils {
         sysUtils.yjSystemService = this.yjSystemService;
         sysUtils.infosortservice = this.infosortservice;
         sysUtils.elementService = this.elementService;
+        sysUtils.informationService = this.informationService;
 
     }
 
@@ -266,6 +271,17 @@ public class SysUtils {
     
     public static YjSystems getSys(YjSystems yjSystems){
         return sysUtils.yjSystemService.queryOne(yjSystems);
+    }
+    
+    /**
+     * 获得信息资源列表
+     * 
+     * @return
+     */
+    public static List<Information> getInfoList() {
+        List<Information> infoList = Lists.newArrayList();
+        infoList = sysUtils.informationService.queryAll(new Information());
+        return infoList;
     }
 
     /**

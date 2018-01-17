@@ -197,7 +197,6 @@ var TableInit = function(tableOption,btnOption) {
             $(e.currentTarget).blur();
         });
 
-
         // 时间插件
         $('.datepicker').datepicker({
             startView: 1,

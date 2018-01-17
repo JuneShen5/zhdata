@@ -1,7 +1,9 @@
 package com.govmade.zhdata.module.drs.service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -133,7 +135,27 @@ public class ElementService extends BaseService<Element> {
     }
     
     public void saveAll(List<Map<String,String>> dataList) {
-        elementDao.saveAll(dataList);
+        List<Map<String,String>> relationList = new ArrayList<Map<String,String>>();
+        for(Map<String,String> infoMap :dataList){
+            Map<String,String>  relationMap = new HashMap<String,String>();
+            Element element = new Element();
+            element.setCode(infoMap.get("code"));
+            element.setNameCn(infoMap.get("name_cn"));
+            element.setNameEn(infoMap.get("name_en"));
+            element.setDes(infoMap.get("des"));
+            element.setDataType(Integer.valueOf(infoMap.get("data_type")));
+            element.setLen(infoMap.get("len"));
+            element.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
+            element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
+            element.setObjectType(Integer.valueOf(infoMap.get("object_type")));
+            Integer isSave = save(element);
+            if(isSave == 1){
+                relationMap.put("element_id", String.valueOf(element.getId()));
+                relationMap.put("info_id", infoMap.get("info_id"));
+                relationList.add(relationMap);
+            }
+        }
+        elementDao.saveAll(relationList);
     }
 
     public Map<String, Object> queryAnalyList() {

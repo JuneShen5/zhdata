@@ -385,24 +385,6 @@
 		SELECT MAX(id) FROM drs_information
 		</select>
 	
-	  <!-- 添加多条数据 -->
-	<insert  id="saveAll"  statementType="STATEMENT" >
-		INSERT INTO drs_information
-		<foreach collection="dataList[0]" index="field" item="fieldVal"
-			separator="," open="(" close=")">
-			${field}
-		</foreach>
-		values
-		<foreach collection="dataList" index="index" item="record"
-			separator=",">
-			<foreach collection="record" index="key" item="item"
-				separator="," open="(" close=")">
-				'${item}'
-			</foreach>
-		</foreach>
-	</insert>
-	
-	
 	<!-- 根据共享类型查找信息资源的总数 -->
 	<select id="queryInfoByshareType" resultType="Integer">
 	  SELECT COUNT(*) FROM drs_information WHERE json_extract(info,'$.gongxiangleixing') = #{shareType} AND company_id=#{companyId} AND del_flag='0'
@@ -516,4 +498,21 @@
         </foreach>
 	</if>
 	</select>
+	
+	<!-- 添加多条数据 -->
+	<insert id="saveAll" statementType="STATEMENT">
+		INSERT INTO drs_information
+		<foreach collection="dataList[0]" index="field" item="fieldVal"
+			separator="," open="(" close=")">
+			${field}
+		</foreach>
+		values
+		<foreach collection="dataList" index="index" item="record"
+			separator=",">
+			<foreach collection="record" index="key" item="item"
+				separator="," open="(" close=")">
+				'${item}'
+			</foreach>
+		</foreach>
+	</insert>
 </mapper>

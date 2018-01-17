@@ -26,6 +26,7 @@ import com.govmade.zhdata.common.utils.ListToTree;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
+import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -330,6 +331,12 @@ public class ExportExcelTemplate extends ExportExcelImpl {
                     List<YjSystems>  sysList = SysUtils.getSysList();
                     for(YjSystems systems:sysList){
                         templateValue.add(systems.getName());
+                    }
+                    break;
+                case "info":
+                    List<Information> infoList = SysUtils.getInfoList();
+                    for(Information info : infoList){
+                        templateValue.add(info.getNameCn());
                     }
                     break;
                 default:

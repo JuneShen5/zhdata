@@ -32,7 +32,7 @@ public interface InformationDao extends BaseDao<Information> {
 
     public int findMAX(Information info);
 
-    public int saveAll(@Param("dataList")List<Map<String, Object>> dataList);
+    public int saveAll(@Param("dataList")List<Map<String, String>> dataList);
 
     public int queryInfoByshareType(@Param("companyId")Integer companyId, @Param("shareType")String shareType);
    

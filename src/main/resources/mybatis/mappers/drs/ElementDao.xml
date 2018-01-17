@@ -148,7 +148,7 @@
     
      <!-- 添加多条数据 -->
 	<insert  id="saveAll"  statementType="STATEMENT" >
-		INSERT INTO drs_element
+		INSERT INTO drs_info_element
 		<foreach collection="dataList[0]" index="field" item="fieldVal"
 			separator="," open="(" close=")">
 			${field}

@@ -891,7 +891,16 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 	
 	$(function(){
 		rowName();
-		$($("#importData input[name='obj']")).val($("#exportData input[name='obj']").val());//下载模板页面也加载完所有勾选字段
+		
+		/*信息资源导出模板时用很SB的方法吧信息项一栏给去掉了 */
+		var objArr = $("#exportData input[name='obj']").val().split(","); //字符分割 
+		var obj = ""
+		for (i=0;i<objArr.length ;i++ ) 
+		{ 	if(objArr[i].split("_")[2]!="element")
+			obj += objArr[i]+",";
+		} 
+
+		$($("#importData input[name='obj']")).val(obj.substring(0,obj.length-1));//下载模板页面也加载完所有勾选字段
 		//$("#obj").val($("#exportData input[name='obj']").val());//下载模板页面也加载完所有勾选字段
 	})
 	/*导出字段勾选开始*/

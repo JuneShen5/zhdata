@@ -41,6 +41,7 @@ import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.common.utils.SysUtils;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSort;
+import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.pojo.YjSystems;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.pojo.Dict;
@@ -115,6 +116,7 @@ public class ImportExcelImpl{
     protected Map<String,Integer> sysMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> elementMap =  new HashMap<String, Integer>();
     protected Map<String,Integer> infoSortMap =  new HashMap<String, Integer>();
+    protected Map<String,Integer> infoMap =  new HashMap<String, Integer>();
     
     protected Map<Integer, String> nameEnMap= Maps.newHashMap(); //存放字段英文名
     protected Map<Integer, String> inputTypeMap= Maps.newHashMap(); //存放inputType
@@ -482,6 +484,15 @@ public class ImportExcelImpl{
                         }
                     }
                     Id = String.valueOf(sysMap.get(name));
+                    break;
+                case "info":
+                    if(this.infoMap.size() == 0){
+                        List<Information> infoList = SysUtils.getInfoList();
+                        for(Information info : infoList){
+                            infoMap.put(info.getNameCn(),info.getId());
+                        }
+                    }
+                    Id = String.valueOf(infoMap.get(name));
                     break;
                 default:
                     break;
