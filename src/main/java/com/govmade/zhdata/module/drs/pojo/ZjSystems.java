@@ -29,7 +29,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private String jsdwlxdh;
 
-    private String xtjsys;
+    private Double xtjsys;   //系统建设预算/合同金额（万元）
 
     private Integer zjly;
 
@@ -159,11 +159,11 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.jsdwlxdh = jsdwlxdh;
     }
 
-    public String getXtjsys() {
+    public Double getXtjsys() {
         return xtjsys;
     }
 
-    public void setXtjsys(String xtjsys) {
+    public void setXtjsys(Double xtjsys) {
         this.xtjsys = xtjsys;
     }
 
