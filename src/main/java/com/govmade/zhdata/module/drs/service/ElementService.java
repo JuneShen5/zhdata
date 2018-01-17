@@ -148,7 +148,7 @@ public class ElementService extends BaseService<Element> {
             element.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
             element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
             element.setObjectType(Integer.valueOf(infoMap.get("object_type")));
-            Integer isSave = save(element);
+            Integer isSave = saveSelective(element);
             if(isSave == 1){
                 relationMap.put("element_id", String.valueOf(element.getId()));
                 relationMap.put("info_id", infoMap.get("info_id"));
