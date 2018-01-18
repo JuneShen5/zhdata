@@ -212,7 +212,7 @@ var TableInit = function(tableOption,btnOption) {
             $(this).blur();
         });
         // 多选下拉框插件
-        $('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
+        $('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
         $(".is-multiple-select").change(function(){
             $(this).valid();
         });
@@ -249,7 +249,7 @@ var TableInit = function(tableOption,btnOption) {
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
                     $(this).valid();
                 });
-                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
@@ -502,7 +502,7 @@ var TableInit = function(tableOption,btnOption) {
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
                     $(this).valid();
                 });
-                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:'  == 请选择（可多选） =='});
+                // $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
             }
