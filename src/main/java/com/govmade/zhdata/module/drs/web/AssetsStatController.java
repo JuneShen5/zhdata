@@ -2,6 +2,7 @@ package com.govmade.zhdata.module.drs.web;
 
 import java.io.UnsupportedEncodingException;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
@@ -99,47 +100,7 @@ public class AssetsStatController {
      * 系统统计-已建系统、年度系统运维总金额等的统计--根据部门权限查询
      * 
      * @return
-     */
-    /*@RequestMapping(value="ass/querySum",method=RequestMethod.GET)
-    public ResponseEntity<Map<String, Object>> querySum(){
-        
-        Integer roleId=UserUtils.getCurrentUser().getRoleId();
-        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
-        List<Integer> comList=Lists.newArrayList();
-        if (roleId!=1) {
-            comList.add(companyId);
-            findAllSubNode(companyId, comList);
-        }
-        
-        Map<String, Object> map=Maps.newHashMap();
-        Integer ysCount=0;
-        Integer ysCount1=this.yjSystemDao.querySysCount(new YjSystems(),comList);
-        if (ysCount1 >0) {
-            ysCount=ysCount1;
-        }
-        Double ywjSum=0.0000;
-        Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems(),comList);
-        if (ywjSum1!=null) {
-            ywjSum=ywjSum1;
-        }
-        
-        Double ygywSum=0.0000;
-        Double ygywSum1=this.yjSystemDao.queryYgywSum(new YjSystems(),comList);
-        if (ygywSum1!=null) {
-            ygywSum=ygywSum1;
-        }
-        
-        map.put("ysCount", ysCount);
-        map.put("ywjSum", ywjSum);
-        map.put("ygywSum", ygywSum);
-        
-        return ResponseEntity.ok(map);
-        
-        
-        
-    }*/
-    
-    
+     */    
     @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
     public ResponseEntity<YjSystems> querySum(Page<YjSystems> page){
       
@@ -161,60 +122,11 @@ public class AssetsStatController {
             findAllSubNode(companyId, comList);
         }
         YjSystems yjSystems2=this.yjSystemService.querySum(yjSystems,comList);
-        
-        
-        
-        /*Map<String, Object> map=Maps.newHashMap();
-        Integer ysCount=0;
-        Integer ysCount1=this.yjSystemDao.querySysCount(new YjSystems(),comList);
-        if (ysCount1 >0) {
-            ysCount=ysCount1;
-        }
-        Double ywjSum=0.0000;
-        Double ywjSum1=this.yjSystemDao.queryYwjSum(new YjSystems(),comList);
-        if (ywjSum1!=null) {
-            ywjSum=ywjSum1;
-        }
-        
-        Double ygywSum=0.0000;
-        Double ygywSum1=this.yjSystemDao.queryYgywSum(new YjSystems(),comList);
-        if (ygywSum1!=null) {
-            ygywSum=ygywSum1;
-        }
-        
-        map.put("ysCount", ysCount);
-        map.put("ywjSum", ywjSum);
-        map.put("ygywSum", ygywSum);*/
-        
         return ResponseEntity.ok(yjSystems2);
         
-        
-        
     }
     
     
-    
-    public static void main(String[] args) {
-        //double x= 3421.58655;
-        double x1=1.253;
-        double x2=2.56;
-        double  x=x1/x2;
-        double  x3=x1/x2 *100;
-        System.out.println(x);  
-        System.out.println(x*100);  
-        NumberFormat nf = NumberFormat.getInstance();
-        nf.setRoundingMode(RoundingMode.HALF_UP);//设置四舍五入
-        nf.setMinimumFractionDigits(4);//设置最小保留几位小数
-        nf.setMaximumFractionDigits(4);//设置最大保留几位小数
-        System.out.println(nf.format(x));  //3,421.5866
-        
-        NumberFormat nf2 = NumberFormat.getInstance();
-        nf2.setRoundingMode(RoundingMode.HALF_UP);//设置四舍五入
-        nf2.setMinimumFractionDigits(2);//设置最小保留几位小数
-        nf2.setMaximumFractionDigits(2);//设置最大保留几位小数
-        System.out.println(nf2.format(x3));  //3,421.5866
-        
-    }
     
       
     /**
@@ -257,14 +169,6 @@ public class AssetsStatController {
         for (Company c : companylList) {
             Integer companyId=c.getId();
             Map<String, Object> map2=Maps.newHashMap();
-           /* Systems sys=new Systems();
-            sys.setCompanyId(companyId);
-            sys.setDelFlag(Global.DEL_FLAG_NORMAL);
-            Integer sCount=0;
-            Integer sCount1=this.systemMapper.selectCount(sys);
-            if (sCount1 >0) {
-                sCount=sCount1;
-            }*/
             
             YjSystems yjSystems =new YjSystems();
             yjSystems.setCompanyId(companyId);
