@@ -57,7 +57,7 @@
 						<tr>
 							<!--<th data-checkbox="true"></th>-->
 							<th data-field="name">部门名称</th>
-							<th data-field="ldxm">部门信息化分管领导姓名</th>
+							<th data-field="total2018">2018年度总指标金额(万元)</th>
 							<!--<th data-field="dataTypeName">数据类型</th>
 							<th data-field="len">数据长度</th>-->
 							<!-- <th data-field="companyName">来源部门</th> -->

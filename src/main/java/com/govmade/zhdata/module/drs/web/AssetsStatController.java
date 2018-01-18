@@ -100,7 +100,7 @@ public class AssetsStatController {
      * 系统统计-已建系统、年度系统运维总金额等的统计--根据部门权限查询
      * 
      * @return
-     */    
+     */
     @RequestMapping(value="ass/querySum",method=RequestMethod.GET)
     public ResponseEntity<YjSystems> querySum(Page<YjSystems> page){
       
@@ -128,7 +128,6 @@ public class AssetsStatController {
     
     
     
-      
     /**
      * 根据父级查询子级
      * 

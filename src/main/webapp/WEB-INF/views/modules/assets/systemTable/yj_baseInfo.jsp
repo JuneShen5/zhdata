@@ -194,7 +194,7 @@
             <!-- <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="部署位置" required> -->
             <select name="bswz" class="form-control" required>
                 <option value="">== 请选择 ==</option>
-                <c:forEach var="dict" items="${fns:getDictList('deploy_location_yj')}">
+                <c:forEach var="dict" items="${fns:getDictList('deploy_location')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
             </select>
