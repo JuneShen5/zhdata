@@ -350,6 +350,8 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
         });
+        // 将只在详情页显示的项目隐藏
+        thisLayerForm.find('.form-group.detail-show').hide();
         try{
             if(resetPage) {
                 resetPage(status);
@@ -391,6 +393,8 @@ var TableInit = function(tableOption,btnOption) {
         // checkbox
         thisLayerForm.find('.i-checks').iCheck('disable');
         thisLayerForm.find('.form-group').removeClass('has-success has-error');
+        // 将只在详情页显示的项目显示
+        thisLayerForm.find('.form-group.detail-show').show();
     };
 
     // 获取表格行数据
@@ -560,18 +564,15 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.openAdd = function () {
         var openLayerIndex = this.initContainer();
-        console.log(this.openLayerIndex);
         this.validate(openLayerIndex);
     };
     LayerEvent.prototype.openDetail = function () {
         this.openLayerIndex = this.init();
-        console.log(this.openLayerIndex);
         this.loadData(this.getRowData());
         this.forbiddenForm();
     };
     LayerEvent.prototype.openEdit = function () {
         this.openLayerIndex = this.init();
-        console.log(this.openLayerIndex);
         this.validate();
         this.loadData(this.getRowData());
         // 验证初始化
