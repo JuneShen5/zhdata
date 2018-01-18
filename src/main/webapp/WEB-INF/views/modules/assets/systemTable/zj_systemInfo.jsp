@@ -7,13 +7,13 @@
             <label class="control-label">部署位置</label>
         </div>
         <div class="col-sm-7 column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="部署位置" required>
-            <!--<select name="bswz" class="form-control" required>
+                <!-- <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="部署位置" required> -->
+            <select name="bswz" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('deploy_location')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
 
@@ -63,13 +63,13 @@
             <label class="control-label">计划接入网络类型</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required>
-            <!--<select name="jhjrwllx" class="form-control" required>
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="jhjrwllx" placeholder="计划接入网络类型" required> -->
+            <select name="jhjrwllx" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
 

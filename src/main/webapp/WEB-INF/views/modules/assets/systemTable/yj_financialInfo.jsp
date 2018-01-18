@@ -10,13 +10,13 @@
             <input type="text" class="form-control" hasNoSpace="true" name="zjly" placeholder="请输入资金来源" required>
         </div> -->
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="zjly" placeholder="资金来源" required>
-            <!--<select name="zjly" class="form-control" required>
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="zjly" placeholder="资金来源" required> -->
+            <select name="zjly" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('capital_source_yj')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
     <div class="form-group">

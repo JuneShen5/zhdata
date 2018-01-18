@@ -21,12 +21,12 @@
             <label class="control-label">使用对象</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="sydx" placeholder="使用对象" required>
-            <!--<select name="sydx" class="form-control is-multiple-select" multiple="multiple">
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="sydx" placeholder="使用对象" required> -->
+            <select name="sydx" class="form-control is-multiple-select" multiple="multiple">
                 <c:forEach var="dict" items="${fns:getDictList('estimate_use_object')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
         
     </div>
