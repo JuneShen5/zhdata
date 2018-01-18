@@ -92,7 +92,7 @@
             <label class="control-label">已付合同金额（万元）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" name="yfhtje" placeholder="已付合同金额（万元）" required>            
+            <input type="text" class="form-control" isnonnegative="true" name="yfhtje" placeholder="已付合同金额（万元）" required>
         </div>
     </div>
     
