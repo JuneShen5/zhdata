@@ -1,5 +1,8 @@
 package com.govmade.zhdata.module.drs.web;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -110,6 +113,16 @@ public class ZjSystemController extends BaseController<ZjSystems>{
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public ResponseEntity<Message> save(ZjSystems zjSystems) {
         try {
+            
+            //自动根据已付合同金额/系统建设预算、合同金额计算已付合同金额比例
+            Double xtjsys=zjSystems.getXtjsys();   // 系统建设预算/合同金额（万元）
+            Double yfhtje =zjSystems.getYfhtje();   // 已付合同金额
+            
+            DecimalFormat df = new DecimalFormat("0.##");
+            String yfhtjebl=df.format(yfhtje/xtjsys *100) +"%";  // 已付合同金额比例=已付合同金额/系统建设预算、合同金额
+            zjSystems.setYfhtjebl(yfhtjebl);
+
+            
             //String name=new String (njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
             String name=zjSystems.getName();
             Integer companyId=zjSystems.getCompanyId();
@@ -121,6 +134,7 @@ public class ZjSystemController extends BaseController<ZjSystems>{
             record2.setName(name);
             record2.setCompanyId(companyId);
             ZjSystems zjSystems1=this.zjSystemService.queryOne(record2);
+            //ZjSystems zjSystems1 =this.zjSystemService.queryOneZj(zjSystems);
             YjSystems record3=new YjSystems();
             record3.setName(name);
             record3.setCompanyId(companyId);

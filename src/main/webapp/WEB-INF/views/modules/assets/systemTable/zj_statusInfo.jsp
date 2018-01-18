@@ -101,7 +101,7 @@
             <label class="control-label">已付合同金额比例</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" name="yfhtjebl" placeholder="已付合同金额比例" required>            
+            <input type="text" class="form-control" name="yfhtjebl" placeholder="已付合同金额比例">            
         </div>
     </div>
 </fieldset>

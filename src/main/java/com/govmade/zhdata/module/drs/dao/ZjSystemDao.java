@@ -16,4 +16,5 @@ public interface ZjSystemDao extends BaseDao<ZjSystems>{
     public int saveAll(@Param("dataList")List<Map<String, String>> dataList);
     
     public List<ZjSystems> queryListByCompanyId(@Param("zjSystems")ZjSystems zjSystems, @Param("page")Page<ZjSystems> page);
+
 }

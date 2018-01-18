@@ -184,7 +184,7 @@
 
 
 	<!-- 根据部门查询系统个数 -->
-	<select id="querySysCount" resultType="Integer">
+	<!-- <select id="querySysCount" resultType="Integer">
 		select COUNT(*) from drs_system_yijian WHERE
 		del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
@@ -195,10 +195,10 @@
 			</foreach>
 		</if>
 
-	</select>
+	</select> -->
 
 	<!-- 根据部门查询年度运维费用总金额 -->
-	<select id="queryYwjSum" resultType="Double">
+	<!-- <select id="queryYwjSum" resultType="Double">
 		SELECT SUM(ywje) FROM drs_system_yijian WHERE
 		del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
@@ -209,11 +209,11 @@
 			</foreach>
 		</if>
 
-	</select>
+	</select> -->
 	
 	
 	<!-- 根据部门查询预估年度运维金额 -->
-	<select id="queryYgywSum" resultType="Double">
+	<!-- <select id="queryYgywSum" resultType="Double">
 		SELECT SUM(jsje) *0.1 FROM drs_system_yijian WHERE
 		del_flag=#{yjSystems.delFlag}
 		<if test=" comList !=null and comList.size() >0 ">
@@ -224,26 +224,28 @@
 			</foreach>
 		</if>
 
-	</select>
+	</select> -->
 	
 	
-	
-	<select id="querySum" resultType="YjSystems">
-
-	SELECT COUNT(*) AS ysCount,SUM(a.ywje) AS ywjSum ,SUM(a.jsje) *0.1 AS ygywSum
+ <!-- 根据部门查询系统个数、年度运维费用总金额、预估年度运维金额 -->
+  <select id="querySum" resultType="YjSystems">
+	SELECT COUNT(*) AS ysCount,SUM(a.ywje) AS ywjSum ,SUM(a.jsje) *0.1 AS
+	ygywSum
 	FROM drs_system_yijian a
-	LEFT JOIN sys_company c ON c.id=a.company_id
+	LEFT JOIN sys_company c ON
+	c.id=a.company_id
 	WHERE
-	a.del_flag=0 
+	a.del_flag=0
 	<if test=" comList !=null and comList.size() >0 ">
-			AND a.company_id IN
-			<foreach collection="comList" item="id" open="(" close=")"
-				separator=",">
-				#{id}
-			</foreach>
-		</if>
-		<if test="yjSystems.companyName != null and yjSystems.companyName != ''">
-				AND c.name LIKE CONCAT('%',#{yjSystems.companyName},'%')
-			</if>
+		AND a.company_id IN
+		<foreach collection="comList" item="id" open="(" close=")"
+			separator=",">
+			#{id}
+		</foreach>
+	</if>
+	<if test="yjSystems.companyName != null and yjSystems.companyName != ''">
+		AND c.name LIKE CONCAT('%',#{yjSystems.companyName},'%')
+	</if>
 </select>
+
 </mapper>      
