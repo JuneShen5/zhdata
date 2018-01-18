@@ -117,13 +117,13 @@
             <label class="control-label">系统类别</label>
         </div>
         <div class="col-sm-7 column-content">
-                <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="系统类别" required>
-            <!--<select name="xtlb" class="form-control" required>
+                <!-- <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="系统类别" required> -->
+            <select name="xtlb" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
 </fieldset>

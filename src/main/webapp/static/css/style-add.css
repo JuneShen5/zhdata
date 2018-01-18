@@ -150,7 +150,9 @@
 .ele-hide{
     display: none;
 }
-
+.detail-show{
+    display: none;
+}
 /* 信息系统表格样式-normal */
 
 /* 信息系统表格样式-new */

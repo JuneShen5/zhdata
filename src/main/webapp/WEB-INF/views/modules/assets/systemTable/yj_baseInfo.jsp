@@ -177,13 +177,13 @@
             <label class="control-label">系统类别</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="系统类别" required>
-            <!--<select name="xtlb" class="form-control" required>
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="xtlb" placeholder="系统类别" required> -->
+          <select name="xtlb" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('system_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -191,13 +191,13 @@
             <label class="control-label">部署位置</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="部署位置" required>
-            <!--<select name="bswz" class="form-control" required>
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="bswz" placeholder="部署位置" required> -->
+            <select name="bswz" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('deploy_location_yj')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
     <div class="form-group">
@@ -205,7 +205,7 @@
             <label class="control-label">涉密分类</label>
         </div>
         <div class="col-sm-7 column-content">
-            <select name="smfl" class="form-control" required>
+            <select name="smfl" class="form-control js-hasChild" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('is_secret')}">
                     <option value="${dict.value}">${dict.label}</option>
@@ -213,7 +213,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group ele-hide" data-parent="smfl">
         <div class="col-sm-3 column-title form-border-left">
             <label class="control-label">是否脱密处理</label>
         </div>
@@ -244,13 +244,13 @@
             <label class="control-label">已接入</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="yjr" placeholder="已接入网络类型" required>
-            <!--<select name="yjr" class="form-control" required>
+            <!-- <input type="text" class="form-control" hasNoSpace="true" name="yjr" placeholder="已接入网络类型" required> -->
+            <select name="yjr" class="form-control" required>
                 <option value="">== 请选择 ==</option>
                 <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>
-            </select>-->
+            </select>
         </div>
     </div>
     <div class="form-group">
