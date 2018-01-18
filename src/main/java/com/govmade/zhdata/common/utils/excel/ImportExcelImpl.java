@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -322,8 +323,10 @@ public class ImportExcelImpl{
                         Date date  =cell.getDateCellValue();
                         val =new SimpleDateFormat(this.format).format(date); 
                       }else {
-                          cell.setCellType(Cell.CELL_TYPE_STRING);
-                          val = cell.getStringCellValue();
+//                          cell.setCellType(Cell.CELL_TYPE_STRING);
+//                          val = cell.getStringCellValue();
+                          DecimalFormat df = new DecimalFormat("0.####");
+                          val = df.format(cell.getNumericCellValue()).toString();
                       }
                 } else if (cell.getCellType() == Cell.CELL_TYPE_STRING) {
                     val = cell.getStringCellValue();
