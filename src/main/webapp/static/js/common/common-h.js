@@ -245,6 +245,7 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
                 $('[data-parent=' + parentName + ']').slideDown().find('input:not(.chosen-search input),select,textarea').prop('required', true).val('');
+                $('.not-required').prop('required', false);
                 $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2('destroy');
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
                     $(this).valid();
@@ -498,11 +499,12 @@ var TableInit = function(tableOption,btnOption) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
                 $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', true);
+                $('.not-required').prop('required', false);
                 $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2('destroy');
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
                     $(this).valid();
                 });
-                // $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
+                $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2({width:'100%',placeholder:' 请选择(可多选)'});
             }else {
                 $('[data-parent=' + parentName + ']').slideUp().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
             }

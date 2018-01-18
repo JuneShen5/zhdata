@@ -35,7 +35,7 @@
             <label class="control-label">使用对象详细说明</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="sydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体">
+            <input type="text" class="form-control not-required" hasNoSpace="true" name="sydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体">
        </div>
        </div>
     <div class="form-group ele-hide" data-parent="sfjsxt">
