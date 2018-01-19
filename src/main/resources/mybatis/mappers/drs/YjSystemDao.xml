@@ -246,6 +246,9 @@
 	<if test="yjSystems.companyName != null and yjSystems.companyName != ''">
 		AND c.name LIKE CONCAT('%',#{yjSystems.companyName},'%')
 	</if>
+	<if test="yjSystems.name != null and yjSystems.name != ''">
+		AND a.name LIKE CONCAT('%',#{yjSystems.name},'%')
+	</if>
 </select>
 
 </mapper>      
