@@ -3,10 +3,7 @@ package com.govmade.zhdata.module.drs.pojo;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import sun.tools.tree.ThisExpression;
-
 import com.govmade.zhdata.common.persistence.BasePo;
-import com.govmade.zhdata.common.utils.StringUtil;
 
 @Table(name = "drs_system_zaijian")
 public class ZjSystems extends BasePo<ZjSystems> {
@@ -56,7 +53,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Double yfhtje; // 已付合同金额
 
-    private String yfhtjebl; // 已付合同金额比例=已付合同金额/系统建设预算、合同金额
+    private Double yfhtjebl; // 已付合同金额比例=已付合同金额/系统建设预算、合同金额
 
     private String xtjsyj;
 
@@ -266,13 +263,13 @@ public class ZjSystems extends BasePo<ZjSystems> {
         return xtjsyj;
     }
 
-    public String getYfhtjebl() {
+    public Double getYfhtjebl() {
         return yfhtjebl;
     }
 
-    public void setYfhtjebl(String yfhtjebl) {
+   /* public void setYfhtjebl(Double yfhtjebl) {
         this.yfhtjebl = yfhtjebl;
-    }
+    }*/
 
     public void setXtjsyj(String xtjsyj) {
         this.xtjsyj = xtjsyj;

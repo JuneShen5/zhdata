@@ -115,13 +115,13 @@ public class ZjSystemController extends BaseController<ZjSystems>{
         try {
             
             //自动根据已付合同金额/系统建设预算、合同金额计算已付合同金额比例
-            Double xtjsys=zjSystems.getXtjsys();   // 系统建设预算/合同金额（万元）
-            Double yfhtje =zjSystems.getYfhtje();   // 已付合同金额
+           /* Double xtjsys=zjSystems.getXtjsys();   
+            Double yfhtje =zjSystems.getYfhtje();   
             
             DecimalFormat df = new DecimalFormat("0.##");
-            String yfhtjebl=df.format(yfhtje/xtjsys *100) +"%";  // 已付合同金额比例=已付合同金额/系统建设预算、合同金额
+            String yfhtjebl=df.format(yfhtje/xtjsys *100) +"%";  
             zjSystems.setYfhtjebl(yfhtjebl);
-
+*/
             
             //String name=new String (njSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
             String name=zjSystems.getName();
@@ -178,7 +178,10 @@ public class ZjSystemController extends BaseController<ZjSystems>{
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
-
+    
+    
+   
+    
     /**
      * 在建系统删除
      * 
@@ -195,4 +198,13 @@ public class ZjSystemController extends BaseController<ZjSystems>{
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+    
+    
+    public static void main(String[] args){
+        String x="20.245795";
+        DecimalFormat df = new DecimalFormat("0.##");
+        String yfhtjebl=df.format(Double.valueOf(x)) +"%";
+        System.out.println("x===="+yfhtjebl);
+    }
+    
 }
