@@ -349,7 +349,7 @@ var TableInit = function(tableOption,btnOption) {
         // 将相关下拉框选项隐藏
         $('.js-hasChild').each(function (index) {
             var parentName = $(this).attr('name');
-            $('[data-parent=' + parentName + ']').addClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
+            $('[data-parent=' + parentName + ']').hide().find('input:not(.chosen-search input),select,textarea').prop('required', false).val('');
         });
         // 将只在详情页显示的项目隐藏
         thisLayerForm.find('.form-group.detail-show').hide();
@@ -418,6 +418,10 @@ var TableInit = function(tableOption,btnOption) {
                         $(this).attr('checked', $(this).val() == value);
                     } else {
                         $(this).val(value);
+                        // 转化小数位百分数
+                        if ($(this).hasClass('js-turn-percent') && !isNaN(parseFloat(value))){
+                            $(this).val(parseFloat(value)*100 + '%');
+                        }
                         if ($(this).attr("stype") == "checkbox") {
                             var fthis = $(this).closest(".form-group");
                             arr = value.split(',');
@@ -498,7 +502,7 @@ var TableInit = function(tableOption,btnOption) {
         $('.js-hasChild').each(function (index) {
             var parentName = $(this).attr('name');
             if ($(this).val() === '1') {
-                $('[data-parent=' + parentName + ']').removeClass('ele-hide').find('input:not(.chosen-search input),select,textarea').prop('required', true);
+                $('[data-parent=' + parentName + ']').slideDown().find('input:not(.chosen-search input),select,textarea').prop('required', true);
                 $('.not-required').prop('required', false);
                 $('[data-parent=' + parentName + ']').find('.is-multiple-select').select2('destroy');
                 $('[data-parent=' + parentName + ']').find('input:not(.chosen-search input),select,textarea').each(function () {
