@@ -108,13 +108,20 @@ public class AssetsStatController {
        if (yjSystems.getCompanyName()!=null) {
            try {
             String companyName=new String (yjSystems.getCompanyName().getBytes("ISO-8859-1"), "UTF-8");
-            String name=new String (yjSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
             yjSystems.setCompanyName(companyName);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+       if (yjSystems.getName()!=null) {
+           try {
+            String name=new String (yjSystems.getName().getBytes("ISO-8859-1"), "UTF-8");
             yjSystems.setName(name);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }
+       
        
        Integer roleId=UserUtils.getCurrentUser().getRoleId();
        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
