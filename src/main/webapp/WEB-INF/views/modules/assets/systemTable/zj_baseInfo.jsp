@@ -95,7 +95,7 @@
             <label class="control-label">系统建设预算/合同金额<br>（万元）</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" isNonnegative="true" class="form-control" name="xtjsys" placeholder="具体数额（单位：万元，格式：数字填写）" required>
+            <input type="text" isPositive="true" class="form-control" name="xtjsys" placeholder="具体数额（单位：万元，格式：数字填写）" required>
         </div>
     </div>
     <div class="form-group">

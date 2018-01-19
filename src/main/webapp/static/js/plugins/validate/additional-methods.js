@@ -1005,10 +1005,15 @@ $.validator.addMethod("hasNoSpace", function(value, element) {
 	var noSpace = /^\S+(\s+\S+)*$/;
 	return this.optional(element) || noSpace.test( value );
 }, "<i class='fa fa-times-circle'></i> 前后不能有空格");
-	//检测非负数
+//检测非负实数
 $.validator.addMethod("isNonnegative", function(value, element) {
     var nonnegative = /^[0-9]+(\.[0-9]{0,4})?$/;
     return this.optional(element) || nonnegative.test( value );
+}, "<i class='fa fa-times-circle'></i> 请输入非负实数（小数点后最多4位）");
+//检测正实数
+$.validator.addMethod("isPositive", function(value, element) {
+	var positive = /^[1-9]+(\.[0-9]{0,4})?|0(\.[0-9]{1,4})$/;
+	return this.optional(element) || positive.test( value );
 }, "<i class='fa fa-times-circle'></i> 请输入正实数（小数点后最多4位）");
 //检测标准化年月（XXXX-0X、XXXX-XX、XXXX-X）
 $.validator.addMethod("vali-standardDate", function(value, element) {

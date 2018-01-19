@@ -245,8 +245,7 @@
         </div>
         <div class="col-sm-7 column-content">
             <!-- <input type="text" class="form-control" hasNoSpace="true" name="yjr" placeholder="已接入网络类型" required> -->
-            <select name="yjr" class="form-control" required>
-                <option value="">== 请选择 ==</option>
+            <select name="yjr" class="form-control is-multiple-select" multiple="multiple" required>
                 <c:forEach var="dict" items="${fns:getDictList('network_type')}">
                     <option value="${dict.value}">${dict.label}</option>
                 </c:forEach>

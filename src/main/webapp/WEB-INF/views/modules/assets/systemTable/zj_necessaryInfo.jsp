@@ -62,7 +62,7 @@
             <label class="control-label">预估使用对象详细说明</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="ygsydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="ygsydxxxsm" placeholder="填写详细使用对象，具体到部门或某群体">
        </div>
        </div>
        

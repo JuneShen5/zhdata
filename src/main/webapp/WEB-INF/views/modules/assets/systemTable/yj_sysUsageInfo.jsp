@@ -47,12 +47,12 @@
         </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group ele-hide" data-parent="sfjsxt">
         <div class="col-sm-3 column-title">
             <label class="control-label">每月使用频度</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control" hasNoSpace="true" name="mysypd" placeholder="月使用系统的次数" required>
+            <input type="text" class="form-control" hasNoSpace="true" name="mysypd" placeholder="月使用系统的次数">
         </div>
     </div>
 
