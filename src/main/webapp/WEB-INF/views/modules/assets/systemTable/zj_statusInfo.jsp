@@ -65,7 +65,7 @@
             <label class="control-label">合同签署时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htqssj" readonly="readonly" placeholder="与承建方签署合同日期时间" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="htqssj" readonly="readonly" placeholder="与承建方签署合同日期时间" required>
         </div>
     </div>
 
@@ -74,7 +74,7 @@
             <label class="control-label">合同约定完成时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htydwcsj" readonly="readonly" placeholder="与承建方所签署合同约定完成时间" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="htydwcsj" readonly="readonly" placeholder="与承建方所签署合同约定完成时间" required>
         </div>
     </div>
 
@@ -83,7 +83,7 @@
             <label class="control-label">合同签署的维保到期时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="htqsdwbdqsj" readonly="readonly" placeholder="合同约定的维保到期时间" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="htqsdwbdqsj" readonly="readonly" placeholder="合同约定的维保到期时间" required>
         </div>
     </div>
 

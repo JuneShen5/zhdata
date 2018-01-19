@@ -1010,6 +1010,11 @@ $.validator.addMethod("isNonnegative", function(value, element) {
     var nonnegative = /^[0-9]+(\.[0-9]{0,4})?$/;
     return this.optional(element) || nonnegative.test( value );
 }, "<i class='fa fa-times-circle'></i> 请输入正实数（小数点后最多4位）");
+//检测标准化年月（XXXX-0X、XXXX-XX、XXXX-X）
+$.validator.addMethod("vali-standardDate", function(value, element) {
+	var date = /^\d{4}-(1[0-2]|0[1-9]|[1-9])$/;
+	return this.optional(element) || date.test( value );
+}, "<i class='fa fa-times-circle'></i> 日期格式错误");
 // 远程验证
 $.validator.addMethod("remoted", function(value, element) {
 	var result = false;

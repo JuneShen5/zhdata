@@ -81,7 +81,7 @@
             <label class="control-label">审批时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="审批的具体日期（格式：CCYY-MM）" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="spsj" readonly="readonly" placeholder="审批的具体日期（格式：CCYY-MM）" required>
         </div>
     </div>
 

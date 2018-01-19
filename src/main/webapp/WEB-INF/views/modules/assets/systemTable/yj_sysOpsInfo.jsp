@@ -49,7 +49,7 @@
             <label class="control-label">运维合同签署到期时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="ywhtqsdqsj" readonly="readonly" placeholder="与运维单位签署的相关合同到期日期（格式：CCYY-MM）" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="ywhtqsdqsj" readonly="readonly" placeholder="与运维单位签署的相关合同到期日期（格式：CCYY-MM）" required>
         </div>
     </div>
     <div class="form-group">

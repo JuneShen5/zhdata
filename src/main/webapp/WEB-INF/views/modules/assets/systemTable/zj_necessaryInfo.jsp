@@ -80,7 +80,7 @@
             <label class="control-label">原计划投入使用时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="yjhtrsysj" readonly="readonly" placeholder="预期系统投入使用时间" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="yjhtrsysj" readonly="readonly" placeholder="预期系统投入使用时间" required>
         </div>
     </div>
 </fieldset>

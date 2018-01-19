@@ -228,15 +228,15 @@ ul, li {
                 // 拼接顶部信息资源统计
                 var topHtml1 = '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-1"><div class="icon-container text-center btn-cyan"><i class="fa fa-cubes"></i></div><div class="content top-penal"><p>信息系统总数 : <em>';
-                topHtml1 += data.ysCount;
+                topHtml1 += data.ysCount||'0';
                 topHtml1 += '</em> 个 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-2"><div class="icon-container text-center btn-yellow"><i class="fa fa-database"></i></div><div class="content top-penal"><p>系统年度运维总金额 : <em>';
-                topHtml1 += data.ywjSum;
+                topHtml1 += data.ywjSum||'0';
                 topHtml1 += '</em> 万元 </p></div></div></div>';
                 topHtml1 += '<div class="res-container" style="padding: 0 10px;">';
                 topHtml1 += '<div class="small-box box-3"><div class="icon-container text-center btn-red"><i class="fa fa-bar-chart"></i></div><div class="content top-penal"><p>预估年度运维金额 : <em>';
-                topHtml1 += data.ygywSum;
+                topHtml1 += data.ygywSum||'0';
                 topHtml1 += '</em> 万元 </p></div></div></div>';
                 $(".statistics-box").append(topHtml1);
             }
@@ -262,20 +262,11 @@ ul, li {
 				$('.top-company-count').find('em').text(data.total + ' 个');
 				$("<div></div>").addClass("box-info clearfix").appendTo($(".box-info-container"));
                 var listHtml = '';
-				$.each(data.rows, function(index,dataList){
-				    var searchHtml = '<option value="'+dataList.id+'">' + dataList.name + '</option>';
+                if (totalCounts>0) {
+                    $.each(data.rows, function (index, dataList) {
+                        var searchHtml = '<option value="' + dataList.id + '">' + dataList.name + '</option>';
 //				    $('.search-container').find('select').append(searchHtml);
-                    if (data.rows.length < 3){
-                        listHtml += '<div class="panel-container col-xs-4" data-item-id="'+dataList.id+'">';
-                        listHtml += '<div class="panel panel-default  panel-item">';
-                        listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
-                        listHtml += '<div class="panel-body content"><ul>';
-                        listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="'+dataList.companyName+'">单位名称：<span>'+dataList.companyName+'</span></p></li>';
-                        listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="'+dataList.ywje+' 万元">年度运维金额：<span>'+dataList.ywje+' 万元'+'</span></p></li>';
-                        listHtml += '</ul></div></div></div>';
-                    }else {
-                        if (index % 3 === 0) {
-                            listHtml += '<div class="clearfix width-min">';
+                        if (data.rows.length < 3) {
                             listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
                             listHtml += '<div class="panel panel-default  panel-item">';
                             listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
@@ -283,28 +274,43 @@ ul, li {
                             listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
                             listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
                             listHtml += '</ul></div></div></div>';
-                        } else if (index % 3 === 2) {
-                            listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
-                            listHtml += '<div class="panel panel-default  panel-item">';
-                            listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
-                            listHtml += '<div class="panel-body content"><ul>';
-                            listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
-                            listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
-                            listHtml += '</ul></div></div></div>';
-                            listHtml += '</div>';
                         } else {
-                            listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
-                            listHtml += '<div class="panel panel-default  panel-item">';
-                            listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
-                            listHtml += '<div class="panel-body content"><ul>';
-                            listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
-                            listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
-                            listHtml += '</ul></div></div></div>';
+                            if (index % 3 === 0) {
+                                listHtml += '<div class="clearfix width-min">';
+                                listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
+                                listHtml += '<div class="panel panel-default  panel-item">';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
+                                listHtml += '<div class="panel-body content"><ul>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
+                                listHtml += '</ul></div></div></div>';
+                            } else if (index % 3 === 2) {
+                                listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
+                                listHtml += '<div class="panel panel-default  panel-item">';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
+                                listHtml += '<div class="panel-body content"><ul>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
+                                listHtml += '</ul></div></div></div>';
+                                listHtml += '</div>';
+                            } else {
+                                listHtml += '<div class="panel-container col-xs-4" data-item-id="' + dataList.id + '">';
+                                listHtml += '<div class="panel panel-default  panel-item">';
+                                listHtml += '<div class="panel-heading text-center text-hidden">' + dataList.name + '</div>';
+                                listHtml += '<div class="panel-body content"><ul>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.companyName + '">单位名称：<span>' + dataList.companyName + '</span></p></li>';
+                                listHtml += '<li class="clearfix"><p class="panel-item-line text-hidden" title="' + dataList.ywje + ' 万元">年度运维金额：<span>' + dataList.ywje + ' 万元' + '</span></p></li>';
+                                listHtml += '</ul></div></div></div>';
+                            }
                         }
-                    }
-				});
-                $(".box-info").append(listHtml);
-                paginatorInit(pageSize,totalCounts,pageNum);
+                    });
+                    $(".box-info").append(listHtml);
+                    paginatorInit(pageSize, totalCounts, pageNum);
+                }else {
+                    $('.no-result-area').show();
+                    paginatorInit(6,1,0);
+                    $('#pageInfo').html('总共 <strong>' + 0 + '</strong> 个部门，总共 <strong>' + 0 + '</strong> 页，当前第 <strong>' + 0 + '</strong> 页');
+                }
 			}
 		});
 

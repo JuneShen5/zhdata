@@ -57,7 +57,7 @@
             <label class="control-label">审批时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="spsj" readonly="readonly" placeholder="审批的具体日期" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="spsj" readonly="readonly" placeholder="审批的具体日期" required>
         </div>
     </div>
 
@@ -161,7 +161,7 @@
             <label class="control-label">建设起始时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="jsqssj" readonly="readonly" placeholder="项目建设具体起始时间,格式：CCYY-MM" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="jsqssj" readonly="readonly" placeholder="项目建设具体起始时间,格式：CCYY-MM" required>
         </div>
     </div>
     <div class="form-group">
@@ -169,7 +169,7 @@
             <label class="control-label">投入使用时间</label>
         </div>
         <div class="col-sm-7 column-content">
-            <input type="text" class="form-control datepicker" name="trsysj" readonly="readonly" placeholder="系统投入使用具体时间,格式：CCYY-MM" required>
+            <input type="text" class="form-control datepicker" vali-standardDate="true" name="trsysj" readonly="readonly" placeholder="系统投入使用具体时间,格式：CCYY-MM" required>
         </div>
     </div>
     <div class="form-group">
