@@ -420,7 +420,7 @@ var TableInit = function(tableOption,btnOption) {
                         $(this).val(value);
                         // 转化小数位百分数
                         if ($(this).hasClass('js-turn-percent') && !isNaN(parseFloat(value))){
-                            $(this).val(parseFloat(value)*100 + '%');
+                            $(this).val(value + '%');
                         }
                         if ($(this).attr("stype") == "checkbox") {
                             var fthis = $(this).closest(".form-group");
