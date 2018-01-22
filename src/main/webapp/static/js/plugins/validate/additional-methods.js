@@ -1012,8 +1012,9 @@ $.validator.addMethod("isNonnegative", function(value, element) {
 }, "<i class='fa fa-times-circle'></i> 请输入非负实数（小数点后最多4位）");
 //检测正实数
 $.validator.addMethod("isPositive", function(value, element) {
-	var positive = /^[1-9]+(\.[0-9]{0,4})?|0(\.[0-9]{1,4})$/;
-	return this.optional(element) || positive.test( value );
+	var isZero = parseFloat(value) !== 0;
+	var positive = /^[0-9]+(\.[0-9]{0,4})?$/;
+	return this.optional(element) || positive.test( value ) && isZero;
 }, "<i class='fa fa-times-circle'></i> 请输入正实数（小数点后最多4位）");
 //检测标准化年月（XXXX-0X、XXXX-XX、XXXX-X）
 $.validator.addMethod("vali-standardDate", function(value, element) {
