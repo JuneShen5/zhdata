@@ -24,6 +24,7 @@ import com.govmade.zhdata.module.drs.pojo.ZjSystems;
 import com.govmade.zhdata.module.drs.service.NjSystemService;
 import com.govmade.zhdata.module.drs.service.YjSystemService;
 import com.govmade.zhdata.module.drs.service.ZjSystemService;
+import com.ibm.db2.jcc.am.l;
 
 @Controller
 @RequestMapping(value = "assets/njSystem")
@@ -116,15 +117,15 @@ public class NjSystemController  extends BaseController<NjSystems>{
             NjSystems record1=new NjSystems();
             record1.setName(name);
             record1.setCompanyId(companyId);
-            NjSystems njSystems1=this.njSystemService.queryOne(record1);
+            List<NjSystems> njList=this.njSystemService.queryAll(record1);
             ZjSystems record2=new ZjSystems();
             record2.setName(name);
             record2.setCompanyId(companyId);
-            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
+            List<ZjSystems> zjList=this.zjSystemService.queryAll(record2);
             YjSystems record3=new YjSystems();
             record3.setName(name);
             record3.setCompanyId(companyId);
-            YjSystems yjSystems=this.yjSystemService.queryOne(record3);
+            List<YjSystems> yjList=this.yjSystemService.queryAll(record3);
             
             Message message1=new Message();
             message1.setStatus(0);
@@ -132,7 +133,7 @@ public class NjSystemController  extends BaseController<NjSystems>{
             
             if (njSystems.getId() == null) {
                 njSystems.preInsert();
-                if (null==njSystems1 && null==zjSystems && null==yjSystems) {
+                if (njList.isEmpty() && zjList.isEmpty() && yjList.isEmpty()) {
                     this.njSystemService.saveSelective(njSystems);
                     Message message=new Message();
                     message.setStatus(1);
@@ -147,15 +148,24 @@ public class NjSystemController  extends BaseController<NjSystems>{
                 Message message2=new Message();
                 message2.setStatus(1);
                 message2.setMessage(Global.UPDATE_SUCCESS);
-                if (null==njSystems1 && null==zjSystems && null==yjSystems) {
+                
+                if (njList.isEmpty() && zjList.isEmpty() && yjList.isEmpty()) {
                     this.njSystemService.updateSelective(njSystems);
                     return ResponseEntity.ok(message2);
-                }else if (njSystems1!=null&&njSystems1.getId().intValue()==njSystems.getId().intValue()) {
-                    this.njSystemService.updateSelective(njSystems);
-                    return ResponseEntity.ok(message2);
-                } else {
+                }else if (njList.size()>0) {
+                    NjSystems  njSystems1=njList.get(0);
+                    if (njList.size()==1&&njSystems1.getId().intValue()==njSystems.getId().intValue()) {
+                        this.njSystemService.updateSelective(njSystems);
+                        return ResponseEntity.ok(message2);
+                    }else{
+                        return ResponseEntity.ok(message1);
+                    }
+                }else {
                     return ResponseEntity.ok(message1);
                 }
+                
+                
+                
             }
             
         } catch (Exception e) {

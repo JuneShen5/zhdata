@@ -114,22 +114,22 @@ public class YjSystemController extends BaseController<YjSystems>{
             NjSystems record1=new NjSystems();
             record1.setName(name);
             record1.setCompanyId(companyId);
-            NjSystems njSystems=this.njSystemService.queryOne(record1);
+            List<NjSystems> njList=this.njSystemService.queryAll(record1);
             ZjSystems record2=new ZjSystems();
             record2.setName(name);
             record2.setCompanyId(companyId);
-            ZjSystems zjSystems=this.zjSystemService.queryOne(record2);
+            List<ZjSystems> zjList=this.zjSystemService.queryAll(record2);
             YjSystems record3=new YjSystems();
             record3.setName(name);
             record3.setCompanyId(companyId);
-            YjSystems yjSystems1=this.yjSystemService.queryOne(record3);
+            List<YjSystems> yjList=this.yjSystemService.queryAll(record3);
             Message message1=new Message();
             message1.setStatus(0);
             message1.setMessage("系统名称已经存在，请重新填写！");
             
             if (yjSystems.getId() == null) {
                 yjSystems.preInsert();
-                if (null==njSystems && null==zjSystems && null==yjSystems1) {
+                if (njList.isEmpty() && zjList.isEmpty() && yjList.isEmpty()) {
                     this.yjSystemService.saveSelective(yjSystems);
                     Message message=new Message();
                     message.setStatus(1);
@@ -145,13 +145,19 @@ public class YjSystemController extends BaseController<YjSystems>{
                 message2.setStatus(1);
                 message2.setMessage(Global.UPDATE_SUCCESS);
                 
-                if (null==njSystems && null==zjSystems && null==yjSystems1) {
+                
+                if (njList.isEmpty() && zjList.isEmpty() && yjList.isEmpty()) {
                     this.yjSystemService.updateSelective(yjSystems);
                     return ResponseEntity.ok(message2);
-                }else if (yjSystems1!=null&&yjSystems1.getId().intValue()==yjSystems.getId().intValue()) {
-                    this.yjSystemService.updateSelective(yjSystems);
-                    return ResponseEntity.ok(message2);
-                } else {
+                }else if (yjList.size()>0) {
+                   YjSystems  yjSystems1=yjList.get(0);
+                    if (yjList.size()==1&&yjSystems1.getId().intValue()==yjSystems.getId().intValue()) {
+                        this.yjSystemService.updateSelective(yjSystems);
+                        return ResponseEntity.ok(message2);
+                    }else{
+                        return ResponseEntity.ok(message1);
+                    }
+                }else {
                     return ResponseEntity.ok(message1);
                 }
                
