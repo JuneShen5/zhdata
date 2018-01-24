@@ -544,11 +544,15 @@ public class ImportExcelImpl{
             if(errorDataSheet.getLastRowNum()>1){
               //模板中有东西的复制类型行(模板文件中缺类型这一行)
                 int errorDataLastRowNum = errorDataSheet.getLastRowNum();
+                System.out.println("errorDataLastRowNum:"+errorDataLastRowNum);
                 Row errorDataNameEnRow = errorDataSheet.getRow(errorDataLastRowNum);
                 lastColum = errorDataNameEnRow.getLastCellNum();
                 Row errorDatainputRow = errorDataSheet.createRow(errorDataLastRowNum+1);
                 Row importRow = sheet.getRow(errorDataLastRowNum+1);
+                System.out.println("lastColum:"+lastColum);
                 for(int i=0; i<lastColum; i++){
+                	System.out.println("i:"+i);
+                	System.out.println("value:"+importRow.getCell(i).getStringCellValue());
                     errorDatainputRow.createCell(i).setCellValue(importRow.getCell(i).getStringCellValue());
                 }
                 
