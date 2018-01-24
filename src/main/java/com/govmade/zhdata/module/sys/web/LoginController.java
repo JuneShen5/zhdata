@@ -53,7 +53,7 @@ public class LoginController {
 
             if (vcode.equalsIgnoreCase(verifyCode)) {
                 subject.login(token);
-                subject.getSession().setTimeout(3600000);
+                subject.getSession().setTimeout(14400000);
                 
             }
             
