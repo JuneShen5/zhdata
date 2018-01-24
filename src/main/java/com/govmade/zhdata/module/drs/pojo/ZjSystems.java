@@ -286,9 +286,9 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.yfhtjebl = yfhtjebl;
     }*/
 
-//    public void setXtjsyj(String xtjsyj) {
-//        this.xtjsyj = xtjsyj;
-//    }
+    public void setXtjsyj(String xtjsyj) {
+       this.xtjsyj = xtjsyj;
+    }
 
     public String getJsyqmb() {
         return jsyqmb;
