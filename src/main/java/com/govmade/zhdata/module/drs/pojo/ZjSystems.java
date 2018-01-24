@@ -1,5 +1,6 @@
 package com.govmade.zhdata.module.drs.pojo;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 
 import javax.persistence.Table;
@@ -274,8 +275,11 @@ public class ZjSystems extends BasePo<ZjSystems> {
     
 
     public String getYfhtjebl() {
+        if(getXtjsys()==0){
+            return "";
+        }
         DecimalFormat df = new DecimalFormat("0.##");
-        return  df.format(getYfhtje()/getXtjsys()*100);
+        return  df.format(getYfhtje()/getXtjsys()*100)+"%";
     }
 
    /* public void setYfhtjebl(Double yfhtjebl) {

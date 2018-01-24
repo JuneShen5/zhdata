@@ -57,7 +57,7 @@ public class ZjSystemController extends BaseController<ZjSystems>{
     protected void getReadExcelStarLine(){
         super.commitRow = 200;
         super.startRow = 6;
-        super.columnIndex = 1;
+        super.columnIndex = 0;
     }       
     
     @Override
