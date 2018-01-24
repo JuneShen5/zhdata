@@ -1,5 +1,7 @@
 package com.govmade.zhdata.module.drs.pojo;
 
+import java.text.DecimalFormat;
+
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -53,6 +55,7 @@ public class ZjSystems extends BasePo<ZjSystems> {
 
     private Double yfhtje; // 已付合同金额
 
+    @Transient
     private Double yfhtjebl; // 已付合同金额比例=已付合同金额/系统建设预算、合同金额
 
     private String xtjsyj;
@@ -263,17 +266,25 @@ public class ZjSystems extends BasePo<ZjSystems> {
         return xtjsyj;
     }
 
-    public Double getYfhtjebl() {
-        return yfhtjebl;
+    
+//    public void setYfhtjebl(Double yfhtjebl) {
+//        this.yfhtjebl = yfhtjebl;
+//    }
+//    
+    
+
+    public String getYfhtjebl() {
+        DecimalFormat df = new DecimalFormat("0.##");
+        return  df.format(getYfhtje()/getXtjsys()*100);
     }
 
    /* public void setYfhtjebl(Double yfhtjebl) {
         this.yfhtjebl = yfhtjebl;
     }*/
 
-    public void setXtjsyj(String xtjsyj) {
-        this.xtjsyj = xtjsyj;
-    }
+//    public void setXtjsyj(String xtjsyj) {
+//        this.xtjsyj = xtjsyj;
+//    }
 
     public String getJsyqmb() {
         return jsyqmb;
