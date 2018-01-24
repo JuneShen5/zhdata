@@ -257,22 +257,11 @@ public class ZjSystems extends BasePo<ZjSystems> {
         this.yfhtje = yfhtje;
     }
 
-    /*public String getYfhtjebl() {
-        return Double.valueOf(this.yfhtjebl)*100+"%";
-    }*/
-
-   
 
     public String getXtjsyj() {
         return xtjsyj;
     }
 
-    
-//    public void setYfhtjebl(Double yfhtjebl) {
-//        this.yfhtjebl = yfhtjebl;
-//    }
-//    
-    
 
     public String getYfhtjebl() {
         if(getXtjsys()==0){
