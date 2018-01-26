@@ -109,15 +109,20 @@ public class CompanyService extends BaseService<Company>{
 
     public List<Company> queryListById(Page<Company> page, String companyIds) {
         
-        if (null == companyIds){
+       /* if (null == companyIds){
             List<String> idList=Lists.newArrayList();
             return this.companyDao.queryListById(page,idList);
         }else {
             String[] array = StringUtil.split(companyIds, ',');
             List<String> idList = Arrays.asList(array);
             return this.companyDao.queryListById(page,idList);
-        }
-       
+        }*/
+        Integer companyId=UserUtils.getCurrentUser().getCompanyId();
+        companyIds+=","+companyId.toString();
+        String[] array = StringUtil.split(companyIds, ',');
+        List<String> idList = Arrays.asList(array);
+        
+        return this.companyDao.queryListById(page,idList);
        
     }
 

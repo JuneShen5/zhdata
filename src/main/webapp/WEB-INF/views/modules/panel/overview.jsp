@@ -220,7 +220,7 @@ h3 {
                 pageNum: 1,
                 pageSize: 6,
                 obj: JSON.stringify({'name': ''}),
-                companyIds: ''
+                companyIds: '3,5,6,7,8'
             },
 			success: function (data) {
                 $('.select-area').show();

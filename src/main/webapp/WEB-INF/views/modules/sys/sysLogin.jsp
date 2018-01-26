@@ -79,7 +79,7 @@
                   <div class="form-group lock-case">
                       <input class="form-control" type="password"
                              id="password" name="password"
-                             required="required" maxlength="16" value="123456" autocomplete="off">
+                             required="required" maxlength="16" autocomplete="off">
                   </div>
                   <div class="form-group verify-case clearfix">
                       <input class="form-control case-verify pull-left" id="verifyCodeId"
