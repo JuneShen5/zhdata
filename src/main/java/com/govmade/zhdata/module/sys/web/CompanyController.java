@@ -47,10 +47,10 @@ public class CompanyController extends BaseController<Company>{
      * @return
      */
     @RequestMapping(value = "allist", method = RequestMethod.GET)
-    public ResponseEntity<Page<Company>> list(Page<Company> page) {
+    public ResponseEntity<Page<Company>> allist(Page<Company> page) {
         try {
             
-            PageInfo<Company> pageInfo = companyService.findAll(page);
+            PageInfo<Company> pageInfo = companyService.queryListByIds(page);
             List<Company> companyList = pageInfo.getList();
             Page<Company> resPage = new Page<Company>();
             resPage.setTotal(pageInfo.getTotal());

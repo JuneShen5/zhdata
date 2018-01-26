@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
@@ -19,6 +20,7 @@ import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.sys.dao.CompanyDao;
 import com.govmade.zhdata.module.sys.mapper.CompanyMapper;
 import com.govmade.zhdata.module.sys.pojo.Company;
+import com.govmade.zhdata.module.sys.pojo.User;
 
 @Service
 public class CompanyService extends BaseService<Company>{
@@ -38,8 +40,20 @@ public class CompanyService extends BaseService<Company>{
         return company;
     }
     
-    public PageInfo<Company> findAll(Page<Company> page) {
-
+    public PageInfo<Company> queryListByIds(Page<Company> page) {
+        User user=UserUtils.getCurrentUser();
+        Integer roleId=user.getRoleId();
+        if (roleId!=1) {
+            Integer companyId=user.getCompanyId();
+            List<Integer> comList=Lists.newArrayList();
+            comList.add(companyId);
+            findAllSubNode(companyId, comList);
+            Map<String, Object> map=Maps.newHashMap();
+            map=page.getParams();
+            map.put("companyIds", comList);
+            page.setParams(map);
+        }
+        
     	 PageHelper.startPage(page.getPageNum(), page.getPageSize());
     	 Company company = JsonUtil.readValue(page.getObj(), Company.class);
     	 try {
@@ -49,14 +63,34 @@ public class CompanyService extends BaseService<Company>{
              e.printStackTrace();
          }
     
-    	Integer roleId=UserUtils.getCurrentUser().getRoleId();
+    	/*Integer roleId=UserUtils.getCurrentUser().getRoleId();
         Integer companyId=UserUtils.getCurrentUser().getCompanyId();
         if (roleId!=1) {
             company.setId(companyId);
-        }
-    	 List<Company> list = companyDao.findAll(company);
+        }*/
+    	 List<Company> list = companyDao.queryListByIds(page,company);
     	 
     	 return new PageInfo<Company>(list);
+    }
+    
+    
+    /**
+     * 根据父级查询子级
+     * 
+     * @param parentId
+     * @param list
+     */
+    public void findAllSubNode(Integer companyId, List<Integer> comList) {
+        Company record =new Company();
+        record.setParentId(Integer.valueOf(companyId));
+        List<Company> companies=this.queryListByWhere(record);
+        if (companies!=null) {
+            for (Company c : companies) {
+                comList.add(c.getId());
+                 findAllSubNode(c.getId(),comList);
+            }
+        }
+        
     }
     
     /**

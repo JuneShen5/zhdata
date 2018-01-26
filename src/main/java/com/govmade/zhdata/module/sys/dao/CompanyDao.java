@@ -27,4 +27,7 @@ public interface CompanyDao extends BaseDao<Company> {
 
     public Company queryByInfoId(Integer id);
 
+    public List<Company> queryListByIds(@Param("page")Page<Company> page, @Param("company")Company company);
+
+
 }
