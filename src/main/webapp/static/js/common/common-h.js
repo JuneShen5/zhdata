@@ -566,7 +566,6 @@ var TableInit = function(tableOption,btnOption) {
             },
             // resetForm : true
         });
-        return false;
     };
     LayerEvent.prototype.openAdd = function () {
         var openLayerIndex = this.initContainer();
