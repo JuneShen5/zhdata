@@ -569,7 +569,7 @@ var TableInit = function(tableOption,btnOption) {
     };
     LayerEvent.prototype.openAdd = function () {
         this.initContainer();
-        this.validate(openLayerIndex);
+        this.validate();
     };
     LayerEvent.prototype.openDetail = function () {
         this.init();
