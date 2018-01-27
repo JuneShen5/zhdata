@@ -147,11 +147,11 @@ var TableInit = function(tableOption,btnOption) {
             zIndex : 100,
             btn : btnText,
             yes : function(index, layero) {
-                btnFunction[0];
+                // btnFunction[0];
                 that.$element.find('form').submit();
             },
             end : function() {
-                btnFunction[1];
+                // btnFunction[1];
                 that.resetLayerForm("close");
 //                    $(data.formId).resetForm();
 //                    endMethod(data.formId, "close");
@@ -159,7 +159,7 @@ var TableInit = function(tableOption,btnOption) {
             content : this.$element
         });
         // this.initFormPlugins();
-        return openIndex;
+        // return openIndex;
     };
     // 确认弹框
     LayerEvent.prototype.initConfirm = function () {
@@ -353,11 +353,11 @@ var TableInit = function(tableOption,btnOption) {
         });
         // 将只在详情页显示的项目隐藏
         thisLayerForm.find('.form-group.detail-show').hide();
-        try{
-            if(resetPage) {
-                resetPage(status);
-            };
-        } catch (e) {};
+        // try{
+        //     if(resetPage) {
+        //         resetPage(status);
+        //     };
+        // } catch (e) {};
     };
     // 禁用form表单
     LayerEvent.prototype.forbiddenForm = function () {
@@ -568,16 +568,18 @@ var TableInit = function(tableOption,btnOption) {
         });
     };
     LayerEvent.prototype.openAdd = function () {
-        var openLayerIndex = this.initContainer();
+        this.initContainer();
         this.validate(openLayerIndex);
     };
     LayerEvent.prototype.openDetail = function () {
-        this.openLayerIndex = this.init();
+        this.init();
+	      this.validate();
         this.loadData(this.getRowData());
         this.forbiddenForm();
+	      this.$element.find('form').validate().form();
     };
     LayerEvent.prototype.openEdit = function () {
-        this.openLayerIndex = this.init();
+        this.init();
         this.validate();
         this.loadData(this.getRowData());
         // 验证初始化
