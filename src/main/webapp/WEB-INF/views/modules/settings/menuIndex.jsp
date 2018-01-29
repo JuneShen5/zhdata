@@ -278,7 +278,7 @@
     var ztreeData;
     // 获取数据
     function startZtree () {
-    	$.ajax({url: "/zhdata/settings/menu/list", success: function(data) {
+    	$.ajax({url: "${ctx}/settings/menu/list", success: function(data) {
     		ztreeData = data;
             $.each(data, function (index, item) {
             	item.pId = item.parentId

@@ -91,7 +91,7 @@
 								</li>
 								<li class="divider"></li> -->
 								<li>
-									<a href="#" class="other-url" url="/zhdata/catalog/information/audit" id="10" name="待审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
+									<a href="#" class="other-url" url="${ctx}/catalog/information/audit" id="10" name="待审核资源" onclick="$('.cataloginformationaudit').attr('src', $('.cataloginformationaudit').attr('src'))">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i>
 											信息资源有<i id="message_count1" style="color: #f00;"></i>条<strong style="color: #0090cc;">待审核</strong>
@@ -99,7 +99,7 @@
 									</a>
 								</li>
 								<li>
-									<a href="#" class="other-url" url="/zhdata/catalog/information/return" id="11" name="已退回资源" onclick="$('.cataloginformationreturn').attr('src', $('.cataloginformationreturn').attr('src'))">
+									<a href="#" class="other-url" url="${ctx}/catalog/information/return" id="11" name="已退回资源" onclick="$('.cataloginformationreturn').attr('src', $('.cataloginformationreturn').attr('src'))">
 										<div>
 											<i class="fa fa-envelope fa-fw"></i>
 											信息资源有<i id="message_count2" style="color: #f00;"></i>条<strong style="color: #0090cc;">已退回</strong>
@@ -133,7 +133,7 @@
 						</div>
 						<c:set var="user" value="${fns:getCurrentUser()}" />
 						<a href="#" class="name btn-signout js-login-role"><i class="iconfont gm-user"></i>${user.name}</a>
-						<a href="/zhdata/login/system_logout" class="btn-signout btn-sign-out"><i class="iconfont gm-closeb"></i>退出</a>
+						<a href="${ctx}/login/system_logout" class="btn-signout btn-sign-out"><i class="iconfont gm-closeb"></i>退出</a>
 						<!-- <div class="theme-skin">
 							<a href="#" class="btn-signout theme" style="margin-right: 15px;"
 								data-skin=" skin-<//%=ServiceUtil.getThemeType(10)%>">主题</a>

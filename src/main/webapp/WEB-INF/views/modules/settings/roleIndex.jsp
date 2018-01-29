@@ -159,7 +159,7 @@
 	$(document).ready(function() {
 		$(function() {
 			$.ajax({
-				url : "/zhdata/settings/menu/list",
+				url : "${ctx}/settings/menu/list",
 				success : function(data) {
 					$.each(data, function(index, item) {
 						item.pId = item.parentId;

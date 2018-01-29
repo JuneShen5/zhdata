@@ -66,7 +66,7 @@
  	$(function () {
  		// 取到数据，初始化树插件
  		$.ajax({
- 			url: "/zhdata/settings/company/list", 
+ 			url: "${ctx}/settings/company/list",
  			data: {
  				types: "1,2"
  			},

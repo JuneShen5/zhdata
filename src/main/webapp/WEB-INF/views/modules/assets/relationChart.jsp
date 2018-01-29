@@ -16,7 +16,7 @@
 <script type="text/javascript">
 var myChart = echarts.init(document.getElementById('main'));
 myChart.showLoading();
-$.ajax({url: "/zhdata/assets/echarts/relation", success: function(res) {
+$.ajax({url: "${ctx}/assets/echarts/relation", success: function(res) {
 	console.log("res: ", res);
 	myChart.hideLoading();
 	option = {
