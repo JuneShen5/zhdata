@@ -188,10 +188,18 @@ public class DBMSMetaUtil {
                 }
                 /*Integer type=(Integer) map.get("DATA_TYPE");*/
                 // String type=map.get("TYPE_NAME").toString();
-                Integer length=Integer.valueOf(map.get("COLUMN_SIZE").toString());
+                
+                if (map.get("COLUMN_SIZE")==null) {
+                    map.put("length", 0);
+                }else {
+                    Integer length=Integer.valueOf(map.get("COLUMN_SIZE").toString());
+                    map.put("length", length);
+                }
+                
+               /* Integer length=Integer.valueOf(map.get("COLUMN_SIZE").toString());*/
                 map.put("nameEn", nameEn);
                 map.put("type", formateType(map.get("TYPE_NAME").toString()));
-                map.put("length", length);
+               /* map.put("length", length);*/
                 
                 list.add(map);
                 //System.out.println("columnlist="+list);

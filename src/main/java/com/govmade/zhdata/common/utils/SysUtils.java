@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.github.abel533.entity.Example;
 import com.google.common.collect.Lists;
 import com.govmade.zhdata.common.persistence.RedisService;
 import com.govmade.zhdata.module.drs.pojo.Element;
@@ -135,7 +136,11 @@ public class SysUtils {
      */
     public static List<Company> getCompanyList() {
         List<Company> companyList = Lists.newArrayList();
-        companyList = sysUtils.companyService.queryAll(new Company());
+        Example example =new Example(Company.class);
+        example.createCriteria().andNotBetween("type", 1, 2);
+        companyList = sysUtils.companyService.queryByExample(example);
+        
+       // companyList = sysUtils.companyService.queryAll(new Company());
         return companyList;
     }
     

@@ -104,7 +104,7 @@ public class EchartsController {
                 if (infoList.size()>0) {
                     num1=num;
                     for (Information i : infoList) {
-                        nodeJson.put("name", i.getId());
+                        nodeJson.put("id", i.getId());
                         nodeJson.put("name", i.getNameCn());
                         nodeJson.put("category", 2);
                         nodeJson.put("value", 45);
