@@ -881,6 +881,17 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
     }
 }
 
+/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
+$(function () {
+	$('.form-group').each(function () {
+		var $this = $(this);
+		if ($this.find('label').text() === '信息资源分类3 :' || $this.find('label').text() === '信息资源分类4 :'){
+			$this.hide();
+		}
+	});
+});
+/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
+
 /**********************************导入导出EXCEL开始**********************************************/
 
 /*导入导出定义的全部变量 */
@@ -893,7 +904,7 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 		rowName();
 		
 		/*信息资源导出模板时用很SB的方法吧信息项一栏给去掉了 */
-		var objArr = $("#exportData input[name='obj']").val().split(","); //字符分割 
+		var objArr = $("#exportData input[name='obj']").val() ? $("#exportData input[name='obj']").val().split(",") : ''; //字符分割
 		var obj = ""
 		for (i=0;i<objArr.length ;i++ ) 
 		{ 	if(objArr[i].split("_")[2]!="element")
@@ -1084,14 +1095,3 @@ function shareToggleChange (gxlxSelect, isOpenSelect) {
 	}
 /**********************************导入导出EXCEL结束**********************************************/
 
-
-/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
-$(function () {
-    $('.form-group').each(function () {
-        var $this = $(this);
-        if ($this.find('label').text() === '信息资源分类3 :' || $this.find('label').text() === '信息资源分类4 :'){
-            $this.hide();
-        }
-    });
-});
-/*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
