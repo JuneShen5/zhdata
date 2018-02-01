@@ -94,7 +94,7 @@
             <input type="text" isNonnegative="true" class="form-control" name="sjbfl" placeholder="数据备份量（GB）">
         </div>
     </div>
-    <div class="form-group">
+    <div class="form-group ele-hide" data-parent="sfybf">
         <div class="col-sm-3 column-title">
             <label class="control-label">数据备份频率</label>
         </div>
