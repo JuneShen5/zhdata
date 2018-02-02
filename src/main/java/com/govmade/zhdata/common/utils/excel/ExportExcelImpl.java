@@ -170,7 +170,6 @@ public abstract class ExportExcelImpl{
    private void exportHead(XSSFSheet sheet){
        
        int lastRowNum = sheet.getLastRowNum();
-       System.out.println("lastRowNum===="+lastRowNum);
        
        if(lastRowNum <1){
            //模板中自己没做过设置的
@@ -207,9 +206,7 @@ public abstract class ExportExcelImpl{
            Map<String,String> rowNameMap = rowNameToMap(); //将rowname 的数组改成MAP形式以便快速和excel中的英文名称对应
            Row inputTypeRow = sheet.createRow(lastRowNum+1);
            for (int i = 0; i <lastCellNum; i++) {
-               System.out.println("i:"+i);
                String nameEn = titelRow.getCell(i).getStringCellValue(); //获取每个英文字段
-               System.out.println("nameEn:"+nameEn);
                String value =  rowNameMap.get(nameEn); 
                if(value != null){
                    inputTypeRow.createCell(i).setCellValue(value);//在下面第二行输入输入框类型的值

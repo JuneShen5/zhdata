@@ -276,6 +276,7 @@ public class ImportExcelImpl{
                     int _columnIndex ;
                     if (null!=getCellValue(cell)&&!"".equals(getCellValue(cell).trim())) {
                         String name = getCellValue(cell);
+                        
                        /* Map<label,value>*/
                         String ID = getTemplateValue(inputTypeMap.get(columnIndex),inputTypeValueMap.get(columnIndex),name); //下拉选框数据
                         if(ID==null || ID=="" || ID=="null"){
@@ -338,9 +339,6 @@ public class ImportExcelImpl{
                     val = cell.getErrorCellValue()+"";
                 }
             }
-//       System.out.println("CellType:"+cell.getCellType());
-//       System.out.println("val:"+val);
-//       System.out.println("----------");
         return val.trim();
     }
     /**
@@ -369,7 +367,7 @@ public class ImportExcelImpl{
                 }
                 inputValue = StringUtil.toUnderScoreCase(columTypeValue);
                 Id = dictMap.get(inputValue).get(name);
-                
+                break;
             case "check":
             case "checkbox":
                 if(this.dictMap.size() == 0){
@@ -388,6 +386,7 @@ public class ImportExcelImpl{
                 if(_Id.length()>0){
                     Id = _Id.substring(0,_Id.length() - 1);
                 }
+                
                 break;
             case "companyselect":
                 if(this.companyMap.size() == 0){
@@ -544,15 +543,11 @@ public class ImportExcelImpl{
             if(errorDataSheet.getLastRowNum()>1){
               //模板中有东西的复制类型行(模板文件中缺类型这一行)
                 int errorDataLastRowNum = errorDataSheet.getLastRowNum();
-                System.out.println("errorDataLastRowNum:"+errorDataLastRowNum);
                 Row errorDataNameEnRow = errorDataSheet.getRow(errorDataLastRowNum);
                 lastColum = errorDataNameEnRow.getLastCellNum();
                 Row errorDatainputRow = errorDataSheet.createRow(errorDataLastRowNum+1);
                 Row importRow = sheet.getRow(errorDataLastRowNum+1);
-                System.out.println("lastColum:"+lastColum);
                 for(int i=0; i<lastColum; i++){
-                	System.out.println("i:"+i);
-                	System.out.println("value:"+importRow.getCell(i).getStringCellValue());
                     errorDatainputRow.createCell(i).setCellValue(importRow.getCell(i).getStringCellValue());
                 }
                 
