@@ -48,7 +48,7 @@ public class ExportExcelData extends ExportExcelImpl {
     
     private String regEx="[\\s~·`!！@#￥$%^……&*（()）\\-——\\-_=+【\\[\\]】｛{}｝\\|、\\\\；;：:‘'“”\"，,《<。.》>、/？?]";  
     
-    protected String[] unSelect = {"input","dateselect","textarea","element"}; //不用做关联的inputtype,这边的element不做关联是因为在读取数据的时候直接把信息项的中文名读取出来了
+    protected String[] unSelect = {"input","dateselect","textarea","element","double"}; //不用做关联的inputtype,这边的element不做关联是因为在读取数据的时候直接把信息项的中文名读取出来了
     
     
     public ExportExcelData(String fileName, String title, String[] rowName,

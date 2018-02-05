@@ -14,38 +14,37 @@ import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.module.sys.pojo.Log;
 import com.govmade.zhdata.module.sys.service.LogService;
 
-
 @Controller
-@RequestMapping(value="/sys/logIndex")
+@RequestMapping(value = "/sys/logIndex")
 public class LogController {
-	
-	@Autowired
-	private LogService logService;
-	
-	@RequestMapping(method = RequestMethod.GET)
-    public String toLog() { 
-	
+
+    @Autowired
+    private LogService logService;
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String toLog() {
+
         return "modules/sys/logIndex";
     }
-	
-	@RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseEntity<Page<Log>> list(Page<Log> page) {
+
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ResponseEntity<Page<Log>> queryList(Page<Log> page) {
         try {
             PageInfo<Log> pageInfo = logService.findAll(page);
-            
+
             List<Log> logList = pageInfo.getList();
-            
+
             Page<Log> resPage = new Page<Log>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(logList);
-            
+
             System.out.println(logList);
             return ResponseEntity.ok(resPage);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        
+
     }
-    
+
 }

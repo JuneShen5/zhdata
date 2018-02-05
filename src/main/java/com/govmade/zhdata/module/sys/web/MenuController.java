@@ -36,7 +36,7 @@ public class MenuController {
      * @return
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public ResponseEntity<List<Menu>> list(Menu menu) {
+    public ResponseEntity<List<Menu>> queryList(Menu menu) {
         
         List<Menu> list = menuService.findAll(menu);
         
