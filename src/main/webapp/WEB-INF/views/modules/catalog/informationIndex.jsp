@@ -738,7 +738,7 @@
         
         // 查看详情弹框
         function mOpenDetail(l,f) {
-            layeForm = layer.open({
+            layeForm3 = layer.open({
                 title: '信息项详情',
                 type : 1,
                 area : [ '95%', '90%' ],
