@@ -243,7 +243,7 @@
         var url = '${ctx}/catalog/information/';
         var tableCheckBoxs = true;
         var obj = {
-            isAuthorize:1
+            
         };
         var editTitle = "信息资源修改";
         var detailTitle = "信息资源详情";
@@ -738,7 +738,7 @@
         
         // 查看详情弹框
         function mOpenDetail(l,f) {
-            layeForm = layer.open({
+            layeForm3 = layer.open({
                 title: '信息项详情',
                 type : 1,
                 area : [ '95%', '90%' ],
