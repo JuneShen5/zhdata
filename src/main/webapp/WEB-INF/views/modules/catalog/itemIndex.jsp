@@ -207,7 +207,7 @@
 	var url = '${ctx}/catalog/dataElement/';
 
 	$(function () {
-		oTable = new TableInit('elementTable', {url: 'list'});
+		oTable = new TableInit(id, {url: 'list'});
 		oTable.Init();
 		initFormValide('eform', 'save', 'elementTable');
 		// select-chosen-zhiyu
