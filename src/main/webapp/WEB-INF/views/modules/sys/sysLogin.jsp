@@ -74,7 +74,7 @@
                   <div class="form-group user-case">
                       <input class="form-control" type="text"
                              id="loginName" name="loginName"
-                             required="required" value="admin" autocomplete="off">
+                             required="required"  autocomplete="off">
                   </div>
                   <div class="form-group lock-case">
                       <input class="form-control" type="password"

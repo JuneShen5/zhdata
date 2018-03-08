@@ -1,65 +1,34 @@
 package com.govmade.zhdata.module.drs.pojo;
 
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import com.govmade.zhdata.common.persistence.BasePo;
 
-@Table(name = "drs_columns")
+@Table(name = "drs_item")
 public class Item extends BasePo<Item> {
 
     private static final long serialVersionUID = 1L;
 
-    private String nameEn;
-
-    private String nameCn;
-
-    private Integer tbId;
+    private String code;
     
-    @Transient
-    private String  tbName; //数据表名
-
-    private Integer type; //类型的代替值
+    private Integer type;
     
-    @Transient
-    private String  typeEn; //真实的类型名
-
-    private Integer length;
-
-    private Integer isKey;
+    private Integer typen;
     
-    private Integer delFlag;
+    private String name;
+
+    private String len;
+
+    private Integer codeId;
     
-    private Integer toElement;
-    
-    private Integer eleId;
+    private String range;
 
-    public Item() {
-        super();
+    public String getCode() {
+        return code;
     }
 
-    public String getNameEn() {
-        return nameEn;
-    }
-
-    public void setNameEn(String nameEn) {
-        this.nameEn = nameEn;
-    }
-
-    public String getNameCn() {
-        return nameCn;
-    }
-
-    public void setNameCn(String nameCn) {
-        this.nameCn = nameCn;
-    }
-
-    public Integer getTbId() {
-        return tbId;
-    }
-
-    public void setTbId(Integer tbId) {
-        this.tbId = tbId;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Integer getType() {
@@ -70,61 +39,49 @@ public class Item extends BasePo<Item> {
         this.type = type;
     }
 
-    public Integer getLength() {
-        return length;
+    public Integer getTypen() {
+        return typen;
     }
 
-    public void setLength(Integer length) {
-        this.length = length;
+    public void setTypen(Integer typen) {
+        this.typen = typen;
     }
 
-    public Integer getIsKey() {
-        return isKey;
+    public String getName() {
+        return name;
     }
 
-    public void setIsKey(Integer isKey) {
-        this.isKey = isKey;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getTypeEn() {
-        return typeEn;
+    public String getLen() {
+        return len;
     }
 
-    public void setTypeEn(String typeEn) {
-        this.typeEn = typeEn;
+    public void setLen(String len) {
+        this.len = len;
     }
 
-    public String getTbName() {
-        return tbName;
+    
+    public Integer getCodeId() {
+        return codeId;
     }
 
-    public void setTbName(String tbName) {
-        this.tbName = tbName;
+    public void setCodeId(Integer codeId) {
+        this.codeId = codeId;
     }
 
-    public Integer getToElement() {
-        return toElement;
+    public String getRange() {
+        return range;
     }
 
-    public void setToElement(Integer toElement) {
-        this.toElement = toElement;
+    public void setRange(String range) {
+        this.range = range;
     }
-
-    public Integer getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Integer delFlag) {
-        this.delFlag = delFlag;
-    }
-
-	public Integer getEleId() {
-		return eleId;
-	}
-
-	public void setEleId(Integer eleId) {
-		this.eleId = eleId;
-	}
-
+    
+    
+    
+   
     
 }
