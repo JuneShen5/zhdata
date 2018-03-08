@@ -35,10 +35,9 @@
 					<thead>
 						<tr>
 							<th data-checkbox="true"></th>
-							<th data-field="nameCn">数据元名称</th>
-							<th data-field="sign">数据元标记</th>
-							<th data-field="dataTypeName">数据类型</th>
-							<th data-field="zhiyuName">值域</th>
+							<th data-field="code">数据元编码</th>
+							<th data-field="name">数据元名称</th>
+							<th data-field="type">数据元类别</th>
 							<th data-field="Score" data-formatter="initDataTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>

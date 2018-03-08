@@ -36,8 +36,9 @@
                 <table id="dictTable">
                     <thead>
                         <tr>
-                            <th data-formatter="codeSort">序号</th>
-                            <th data-field="pname">代码集名称</th>
+                            <th data-formatter="id">序号</th>
+                            <th data-formatter="pcode">代码级编码</th>
+                            <th data-field="pname">代码级名称</th>
                             <th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
                         </tr>
                     </thead>
