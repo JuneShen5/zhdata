@@ -25,9 +25,7 @@
 						<div class="form-group">
 							<div class="text-center">
 								<a data-toggle="modal" class="btn btn-green"
-									onclick="openLayer('数据元新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
-								<button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-								<button class="btn btn-purple" type="button" onclick="importData();"><i class='fa fa-sign-in'></i> Excel导入</button>
+									onclick="openLayer('eform', 'layer_form');"><i class="fa fa-plus-square-o"></i> 新增</a>
 								<button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
 							</div>
 						</div>
@@ -208,7 +206,7 @@
 	var url = '${ctx}/catalog/dataElement/';
 
 	$(function () {
-		oTable = new TableInit(id, {url: 'list'});
+		oTable = new TableInit('elementTable', {url: 'list'});
 		oTable.Init();
 		initFormValide('eform', 'save', 'elementTable');
 		// select-chosen-zhiyu
