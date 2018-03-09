@@ -729,157 +729,157 @@ function tf(str){
 
 // 共享、开放显示相关
 // 事件绑定
-function shareToggleMethod() {
-    var gxlxSelect = $("select[name=shareType]");
-    if (gxlxSelect !== undefined) {
-        // 共享方式
-        var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
-		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
-		var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
-        var gxlxValue = parseInt(gxlxSelect.val());
-        gxtjSelect.closest('.form-group').hide();
-        gxtjSelect.removeAttr("required");
-        gxfsSelect.closest('.form-group').hide();
-        gxfsSelect.removeAttr("required");
-        fbrqSelect.closest('.form-group').hide();
-        fbrqSelect.removeAttr("required");
-        gxlxSelect.chosen({
-            width: "100%"
-        }).on('change', function () {
-            var thisValue = parseInt($(this).val());
-            if (thisValue === 1) {
-                gxfsSelect.closest('.form-group').hide();
-                gxfsSelect.closest('.form-group').slideToggle();
-                gxfsSelect.attr("required", "required");
-                gxtjSelect.closest('.form-group').hide();
-                gxtjSelect.val("");
-                gxtjSelect.trigger("chosen:updated");
-                gxtjSelect.removeAttr("required");
-                fbrqSelect.closest('.form-group').hide();
-                fbrqSelect.closest('.form-group').slideToggle();
-                fbrqSelect.attr("required", "required");
-            } else if (thisValue === 2) {
-                gxfsSelect.closest('.form-group').hide();
-                gxtjSelect.closest('.form-group').hide();
-                gxfsSelect.closest('.form-group').slideToggle();
-                gxfsSelect.attr("required", "required");
-                gxtjSelect.closest('.form-group').slideToggle();
-                gxtjSelect.attr("required", "required");
-                fbrqSelect.closest('.form-group').hide();
-                fbrqSelect.closest('.form-group').slideToggle();
-                fbrqSelect.attr("required", "required");
-            } else if (thisValue === 3) {
-                gxfsSelect.closest('.form-group').hide();
-                gxfsSelect.val("");
-                gxfsSelect.trigger("chosen:updated");
-                gxfsSelect.removeAttr("required");
-                gxtjSelect.closest('.form-group').hide();
-                gxtjSelect.val("");
-                gxtjSelect.trigger("chosen:updated");
-                gxtjSelect.removeAttr("required");
-                fbrqSelect.closest('.form-group').hide();
-                fbrqSelect.val("");
-                fbrqSelect.removeAttr("required");
-            }
-        });
-    }
-    // 是否向社会开放
-    var isOpenSelect = $("select[name=isOpen]");
-    if (isOpenSelect !== undefined) {
-        var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
-        var isOpenValue = parseInt(isOpenSelect.val());
-        kflxSelect.closest('.form-group').hide();
-        kflxSelect.removeAttr("required");
-        isOpenSelect.chosen({
-            width: "100%"
-        }).on('change', function () {
-            var thisValue = parseInt($(this).val());
-            if (thisValue === 1) {
-                kflxSelect.closest('.form-group').slideToggle();
-                kflxSelect.attr("required", "required");
-            } else if (thisValue === 0) {
-                kflxSelect.closest('.form-group').hide();
-                kflxSelect.val("");
-                kflxSelect.trigger("chosen:updated");
-                kflxSelect.removeAttr("required");
-            }
-        });
-    }
-}
-// 状态判断及事件绑定
-function shareToggle() {
-	// 共享方式
-    var gxlxSelect = $("select[name=shareType]");
-    // 是否向社会开放
-    var isOpenSelect = $("select[name=isOpen]");
-	shareToggleChange(gxlxSelect, isOpenSelect)
-}
+// function shareToggleMethod() {
+//     var gxlxSelect = $("select[name=shareType]");
+//     if (gxlxSelect !== undefined) {
+//         // 共享方式
+//         var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
+// 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+// 		var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
+//         var gxlxValue = parseInt(gxlxSelect.val());
+//         gxtjSelect.closest('.form-group').hide();
+//         gxtjSelect.removeAttr("required");
+//         gxfsSelect.closest('.form-group').hide();
+//         gxfsSelect.removeAttr("required");
+//         fbrqSelect.closest('.form-group').hide();
+//         fbrqSelect.removeAttr("required");
+//         gxlxSelect.chosen({
+//             width: "100%"
+//         }).on('change', function () {
+//             var thisValue = parseInt($(this).val());
+//             if (thisValue === 1) {
+//                 gxfsSelect.closest('.form-group').hide();
+//                 gxfsSelect.closest('.form-group').slideToggle();
+//                 gxfsSelect.attr("required", "required");
+//                 gxtjSelect.closest('.form-group').hide();
+//                 gxtjSelect.val("");
+//                 gxtjSelect.trigger("chosen:updated");
+//                 gxtjSelect.removeAttr("required");
+//                 fbrqSelect.closest('.form-group').hide();
+//                 fbrqSelect.closest('.form-group').slideToggle();
+//                 fbrqSelect.attr("required", "required");
+//             } else if (thisValue === 2) {
+//                 gxfsSelect.closest('.form-group').hide();
+//                 gxtjSelect.closest('.form-group').hide();
+//                 gxfsSelect.closest('.form-group').slideToggle();
+//                 gxfsSelect.attr("required", "required");
+//                 gxtjSelect.closest('.form-group').slideToggle();
+//                 gxtjSelect.attr("required", "required");
+//                 fbrqSelect.closest('.form-group').hide();
+//                 fbrqSelect.closest('.form-group').slideToggle();
+//                 fbrqSelect.attr("required", "required");
+//             } else if (thisValue === 3) {
+//                 gxfsSelect.closest('.form-group').hide();
+//                 gxfsSelect.val("");
+//                 gxfsSelect.trigger("chosen:updated");
+//                 gxfsSelect.removeAttr("required");
+//                 gxtjSelect.closest('.form-group').hide();
+//                 gxtjSelect.val("");
+//                 gxtjSelect.trigger("chosen:updated");
+//                 gxtjSelect.removeAttr("required");
+//                 fbrqSelect.closest('.form-group').hide();
+//                 fbrqSelect.val("");
+//                 fbrqSelect.removeAttr("required");
+//             }
+//         });
+//     }
+//     // 是否向社会开放
+//     var isOpenSelect = $("select[name=isOpen]");
+//     if (isOpenSelect !== undefined) {
+//         var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
+//         var isOpenValue = parseInt(isOpenSelect.val());
+//         kflxSelect.closest('.form-group').hide();
+//         kflxSelect.removeAttr("required");
+//         isOpenSelect.chosen({
+//             width: "100%"
+//         }).on('change', function () {
+//             var thisValue = parseInt($(this).val());
+//             if (thisValue === 1) {
+//                 kflxSelect.closest('.form-group').slideToggle();
+//                 kflxSelect.attr("required", "required");
+//             } else if (thisValue === 0) {
+//                 kflxSelect.closest('.form-group').hide();
+//                 kflxSelect.val("");
+//                 kflxSelect.trigger("chosen:updated");
+//                 kflxSelect.removeAttr("required");
+//             }
+//         });
+//     }
+// }
+// // 状态判断及事件绑定
+// function shareToggle() {
+// 	// 共享方式
+//     var gxlxSelect = $("select[name=shareType]");
+//     // 是否向社会开放
+//     var isOpenSelect = $("select[name=isOpen]");
+// 	shareToggleChange(gxlxSelect, isOpenSelect)
+// }
 
-// 当页面中存在两张表时，可以通过formId来辨别
-function shareToggleName (formId) {
-	var gxlxSelect = $('#' + formId).find("select[name=shareType]");
-    var isOpenSelect = $('#' + formId).find("select[name=isOpen]");
-	shareToggleChange(gxlxSelect, isOpenSelect);
-}
+// // 当页面中存在两张表时，可以通过formId来辨别
+// function shareToggleName (formId) {
+// 	var gxlxSelect = $('#' + formId).find("select[name=shareType]");
+//     var isOpenSelect = $('#' + formId).find("select[name=isOpen]");
+// 	shareToggleChange(gxlxSelect, isOpenSelect);
+// }
 
-function shareToggleChange (gxlxSelect, isOpenSelect) {
-	if (gxlxSelect !== undefined){
-		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
-		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
-        var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
-		var gxlxValue = parseInt(gxlxSelect.val());
-		gxtjSelect.closest('.form-group').hide();
-		gxtjSelect.removeAttr("required");
-		gxfsSelect.closest('.form-group').hide();
-		gxfsSelect.removeAttr("required");
-        fbrqSelect.closest('.form-group').hide();
-        fbrqSelect.removeAttr("required");
-		if (gxlxValue === 1) {
-			gxfsSelect.closest('.form-group').show();
-			gxfsSelect.attr("required", "required");
-			gxtjSelect.closest('.form-group').hide();
-			gxtjSelect.val("");
-			gxtjSelect.trigger("chosen:updated");
-			gxtjSelect.removeAttr("required");
-            fbrqSelect.closest('.form-group').show();
-            fbrqSelect.attr("required", "required");
-		} else if (gxlxValue === 2) {
-			gxfsSelect.closest('.form-group').show();
-			gxtjSelect.closest('.form-group').show();
-			gxfsSelect.attr("required", "required");
-			gxtjSelect.attr("required", "required");
-            fbrqSelect.closest('.form-group').show();
-            fbrqSelect.attr("required", "required");
-		} else if (gxlxValue === 3) {
-			gxfsSelect.closest('.form-group').hide();
-			gxfsSelect.val("");
-			gxfsSelect.trigger("chosen:updated");
-			gxfsSelect.removeAttr("required");
-			gxtjSelect.closest('.form-group').hide();
-			gxtjSelect.val("");
-			gxtjSelect.trigger("chosen:updated");
-			gxtjSelect.removeAttr("required");
-            fbrqSelect.closest('.form-group').hide();
-            fbrqSelect.val("");
-            fbrqSelect.removeAttr("required");
-		}
-    }
-    if (isOpenSelect !== undefined) {
-        var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
-        var isOpenValue = parseInt(isOpenSelect.val());
-        kflxSelect.closest('.form-group').hide();
-        kflxSelect.removeAttr("required");
-        if (isOpenValue === 1) {
-            kflxSelect.closest('.form-group').slideToggle();
-            kflxSelect.attr("required", "required");
-        } else if (isOpenValue === 0 || isOpenValue === '') {
-            kflxSelect.closest('.form-group').hide();
-            kflxSelect.val("");
-            kflxSelect.trigger("chosen:updated");
-            kflxSelect.removeAttr("required");
-        }
-    }
-}
+// function shareToggleChange (gxlxSelect, isOpenSelect) {
+// 	if (gxlxSelect !== undefined){
+// 		var gxtjSelect = gxlxSelect.closest('form').find('input[name=shareCondition]');
+// 		var gxfsSelect = gxlxSelect.closest('form').find('select[name=shareMode]');
+//         var fbrqSelect = gxlxSelect.closest('form').find('input[name=releaseDate]');
+// 		var gxlxValue = parseInt(gxlxSelect.val());
+// 		gxtjSelect.closest('.form-group').hide();
+// 		gxtjSelect.removeAttr("required");
+// 		gxfsSelect.closest('.form-group').hide();
+// 		gxfsSelect.removeAttr("required");
+//         fbrqSelect.closest('.form-group').hide();
+//         fbrqSelect.removeAttr("required");
+// 		if (gxlxValue === 1) {
+// 			gxfsSelect.closest('.form-group').show();
+// 			gxfsSelect.attr("required", "required");
+// 			gxtjSelect.closest('.form-group').hide();
+// 			gxtjSelect.val("");
+// 			gxtjSelect.trigger("chosen:updated");
+// 			gxtjSelect.removeAttr("required");
+//             fbrqSelect.closest('.form-group').show();
+//             fbrqSelect.attr("required", "required");
+// 		} else if (gxlxValue === 2) {
+// 			gxfsSelect.closest('.form-group').show();
+// 			gxtjSelect.closest('.form-group').show();
+// 			gxfsSelect.attr("required", "required");
+// 			gxtjSelect.attr("required", "required");
+//             fbrqSelect.closest('.form-group').show();
+//             fbrqSelect.attr("required", "required");
+// 		} else if (gxlxValue === 3) {
+// 			gxfsSelect.closest('.form-group').hide();
+// 			gxfsSelect.val("");
+// 			gxfsSelect.trigger("chosen:updated");
+// 			gxfsSelect.removeAttr("required");
+// 			gxtjSelect.closest('.form-group').hide();
+// 			gxtjSelect.val("");
+// 			gxtjSelect.trigger("chosen:updated");
+// 			gxtjSelect.removeAttr("required");
+//             fbrqSelect.closest('.form-group').hide();
+//             fbrqSelect.val("");
+//             fbrqSelect.removeAttr("required");
+// 		}
+//     }
+//     if (isOpenSelect !== undefined) {
+//         var kflxSelect = isOpenSelect.closest('form').find("select[name=openType]");
+//         var isOpenValue = parseInt(isOpenSelect.val());
+//         kflxSelect.closest('.form-group').hide();
+//         kflxSelect.removeAttr("required");
+//         if (isOpenValue === 1) {
+//             kflxSelect.closest('.form-group').slideToggle();
+//             kflxSelect.attr("required", "required");
+//         } else if (isOpenValue === 0 || isOpenValue === '') {
+//             kflxSelect.closest('.form-group').hide();
+//             kflxSelect.val("");
+//             kflxSelect.trigger("chosen:updated");
+//             kflxSelect.removeAttr("required");
+//         }
+//     }
+// }
 
 /*** 临时删除信息资源分类3和信息资源分类4，待删除 ***/
 $(function () {

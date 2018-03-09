@@ -110,7 +110,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">是否向社会开放：</label>
 		<div class="col-sm-7">
-			<select name="isOpen" class="select-chosen" required>
+			<select name="isOpen" class="select-chosen js-hasChild" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 					<option value="${dict.value}">${dict.label}</option>
@@ -118,7 +118,7 @@
 			</select>
 		</div>
 	</div>
-	<div class="form-group">
+	<div class="form-group ele-hide" data-parent="isOpen">
 		<label class="col-sm-3 control-label">开放类型：</label>
 		<div class="col-sm-7">
 			<select name="openType" class="select-chosen">
