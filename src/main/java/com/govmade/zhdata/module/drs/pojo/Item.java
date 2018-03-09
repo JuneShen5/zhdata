@@ -11,9 +11,9 @@ public class Item extends BasePo<Item> {
 
     private String code;
     
-    private Integer type;
+    private String type;
     
-    private Integer typen;
+    private String typen;
     
     private String name;
 
@@ -21,7 +21,6 @@ public class Item extends BasePo<Item> {
 
     private Integer codeId;
     
-    private String range;
 
     public String getCode() {
         return code;
@@ -31,19 +30,19 @@ public class Item extends BasePo<Item> {
         this.code = code;
     }
 
-    public Integer getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(String type) {
         this.type = type;
     }
 
-    public Integer getTypen() {
+    public String getTypen() {
         return typen;
     }
 
-    public void setTypen(Integer typen) {
+    public void setTypen(String typen) {
         this.typen = typen;
     }
 
@@ -72,14 +71,6 @@ public class Item extends BasePo<Item> {
         this.codeId = codeId;
     }
 
-    public String getRange() {
-        return range;
-    }
-
-    public void setRange(String range) {
-        this.range = range;
-    }
-    
     
     
    

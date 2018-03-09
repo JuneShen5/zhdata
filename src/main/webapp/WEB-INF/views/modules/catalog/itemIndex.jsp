@@ -50,12 +50,81 @@
 	<div id="layer_form" style="display:none" class="ibox-content">
 		<form id="eform" class="form-horizontal">
 			<div class="form-group hide">
-				<label class="col-sm-3 control-label">中文名称：</label>
+				<label class="col-sm-3 control-label">名称：</label>
 				<div class="col-sm-7">
 					<input type="text" name="id" class="hide">
 				</div>
 			</div>
 			<div class="form-group">
+				<label class="col-sm-3 control-label layerTips" data-tips-text="">数据元编码：</label>
+				<div class="col-sm-7">
+					<input type="text" name="code" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label layerTips" data-tips-text="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源">数据元名称：</label>
+				<div class="col-sm-7">
+					<input type="text" name="name" maxlength="50" class="form-control hasNoSpace" placeholder="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源" required>
+				</div>
+			</div>
+			<div class="form-group">
+			    <label class="col-sm-3 control-label">数据元类别：</label>
+			    <div class="col-sm-7">
+			        <select class="select-chosen" name="type" required>
+			            <option value=""></option>
+			            <c:forEach var="obj" items="${fns:getDictList('data_type')}">
+			                <option value="${obj.value}">${obj.label}</option>
+			            </c:forEach>
+			        </select>
+			    </div>
+			</div>
+			<div class="form-group">
+			    <label class="col-sm-3 control-label">数据元类型：</label>
+			    <div class="col-sm-7">
+			        <select class="select-chosen" name="typen" required>
+			            <option value=""></option>
+			            <c:forEach var="obj" items="${fns:getDictList('data_type_en')}">
+			                <option value="${obj.value}">${obj.label}</option>
+			            </c:forEach>
+			        </select>
+			    </div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label layerTips" data-tips-text="标明该数据元在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）。属于数据库类的，数据长度即该数据元对应的字段在数据库中的指定长度或默认长度；属于电子表格类的，估算该数据元内容字数的上限，并折算成字节数，该字节数即为数据长度">数据元长度：</label> 
+				<div class="col-sm-7">
+					<input type="posNum" name="len" class="form-control" placeholder="标明该数据元在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）">
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label">对应代码集：</label>
+				<div class="col-sm-7">
+					<select name="zhiyu" class="select-chosen-zhiyu" >
+						<option value=""></option>
+						<c:forEach var="codeId" items="${fns:getList('zhiyu')}">
+							<option value="${codeSet.id}">${codeSet.pname}</option>
+						</c:forEach>
+					</select>
+        			<!-- <span class="col-sm-12 dt-span zhiyuziji"></span> -->
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label layerTips" data-tips-text="">值域：</label>
+				<div class="col-sm-7">
+					<input type="text" name="range" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="col-sm-3 control-label layerTips" data-tips-text="">说明：</label>
+				<div class="col-sm-7">
+					<input type="text" name="remarks" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			<%-- <div class="form-group">
 				<label class="col-sm-3 control-label layerTips" data-tips-text="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源">中文名称：</label>
 				<div class="col-sm-7">
 					<input type="text" name="nameCn" maxlength="50" class="form-control hasNoSpace" placeholder="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源" required>
@@ -114,7 +183,7 @@
 				<div class="col-sm-7">
 					<input type="text" name="remarks" maxlength="50" class="form-control" placeholder="对该数据元的备注进行简要描述" >
 				</div>
-			</div>
+			</div> --%>
 		</form>
 	</div>
 
