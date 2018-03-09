@@ -43,9 +43,10 @@
                 <table id="dictTable">
                     <thead>
                         <tr>
-                            <th data-formatter="id">序号</th>
-                            <th data-formatter="pcode">代码级编码</th>
+                            <!-- <th data-formatter="id">序号</th> -->
+                            <th data-field="pcode">代码集编码</th>
                             <th data-field="pname">代码级名称</th>
+                            <!-- <th data-field="codeName">代码级名称</th> -->
                             <th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
                         </tr>
                     </thead>
@@ -195,7 +196,7 @@
         <table id="supDetailTable">
             <thead>
                 <tr>
-                    <th data-formatter="subCodeSort">序号</th>
+                    <th data-formatter="subCodeSort">序号</th> 
                     <th data-field="label">代码名称</th>
                     <th data-field="value">代码</th>
                     <th data-field="Score" data-formatter="initSupTableButton" class="col-sm-4">操作</th>

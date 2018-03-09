@@ -27,13 +27,16 @@
 		FROM drs_code a
 		<where>
 			a.del_flag = #{DEL_FLAG_NORMAL}
-			<if test="pid != null and pid != ''">
+			AND a.pid=0
+			<!-- <if test="pid != null and pid != ''">
 				AND a.pid = #{pid}
-			</if>
+			</if> -->
 			<if test="pname != null and pname != ''">
 				AND a.pname LIKE CONCAT('%',#{pname},'%')
 			</if>
-			
+			<if test="pcode != null and pcode != ''">
+				AND a.pcode LIKE CONCAT('%',#{pcode},'%')
+			</if>
 		</where>
 		ORDER BY a.id
 	</select>
