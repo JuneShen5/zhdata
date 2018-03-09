@@ -258,11 +258,11 @@ public class InformationService extends BaseService<Information> {
                 information.setShareType(Integer.valueOf(infoMap.get("share_type")));
                 information.setIsOpen(Integer.valueOf(infoMap.get("is_open")));
                 information.setSystemId(Integer.valueOf(infoMap.get("system_id")));
-                information.setOpenType(Integer.valueOf(infoMap.get("open_type")));
+              /*  information.setOpenType(Integer.valueOf(infoMap.get("open_type")));*/
                 information.setInfoType1(Integer.valueOf(infoMap.get("info_type1")));
                 information.setInfoType2(Integer.valueOf(infoMap.get("info_type2")));
                 
-                information.setRightRelation(infoMap.get("right_relation"));
+          /*      information.setRightRelation(infoMap.get("right_relation"));*/
                 information.setNameCn(infoMap.get("name_cn"));
                 information.setNameEn(infoMap.get("name_en"));
                 information.setCode(infoMap.get("code"));
@@ -271,8 +271,8 @@ public class InformationService extends BaseService<Information> {
                 information.setShareMode(infoMap.get("share_mode"));
                 information.setShareCondition(infoMap.get("share_condition"));
                 information.setResourceFormat(infoMap.get("resource_format"));
-                information.setReleaseDate(infoMap.get("release_date"));
-                
+               /* information.setReleaseDate(infoMap.get("release_date"));
+                */
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
                 

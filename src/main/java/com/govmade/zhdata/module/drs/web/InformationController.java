@@ -140,7 +140,7 @@ public class InformationController extends BaseController<Information>{
                 map.put("departName", s.getDepartName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
-                map.put("tbName", s.getTbName());
+            /*    map.put("tbName", s.getTbName());*/
                 map.put("code", s.getCode());
                 map.put("isOpen", s.getIsOpen());
                 map.put("openType", s.getOpenType());
@@ -154,9 +154,9 @@ public class InformationController extends BaseController<Information>{
                 map.put("systemId", s.getSystemId());
                 map.put("reason", s.getReason());
                 map.put("resourceFormat", s.getResourceFormat());
-                map.put("rightRelation", s.getRightRelation());
+            /*    map.put("rightRelation", s.getRightRelation());*/
                 map.put("manageStyle", s.getManageStyle());
-                map.put("releaseDate", s.getReleaseDate());
+//                map.put("releaseDate", s.getReleaseDate());
                 switch (s.getIsAudit()) {
                 case 0:
                     map.put("auditName", "未发布");
@@ -386,11 +386,11 @@ public class InformationController extends BaseController<Information>{
         try {
             Information record = new Information();
             record.setId(info.getId());
-            if (info.getOpenType() == 1) {
+            /*if (info.getOpenType() == 1) {
                 record.setOpenType(2);
             } else if (info.getOpenType() == 2) {
                 record.setOpenType(1);
-            }
+            }*/
             infoService.updateSelective(record);
             return ResponseEntity.ok("操作成功");
         } catch (Exception e) {

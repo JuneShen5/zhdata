@@ -43,12 +43,12 @@
 		</c:choose>
 	</div>
 	
-	<!-- <div class="form-group" style="display: none;">
+	<div class="form-group" style="display: none;">
 		<label class="col-sm-3 control-label layerTips" data-tips-text="根据信息资源提供方自动生成">信息资源提供方代码：</label>
 		<div class="col-sm-7">
 			<input type="text" name="code" class="form-control">
 		</div>
-	</div> -->
+	</div>
 	
 	<div class="form-group">
 		<label class="col-sm-3 control-label layerTips" data-tips-text="">所属处室：</label>
