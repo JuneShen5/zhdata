@@ -34,8 +34,8 @@
 			<if test="item.code != null and item.code !=''" >
 				AND a.code LIKE CONCAT('%',#{item.code},'%')
 			</if>
-			<if test="item.type != null and tem.type !=''" >
-				AND a.type LIKE CONCAT('%',#{tem.type},'%')
+			<if test="item.type != null and item.type !=''" >
+				AND a.type LIKE CONCAT('%',#{item.type},'%')
 			</if>
 			<!-- <if test="item.typen != null and item.typen !=''" >
 				AND a.typen LIKE CONCAT('%',#{item.type},'%')

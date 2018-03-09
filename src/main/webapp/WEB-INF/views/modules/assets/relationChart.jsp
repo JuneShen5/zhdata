@@ -32,7 +32,7 @@ $.ajax({url: "${ctx}/assets/echarts/relation", success: function(res) {
 	    legend: {
 	        x: "center",
 	        show: true,
-	        data: ['部门', "系统", "信息资源", '数据元'] // 此处不显示根节点学生
+	        data: ['部门', "系统", "信息资源", '信息项'] // 此处不显示根节点学生
 	    },
 	    series: [
 	        {

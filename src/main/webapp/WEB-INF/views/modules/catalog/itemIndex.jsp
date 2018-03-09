@@ -19,9 +19,9 @@
 				<div id="toolbar">
 					<div class="form-inline">
 						<div class="form-group">
-							<input sName="name" type="text" placeholder="输入数据元名称"
-								class="form-control search-option col-sm-8">
 							<input sName="code" type="text" placeholder="输入数据元编码"
+								class="form-control search-option col-sm-8">
+								<input sName="name" type="text" placeholder="输入数据元名称"
 								class="form-control search-option col-sm-8">
 							<input sName="type" type="text" placeholder="输入数据元中文类型"
 								class="form-control search-option col-sm-8">
