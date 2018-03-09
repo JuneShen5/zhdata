@@ -375,7 +375,7 @@ public class DbsController {
                 map.put("companyName", infoDetail.getCompanyName());
                 map.put("nameEn", infoDetail.getNameEn());
                 map.put("nameCn", infoDetail.getNameCn());
-                map.put("tbName", infoDetail.getTbName());
+               /* map.put("tbName", infoDetail.getTbName());*/
                 map.put("code", infoDetail.getCode());
                 map.put("isOpen", infoDetail.getIsOpen());
                 map.put("openType", infoDetail.getOpenType());

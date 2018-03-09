@@ -13,13 +13,13 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源名称：</label>
 		<div class="col-sm-7">
-			<input type="text" name="nameCn" class="form-control" placeholder="请输入信息资源名称" required>
+			<input type="text" name="nameCn" class="form-control" placeholder="请输入权责清单名称" required>
 		</div>
 	</div>
 
 	<c:set var="user" value="${fns:getCurrentUser()}" />
 		<div class="form-group">
-			<label class="col-sm-3 control-label">信息资源提供方：</label>
+			<label class="col-sm-3 control-label">所属部门：</label>
 			<c:choose>
 				<c:when test="${user.roleId==1}">
 					<div class="col-sm-7">
@@ -51,7 +51,14 @@
 	</div>
 	
 	<div class="form-group">
-		<label class="col-sm-3 control-label layerTips" data-tips-text="根据规则自动生成">信息资源代码：</label>
+		<label class="col-sm-3 control-label layerTips" data-tips-text="">所属处室：</label>
+		<div class="col-sm-7">
+			<input type="text" name="dept" class="form-control" required>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label layerTips" data-tips-text="">信息资源编码：</label>
 		<div class="col-sm-7">
 			<input type="text" name="nameEn" class="form-control" required>
 		</div>
@@ -66,14 +73,16 @@
 	<%@include file="/WEB-INF/views/include/autoForm.jsp"%>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源格式：</label>
-		<div class="col-sm-7 column-content">
-			<select name="resourceFormat" class="form-control is-multiple-select" multiple="multiple" required>
+		<div class="col-sm-7">
+			<select name="shareType" class="select-chosen" required>
+				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('resource_format')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select>
 		</div>
 	</div>
+	
 	<div class="form-group">
 		<label class="col-sm-3 control-label">共享类型：</label>
 		<div class="col-sm-7">
@@ -88,29 +97,19 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">共享条件：</label>
 		<div class="col-sm-7">
-			<input type="text" name="shareCondition" class="form-control" placeholder="有条件共享的，应注明共享条件和共享范围；不予共享的，注明相关法律、行政法规中央、国家政策">
+			<input type="text" name="shareCondition" class="form-control" placeholder="有条件共享的，应注明共享条件和共享范围；不予共享的，注明相关法律、行政法规中央、国家政策" required>
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">共享方式：</label>
 		<div class="col-sm-7">
-			<select name="shareMode" class="form-control is-multiple-select" multiple="multiple" >
-				<c:forEach var="dict" items="${fns:getDictList('share_mode')}">
-					<option value="${dict.value}">${dict.label}</option>
-				</c:forEach>
-			</select>
-		</div>
-	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">发布日期：</label>
-		<div class="col-sm-7">
-			<input type="text" name="releaseDate" class="form-control datepicker" placeholder="请选择发布日期" readonly="readonly">
+			<input type="text" name="shareMode" class="form-control" placeholder="">
 		</div>
 	</div>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">是否向社会开放：</label>
 		<div class="col-sm-7">
-			<select name="isOpen" class="select-chosen" required>
+			<select name="isOpen" class="select-chosen js-hasChild" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('yes_no')}">
 					<option value="${dict.value}">${dict.label}</option>
@@ -118,15 +117,10 @@
 			</select>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">开放类型：</label>
+	<div class="form-group ele-hide" data-parent="isOpen">
+		<label class="col-sm-3 control-label">开放条件：</label>
 		<div class="col-sm-7">
-			<select name="openType" class="select-chosen">
-					<option value=""></option>
-					<c:forEach var="dict" items="${fns:getDictList('open_type')}">
-						<option value="${dict.value}">${dict.label}</option>
-					</c:forEach>
-				</select>
+			<input type="text" name="openCondition" class="form-control" placeholder="">
 		</div>
 	</div>
 	
@@ -143,7 +137,7 @@
 		</div>
 	</div>
 	<div class="form-group ele-hide" data-parent="manageStyle">
-		<label class="col-sm-3 control-label">所属系统名称：</label>
+		<label class="col-sm-3 control-label">关联信息系统：</label>
 		<div class="col-sm-7">
 			<select name="systemId" class="select-chosen">
 				<option value=""></option>
@@ -153,14 +147,30 @@
 			</select>
 		</div>
 	</div>
+	
 	<div class="form-group">
-		<label class="col-sm-3 control-label">权属关系：</label>
-		<div class="col-sm-7 column-content">
-			<select name="rightRelation" class="form-control is-multiple-select" multiple="multiple" required>
-				<c:forEach var="dict" items="${fns:getDictList('right_relation')}">
+		<label class="col-sm-3 control-label">关联业务事项：</label>
+		<div class="col-sm-7">
+			<input type="text" name="matter" class="form-control" placeholder="">
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label">数据范围：</label>
+		<div class="col-sm-7">
+			<select name="range" class="select-chosen js-hasChild" required>
+				<option value=""></option>
+				<c:forEach var="dict" items="${fns:getDictList('data_range')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select>
+		</div>
+	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label">备注：</label>
+		<div class="col-sm-7">
+			<input type="text" name="remarks" class="form-control" placeholder="">
 		</div>
 	</div>
 	

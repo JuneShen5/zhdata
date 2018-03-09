@@ -56,7 +56,7 @@ public class DataController {
     @RequestMapping(value = "getDataOpen", method = RequestMethod.GET)
     public ResponseEntity<List<Information>> getDataOpen() {
         Information record = new Information();
-        record.setOpenType(1);
+       /* record.setOpenType(1);*/
         List<Information> infoList = infoService.queryListByWhere(record);
         return ResponseEntity.ok(infoList);
     }

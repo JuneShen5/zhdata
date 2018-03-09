@@ -32,13 +32,13 @@ public class Information extends BasePo<Information> {
 
     private String nameCn;
 
-    private String tbName;
+    //private String tbName;
 
     private Integer isOpen;// 是否向社会开放
 
-    private Integer openType;
+    private String openType;
 
-    private Integer shareType;
+    private Integer shareType; //共享类型
 
     private String shareMode;// 共享方式
 
@@ -58,11 +58,11 @@ public class Information extends BasePo<Information> {
 
     private String resourceFormat; // 信息资源格式
 
-    private String rightRelation; // 权属关系
+    //private String rightRelation; // 权属关系
 
     private Integer manageStyle; // 管理方式
 
-    private String releaseDate; // 发布日期
+    //private String releaseDate; // 发布日期
 
     @Transient
     private Integer isAuthorize; // 是否需要数据权限控制 0为否 1为是
@@ -89,6 +89,30 @@ public class Information extends BasePo<Information> {
         this.companyId = companyId;
     }
 
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public Integer getDepartId() {
+        return departId;
+    }
+
+    public void setDepartId(Integer departId) {
+        this.departId = departId;
+    }
+
+    public String getDepartName() {
+        return departName;
+    }
+
+    public void setDepartName(String departName) {
+        this.departName = departName;
+    }
+
     public Integer getSystemId() {
         return systemId;
     }
@@ -97,12 +121,12 @@ public class Information extends BasePo<Information> {
         this.systemId = systemId;
     }
 
-    public String getTbName() {
-        return tbName;
+    public String getSystemName() {
+        return systemName;
     }
 
-    public void setTbName(String tbName) {
-        this.tbName = tbName;
+    public void setSystemName(String systemName) {
+        this.systemName = systemName;
     }
 
     public String getNameEn() {
@@ -121,11 +145,19 @@ public class Information extends BasePo<Information> {
         this.nameCn = nameCn;
     }
 
-    public Integer getOpenType() {
+    public Integer getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(Integer isOpen) {
+        this.isOpen = isOpen;
+    }
+
+    public String getOpenType() {
         return openType;
     }
 
-    public void setOpenType(Integer openType) {
+    public void setOpenType(String openType) {
         this.openType = openType;
     }
 
@@ -135,6 +167,22 @@ public class Information extends BasePo<Information> {
 
     public void setShareType(Integer shareType) {
         this.shareType = shareType;
+    }
+
+    public String getShareMode() {
+        return shareMode;
+    }
+
+    public void setShareMode(String shareMode) {
+        this.shareMode = shareMode;
+    }
+
+    public String getShareCondition() {
+        return shareCondition;
+    }
+
+    public void setShareCondition(String shareCondition) {
+        this.shareCondition = shareCondition;
     }
 
     public Integer getInfoType1() {
@@ -169,20 +217,44 @@ public class Information extends BasePo<Information> {
         this.info = info;
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getCode() {
+        return code;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getSystemName() {
-        return systemName;
+    public String getReason() {
+        return reason;
     }
 
-    public void setSystemName(String systemName) {
-        this.systemName = systemName;
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public String getResourceFormat() {
+        return resourceFormat;
+    }
+
+    public void setResourceFormat(String resourceFormat) {
+        this.resourceFormat = resourceFormat;
+    }
+
+    public Integer getManageStyle() {
+        return manageStyle;
+    }
+
+    public void setManageStyle(Integer manageStyle) {
+        this.manageStyle = manageStyle;
+    }
+
+    public Integer getIsAuthorize() {
+        return isAuthorize;
+    }
+
+    public void setIsAuthorize(Integer isAuthorize) {
+        this.isAuthorize = isAuthorize;
     }
 
     public String getElementIds() {
@@ -201,14 +273,6 @@ public class Information extends BasePo<Information> {
         this.elementList = elementList;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public Integer getCount() {
         return count;
     }
@@ -217,108 +281,6 @@ public class Information extends BasePo<Information> {
         this.count = count;
     }
 
-    public Integer getIsOpen() {
-        return isOpen;
-    }
-
-    public void setIsOpen(Integer isOpen) {
-        this.isOpen = isOpen;
-    }
-
-    public String getReason() {
-        return reason;
-    }
-
-    public void setReason(String reason) {
-        this.reason = reason;
-    }
-
-    public Integer getIsAuthorize() {
-        return isAuthorize;
-    }
-
-    public void setIsAuthorize(Integer isAuthorize) {
-        this.isAuthorize = isAuthorize;
-    }
-
-    public String getShareMode() {
-        return shareMode;
-    }
-
-    public void setShareMode(String shareMode) {
-        this.shareMode = shareMode;
-    }
-
-    public String getShareCondition() {
-        return shareCondition;
-    }
-
-    public void setShareCondition(String shareCondition) {
-        this.shareCondition = shareCondition;
-    }
-
-    public String getResourceFormat() {
-        return resourceFormat;
-    }
-
-    public void setResourceFormat(String resourceFormat) {
-        this.resourceFormat = resourceFormat;
-    }
-
-    public String getRightRelation() {
-        return rightRelation;
-    }
-
-    public void setRightRelation(String rightRelation) {
-        this.rightRelation = rightRelation;
-    }
-
-    public Integer getManageStyle() {
-        return manageStyle;
-    }
-
-    public void setManageStyle(Integer manageStyle) {
-        this.manageStyle = manageStyle;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    @Override
-    public String toString() {
-        return "Information [companyId=" + companyId + ", companyName=" + companyName + ", departId="
-                + departId + ", departName=" + departName + ", systemId=" + systemId + ", systemName="
-                + systemName + ", nameEn=" + nameEn + ", nameCn=" + nameCn + ", tbName=" + tbName
-                + ", isOpen=" + isOpen + ", openType=" + openType + ", shareType=" + shareType
-                + ", shareMode=" + shareMode + ", shareCondition=" + shareCondition + ", infoType1="
-                + infoType1 + ", infoType2=" + infoType2 + ", isAudit=" + isAudit + ", info=" + info
-                + ", code=" + code + ", reason=" + reason + ", resourceFormat=" + resourceFormat
-                + ", rightRelation=" + rightRelation + ", manageStyle=" + manageStyle + ", releaseDate="
-                + releaseDate + ", isAuthorize=" + isAuthorize + ", elementIds=" + elementIds
-                + ", elementList=" + elementList + ", count=" + count + "]";
-    }
-
-    public Integer getDepartId() {
-        return departId;
-    }
-
-    public void setDepartId(Integer departId) {
-        this.departId = departId;
-    }
-
-    public String getDepartName() {
-        return departName;
-    }
-
-    public void setDepartName(String departName) {
-        this.departName = departName;
-    }
-    
-    
+   
 
 }

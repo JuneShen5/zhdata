@@ -550,7 +550,7 @@ public class StandardController {
                 map.put("remarks", s.getRemarks());
                 map.put("isAudit", s.getIsAudit());
                 map.put("systemId", s.getSystemId());
-                map.put("tbName", s.getTbName());
+               /* map.put("tbName", s.getTbName());*/
                 if(s.getIsAudit()==0){
                     map.put("auditName", "待审核");
                 }else{
