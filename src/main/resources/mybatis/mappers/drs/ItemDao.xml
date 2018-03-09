@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.govmade.zhdata.module.drs.dao.ItemDao">
+
+	<sql id="itemColumns">
+		a.id,
+		a.code,
+		a.type,
+		a.typen,
+		a.name,
+		a.len,
+		a.code_id AS "codeId",
+		a.create_by AS "createBy",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy",
+		a.update_date AS "updateDate",
+		a.remarks,
+		a.del_flag AS "delFlag"
+	</sql>
+
+    <sql id="itemJoins">
+    	<!-- LEFT JOIN sys_company c ON c.id = a.company_id -->
+	</sql>
+
+	<select id="queryAlList" resultType="Item">
+		SELECT
+		<include refid="itemColumns" />
+		FROM drs_item a
+		<include refid="itemJoins" />
+		WHERE a.del_flag = 0
+			<if test="item.name != null and item.name !=''" >
+				AND a.name LIKE CONCAT('%',#{item.name},'%')
+			</if>
+			<if test="item.code != null and item.code !=''" >
+				AND a.code LIKE CONCAT('%',#{item.code},'%')
+			</if>
+			<if test="item.type != null and item.type !=''" >
+				AND a.type LIKE CONCAT('%',#{item.type},'%')
+			</if>
+			<!-- <if test="item.typen != null and item.typen !=''" >
+				AND a.typen LIKE CONCAT('%',#{item.type},'%')
+			</if> -->
+		ORDER BY a.id DESC
+	</select>
+	
+	
+	
+</mapper>

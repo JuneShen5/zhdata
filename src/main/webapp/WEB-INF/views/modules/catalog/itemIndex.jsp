@@ -6,6 +6,11 @@
 <head>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 </head>
+<style>
+	.search-option {
+		margin-right: 28px;
+	}
+</style>
 <body class="white-bg skin-7">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="ibox float-e-margins">
@@ -14,8 +19,12 @@
 				<div id="toolbar">
 					<div class="form-inline">
 						<div class="form-group">
-							<input id="sName" sName="nameCn" type="text" placeholder="输入数据元名称"
-								class="form-control col-sm-8">
+							<input sName="code" type="text" placeholder="输入数据元编码"
+								class="form-control search-option col-sm-8">
+								<input sName="name" type="text" placeholder="输入数据元名称"
+								class="form-control search-option col-sm-8">
+							<input sName="type" type="text" placeholder="输入数据元中文类型"
+								class="form-control search-option col-sm-8">
 							<div class="input-group-btn col-sm-4">
 								<button type="button" id="searchFor"
 									onclick=" $('#elementTable').bootstrapTable('refresh');"
@@ -24,8 +33,8 @@
 						</div>
 						<div class="form-group">
 							<div class="text-center">
-								<a data-toggle="modal" class="btn btn-green"
-									onclick="openLayer('eform', 'layer_form');"><i class="fa fa-plus-square-o"></i> 新增</a>
+								<!-- <a data-toggle="modal" class="btn btn-green"
+									onclick="openLayer('eform', 'layer_form');"><i class="fa fa-plus-square-o"></i> 新增</a> -->
 								<button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
 							</div>
 						</div>
@@ -119,71 +128,6 @@
 					<input type="text" name="remarks" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
 				</div>
 			</div>
-			
-			
-			
-			
-			
-			<%-- <div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源">中文名称：</label>
-				<div class="col-sm-7">
-					<input type="text" name="nameCn" maxlength="50" class="form-control hasNoSpace" placeholder="描述信息资源中具体数据项的中文标题。适用于格式为数据库、电子表格类的信息资源" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="描述信息资源中具体数据项的英文标题">英文名称：</label>
-				<div class="col-sm-7">
-					<input type="text" name="nameEn" maxlength="50" class="form-control" placeholder="描述信息资源中具体数据项的英文标题" >
-				</div>
-			</div>
-			<div class="form-group">
-			    <label class="col-sm-3 control-label">数据类型：</label>
-			    <div class="col-sm-7">
-			        <select class="select-chosen" name="dataType" required>
-			            <option value=""></option>
-			            <c:forEach var="obj" items="${fns:getDictList('data_type')}">
-			                <option value="${obj.value}">${obj.label}</option>
-			            </c:forEach>
-			        </select>
-			    </div>
-			</div>
-
-			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="标明该数据元在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）。属于数据库类的，数据长度即该数据元对应的字段在数据库中的指定长度或默认长度；属于电子表格类的，估算该数据元内容字数的上限，并折算成字节数，该字节数即为数据长度">数据长度：</label> 
-				<div class="col-sm-7">
-					<input type="posNum" name="len" class="form-control" placeholder="标明该数据元在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）">
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label">值域：</label>
-				<div class="col-sm-7">
-					<select name="zhiyu" class="select-chosen-zhiyu" >
-						<option value=""></option>
-						<c:forEach var="codeSet" items="${fns:getList('zhiyu')}">
-							<option value="${codeSet.id}">${codeSet.pname}</option>
-						</c:forEach>
-					</select>
-        			<span class="col-sm-12 dt-span zhiyuziji"></span>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="对该数据元的定义">定义：</label>
-				<div class="col-sm-7">
-					<input type="text" name="definit" maxlength="50" class="form-control hasNoSpace" placeholder="对该数据元的内容进行简要描述" required>
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="数据元引用的标准来源">引用标准：</label>
-				<div class="col-sm-7">
-					<input type="text" name="standard" maxlength="50" class="form-control" placeholder="对数据元引用的标准来源的简要描述" >
-				</div>
-			</div>
-			<div class="form-group">
-				<label class="col-sm-3 control-label layerTips" data-tips-text="对该数据元的备注">备注：</label>
-				<div class="col-sm-7">
-					<input type="text" name="remarks" maxlength="50" class="form-control" placeholder="对该数据元的备注进行简要描述" >
-				</div>
-			</div> --%>
 		</form>
 	</div>
 
@@ -271,10 +215,10 @@
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 	var excelName = "数据元";
-	var url = '${ctx}/catalog/dataElement/';
+	var url = '${ctx}/catalog/item/';
 
 	$(function () {
-		oTable = new TableInit('elementTable', {url: 'list'});
+		oTable = new TableInit('elementTable', {url: url+'list'});
 		oTable.Init();
 		initFormValide('eform', 'save', 'elementTable');
 		// select-chosen-zhiyu
