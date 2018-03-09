@@ -37,9 +37,9 @@
 			<if test="item.type != null and tem.type !=''" >
 				AND a.type LIKE CONCAT('%',#{tem.type},'%')
 			</if>
-			<if test="item.typen != null and item.typen !=''" >
+			<!-- <if test="item.typen != null and item.typen !=''" >
 				AND a.typen LIKE CONCAT('%',#{item.type},'%')
-			</if>
+			</if> -->
 		ORDER BY a.id DESC
 	</select>
 	
