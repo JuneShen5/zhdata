@@ -8,6 +8,11 @@
 <link rel="stylesheet"
     href="${ctxStatic}/css/plugins/bootstrap-table/bootstrap-table.min.css">
 </head>
+<style>
+    .search-option {
+        margin-right: 28px;
+    }
+</style>
 <body class="white-bg skin-7">
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="ibox float-e-margins">
@@ -18,6 +23,8 @@
                         <div class="form-group">
                             <input id="" sName="pname" type="text" placeholder="输入代码集名称"
                                 class="form-control col-sm-8 search-option">
+                            <input id="" sName="pcode" type="text" placeholder="输入代码集编码"
+                                class="form-control col-sm-8 search-option">
                             <input id="" sName="pid" type="text" class="hide search-option" value=0>
                             <div class="input-group-btn col-sm-4">
                                 <button type="button" id="searchFor"
@@ -25,12 +32,12 @@
                                     class="btn btn-primary"><i class="fa fa-search"></i> 搜索</button>
                             </div>
                         </div>
-                        <div class="form-group" style="margin-left: 15px;">
+                        <!-- <div class="form-group" style="margin-left: 15px;">
                             <div class="text-center">
                                 <a data-toggle="modal" class="btn btn-green"
                                     onclick="openDictLayer();"><i class="fa fa-plus-square-o"></i> 新增</a>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <table id="dictTable">
