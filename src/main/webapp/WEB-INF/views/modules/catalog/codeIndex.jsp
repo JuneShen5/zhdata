@@ -342,9 +342,9 @@
         var startRow = "2,2"; //开始读取的行
         var exportForm='#exportForm';
        // var exportBox='#exportBox';
-        var url = '${ctx}/settings/codeSet/';
+        var url = '${ctx}/catalog/code/';
         var uploaderServer = "codeSet";
-        var templatFile = "codeSetTemplate.xlsx";
+        var templatFile = "codeTemplate.xlsx";
         var attributeType = "${type}"; //获取attribute的type值
         var rowInput = "#exportData input[name='obj']";
         var tableId;
