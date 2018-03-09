@@ -14,7 +14,7 @@
 				<div id="toolbar">
 					<div class="form-inline">
 						<div class="form-group">
-							<input id="sName" sName="nameCn" type="text" placeholder="输入数据元名称"
+							<input id="sName" sName="name" type="text" placeholder="输入数据元名称"
 								class="form-control col-sm-8">
 							<div class="input-group-btn col-sm-4">
 								<button type="button" id="searchFor"
@@ -271,10 +271,16 @@
 	<%@ include file="/WEB-INF/views/include/footer.jsp"%>
 	<script>
 	var excelName = "数据元";
-	var url = '${ctx}/catalog/dataElement/';
+	var url = '${ctx}/catalog/item/';
+	var obj = {
+			name : $('#sName').val(),
+			code : "",
+			type : "",
+			typen : ""
+		};
 
 	$(function () {
-		oTable = new TableInit('elementTable', {url: 'list'});
+		oTable = new TableInit('elementTable', {url: url+'list'});
 		oTable.Init();
 		initFormValide('eform', 'save', 'elementTable');
 		// select-chosen-zhiyu
