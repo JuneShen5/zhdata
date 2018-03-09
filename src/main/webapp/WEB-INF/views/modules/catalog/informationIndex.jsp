@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <div class="text-center">
                                 <a data-toggle="modal" class="btn btn-green"
-                                    onclick="openLayer('信息资源新增');getCode();"><i class="fa fa-plus-square-o"></i> 新增</a>
+                                    onclick="openLayer('信息资源新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
                                 <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                 <button class="btn btn-purple" type="button" onclick="importData(2);"><i class='fa fa-sign-in'></i> Excel导入</button>
                                 <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
@@ -906,7 +906,7 @@
             value=value.replace(/, /g, ",");
             $("#dictId").val(value);
         }
-        function getCode(){
+        /* function getCode(){
             $.ajax({
                 url: "${ctx}/catalog/information/getCode",
                 type: 'get',
@@ -915,7 +915,7 @@
                     $("input[name='nameEn']").blur();
                 }
             });
-        }
+        } */
         // 开放、共享表单事件绑定
         shareToggleMethod();
         
