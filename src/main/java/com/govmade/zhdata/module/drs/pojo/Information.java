@@ -28,11 +28,19 @@ public class Information extends BasePo<Information> {
     @Transient
     private String systemName;
     
+    private String dept;
+    
     private String nameEn; // 信息资源代码
 
     private String nameCn;
+    
+    private Integer infoType1;
 
-    //private String tbName;
+    private Integer infoType2;
+    
+    private String code;
+
+    private String resourceFormat; // 信息资源格式
 
     private Integer isOpen;// 是否向社会开放
 
@@ -44,23 +52,25 @@ public class Information extends BasePo<Information> {
 
     private String shareCondition;// 共享条件
 
-    private Integer infoType1;
-
-    private Integer infoType2;
-
+    private Integer manageStyle; // 管理方式
+    
+    private String matter;
+    
+    private Integer range;
+    
     private Integer isAudit;
+    
+    private Integer isCreated;
 
     private String info; // 信息资源属性
 
-    private String code; // 信息资源提供方代码
-
     private String reason; // 信息资源提供方代码
 
-    private String resourceFormat; // 信息资源格式
+
 
     //private String rightRelation; // 权属关系
 
-    private Integer manageStyle; // 管理方式
+ 
 
     //private String releaseDate; // 发布日期
 
@@ -280,6 +290,38 @@ public class Information extends BasePo<Information> {
     public void setCount(Integer count) {
         this.count = count;
     }
+
+	public String getDept() {
+		return dept;
+	}
+
+	public void setDept(String dept) {
+		this.dept = dept;
+	}
+
+	public String getMatter() {
+		return matter;
+	}
+
+	public void setMatter(String matter) {
+		this.matter = matter;
+	}
+
+	public Integer getRange() {
+		return range;
+	}
+
+	public void setRange(Integer range) {
+		this.range = range;
+	}
+
+	public Integer getIsCreated() {
+		return isCreated;
+	}
+
+	public void setIsCreated(Integer isCreated) {
+		this.isCreated = isCreated;
+	}
 
    
 

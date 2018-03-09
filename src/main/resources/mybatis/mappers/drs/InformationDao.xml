@@ -4,29 +4,30 @@
 
 	<resultMap id="informationResult" type="Information">
         <id property="id" column="id" />
-        <result property="companyName" column="companyName" />
         <result property="companyId" column="companyId" />
+        <result property="companyName" column="companyName" />       
          <result property="departId" column="departId" />
-         <result property="departName" column="departName" />
+         <result property="departName" column="departName" />         
 		<result property="systemId" column="systemId" />
+		<result property="dept" column="dept" />
 		<result property="nameEn" column="nameEn" />
 		<result property="nameCn" column="nameCn" />
+		<result property="infoType1" column="infoType1" />
+        <result property="infoType2" column="infoType2" />
 		<result property="code" column="code" />
+		<result property="resourceFormat" column="resourceFormat" />	
 		<result property="isOpen" column="isOpen" />
         <result property="openType" column="openType" />
         <result property="shareType" column="shareType" />
         <result property="shareMode" column="shareMode" />
         <result property="shareCondition" column="shareCondition" />
-		<result property="infoType1" column="infoType1" />
-        <result property="infoType2" column="infoType2" />
-		<result property="isAudit" column="isAudit" />
-		<result property="reason" column="reason" />
-		<result property="tbName" column="tbName" />
-		<result property="resourceFormat" column="resourceFormat" />
-		<result property="rightRelation" column="rightRelation" />
 		<result property="manageStyle" column="manageStyle" />
-		<result property="releaseDate" column="releaseDate" />
-        <result property="info" column="info" />
+		<result property="matter" column="matter" />
+		<result property="range" column="range" />
+		<result property="isAudit" column="isAudit" />
+		<result property="isCreated" column="isCreated" />
+		<result property="info" column="info" />		
+		<result property="reason" column="reason" />
         <result property="remarks" column="remarks" />
         <collection property="elementList" ofType="Element">
             <id property="id" column="elementList.id" />
@@ -61,24 +62,25 @@
 		a.company_id AS "companyId",
 		a.depart_id AS "departId",
 		a.system_id AS "systemId",
+		a.dept,
 		a.name_en AS "nameEn",
 		a.name_cn AS "nameCn",
+		a.info_type1 AS "infoType1",
+		a.info_type2 AS	"infoType2",
 		a.code,
+		a.resource_format AS "resourceFormat",
 		a.is_open AS "isOpen",
 		a.open_type AS "openType",
 		a.share_type AS "shareType",
 		a.share_mode AS "shareMode",
 		a.share_condition AS "shareCondition",
-		a.info_type1 AS "infoType1",
-		a.info_type2 AS	"infoType2",
-		a.is_audit AS "isAudit",
-		a.tb_name AS "tbName",
-		a.reason,
-		a.resource_format AS "resourceFormat",
-		a.right_relation AS "rightRelation",
 		a.manage_style AS "manageStyle",
-		a.release_date AS "releaseDate",
+		a.matter,
+		a.range,
+		a.is_audit AS "isAudit",
+		a.is_created AS "isCreated",
 		JSON_UNQUOTE(a.info) as "info",
+		a.reason,				
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy",
