@@ -12,6 +12,9 @@
     .search-option {
         margin-right: 28px;
     }
+    #dictTable td {
+        height: 66px;
+    }
 </style>
 <body class="white-bg skin-7">
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -47,7 +50,7 @@
                             <th data-field="pcode">代码集编码</th>
                             <th data-field="pname">代码级名称</th>
                             <!-- <th data-field="codeName">代码级名称</th> -->
-                            <th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
+                            <!-- <th data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th> -->
                         </tr>
                     </thead>
                 </table>
