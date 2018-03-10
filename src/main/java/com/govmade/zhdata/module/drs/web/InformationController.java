@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.util.HSSFColor.GOLD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -140,7 +139,7 @@ public class InformationController extends BaseController<Information>{
                 map.put("departName", s.getDepartName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
-            /*    map.put("tbName", s.getTbName());*/
+                map.put("dept", s.getDept());
                 map.put("code", s.getCode());
                 map.put("isOpen", s.getIsOpen());
                 map.put("openType", s.getOpenType());
@@ -154,9 +153,9 @@ public class InformationController extends BaseController<Information>{
                 map.put("systemId", s.getSystemId());
                 map.put("reason", s.getReason());
                 map.put("resourceFormat", s.getResourceFormat());
-            /*    map.put("rightRelation", s.getRightRelation());*/
+                map.put("matter", s.getMatter());
                 map.put("manageStyle", s.getManageStyle());
-//                map.put("releaseDate", s.getReleaseDate());
+                map.put("range", s.getRange());
                 switch (s.getIsAudit()) {
                 case 0:
                     map.put("auditName", "未发布");
@@ -235,10 +234,10 @@ public class InformationController extends BaseController<Information>{
                         || paramName.trim().equals("nameEn") || paramName.trim().equals("nameCn") ||paramName.trim().equals("systemId")
                         || paramName.trim().equals("elementIds") || paramName.trim().equals("isOpen")|| paramName.trim().equals("openType")
                         || paramName.trim().equals("shareType")|| paramName.trim().equals("shareMode")|| paramName.trim().equals("shareCondition")
-                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("reason")
-                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("rightRelation")
-                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("releaseDate")
-                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("tbName")||paramName.trim().equals("code"))) {
+                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("info_type2")
+                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("departId")||paramName.trim().equals("dept")
+                        ||paramName.trim().equals("isCreated")||paramName.trim().equals("matter")|| paramName.trim().equals("reason")
+                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("range")||paramName.trim().equals("code"))) {
                     infos += "\"" + paramName + "\":\"" + paramValue + "\",";
                 }
             }

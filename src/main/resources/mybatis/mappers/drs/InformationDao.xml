@@ -31,11 +31,11 @@
         <result property="remarks" column="remarks" />
         <collection property="elementList" ofType="Element">
             <id property="id" column="elementList.id" />
-            <result property="idCode" column="elementList.idCode" />
+           <!--  <result property="idCode" column="elementList.idCode" /> -->
             <result property="nameCn" column="elementList.nameCn" />           
              <result property="infoId" column="elementList.infoId" />
              <result property="itemId" column="elementList.itemId" />
-            <result property="dataTypeName" column="elementList.dataTypeName" />
+           <!--  <result property="dataTypeName" column="elementList.dataTypeName" /> -->
             <result property="remarks" column="elementList.remarks" />
             <result property="companyName" column="elementList.companyName" />
             <result property="companyId" column="elementList.companyId" />
@@ -228,8 +228,8 @@
         e.item_id AS "elementList.itemId",
         e.remarks AS "elementList.remarks",
         c1.name AS "elementList.companyName",
-        e.company_id AS "elementList.companyId",
-        d.label AS "elementList.dataTypeName"
+        e.company_id AS "elementList.companyId"
+        <!-- d.label AS "elementList.dataTypeName" -->
         FROM (SELECT i.* FROM drs_information i
         LEFT JOIN sys_company c ON c.id = i.company_id
         WHERE
@@ -288,7 +288,7 @@
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
         LEFT JOIN sys_company co ON co.id = a.depart_id
-        LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
+       <!--  LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value` -->
         ORDER BY a.id DESC
     </select>
 	
