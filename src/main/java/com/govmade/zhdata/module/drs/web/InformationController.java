@@ -342,7 +342,7 @@ public class InformationController extends BaseController<Information>{
         for (Element e : elementList) {
             // if (e.getIsShow() == 1) {
             Map<String, Object> map = Maps.newHashMap();
-            map.put("nameEn", e.getNameEn());
+            //map.put("nameEn", e.getNameEn());
             map.put("nameCn", e.getNameCn());
             // map.put("inputType", e.getInputType());
             // map.put("dict", e.getDict());
@@ -368,7 +368,7 @@ public class InformationController extends BaseController<Information>{
 
         for (Element e : elementList) {
             Map<String, Object> map = Maps.newHashMap();
-            map.put("nameEn", e.getNameEn());
+            //map.put("nameEn", e.getNameEn());
             map.put("nameCn", e.getNameCn());
             mapList.add(map);
         }

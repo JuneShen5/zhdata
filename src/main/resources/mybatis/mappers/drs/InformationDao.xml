@@ -32,26 +32,11 @@
         <collection property="elementList" ofType="Element">
             <id property="id" column="elementList.id" />
             <result property="idCode" column="elementList.idCode" />
-            <result property="nameCn" column="elementList.nameCn" />
-            <result property="nameEn" column="elementList.nameEn" />
-             <result property="code" column="elementList.code" />
-             <result property="des" column="elementList.des" />
-            <result property="label" column="elementList.label" />
-            <result property="len" column="elementList.len" />
-            <result property="objectType" column="elementList.objectType" />
-            <result property="dataLabel" column="elementList.dataLabel" />
-            <result property="isDict" column="elementList.isDict" />
-            <result property="shareType" column="elementList.shareType" />
-            <result property="shareCondition" column="elementList.shareCondition" />
-            <result property="shareMode" column="elementList.shareMode" />
-            <result property="isOpen" column="elementList.isOpen" />
-            <result property="openType" column="elementList.openType" />
-            <result property="updateCycle" column="elementList.updateCycle" />
-            <result property="dataType" column="elementList.dataType" />
-             <result property="dataTypen" column="elementList.dataTypen" />
+            <result property="nameCn" column="elementList.nameCn" />           
+             <result property="infoId" column="elementList.infoId" />
+             <result property="itemId" column="elementList.itemId" />
             <result property="dataTypeName" column="elementList.dataTypeName" />
             <result property="remarks" column="elementList.remarks" />
-            <result property="sort" column="elementList.sort" />
             <result property="companyName" column="elementList.companyName" />
             <result property="companyId" column="elementList.companyId" />
         </collection>
@@ -239,22 +224,9 @@
         e.id AS "elementList.id",
         LPAD(e.id,7,'0') AS "elementList.idCode",
         e.name_cn AS "elementList.nameCn",
-        e.name_en AS "elementList.nameEn",
-        e.label AS "elementList.label",
-        e.len AS "elementList.len",
-        e.object_type AS "elementList.objectType",
-        e.data_label AS "elementList.dataLabel",
-        e.is_dict AS "elementList.isDict",
-        e.share_type AS "elementList.shareType",
-        e.share_condition AS "elementList.shareCondition",
-        e.share_mode AS "elementList.shareMode",
-        e.is_open AS "elementList.isOpen",
-        e.open_type AS "elementList.openType",
-        e.update_cycle AS "elementList.updateCycle",
-        e.data_type AS "elementList.dataType",
-        e.data_typen AS "elementList.dataTypen",
+        e.info_id AS "elementList.infoId",
+        e.item_id AS "elementList.itemId",
         e.remarks AS "elementList.remarks",
-        e.sort AS "elementList.sort",
         c1.name AS "elementList.companyName",
         e.company_id AS "elementList.companyId",
         d.label AS "elementList.dataTypeName"
@@ -341,23 +313,9 @@
 		e.id AS "elementList.id",
 		LPAD(e.id,7,'0') as "elementList.idCode",
 		e.name_cn AS "elementList.nameCn",
-		e.name_en AS "elementList.nameEn",
-		e.source AS "elementList.source",
-		e.label AS "elementList.label",
-		e.len AS "elementList.len",
-		e.object_type AS "elementList.objectType",
-        e.data_label AS "elementList.dataLabel",
-        e.is_dict AS "elementList.isDict",
-        e.share_type AS "elementList.shareType",
-        e.share_condition AS "elementList.shareCondition",
-        e.share_mode AS "elementList.shareMode",
-        e.is_open AS "elementList.isOpen",
-        e.open_type AS "elementList.openType",
-        e.update_cycle AS "elementList.updateCycle",
-		e.data_type AS "elementList.dataType",
-		e.data_typen AS "elementList.dataTypen",
+		e.info_id AS "elementList.infoId",
+		e.item_id AS "elementList.itemId",
 		e.remarks AS "elementList.remarks",
-		e.sort AS "elementList.sort",
 		e.company_id AS "elementList.companyId"
 		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id} order by id) ie
 		LEFT JOIN drs_information a ON ie.info_id = a.id
@@ -377,9 +335,7 @@
 		SELECT 
 		e.id,
 		LPAD(e.id,7,'0') AS "idCode",
-		e.name_en AS "nameEn",
 		e.name_cn AS "nameCn",
-		e.label AS "elementList.label"
 		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id}) ie LEFT JOIN  drs_element e ON e.id = ie.element_id
 	</select>
 	
