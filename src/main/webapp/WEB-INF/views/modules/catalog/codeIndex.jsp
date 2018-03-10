@@ -13,7 +13,7 @@
         margin-right: 28px;
     }
     #dictTable td {
-        height: 66px;
+        height: 55px;
     }
 </style>
 <body class="white-bg skin-7">
@@ -24,9 +24,9 @@
                 <div id="toolbar">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input id="" sName="pname" type="text" placeholder="输入代码集名称"
-                                class="form-control col-sm-8 search-option">
                             <input id="" sName="pcode" type="text" placeholder="输入代码集编码"
+                                class="form-control col-sm-8 search-option">
+                            <input id="" sName="pname" type="text" placeholder="输入代码集名称"
                                 class="form-control col-sm-8 search-option">
                             <input id="" sName="pid" type="text" class="hide search-option" value=0>
                             <div class="input-group-btn col-sm-4">

@@ -23,7 +23,7 @@
 								class="form-control search-option col-sm-8">
 								<input sName="name" type="text" placeholder="输入数据元名称"
 								class="form-control search-option col-sm-8">
-							<input sName="type" type="text" placeholder="输入数据元中文类型"
+							<input sName="type" type="text" placeholder="输入数据元类别"
 								class="form-control search-option col-sm-8">
 							<div class="input-group-btn col-sm-4">
 								<button type="button" id="searchFor"

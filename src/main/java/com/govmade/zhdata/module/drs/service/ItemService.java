@@ -26,7 +26,9 @@ public class ItemService extends BaseService<Item> {
         Item item = JsonUtil.readValue(page.getObj(), Item.class);
             try {
                 String name = new String(item.getName().toString().getBytes("ISO-8859-1"), "UTF-8");
+                String type = new String(item.getType().toString().getBytes("ISO-8859-1"), "UTF-8");
                 item.setName(name);
+                item.setType(type);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
         }
