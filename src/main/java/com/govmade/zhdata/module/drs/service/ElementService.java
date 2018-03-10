@@ -212,4 +212,18 @@ public class ElementService extends BaseService<Element> {
         return elementDao.findAll(element);
     }
 
+    public PageInfo<Element> queryAlList(Page<Element> page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        Element element = JsonUtil.readValue(page.getObj(), Element.class);
+            try {
+                String nameCn = new String(element.getNameCn().toString().getBytes("ISO-8859-1"), "UTF-8");
+                element.setNameCn(nameCn);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+        }
+        
+        List<Element> list=elementDao.queryAlList(element);    
+        return new PageInfo<Element>(list);
+    }
+
 }

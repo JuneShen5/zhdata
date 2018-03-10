@@ -98,17 +98,6 @@
 			<if test="element.dataType != null and element.dataType !=''" >
 				AND a.data_type = #{element.dataType}
 			</if>
-<!-- 			<if test="element.objectType != null and element.objectType !=0" >
-				and a.object_type LIKE CONCAT('%',#{element.objectType},'%')
-			</if> 
-			
- -->		<!-- <foreach collection="page.params" index="key" item="value" separator="" >
-	            <if test="value != null and value !=''" >
-	                <if test="key=='companyId'" >
-	                    and company_id = '${value}'
-	                </if>
-	            </if>
-	        </foreach> -->
  		ORDER BY #{page.params.orderByClause} 
  		
 	</select>
@@ -236,5 +225,13 @@
         </foreach>
 	</delete>
 	
+	
+	<select id="queryAlList">
+		SELECT a.*,i.`name`,i.type,i.len ,c.`name` 
+		FROM drs_element a
+		LEFT JOIN drs_item i ON i.id=a.item_id AND i.del_flag=0
+		LEFT JOIN sys_company c ON c.id=a.company_id AND c.del_flag=0
+		WHERE a.del_flag=0
+	</select>
 	
 </mapper>

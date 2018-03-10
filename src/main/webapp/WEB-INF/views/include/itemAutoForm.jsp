@@ -9,13 +9,13 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">数据元类别-中文：</label>
+		<label class="col-sm-3 control-label">数据元类别：</label>
 		<div class="col-sm-7">
 			<input type="text" name="type" class="form-control" placeholder="描述信息资源中具体数据项（数据元）的中文标题" required>
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">数据元类型-英文：</label>
+		<label class="col-sm-3 control-label">数据元类型：</label>
 		<div class="col-sm-7">
 			<input type="text" name="typen" class="form-control" placeholder="描述信息资源中具体信息项的英文标题" required>
 		</div>
