@@ -993,8 +993,11 @@
             $('#eform input,#eform select').each(function (index, row) {
                 data[$(this).attr('name')] = $(this).val();
             });
-            data.elementList = dataEles;
-            console.log(data);
+            data.elementList = [];
+            $.each(dataEles, function (index, eleItem) {
+                data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
+            });
+            delete data.elementIds;
             if ($('#eform').valid()) {
                 $.ajax({
                     url: url + 'save',
@@ -1016,6 +1019,8 @@
                     },
                     resetForm : true
                 });
+            } else {
+                layer.msg('有未填写的必填字段，请检查！');
             }
         }
         
