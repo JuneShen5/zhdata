@@ -4,11 +4,11 @@
 
 	<sql id="elementColumns">
 		a.id,
-		LPAD(a.id,7,'0') as "idCode", 
+		<!-- LPAD(a.id,7,'0') as "idCode",  -->
 		a.name_cn AS "nameCn",	
 		a.company_id AS "companyId",
-		a.infoId,
-		a.itemId,
+		a.info_id AS "infoId",
+		a.item_id AS "itemId",
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy",
@@ -16,6 +16,16 @@
 		a.remarks,
 		a.del_flag AS "delFlag",
 		c.name AS "companyName"
+	</sql>
+	
+	<sql id="itemColumns">
+		i.name AS "name",
+		i.code AS "code",
+		i.type AS "type",
+		i.typen AS "typen",
+		i.len AS "len",
+		i.des AS "des"
+		
 	</sql>
 
     <sql id="elementJoins">
@@ -215,12 +225,21 @@
 	</delete>
 	
 	
-	<select id="queryAlList">
-		SELECT a.*,i.`name`,i.type,i.len ,c.`name` 
+	<select id="queryAlList" resultType="Element">
+		SELECT 
+		<include refid="elementColumns" />,
+		<include refid="itemColumns" />
 		FROM drs_element a
 		LEFT JOIN drs_item i ON i.id=a.item_id AND i.del_flag=0
 		LEFT JOIN sys_company c ON c.id=a.company_id AND c.del_flag=0
 		WHERE a.del_flag=0
+			<if test="element.nameCn != null and element.nameCn !=''" >
+				AND a.name_cn LIKE CONCAT('%',#{element.nameCn},'%')
+			</if>
+			<if test="element.companyId != null and element.companyId !=''" >
+				AND a.company_id = #{element.companyId}
+			</if>
+		ORDER BY a.id DESC
 	</select>
 	
 </mapper>

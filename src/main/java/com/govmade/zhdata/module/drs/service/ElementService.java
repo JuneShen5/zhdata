@@ -139,15 +139,15 @@ public class ElementService extends BaseService<Element> {
         for(Map<String,String> infoMap :dataList){
             Map<String,String>  relationMap = new HashMap<String,String>();
             Element element = new Element();
-            element.setCode(infoMap.get("code"));
+          /*  element.setCode(infoMap.get("code"));*/
             element.setNameCn(infoMap.get("name_cn"));
-            element.setNameEn(infoMap.get("name_en"));
+           /* element.setNameEn(infoMap.get("name_en"));
             element.setDes(infoMap.get("des"));
             element.setDataType(Integer.valueOf(infoMap.get("data_type")));
-            element.setLen(infoMap.get("len"));
+            element.setLen(infoMap.get("len"));*/
             element.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
-            element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
-            element.setObjectType(Integer.valueOf(infoMap.get("object_type")));
+            /*element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
+            element.setObjectType(Integer.valueOf(infoMap.get("object_type")));*/
             Integer isSave = saveSelective(element);
             if(isSave == 1){
                 relationMap.put("element_id", String.valueOf(element.getId()));
@@ -167,7 +167,7 @@ public class ElementService extends BaseService<Element> {
             Map<String, Object> map1=Maps.newHashMap();
             map1.put("id",e.getId());
             map1.put("nameCn", e.getNameCn());
-            map1.put("infoCount", e.getCount());
+           /* map1.put("infoCount", e.getCount());*/
             List<Information> infors=this.informationDao.queryCompCount(e.getId());   
             map1.put("compCount", infors.size());
             maps.add(map1);
