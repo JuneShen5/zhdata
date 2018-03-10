@@ -58,8 +58,9 @@
 							<th data-checkbox="true"></th>
 							<th data-field="idCode">内部标识符</th>
 							<th data-field="nameCn">信息项名称</th>
-							<th data-field="dataTypeName">数据类型</th>
-							<th data-field="len">数据长度</th>
+							<th data-field="name">数据元名称</th>
+							<th data-field="type">数据元类别</th>
+							<th data-field="len">信息元长度</th>
 							<!-- <th data-field="companyName">来源部门</th> -->
 							<th data-width="230px" data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
 						</tr>

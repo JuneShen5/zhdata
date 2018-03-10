@@ -51,12 +51,9 @@ public class ElementController extends BaseController<Element>{
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<Page<Element>> list(Page<Element> page) {
         try {
-        	
-            PageInfo<Element> pageInfo = this.elementService.findList(page);
+                
+            PageInfo<Element> pageInfo = this.elementService.queryAlList(page);
             List<Element> elementList = pageInfo.getList();
-           /* if (elementList.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
-            }*/
             Page<Element> resPage = new Page<Element>();
             resPage.setTotal(pageInfo.getTotal());
             resPage.setRows(elementList);
@@ -67,6 +64,26 @@ public class ElementController extends BaseController<Element>{
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
+    
+   /* @RequestMapping(value = "list", method = RequestMethod.GET)
+    public ResponseEntity<Page<Element>> list(Page<Element> page) {
+        try {
+        	
+            PageInfo<Element> pageInfo = this.elementService.findList(page);
+            List<Element> elementList = pageInfo.getList();
+            if (elementList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+            }
+            Page<Element> resPage = new Page<Element>();
+            resPage.setTotal(pageInfo.getTotal());
+            resPage.setRows(elementList);
+
+            return ResponseEntity.ok(resPage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+    }*/
 
     
     /**
