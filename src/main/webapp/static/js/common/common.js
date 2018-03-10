@@ -202,14 +202,16 @@ function openLayer(title) {
 		zIndex : 100,
 		btn : [ '保存', '关闭' ],
 		yes : function(index, layero) {
-			if(title=="信息资源新增"||title=="信息资源修改"){
-				//将数据加到elementList
-				addElementList();
-			}
 			if (jsjfly.val() == textVal) {
 				jsjfly.val("")
 			};
-			$(formId).submit();
+			if(title=="信息资源新增"||title=="信息资源修改"){
+				//将数据加到elementList
+				addElementList();
+				informationSubmit();
+			} else {
+				$(formId).submit();
+			}
 		},
 		end : function() {
 			$(formId).resetForm();
@@ -307,7 +309,9 @@ $(function () {
                 $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
             });
         	$(formId).ajaxSubmit({
-    			url : url + 'save',
+				url : url + 'save',
+				// contentType: "application/json; charset=utf-8",
+				// dataType: "json",
     			type : 'post',
     			success : function(data){
     				layer.close(layeForm);

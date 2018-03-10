@@ -269,6 +269,7 @@
         var flag=false;
         var checkedIds = ",";
         var dataEles = new Array();//存放选中的数据元
+        var currEditEleRow = 0;
         </script>
         <script src="${ctxStatic}/js/common/common.js"></script>
         <script>
@@ -428,17 +429,6 @@
                 return;
             }
             console.log("id: ", id);
-//            var ids = id;
-            /*$.ajax({
-                url: url + 'setAudit',
-                type: 'post',
-                data: {ids: ids},
-                dataType: 'json',
-                success: function (res) {
-                    layer.msg("通过审核!")
-                    $(tableId).bootstrapTable('refresh');
-                }
-            })*/
             $("input[name=code]").closest(".form-group").show();
             var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
             var layerIndex = layer.open({
@@ -747,13 +737,9 @@
         // 修改信息项表单
         function elementEditRow(id) {
             var row;
-            if(flag==false){
-                row = $(elementTableId).bootstrapTable('getRowByUniqueId', id);
-                $('#eleForm').show();
-            }else{
-                row = $(elementTableId2).bootstrapTable('getRowByUniqueId', id);
-                $('#eleForm').hide();
-            }
+            row = $(elementTableId).bootstrapTable('getRowByUniqueId', id);
+            currEditEleRow = row.itemIndex;
+            $('#eleForm').show();
             mOpenDetail($(elementLayerId),$(elementFormId),'edit');
             // loadData(row);
             row.companyName = $(formId).find('[name=companyName]').val();
@@ -770,11 +756,8 @@
             $(elementFormId).validate({
                 ignore: ":disabled",
                 submitHandler: function(form){
-                    dataEles.nameCn = $(elementFormId).find('[name=nameCn]').val();
-                    $(elementTableId).bootstrapTable('refreshOptions',{
-                        data:dataEles,
-                        totalRows:dataEles.length
-                    });
+                    dataEles[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
+                    $(elementTableId).bootstrapTable('load',dataEles);
                     layer.close(layeForm4);
                     return false;
                 }
@@ -829,9 +812,8 @@
                     + row.id
                     + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             html += '<button type="button" class="btn btn-white" onclick="elementEditRow(\''
-                    + row.id
-                    + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
-            html += '<button type="button" class="btn btn-white" onclick="elementDatailRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
+            html += '<button type="button" class="btn btn-white" onclick="elementDeleteRow(\''
                     + row.id
                     + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             return html;
@@ -955,8 +937,11 @@
                 btn : [ '保存', '关闭' ],
                 yes : function(index, layero) {
                     $.each(dataEles, function (index, dataItem) {
+                        console.log('index:'+index);
+                        dataItem.itemIndex = index;
                         dataItem.nameCn = dataItem.name;
                     });
+                    console.log(dataEles);
                     $(elementTableId).bootstrapTable('refreshOptions',{
                         data:dataEles,
                         totalRows:dataEles.length
@@ -1001,9 +986,38 @@
             });
 
         } */
-        // 开放、共享表单事件绑定
-        shareToggleMethod();
 
+        // 信息资源提交（参数格式化）
+        function informationSubmit() {
+            var data = {};
+            $('#eform input,#eform select').each(function (index, row) {
+                data[$(this).attr('name')] = $(this).val();
+            });
+            data.elementList = dataEles;
+            console.log(data);
+            if ($('#eform').valid()) {
+                $.ajax({
+                    url: url + 'save',
+                    contentType: "application/json; charset=utf-8", 
+                    dataType: "json",    
+                    type: 'post',
+                    data: JSON.stringify(data),
+                    success : function(data){
+                        layer.close(layeForm);
+                        $(tableId).bootstrapTable('refresh');
+                        layer.msg(data);
+                        endMethod(formId);
+                    },
+                    error : function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.close(layeForm);
+                        $(tableId).bootstrapTable('refresh');
+                        layer.msg("数据操作失败!");
+                        endMethod(formId);
+                    },
+                    resetForm : true
+                });
+            }
+        }
         
         // 信息资源格式的值写死成数据库
         //$("input[name=xinxiziyuangeshi]").val("数据库");
