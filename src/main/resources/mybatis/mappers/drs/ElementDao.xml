@@ -5,33 +5,10 @@
 	<sql id="elementColumns">
 		a.id,
 		LPAD(a.id,7,'0') as "idCode", 
-		<!-- a.open_type AS "openType",
-		a.share_type AS "shareType", -->
-		a.code,
-		a.des,
-		a.name_cn AS "nameCn",
-		a.name_en AS "nameEn",
-		a.data_type AS "dataType",
-		a.data_typen AS "dataTypen",
-		<!--a.input_type AS "inputType",
-		a.search_type AS "searchType", -->
-		a.len,
-		a.label,		
-		<!-- a.source,
-		a.is_show AS "isShow", -->
-		a.sort,
-		<!-- a.dict, -->
+		a.name_cn AS "nameCn",	
 		a.company_id AS "companyId",
-		a.object_type AS "objectType",
-		a.data_label AS "dataLabel",
-		a.is_dict AS "isDict",
-		a.share_type AS "shareType",
-		a.share_condition AS "shareCondition",
-		a.share_mode AS "shareMode",
-		a.is_open AS "isOpen",
-		a.open_type AS "openType",
-		a.update_cycle AS "updateCycle",
-		a.to_pool AS "toPool",
+		a.infoId,
+		a.itemId,
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy",
@@ -92,12 +69,12 @@
 			<if test="element.companyId != null and element.companyId !=''" >
 				AND a.company_id = #{element.companyId}
 			</if>
-			<if test="element.toPool != null" >
+			<!-- <if test="element.toPool != null" >
 				AND a.to_pool = #{element.toPool}
-			</if>
-			<if test="element.dataType != null and element.dataType !=''" >
+			</if> -->
+			<!-- <if test="element.dataType != null and element.dataType !=''" >
 				AND a.data_type = #{element.dataType}
-			</if>
+			</if> -->
 <!-- 			<if test="element.objectType != null and element.objectType !=0" >
 				and a.object_type LIKE CONCAT('%',#{element.objectType},'%')
 			</if> 
