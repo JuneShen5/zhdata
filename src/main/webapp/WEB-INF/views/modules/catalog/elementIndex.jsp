@@ -27,12 +27,12 @@
 						</div>
 						<div class="form-group">
 							<div class="text-center">
-								<a data-toggle="modal" class="btn btn-green"
+								<!-- <a data-toggle="modal" class="btn btn-green"
 									onclick="openLayer('信息项新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
 								<button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-								<button class="btn btn-purple" type="button" onclick="importData(3);"><i class='fa fa-sign-in'></i> Excel导入</button>
+								<button class="btn btn-purple" type="button" onclick="importData(3);"><i class='fa fa-sign-in'></i> Excel导入</button> -->
 								<button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
-								<button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button>
+							<!-- 	<button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button> -->
 							</div>
 						</div>
 					</div>
@@ -56,12 +56,12 @@
 					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
-							<th data-field="idCode">内部标识符</th>
+							<!-- <th data-field="idCode">内部标识符</th> -->
 							<th data-field="nameCn">信息项名称</th>
 							<th data-field="name">数据元名称</th>
 							<th data-field="type">数据元类别</th>
-							<th data-field="len">信息元长度</th>
-							<!-- <th data-field="companyName">来源部门</th> -->
+							<th data-field="len">数据元长度</th>
+							<th data-field="companyName">所属部门</th>
 							<th data-width="230px" data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
@@ -73,7 +73,7 @@
 	<div id="layer_form" style="display:none" class="ibox-content">
 		<form id="eform" class="form-horizontal">
 			<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
-			
+			<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
 		</form>
 	</div>
 	<c:set var="type" value="3" />

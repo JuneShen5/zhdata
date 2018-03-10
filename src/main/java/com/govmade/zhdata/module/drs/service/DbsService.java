@@ -181,7 +181,7 @@ public class DbsService extends BaseService<Dbs> {
 		if (element.getId() == null) {
     		if (this.elementService.saveSelective(element) > 0) {
     			Columns columns = new Columns();
-        		columns.setId(element.getColId());
+        		/*columns.setId(element.getColId());*/
         		columns.setEleId(element.getId());
         		this.columnsService.updateSelective(columns);
     		}

@@ -67,7 +67,7 @@ public class ElementController extends BaseController<Element>{
     
    /* @RequestMapping(value = "list", method = RequestMethod.GET)
     public ResponseEntity<Page<Element>> list(Page<Element> page) {
-        try {
+        try { 
         	
             PageInfo<Element> pageInfo = this.elementService.findList(page);
             List<Element> elementList = pageInfo.getList();

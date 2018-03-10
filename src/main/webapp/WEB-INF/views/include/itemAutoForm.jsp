@@ -33,7 +33,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">信息项描述说明：</label>
+		<label class="col-sm-3 control-label">数据元说明：</label>
 		<div class="col-sm-7">
 			<input type="text" name="des" class="form-control" placeholder="对该信息项的内容进行简要描述" required>
 		</div>

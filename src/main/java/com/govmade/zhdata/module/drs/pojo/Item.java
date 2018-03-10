@@ -21,6 +21,8 @@ public class Item extends BasePo<Item> {
 
     private Integer codeId;
     
+    private String des;
+    
 
     public String getCode() {
         return code;
@@ -69,6 +71,14 @@ public class Item extends BasePo<Item> {
 
     public void setCodeId(Integer codeId) {
         this.codeId = codeId;
+    }
+
+    public String getDes() {
+        return des;
+    }
+
+    public void setDes(String des) {
+        this.des = des;
     }
 
     
