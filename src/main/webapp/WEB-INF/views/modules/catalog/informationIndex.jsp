@@ -342,7 +342,7 @@
                     + row.id + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             // 审核功能按钮
             if (row.isAudit === 0 || row.isAudit === 3){
-                html += '<button type="button" class="btn btn-white" id="edit"  onclick="editRow(\''
+                html += '<button type="button" class="btn btn-white" id="edit"  onclick="infoEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
                 html += '<button type="button" class="btn btn-white" id="created"  onclick="releaseAudit(\''
                     + row.id + '\',\'' + row.isAudit  + '\')"><i class="fa fa-calendar-check-o"></i>&nbsp;' + dataIsAudit(row.isAudit) + '</button>';
@@ -354,6 +354,16 @@
             }
             html += '</div>';
             return html;
+        }
+
+        // 修改
+        function infoEditRow (id) {
+            var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+            openLayer(editTitle);
+            loadData(row);
+            // 通过验证
+            $(formId).validate().form();
+            $("#selectElement").removeClass("hide");    
         }
         
         // 在查看详情时将提供方代码显示出来
@@ -797,7 +807,7 @@
                     },
                     end : function() {
                         $(elementFormId).resetForm();
-                        endMethod(elementFormId, "close");
+                        // endMethod(elementFormId, "close");
                     },
                     content : l
                 });
@@ -998,6 +1008,8 @@
                 data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
             });
             delete data.elementIds;
+            data.infoType3 == "" ? data.infoType3 = 0 : '';
+            data.infoType4 == "" ? data.infoType4 = 0 : '';
             if ($('#eform').valid()) {
                 $.ajax({
                     url: url + 'save',
