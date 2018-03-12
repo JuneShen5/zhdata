@@ -359,6 +359,10 @@
         // 修改
         function infoEditRow (id) {
             var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+            // itemIndex
+            $.each(row.elementList, function (index, item) {
+                item.itemIndex = index;
+            })
             openLayer(editTitle);
             loadData(row);
             // 通过验证
@@ -766,6 +770,8 @@
             $(elementFormId).validate({
                 ignore: ":disabled",
                 submitHandler: function(form){
+                    console.log('row:', row)
+                    console.log("dataEles: ", dataEles)
                     dataEles[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
                     $(elementTableId).bootstrapTable('load',dataEles);
                     layer.close(layeForm4);
@@ -1008,8 +1014,8 @@
                 data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
             });
             delete data.elementIds;
-            data.infoType3 == "" ? data.infoType3 = 0 : '';
-            data.infoType4 == "" ? data.infoType4 = 0 : '';
+            data.infoType3 == undefined ? data.infoType3 = 0 : '';
+            data.infoType4 == undefined ? data.infoType4 = 0 : '';
             if ($('#eform').valid()) {
                 $.ajax({
                     url: url + 'save',
