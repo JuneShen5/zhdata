@@ -274,26 +274,44 @@
         <script src="${ctxStatic}/js/common/common.js"></script>
         <script>
         function changeInit () {
-            linkRelInfo.onChange(function () {
+            // linkRelInfo.onChange(function () {
+            //     $(".linkagesel-select-div select").each(function (index, item) {
+            //         var hideHtml = "div:eq(" + index + ")";
+            //         // 如果为零表示是select为空，隐藏掉，并且将select的name值去掉
+            //         if ($(this).children('option').length == 0) {
+            //             console.log("is 0")
+            //             $(".linkagesel-select-div").children(hideHtml).hide();
+            //             $(this).removeAttr("name").removeAttr("required");
+            //         } else {
+            //             console.log("not 0")
+            //             $(".linkagesel-select-div").children(hideHtml).show();
+            //             $(this).attr("name", "infoType" + (index + 1)).attr("required", "required");
+            //         }
+            //     });
+            //     // 由于执行存在顺序的原因，加上延时，模拟回调函数
+            //     setTimeout(function () {
+            //         $(".linkagesel-select-div").find("div.chosen-container").width("48%");
+            //         $(".LinkageSel").hide().chosen({width: "48%"}).trigger("chosen:updated");
+            //     }, 0)
+            // })
+            $(document).on('change', function () {
                 $(".linkagesel-select-div select").each(function (index, item) {
                     var hideHtml = "div:eq(" + index + ")";
                     // 如果为零表示是select为空，隐藏掉，并且将select的name值去掉
                     if ($(this).children('option').length == 0) {
+                        console.log("is 0")
                         $(".linkagesel-select-div").children(hideHtml).hide();
-                        $(this).removeAttr("name");
-                        $(this).removeAttr("required");
+                        $(this).removeAttr("name").removeAttr("required");
                     } else {
+                        console.log("not 0")
                         $(".linkagesel-select-div").children(hideHtml).show();
-                        $(this).attr("name", "infoType" + (index + 1));
-                        $(this).attr("required", "required");
+                        $(this).attr("name", "infoType" + (index + 1)).attr("required", "required");
                     }
                 });
                 // 由于执行存在顺序的原因，加上延时，模拟回调函数
                 setTimeout(function () {
                     $(".linkagesel-select-div").find("div.chosen-container").width("48%");
-                    $(".LinkageSel").hide();
-                    $(".LinkageSel").chosen({width: "48%"});
-                    $(".LinkageSel").trigger("chosen:updated");
+                    $(".LinkageSel").hide().chosen({width: "48%"}).trigger("chosen:updated");
                 }, 0)
             })
         }
