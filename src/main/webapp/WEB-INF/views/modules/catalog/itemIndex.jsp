@@ -44,7 +44,7 @@
 					<thead>
 						<tr>
 							<th data-checkbox="true"></th>
-							<th data-field="code">数据元编码</th>
+							<th data-field="codes">数据元编码</th>
 							<th data-field="name">数据元名称</th>
 							<th data-field="type">数据元类别</th>
 							<th data-field="Score" data-formatter="initDataTableButton" class="col-sm-4">操作</th>

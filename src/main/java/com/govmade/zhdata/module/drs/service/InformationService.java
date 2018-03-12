@@ -109,9 +109,21 @@ public class InformationService extends BaseService<Information> {
 
     public void updateInformation(Information info) {
         try {
-            if (this.updateSelective(info) > 0) {
-                this.infoDao.deleteRelation(info);
-                this.infoDao.saveRelation(info);
+            if (this.updateSelective(info) > 0 ){
+                Element record=new Element();
+                record.setInfoId(info.getId());
+                this.elementMapper.delete(record);
+                    if (info.getElementList().size() > 0) {
+                        List<Element> elementList=info.getElementList();
+                        for (Element element : elementList) {
+                            element.setInfoId(info.getId());
+                            element.setCompanyId(info.getCompanyId());
+                            element.preInsert();
+                            this.elementMapper.insertSelective(element);
+                        }
+                }
+                
+                
             }
         } catch (Exception e) {
             // 保存失败

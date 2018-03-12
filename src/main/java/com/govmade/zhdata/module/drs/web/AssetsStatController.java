@@ -222,7 +222,7 @@ public class AssetsStatController {
             }
             
             
-            Integer iCount3=0;
+           /* Integer iCount3=0;
             String shareType="1";
             Integer isCount1=this.informationDao.queryInfoByshareType(companyId,shareType);
             if (isCount1>0) {
@@ -241,7 +241,7 @@ public class AssetsStatController {
             Integer isCount3=this.informationDao.queryInfoByshareType(companyId,shareType);
             if (isCount3 >0) {
                 iCount5=isCount3;
-            }
+            }*/
             
             map2.put("companyId", c.getId());
             map2.put("companyName", c.getName());
@@ -250,9 +250,9 @@ public class AssetsStatController {
             map2.put("iCount", iCount);
             map2.put("iCount1", iCount1);
             map2.put("iCount2", iCount2);
-            map2.put("iCount3", iCount3);
+            /*map2.put("iCount3", iCount3);
             map2.put("iCount4", iCount4);
-            map2.put("iCount5", iCount5);
+            map2.put("iCount5", iCount5);*/
             list.add(map2);
         }
         //map1.put("data", list);

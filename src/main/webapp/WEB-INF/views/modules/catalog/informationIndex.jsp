@@ -66,8 +66,8 @@
                                 <button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
                                 <button class="btn btn-purple" type="button" onclick="importData(2);"><i class='fa fa-sign-in'></i> Excel导入</button>
                                 <button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
-                                <button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button>
-                                <button class="btn btn-blue other-url" type="button" id="271" url="${ctx}/settings/attribute?type=2" name="信息资源配置"><i class='fa fa-cog'></i> 配置</button>
+                                <!-- <button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button> -->
+                                <%-- <button class="btn btn-blue other-url" type="button" id="271" url="${ctx}/settings/attribute?type=2" name="信息资源配置"><i class='fa fa-cog'></i> 配置</button> --%>
                             </div>
                         </div>
                         
@@ -117,7 +117,7 @@
                     <thead class="ele-hide">
                         <tr>
                             <th data-checkbox="true"></th>
-                            <th data-field="nameEn">信息资源代码</th>
+                            <th data-field="nameEn">信息资源编码</th>
                             <th data-field="nameCn">信息资源名称</th>
                             <th data-field="companyName">信息资源提供方</th>
                           <!--   <th data-field="departName">审核部门</th> -->
