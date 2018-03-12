@@ -13,31 +13,31 @@ public class Information extends BasePo<Information> {
 
     private static final long serialVersionUID = 1L;
 
-    private Integer companyId; //信息资源提供方（所属机构）
-    
+    private Integer companyId; // 信息资源提供方（所属机构）
+
     @Transient
     private String companyName;
-    
-    private Integer departId; //审核机构
-    
+
+    private Integer departId; // 审核机构
+
     @Transient
     private String departName;
-    
+
     private Integer systemId;
 
     @Transient
     private String systemName;
-    
+
     private String dept;
-    
+
     private String nameEn; // 信息资源代码
 
     private String nameCn;
-    
+
     private Integer infoType1;
 
     private Integer infoType2;
-    
+
     private String code;
 
     private String resourceFormat; // 信息资源格式
@@ -46,43 +46,38 @@ public class Information extends BasePo<Information> {
 
     private String openType;
 
-    private Integer shareType; //共享类型
+    private Integer shareType; // 共享类型
 
     private String shareMode;// 共享方式
 
     private String shareCondition;// 共享条件
 
     private Integer manageStyle; // 管理方式
-    
+
     private String matter;
-    
-    private Integer range;
-    
+
+    private Integer ranges;
+
     private Integer isAudit;
-    
+
     private Integer isCreated;
 
     private String info; // 信息资源属性
 
     private String reason; // 信息资源提供方代码
 
+    // private String rightRelation; // 权属关系
 
-
-    //private String rightRelation; // 权属关系
-
- 
-
-    //private String releaseDate; // 发布日期
+    // private String releaseDate; // 发布日期
 
     @Transient
     private Integer isAuthorize; // 是否需要数据权限控制 0为否 1为是
-
 
     @Transient
     private String elementIds;
 
     @Transient
-    private List<Element> elementList = Lists.newArrayList(); // 拥有数据元列表
+    private List<Element> elementList = Lists.newArrayList(); // 拥有信息项列表
 
     @Transient
     private Integer count;
@@ -291,38 +286,36 @@ public class Information extends BasePo<Information> {
         this.count = count;
     }
 
-	public String getDept() {
-		return dept;
-	}
+    public String getDept() {
+        return dept;
+    }
 
-	public void setDept(String dept) {
-		this.dept = dept;
-	}
+    public void setDept(String dept) {
+        this.dept = dept;
+    }
 
-	public String getMatter() {
-		return matter;
-	}
+    public String getMatter() {
+        return matter;
+    }
 
-	public void setMatter(String matter) {
-		this.matter = matter;
-	}
+    public void setMatter(String matter) {
+        this.matter = matter;
+    }
 
-	public Integer getRange() {
-		return range;
-	}
+    public Integer getRanges() {
+        return ranges;
+    }
 
-	public void setRange(Integer range) {
-		this.range = range;
-	}
+    public void setRanges(Integer ranges) {
+        this.ranges = ranges;
+    }
 
-	public Integer getIsCreated() {
-		return isCreated;
-	}
+    public Integer getIsCreated() {
+        return isCreated;
+    }
 
-	public void setIsCreated(Integer isCreated) {
-		this.isCreated = isCreated;
-	}
-
-   
+    public void setIsCreated(Integer isCreated) {
+        this.isCreated = isCreated;
+    }
 
 }

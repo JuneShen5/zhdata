@@ -158,7 +158,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">数据范围：</label>
 		<div class="col-sm-7">
-			<select name="range" class="select-chosen js-hasChild" required>
+			<select name="ranges" class="select-chosen js-hasChild" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('data_range')}">
 					<option value="${dict.value}">${dict.label}</option>

@@ -24,6 +24,7 @@ import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.TablesDao;
+import com.govmade.zhdata.module.drs.mapper.ElementMapper;
 import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Information;
@@ -40,6 +41,10 @@ public class InformationService extends BaseService<Information> {
     @Autowired
     private InformationMapper infoMapper;
 
+    @Autowired
+    private ElementMapper elementMapper;
+    
+    
     @Autowired
     private TablesService tablesService;
     
@@ -88,14 +93,21 @@ public class InformationService extends BaseService<Information> {
     }
 
     public void saveInformation(Information info) {
-//        try {
+        try {
             if (this.saveSelective(info) > 0 && info.getElementList().size() > 0) {
-                this.infoDao.saveRelation(info);
+//                this.infoDao.saveRelation(info);
+                List<Element> elementList=info.getElementList();
+                for (Element element : elementList) {
+                    element.setInfoId(info.getId());
+                    element.setCompanyId(info.getCompanyId());
+                    element.preInsert();
+                    this.elementMapper.insertSelective(element);
+                }
             }
-//        } catch (Exception e) {
-//            // 保存失败
-//            e.printStackTrace();
-//        }
+       } catch (Exception e) {
+           // 保存失败
+           e.printStackTrace();
+       }
     }
 
     public void updateInformation(Information info) {

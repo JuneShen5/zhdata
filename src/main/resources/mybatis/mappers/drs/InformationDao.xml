@@ -23,7 +23,7 @@
         <result property="shareCondition" column="shareCondition" />
 		<result property="manageStyle" column="manageStyle" />
 		<result property="matter" column="matter" />
-		<result property="range" column="range" />
+		<result property="ranges" column="ranges" />
 		<result property="isAudit" column="isAudit" />
 		<result property="isCreated" column="isCreated" />
 		<result property="info" column="info" />		
@@ -61,7 +61,7 @@
 		a.share_condition AS "shareCondition",
 		a.manage_style AS "manageStyle",
 		a.matter,
-		a.range,
+		a.ranges,
 		a.is_audit AS "isAudit",
 		a.is_created AS "isCreated",
 		JSON_UNQUOTE(a.info) as "info",
@@ -311,7 +311,7 @@
 		<include refid="informationColumns" />
 		,
 		e.id AS "elementList.id",
-		LPAD(e.id,7,'0') as "elementList.idCode",
+		<!-- LPAD(e.id,7,'0') as "elementList.idCode", -->
 		e.name_cn AS "elementList.nameCn",
 		e.info_id AS "elementList.infoId",
 		e.item_id AS "elementList.itemId",
@@ -334,7 +334,7 @@
 	<select id="findElementById" resultType="Element" parameterType="java.lang.Integer">
 		SELECT 
 		e.id,
-		LPAD(e.id,7,'0') AS "idCode",
+		<!-- LPAD(e.id,7,'0') AS "idCode", -->
 		e.name_cn AS "nameCn",
 		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id}) ie LEFT JOIN  drs_element e ON e.id = ie.element_id
 	</select>
@@ -344,9 +344,9 @@
 		</select>
 	
 	<!-- 根据共享类型查找信息资源的总数 -->
-	<select id="queryInfoByshareType" resultType="Integer">
+	<!-- <select id="queryInfoByshareType" resultType="Integer">
 	  SELECT COUNT(*) FROM drs_information WHERE json_extract(info,'$.gongxiangleixing') = #{shareType} AND company_id=#{companyId} AND del_flag='0'
-	</select>
+	</select> -->
 	
 	
 	

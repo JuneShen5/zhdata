@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -155,7 +156,7 @@ public class InformationController extends BaseController<Information>{
                 map.put("resourceFormat", s.getResourceFormat());
                 map.put("matter", s.getMatter());
                 map.put("manageStyle", s.getManageStyle());
-                map.put("range", s.getRange());
+                map.put("ranges", s.getRanges());
                 switch (s.getIsAudit()) {
                 case 0:
                     map.put("auditName", "未发布");
@@ -221,38 +222,56 @@ public class InformationController extends BaseController<Information>{
      * @param request
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes" })
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(Information info, HttpServletRequest request) {
+    public ResponseEntity<String> save(@RequestBody Information info, HttpServletRequest request) {
         try {
             Enumeration paramNames = request.getParameterNames(); 
+            
+            System.out.println("infoType3===="+request.getParameter("infoType3"));                     //infoType3====null
+            System.out.println("gengxinzhouqi==="+request.getParameter("gengxinzhouqi"));             //gengxinzhouqi===null
+            System.out.println("xinxiziyuanzhaiyao===="+request.getParameter("xinxiziyuanzhaiyao"));  //xinxiziyuanzhaiyao====null
+            
+            System.out.println("paramNames===="+paramNames);                                         //paramNames====java.util.Collections$3@7d94294
+            System.out.println("boolean===="+paramNames.hasMoreElements());                          //boolean====false
+            
+            
+            
             String infos = "{";
             while (paramNames.hasMoreElements()) {
                 String paramName = (String) paramNames.nextElement();
                 String paramValue = request.getParameter(paramName);
+                
+                System.out.println("infoType3===="+paramName.trim().equals("infoType3"));
+                System.out.println("gengxinzhouqi===="+paramName.trim().equals("gengxinzhouqi"));
+                System.out.println("xinxiziyuanzhaiyao===="+paramName.trim().equals("xinxiziyuanzhaiyao"));
+                
                 if (!(paramName.trim().equals("id") || paramName.trim().equals("companyId") || paramName.trim().equals("companyName")
                         || paramName.trim().equals("nameEn") || paramName.trim().equals("nameCn") ||paramName.trim().equals("systemId")
                         || paramName.trim().equals("elementIds") || paramName.trim().equals("isOpen")|| paramName.trim().equals("openType")
                         || paramName.trim().equals("shareType")|| paramName.trim().equals("shareMode")|| paramName.trim().equals("shareCondition")
-                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("info_type2")
+                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("infoType2")
                         ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("departId")||paramName.trim().equals("dept")
                         ||paramName.trim().equals("isCreated")||paramName.trim().equals("matter")|| paramName.trim().equals("reason")
-                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("range")||paramName.trim().equals("code"))) {
+                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("ranges")||paramName.trim().equals("code"))) {
                     infos += "\"" + paramName + "\":\"" + paramValue + "\",";
                 }
             }
-            infos = infos.substring(0, infos.length() - 1);
-            infos += "}";
-            
+            if (infos.length() > 1) {
+                infos = infos.substring(0, infos.length() - 1);
+                infos += "}";
+            } else {
+                infos += "}";
+            }
             info.setInfo(infos);
 
-            List<Element> elements = Lists.newArrayList();
+           /* List<Element> elements = Lists.newArrayList();
             String jsonArray = info.getElementIds();
             if (StringUtils.isNotBlank(jsonArray)) {
                 // json数组转List对象
                 elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                 info.setElementList(elements);
-            }
+            }*/
 
             if (null == info.getId()) {
                 info.preInsert();
