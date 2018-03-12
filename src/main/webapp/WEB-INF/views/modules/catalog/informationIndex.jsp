@@ -211,7 +211,7 @@
             <thead>
                   <tr>
                       <th data-field="selectId" data-formatter="checkFormatter">添加</th>
-                      <th data-field="code">数据元编码</th>
+                      <th data-field="codes">数据元编码</th>
                       <th data-field="name">数据元名称</th>
                       <th data-field="type">数据元类型</th>
                       <th data-field="len">数据长度</th>
@@ -698,7 +698,7 @@
                 //     else
                 //         obj["dataType"]=$('#dataTypeSelect').val();
                 // });
-                obj = {'code': '','name': '', 'type': ''}
+                obj = {'codes': '','name': '', 'type': ''}
                 var temp = {
                     pageNum : params.offset / params.limit + 1,
                     pageSize : params.limit,
@@ -927,7 +927,7 @@
             mTable2.Init();
             initText();
             //增加搜索按钮
-            $(elementTableId2).bootstrapTable('refresh', {url: '${ctx}/catalog/item/'+ 'list?',toolbar : "#elementInfoToolbar",obj: {code: '',name: '',type: ''}});
+            $(elementTableId2).bootstrapTable('refresh', {url: '${ctx}/catalog/item/'+ 'list?',toolbar : "#elementInfoToolbar",obj: {codes: '',name: '',type: ''}});
             layeForm2 = layer.open({
                 title: title,
                 type : 1,
