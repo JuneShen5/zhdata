@@ -61,6 +61,16 @@ public class Information extends BasePo<Information> {
     private Integer isAudit;
 
     private Integer isCreated;
+    
+    //新增
+    private Integer infoType3;
+    
+    private Integer infoType4;
+    
+    private String summary;
+    
+    private String updateCycle;
+    
 
     private String info; // 信息资源属性
 
@@ -317,5 +327,39 @@ public class Information extends BasePo<Information> {
     public void setIsCreated(Integer isCreated) {
         this.isCreated = isCreated;
     }
+
+    public Integer getInfoType3() {
+        return infoType3;
+    }
+
+    public void setInfoType3(Integer infoType3) {
+        this.infoType3 = infoType3;
+    }
+
+    public Integer getInfoType4() {
+        return infoType4;
+    }
+
+    public void setInfoType4(Integer infoType4) {
+        this.infoType4 = infoType4;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String getUpdateCycle() {
+        return updateCycle;
+    }
+
+    public void setUpdateCycle(String updateCycle) {
+        this.updateCycle = updateCycle;
+    }
+    
+    
 
 }

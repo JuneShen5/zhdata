@@ -14,6 +14,10 @@
 		<result property="nameCn" column="nameCn" />
 		<result property="infoType1" column="infoType1" />
         <result property="infoType2" column="infoType2" />
+        <result property="infoType3" column="infoType3" />
+        <result property="infoType4" column="infoType4" />
+        <result property="summary" column="summary" />
+        <result property="updateCycle" column="updateCycle" />
 		<result property="code" column="code" />
 		<result property="resourceFormat" column="resourceFormat" />	
 		<result property="isOpen" column="isOpen" />
@@ -52,6 +56,10 @@
 		a.name_cn AS "nameCn",
 		a.info_type1 AS "infoType1",
 		a.info_type2 AS	"infoType2",
+		a.info_type3 AS	"infoType3",
+		a.info_type4 AS	"infoType4",
+		a.summary,
+		a.update cycle AS "updateCycle",
 		a.code,
 		a.resource_format AS "resourceFormat",
 		a.is_open AS "isOpen",

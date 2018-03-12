@@ -16,6 +16,13 @@
 			<input type="text" name="nameCn" class="form-control" placeholder="请输入权责清单名称" required>
 		</div>
 	</div>
+	
+	<div class="form-group">
+		<label class="col-sm-3 control-label">信息资源摘要：</label>
+		<div class="col-sm-7">
+			<input type="text" name="summary" class="form-control" placeholder="请输入对信息资源内容（或关键字段）的概要描述" required>
+		</div>
+	</div>
 
 	<c:set var="user" value="${fns:getCurrentUser()}" />
 		<div class="form-group">
@@ -121,6 +128,13 @@
 		<label class="col-sm-3 control-label">开放条件：</label>
 		<div class="col-sm-7">
 			<input type="text" name="openCondition" class="form-control" placeholder="">
+		</div>
+	</div>
+	
+	<div class="form-group ele-hide" data-parent="isOpen">
+		<label class="col-sm-3 control-label">更新周期：</label>
+		<div class="col-sm-7">
+			<input type="text" name="updateCycle" class="form-control" placeholder="">
 		</div>
 	</div>
 	
