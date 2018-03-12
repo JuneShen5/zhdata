@@ -22,7 +22,7 @@ public class Element extends BasePo<Element> {
     private String companyName;
 
     @Transient
-    private String code; // 数据元编码
+    private String codes; // 数据元编码
 
     @Transient
     private String type; // 数据元类别-中文
@@ -100,14 +100,7 @@ public class Element extends BasePo<Element> {
         this.companyName = companyName;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
+   
     public String getType() {
         return type;
     }
@@ -146,6 +139,14 @@ public class Element extends BasePo<Element> {
 
     public void setDes(String des) {
         this.des = des;
+    }
+
+    public String getCodes() {
+        return codes;
+    }
+
+    public void setCodes(String codes) {
+        this.codes = codes;
     }
 
     

@@ -9,7 +9,7 @@ public class Item extends BasePo<Item> {
 
     private static final long serialVersionUID = 1L;
 
-    private String code;
+    private String codes;
     
     private String type;
     
@@ -24,12 +24,14 @@ public class Item extends BasePo<Item> {
     private String des;
     
 
-    public String getCode() {
-        return code;
+   
+
+    public String getCodes() {
+        return codes;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setCodes(String codes) {
+        this.codes = codes;
     }
 
     public String getType() {

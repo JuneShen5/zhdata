@@ -320,4 +320,12 @@ public class InformationService extends BaseService<Information> {
         return this.infoDao.queryIsAuditCount(comList,isAudit);
     }
 
+    public List<Information> queryALList(Page<Information> page) {
+        return this.infoDao.queryALList(page);
+    }
+
+    public Long getAlTotal(Page<Information> page) {
+        return this.infoDao.getAlTotal(page);
+    }
+
 }

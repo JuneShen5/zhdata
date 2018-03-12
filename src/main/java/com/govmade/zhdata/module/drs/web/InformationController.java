@@ -101,10 +101,10 @@ public class InformationController extends BaseController<Information>{
         try{
         String keyword=new String (information.getNameCn().getBytes("ISO-8859-1"), "UTF-8");
         if(keyword!= null && !keyword.equals("")){
-        	infoSearchService.saveKeyWord(keyword);}
+                infoSearchService.saveKeyWord(keyword);}
             
         }catch(Exception e){
-        	 e.printStackTrace();
+                 e.printStackTrace();
         }
             
         
@@ -128,8 +128,8 @@ public class InformationController extends BaseController<Information>{
         Integer returnCount=this.infoService.queryIsAuditCount(comList,isAudit2); //信息资源已退回数量
         
         try {
-            Long total = infoService.getTotal(page);
-            List<Information> iList = this.infoService.queryList(page);
+            Long total = infoService.getAlTotal(page);
+            List<Information> iList = this.infoService.queryALList(page);
             List<Map<String, Object>> list = Lists.newArrayList();
             for (Information s : iList) {
                 Map<String, Object> map = Maps.newHashMap();
@@ -157,6 +157,10 @@ public class InformationController extends BaseController<Information>{
                 map.put("matter", s.getMatter());
                 map.put("manageStyle", s.getManageStyle());
                 map.put("ranges", s.getRanges());
+                map.put("infoType3", s.getInfoType3());
+                map.put("infoType4", s.getInfoType4());
+                map.put("summary", s.getSummary());
+                map.put("updateCycle", s.getUpdateCycle());
                 switch (s.getIsAudit()) {
                 case 0:
                     map.put("auditName", "未发布");
@@ -193,6 +197,7 @@ public class InformationController extends BaseController<Information>{
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
+  
     
     /**
      * 根据父级查询子级
@@ -227,24 +232,10 @@ public class InformationController extends BaseController<Information>{
     public ResponseEntity<String> save(@RequestBody Information info, HttpServletRequest request) {
         try {
             Enumeration paramNames = request.getParameterNames(); 
-            
-            System.out.println("infoType3===="+request.getParameter("infoType3"));                     //infoType3====null
-            System.out.println("gengxinzhouqi==="+request.getParameter("gengxinzhouqi"));             //gengxinzhouqi===null
-            System.out.println("xinxiziyuanzhaiyao===="+request.getParameter("xinxiziyuanzhaiyao"));  //xinxiziyuanzhaiyao====null
-            
-            System.out.println("paramNames===="+paramNames);                                         //paramNames====java.util.Collections$3@7d94294
-            System.out.println("boolean===="+paramNames.hasMoreElements());                          //boolean====false
-            
-            
-            
             String infos = "{";
             while (paramNames.hasMoreElements()) {
                 String paramName = (String) paramNames.nextElement();
                 String paramValue = request.getParameter(paramName);
-                
-                System.out.println("infoType3===="+paramName.trim().equals("infoType3"));
-                System.out.println("gengxinzhouqi===="+paramName.trim().equals("gengxinzhouqi"));
-                System.out.println("xinxiziyuanzhaiyao===="+paramName.trim().equals("xinxiziyuanzhaiyao"));
                 
                 if (!(paramName.trim().equals("id") || paramName.trim().equals("companyId") || paramName.trim().equals("companyName")
                         || paramName.trim().equals("nameEn") || paramName.trim().equals("nameCn") ||paramName.trim().equals("systemId")

@@ -20,7 +20,7 @@
 	
 	<sql id="itemColumns">
 		i.name AS "name",
-		i.code AS "code",
+		i.codes AS "codes",
 		i.type AS "type",
 		i.typen AS "typen",
 		i.len AS "len",

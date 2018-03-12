@@ -76,8 +76,8 @@
 			<input type="text" name="tbName" class="form-control" required>
 		</div>
 	</div>	 -->	
-	<c:set var="type" value="2" />
-	<%@include file="/WEB-INF/views/include/autoForm.jsp"%>
+	<%-- <c:set var="type" value="2" />
+	<%@include file="/WEB-INF/views/include/autoForm.jsp"%> --%>
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源格式：</label>
 		<div class="col-sm-7">
@@ -127,7 +127,7 @@
 	<div class="form-group ele-hide" data-parent="isOpen">
 		<label class="col-sm-3 control-label">开放条件：</label>
 		<div class="col-sm-7">
-			<input type="text" name="openCondition" class="form-control" placeholder="">
+			<input type="text" name="openType" class="form-control" placeholder="">
 		</div>
 	</div>
 	

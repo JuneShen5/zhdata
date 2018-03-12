@@ -58,5 +58,9 @@ public interface InformationDao extends BaseDao<Information> {
 
     public Integer queryIsAuditCount(@Param("comList")List<Integer> comList, @Param("isAudit")Integer isAudit);
 
+    public List<Information> queryALList(@Param("page")Page<Information> page);
+
+    public Long getAlTotal(@Param("page")Page<Information> page);
+
 
 }

@@ -4,7 +4,7 @@
 
 	<sql id="itemColumns">
 		a.id,
-		a.code,
+		a.codes,
 		a.type,
 		a.typen,
 		a.name,
