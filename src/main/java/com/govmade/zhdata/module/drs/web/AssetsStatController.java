@@ -16,6 +16,7 @@ import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.UserUtils;
+import com.govmade.zhdata.module.drs.dao.ElementDao;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.SystemDao;
 import com.govmade.zhdata.module.drs.dao.YjSystemDao;
@@ -43,6 +44,7 @@ public class AssetsStatController {
     
     @Autowired
     private ElementMapper elementMapper;
+    
     
     @Autowired
     private InformationMapper informationMapper;
@@ -262,6 +264,6 @@ public class AssetsStatController {
         return ResponseEntity.ok(resPage);
         
     }
-    
+ 
     
 }

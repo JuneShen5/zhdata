@@ -5,7 +5,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">数据元编码：</label>
 		<div class="col-sm-7">
-			<input type="text" name="code" class="form-control" placeholder="请输入信息项编码" required>
+			<input type="text" name="codes" class="form-control" placeholder="请输入信息项编码" required>
 		</div>
 	</div>
 	<div class="form-group">

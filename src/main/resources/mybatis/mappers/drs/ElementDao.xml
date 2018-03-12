@@ -241,5 +241,23 @@
 			</if>
 		ORDER BY a.id DESC
 	</select>
+
+
+
+	<select id="queryHotItem" resultType="Element">
+		SELECT 
+		a.id,
+		a.name_cn AS "nameCn",
+		a.item_id AS "itemId",
+		i.`name` ,
+		COUNT(a.item_id) AS count
+		FROM drs_element a
+		LEFT JOIN drs_item i ON i.id=a.item_id AND i.del_flag=0
+		WHERE a.del_flag=0
+		GROUP BY a.item_id
+		ORDER BY COUNT(a.item_id) DESC
+		LIMIT 0,8
+
+	</select>
 	
 </mapper>

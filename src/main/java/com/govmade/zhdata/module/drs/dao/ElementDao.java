@@ -34,4 +34,6 @@ public interface ElementDao extends BaseDao<Element>{
 
     public List<Element> queryAlList(@Param("element")Element element);
 
+    public List<Element> queryHotItem();
+
 }

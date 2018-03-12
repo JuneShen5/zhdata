@@ -769,8 +769,6 @@
 			}
 		}
 
-		// 开放、共享表单事件绑定
-        $(function (){shareToggleMethod();});
 	</script>
 
 	<script src="${ctxStatic}/js/common/common.js"></script>

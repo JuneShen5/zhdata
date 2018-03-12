@@ -50,8 +50,8 @@ public class Element extends BasePo<Element> {
     // @Transient
     // private Integer toPool; //导入数据元池
 
-    // @Transient
-    // private Integer count;
+     @Transient
+     private Integer count;
 
     // @Transient
     // private Integer colId;
@@ -147,6 +147,14 @@ public class Element extends BasePo<Element> {
 
     public void setCodes(String codes) {
         this.codes = codes;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     

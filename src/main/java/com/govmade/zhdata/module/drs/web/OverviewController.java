@@ -8,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.govmade.zhdata.module.drs.dao.ElementDao;
+import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.InfoSearch;
 import com.govmade.zhdata.module.drs.service.InfoSearchService;
 
@@ -18,6 +20,9 @@ public class OverviewController {
 
     @Autowired
     private InfoSearchService infoSearchService;
+    
+    @Autowired
+    private ElementDao elementDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public String toOverview() {
@@ -37,4 +42,16 @@ public class OverviewController {
 
         return ResponseEntity.ok(hotInfo);
     }
+    
+    
+    /**
+     * 查找热门数据元
+     * 
+     */
+    @RequestMapping(value="hotItem",method=RequestMethod.GET)
+    public ResponseEntity<List<Element>> queryHotItem(){
+        List<Element> elements=this.elementDao.queryHotItem();
+        return ResponseEntity.ok(elements);
+    }
+    
 }
