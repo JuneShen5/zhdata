@@ -394,14 +394,6 @@
 	</select>
 	
 	
-	<!-- 删除关联表 -->
-	<delete id="deleteInfoEle">
-		 DELETE FROM drs_info_element WHERE info_id IN 
-        <foreach collection="idList" item="id" open="("  close=")" separator=",">
-            #{id}
-        </foreach>
-	</delete>
-	
 
 	
 	<!-- 根据信息资源ID查找关联的部门 -频率分析部门数量-->
@@ -508,7 +500,7 @@
 	</insert>
 	
 	
-	
+	<!-- 最新版 -->
 	<!-- 根据条件查询 -->
     <select id="queryALList" resultMap="informationResult">
         SELECT

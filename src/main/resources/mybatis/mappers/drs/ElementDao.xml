@@ -216,9 +216,9 @@
        </if>
 	</select>
 	
-	<!-- 删除关联表 -->
-	<delete id="deleteInfoEle">
-		 DELETE FROM drs_info_element WHERE element_id IN 
+	<!-- 根据信息资源删除关联信息项 -->
+	<delete id="deleteEle">
+		 DELETE FROM drs_element WHERE info_id IN 
         <foreach collection="idList" item="id" open="("  close=")" separator=",">
             #{id}
         </foreach>
@@ -243,7 +243,7 @@
 	</select>
 
 
-
+	<!-- 查询热门数据元 -->
 	<select id="queryHotItem" resultType="Element">
 		SELECT 
 		a.id,
@@ -259,5 +259,17 @@
 		LIMIT 0,8
 
 	</select>
+	
+	<!-- 根据ids删除信息项-->
+	<delete id="delete">
+		 DELETE FROM drs_element WHERE del_flag=0 
+       	<if test=" idList !=null and idList.size() >0 ">
+		AND id IN
+    	<foreach collection="idList" item="id" open="("  close=")" separator=",">
+            #{id}
+        </foreach>
+	</if>
+	</delete>
+	
 	
 </mapper>

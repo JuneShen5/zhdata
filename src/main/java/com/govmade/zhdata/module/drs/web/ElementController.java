@@ -122,11 +122,10 @@ public class ElementController extends BaseController<Element>{
     public ResponseEntity<String> delete(String ids) throws Exception {
     	try {
     	    if (this.elementService.deleteByIds(ids)>0) {
-    	        this.elementService.deleteInfoEle(ids);
+    	       // this.elementService.deleteInfoEle(ids);
     	       this.columnsService.updateColum(ids); //将columns表中的ele_id设置成0
             }
     	   
-    	    
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);
          } catch (Exception e) {
              e.printStackTrace();

@@ -40,8 +40,6 @@ public interface InformationDao extends BaseDao<Information> {
     public Integer shareCount();
     public Integer openCount();
 
-    public void deleteInfoEle(@Param("idList")List<String> idList);
-
     public List<Information> queryCompCount(Integer id);
 
     public List<Information> queryInfoByEleId(Integer id);
@@ -61,6 +59,9 @@ public interface InformationDao extends BaseDao<Information> {
     public List<Information> queryALList(@Param("page")Page<Information> page);
 
     public Long getAlTotal(@Param("page")Page<Information> page);
+
+
+   
 
 
 }

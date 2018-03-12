@@ -67,7 +67,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label layerTips" data-tips-text="">数据元编码：</label>
 				<div class="col-sm-7">
-					<input type="text" name="code" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
+					<input type="text" name="codes" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
 				</div>
 			</div>
 			<div class="form-group">
@@ -127,7 +127,7 @@
 			<div class="form-group">
 				<label class="col-sm-3 control-label layerTips" data-tips-text="">数据元编码：</label>
 				<div class="col-sm-7">
-					<input type="text" name="code" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
+					<input type="text" name="codes" maxlength="50" class="form-control hasNoSpace" placeholder="" required>
 				</div>
 			</div>
 			<div class="form-group">

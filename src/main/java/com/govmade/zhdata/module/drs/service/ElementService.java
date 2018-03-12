@@ -10,8 +10,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.abel533.entity.Example;
-import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -106,7 +104,14 @@ public class ElementService extends BaseService<Element> {
      * @param ids
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Integer deleteByIds(String ids) {
+        String[] array = StringUtil.split(ids, ',');
+        List<String> idList = Arrays.asList(array);
+       
+        return this.elementDao.delete(idList);
+    }
+    
+   /* @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -118,7 +123,9 @@ public class ElementService extends BaseService<Element> {
         Criteria criteria = example.createCriteria();
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(Element, example);
-    }
+    }*/
+    
+    
 
     public List<Element> queryList(Integer id) {
         return this.elementDao.queryList(id);
@@ -195,13 +202,13 @@ public class ElementService extends BaseService<Element> {
     public void deleteInfoEle(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List<String> idList = Arrays.asList(array);
-        this.elementDao.deleteInfoEle(idList);
+        this.elementDao.deleteEle(idList);
         
     }
 
     public void deleteAll(List<String> idList) {
        if ( this.elementMapper.delete(null)>0) {
-           this.elementDao.deleteInfoEle(idList);
+           //this.elementDao.deleteInfoEle(idList);
            this.columnsDao.updateCol(idList);  //将columns表中的ele_id设置为0
     }
         

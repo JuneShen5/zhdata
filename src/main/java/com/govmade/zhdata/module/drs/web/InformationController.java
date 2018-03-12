@@ -293,7 +293,7 @@ public class InformationController extends BaseController<Information>{
     public ResponseEntity<String> delete(String ids) throws Exception {
         try {
             if (this.infoService.deleteByIds(ids)>0) {
-                this.infoService.deleteInfoEle(ids);
+                this.infoService.deleteEle(ids);
                 this.tablesService.updateTabs(ids); //将数据表中info_id设置成0
             }
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);

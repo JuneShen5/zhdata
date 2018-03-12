@@ -17,6 +17,7 @@ import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.module.drs.dao.ElementDao;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.TablesDao;
 import com.govmade.zhdata.module.drs.mapper.ElementMapper;
@@ -41,6 +42,8 @@ public class InformationService extends BaseService<Information> {
     @Autowired
     private ElementMapper elementMapper;
     
+    @Autowired
+    private ElementDao elementDao;
     
     @Autowired
     private TablesService tablesService;
@@ -68,7 +71,7 @@ public class InformationService extends BaseService<Information> {
         return infoDao.getSearchCount(page);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+   /* @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -80,12 +83,20 @@ public class InformationService extends BaseService<Information> {
         Criteria criteria = example.createCriteria();
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(info, example);
-    }
-
-    public void deleteInfoEle(String ids) {
+    }*/
+    
+    public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List<String> idList = Arrays.asList(array);
-        this.infoDao.deleteInfoEle(idList);
+        return this.infoDao.delete(idList);
+
+    }
+
+    
+    public void deleteEle(String ids) {
+        String[] array = StringUtil.split(ids, ',');
+        List<String> idList = Arrays.asList(array);
+        this.elementDao.deleteEle(idList);
 
     }
 
@@ -200,7 +211,7 @@ public class InformationService extends BaseService<Information> {
     public void deleteAll(List<String> idList) {
        
         if ( this.infoDao.delete(idList)>0) {
-            this.infoDao.deleteInfoEle(idList);
+            this.elementDao.deleteEle(idList);
             this.tablesDao.updateTabs(idList); //将table表中的info_id设置为0
         }
 
@@ -340,4 +351,5 @@ public class InformationService extends BaseService<Information> {
         return this.infoDao.getAlTotal(page);
     }
 
+   
 }
