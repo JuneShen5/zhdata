@@ -76,7 +76,7 @@
 				<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
 			</fieldset>
 			<fieldset id="itemForm">
-			<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
+				<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
 			</fieldset>
 		</form>
 	</div>
