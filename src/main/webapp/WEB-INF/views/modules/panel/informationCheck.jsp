@@ -313,12 +313,13 @@
             // itemIndex
             $.each(row.elementList, function (index, item) {
                 item.itemIndex = index;
-            })
+            });
             openLayer(editTitle);
             loadData(row);
             // 通过验证
             $(formId).validate().form();
             $("#selectElement").removeClass("hide");    
+            $('.js-toggle-btn').show();
         }
 
         // 在查看详情时将提供方代码显示出来
@@ -330,6 +331,7 @@
             var data1 = $(elementTableId).bootstrapTable('getData');
             //合并单元格
             mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+            $('.js-toggle-btn').hide();
         }
         // 判断是否审核
         function dataIsAudit(type) {
@@ -516,7 +518,7 @@
                 row = $(elementTableId2).bootstrapTable('getRowByUniqueId', id);
                 $('#eleForm').hide();
             }
-            mOpenDetail($(elementLayerId),$(elementFormId));
+            mOpenDetail($(elementLayerId),$(elementFormId), 'detail');
             // loadData(row);
             row.companyName = $(formId).find('[name=companyName]').val();
             loadToData(row, 'elementform')
@@ -631,7 +633,7 @@
             html += '<button type="button" class="btn btn-white" onclick="elementDatailRow(\''
                 + row.id
                 + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="elementEditRow(\''
+            html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
             return html;
         }
@@ -815,6 +817,10 @@
             data.infoType3 == undefined ? data.infoType3 = 0 : '';
             data.infoType4 == undefined ? data.infoType4 = 0 : '';
             if ($('#eform').valid()) {
+                $(document).one('click', '.layui-layer-btn0', function () {
+                    $(this).hide();
+                    $(this).before('<button class="btn btn-primary a-disabled" disabled>操作中...</button>');
+                });
                 $.ajax({
                     url: url + 'save',
                     contentType: "application/json; charset=utf-8", 
