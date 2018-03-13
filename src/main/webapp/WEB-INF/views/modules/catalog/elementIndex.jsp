@@ -62,7 +62,7 @@
 							<th data-field="type">数据元类别</th>
 							<th data-field="len">数据元长度</th>
 							<th data-field="companyName">所属部门</th>
-							<th data-width="230px" data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
+							<th data-width="230px" data-field="Score" data-formatter="initElementTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -76,7 +76,7 @@
 				<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
 			</fieldset>
 			<fieldset id="itemForm">
-			<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
+				<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
 			</fieldset>
 		</form>
 	</div>
@@ -98,28 +98,45 @@
 		var rowInput = "#exportData input[name='obj']";
 		var uploaderServer = "element";
 
-		// 清空所有按钮事件
-		function deleteAllRows() {
-				layer.confirm('确定要删除所有数据？（选择确定将删除所有数据，请慎重）', function(index){
-						$.ajax({
-								url: "${ctx}/catalog/element/deleteAll",
-								type: 'get',
-								success: function (data) {
-										layer.msg('删除成功！');
-										$(tableId).bootstrapTable('refresh');
-								}
-						});
-						layer.close(index);
-						//向服务端发送删除指令
-				});
-
+		function initElementTableButton(index, row, element) {
+			var html = '';
+			html += '<div class="btn-group">';
+			html += '<button type="button" class="btn btn-white" onclick="datailRow('
+					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+			html += '<button type="button" class="btn btn-white" id="edit" onclick="editElementRow('
+					+ row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+			html += '<button type="button" class="btn btn-white" onclick="deleteRow('
+					+ row.id + ')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+			html += '</div>';
+			return html;
 		}
 
-		$(function () {
+		function editElementRow (id) {
 			$(formId).find("input:not(.js-edit-enable)").each(function () {
-				$(this).attr("disabled","disabled");
+				$(this).attr('name') != 'id' ? $(this).attr("disabled","disabled") : '';
 			});
-		});
+			var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+			openLayer(editTitle);
+			loadData(row);
+			// 通过验证
+			$(formId).validate().form();
+		}
+
+		// 清空所有按钮事件
+		function deleteAllRows() {
+			layer.confirm('确定要删除所有数据？（选择确定将删除所有数据，请慎重）', function(index){
+				$.ajax({
+						url: "${ctx}/catalog/element/deleteAll",
+						type: 'get',
+						success: function (data) {
+								layer.msg('删除成功！');
+								$(tableId).bootstrapTable('refresh');
+						}
+				});
+				layer.close(index);
+				//向服务端发送删除指令
+			});
+		}
 	</script>
 	
 	<script src="${ctxStatic}/js/common/common.js"></script>
