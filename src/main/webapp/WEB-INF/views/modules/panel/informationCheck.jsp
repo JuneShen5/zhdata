@@ -156,20 +156,18 @@
 		<div id="elementInfoToolbar">
 			<div class="form-inline">
 				<label class="col-sm-2 control-label">数据元检索：</label>
-				<div class="col-sm-5">
-					<%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
-						<option value=""></option>
-						<c:forEach var="dict" items="${fns:getDictList('data_type')}">
-							<option value="${dict.value}">${dict.label}</option>
-						</c:forEach>
-					</select> --%>
+				<%-- <div class="col-sm-5">
                     <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
                         <option value="1">数据元名称</option>
                         <option value="2">数据元类别</option>
                     </select>
 				</div>
 				<input id="eName" eName="name" type="text" placeholder="输入检索关键字"
-					   class="form-control col-sm-5">
+					   class="form-control col-sm-5"> --%>
+                <input id="" eName="name" type="text" placeholder="数据元名称" class="form-control col-sm-3 eName" style="margin-right: 15px;">
+                <%-- </div> --%>
+                <%-- <div class="col-sm-3"> --%>
+                <input id="" eName="type" type="text" placeholder="数据元类别" class="form-control col-sm-3 eName">
 				<div class="input-group-btn col-sm-6">
 					<button type="button" id="searchForElement"
 							onclick=" $('#elementTable2').bootstrapTable('refresh');"
@@ -486,18 +484,18 @@
             // 得到查询的参数
             oTableInit.queryParams = function(params) {
                 obj={codes: '',name: '',type: ''};
-                // $("#searchForElement").parents(".form-inline").find("input").each(function (index, item) {
-                //     if($(this).attr("eName")!=undefined)
-                //         obj[$(this).attr("eName")] = $(this).val();
-                //     else
-                //         obj["dataType"]=$('#dataTypeSelect').val();
-                // });
-                if ($('#dataTypeSelect').val() === '1') {
-                    $('#eName').attr('name', 'name');
-                } else if ($('#dataTypeSelect').val() === '2') {
-                    $('#eName').attr('name', 'type');
-                }
-                obj[$('#eName').attr('name')] = $('#eName').val();
+                // if ($('#dataTypeSelect').val() === '1') {
+                //     $('#eName').attr('name', 'name');
+                // } else if ($('#dataTypeSelect').val() === '2') {
+                //     $('#eName').attr('name', 'type');
+                // }
+                // obj[$('#eName').attr('name')] = $('#eName').val();
+                $('.eName').each(function (index) {
+                    var thisName = $(this).attr('eName');
+                    if ($('input[eName=' + thisName + ']').val() !== '') {
+                        obj[thisName] = $('input[eName=' + thisName + ']').val();
+                    }
+                });
                 var temp = {
                     pageNum : params.offset / params.limit + 1,
                     pageSize : params.limit,

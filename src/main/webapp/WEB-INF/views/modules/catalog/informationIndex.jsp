@@ -31,6 +31,10 @@
     padding: 6px;
     outline: none;
 }
+#element_layer_form2 .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
 </style>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 </head>
@@ -179,31 +183,36 @@
     </div> 
     <div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
         <div class="form-group">
-            <label class="col-sm-2 control-label">已选择：</label>
+            <label class="control-label col-sm-2">已选择数据元：</label>
             <div class="col-sm-5">
                 <div class="chosen-container chosen-container-multi">
-                    <ul class="chosen-choices c-list" style="min-width: 200px;">
+                    <ul class="chosen-choices c-list" style="min-width: 400px;">
                     </ul>
                 </div>
             </div>
         </div>
         <div id="elementInfoToolbar">
             <div class="form-inline">
-                <label class="col-sm-2 control-label">数据元检索：</label>
-                <div class="col-sm-5">
+                <label class="control-label pull-left">数据元检索：</label>
+                <%-- <div class="col-sm-3"> --%>
                     <%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
                         <option value="">全部</option>
                         <c:forEach var="dict" items="${fns:getDictList('data_type')}">
                             <option value="${dict.value}">${dict.label}</option>                
                         </c:forEach>            
                     </select> --%>
-                    <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
+                    <%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
                         <option value="1">数据元名称</option>
                         <option value="2">数据元类别</option>
-                    </select>
-                </div>               
-                <input id="eName" eName="name" type="text" placeholder="输入检索关键字"
-                    class="form-control col-sm-5">
+                    </select> --%>
+
+                    <input id="" eName="name" type="text" placeholder="数据元名称"
+                        class="form-control col-sm-3 eName" style="margin-right: 15px;">
+                <%-- </div> --%>
+                <%-- <div class="col-sm-3"> --%>
+                    <input id="" eName="type" type="text" placeholder="数据元类别"
+                        class="form-control col-sm-3 eName">
+                <%-- </div> --%>
                 <div class="input-group-btn col-sm-6">
                     <button type="button" id="searchForElement"
                         onclick=" $('#elementTable2').bootstrapTable('refresh');"
@@ -241,6 +250,7 @@
     
 	<!-- excel导入导出-->
 	<c:set var="type" value="2" />
+    <c:set var="user" value="${fns:getCurrentUser()}" />
     <%@ include file="/WEB-INF/views/include/exp_importData.jsp"%>
     <%@ include file="/WEB-INF/views/include/footer.jsp"%>
     <script>
@@ -250,8 +260,15 @@
         var toolbar = '#toolbar';
         var url = '${ctx}/catalog/information/';
         var tableCheckBoxs = true;
+		var thisRole = ${user.roleId};
+		var thisLoginId = '';
+        if (thisRole === 1){
+            thisLoginId = 0;
+        } else {
+            thisLoginId = 1;
+        }
         var obj = {
-            
+            isAuthorize: thisLoginId
         };
         var editTitle = "信息资源修改";
         var detailTitle = "信息资源详情";
@@ -730,12 +747,12 @@
             // 得到查询的参数
             oTableInit.queryParams = function(params) {
                 obj={codes: '',name: '',type: ''};
-                if ($('#dataTypeSelect').val() === '1') {
-                    $('#eName').attr('name', 'name');
-                } else if ($('#dataTypeSelect').val() === '2') {
-                    $('#eName').attr('name', 'type');
-                }
-                obj[$('#eName').attr('name')] = $('#eName').val();
+                $('.eName').each(function (index) {
+                    var thisName = $(this).attr('eName');
+                    if ($('input[eName=' + thisName + ']').val() !== '') {
+                        obj[thisName] = $('input[eName=' + thisName + ']').val();
+                    }
+                });
                 var temp = {
                     pageNum : params.offset / params.limit + 1,
                     pageSize : params.limit,
@@ -867,44 +884,55 @@
         
          function checkFormatter(index, row, element) {
                 var html = '';
-                if (checkedIds.indexOf("," + row.id + ",") > -1) {
-                  html += '<input type="checkbox" name="des" data-id="'+element+'" value="' + row.id + '" data-name="'
-                      + row.name
-                      + '" onclick="selectDE(this);" checked="checked"/>';
-                } else {
-                  html += '<input type="checkbox" name="des" data-id="'+element+'" value="' + row.id + '" data-name="'
-                      + row.name + '" onclick="selectDE(this);"/>';
+                html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
+                    + row.name + '" onclick="selectDE(this);"/>';
+                if (dataEles.length > 0) {
+                    $.each(dataEles, function (index, dataElesItem) {
+                        // console.log(dataElesItem.id);
+                        // console.log(row.id);
+                        if (dataElesItem.itemId === row.id) {
+                            html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
+                                + row.name
+                                + '" onclick="selectDE(this);" checked="checked"/>';
+                        }
+                    });
                 }
                 return html;
               }
          function selectDE(t) {
              if ($(t).is(':checked')) {
-                  checkedIds += $(t).attr('value') + ",";
+                  checkedIds += $(t).attr('data-value') + ",";
                   var data = $(elementTableId2).bootstrapTable('getRowByUniqueId', $(t).val());
                   dataEles.push(data);
                 } else {
                   checkedIds = checkedIds.replace("," + $(t).val() + ",", ",");
-                  unCheck($(t).val()); 
+                  unCheck($(t).val());
                 }
                 initText();
               }
         function unCheck(id){
               var arr=new Array();
               var ck=",";
+              console.log(dataEles);
+              console.log(id);
               for(var j=0;j<dataEles.length;j++){
                 if(dataEles[j].id!=id){
                   arr.push(dataEles[j]);
                   ck+=dataEles[j].id+",";
                 }
               }
-              $('#elementTable2 input[value="'+id+'"]').removeAttr("checked");
+              $('#elementTable2 input[data-value="'+id+'"]').removeAttr("checked");
               checkedIds =ck;
               dataEles=arr;
               initText();
             } 
         //加载选中框的内容
           function initText() {
-            var ids = checkedIds.split(",");
+              var ids = [];
+              $.each(dataEles, function (index, dataElesItem) {
+                  ids.push(dataElesItem.id);
+              });
+            // var ids = checkedIds.split(",");
             var checkedEles = new Array();
             if (ids.length) {
               for (var i = 0; i < ids.length; i++) {
