@@ -153,7 +153,7 @@
 	</div>
 	<div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
 		<div class="form-group">
-			<label class="col-sm-2 control-label">已选择：</label>
+			<label class="col-sm-2 control-label">已选择数据元：</label>
 			<div class="col-sm-10 chosen-show-box">
 				<div class="chosen-container chosen-container-multi">
 					<ul class="chosen-choices c-list" style="min-width: 480px;">
