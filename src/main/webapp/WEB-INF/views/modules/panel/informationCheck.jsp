@@ -33,6 +33,14 @@
 	 justify-content: space-between;
 	 flex-wrap: wrap;
  }
+#element_layer_form2 .form-group {
+    margin-left: 0;
+    margin-right: 0;
+}
+#element_layer_form2 .chosen-show-box{
+    padding-left: 0;
+    padding-right: 0;
+}
 </style>
 <body class="white-bg skin-7">
 	<div class="wrapper wrapper-content animated fadeInRight">
@@ -146,9 +154,9 @@
 	<div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
 		<div class="form-group">
 			<label class="col-sm-2 control-label">已选择：</label>
-			<div class="col-sm-5">
+			<div class="col-sm-10 chosen-show-box">
 				<div class="chosen-container chosen-container-multi">
-					<ul class="chosen-choices c-list" style="min-width: 200px;">
+					<ul class="chosen-choices c-list" style="min-width: 480px;">
 					</ul>
 				</div>
 			</div>

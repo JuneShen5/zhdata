@@ -35,6 +35,10 @@
     margin-left: 0;
     margin-right: 0;
 }
+#element_layer_form2 .chosen-show-box{
+    padding-left: 0;
+    padding-right: 0;
+}
 </style>
 <%@ include file="/WEB-INF/views/include/head.jsp"%>
 </head>
@@ -184,16 +188,16 @@
     <div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
         <div class="form-group">
             <label class="control-label col-sm-2">已选择数据元：</label>
-            <div class="col-sm-5">
+            <div class="col-sm-10 chosen-show-box">
                 <div class="chosen-container chosen-container-multi">
-                    <ul class="chosen-choices c-list" style="min-width: 400px;">
+                    <ul class="chosen-choices c-list" style="min-width: 480px;">
                     </ul>
                 </div>
             </div>
         </div>
         <div id="elementInfoToolbar">
             <div class="form-inline">
-                <label class="control-label pull-left">数据元检索：</label>
+                <label class="control-label col-sm-2">数据元检索：</label>
                 <%-- <div class="col-sm-3"> --%>
                     <%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
                         <option value="">全部</option>
@@ -933,6 +937,8 @@
                   ids.push(dataElesItem.id);
               });
             // var ids = checkedIds.split(",");
+            console.log(ids);
+            console.log(dataEles);
             var checkedEles = new Array();
             if (ids.length) {
               for (var i = 0; i < ids.length; i++) {
