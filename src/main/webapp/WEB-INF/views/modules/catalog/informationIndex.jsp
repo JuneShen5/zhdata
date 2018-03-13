@@ -189,16 +189,20 @@
         </div>
         <div id="elementInfoToolbar">
             <div class="form-inline">
-                <label class="col-sm-2 control-label">数据类：</label>
+                <label class="col-sm-2 control-label">数据元检索：</label>
                 <div class="col-sm-5">
-                    <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
+                    <%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
                         <option value="">全部</option>
                         <c:forEach var="dict" items="${fns:getDictList('data_type')}">
                             <option value="${dict.value}">${dict.label}</option>                
                         </c:forEach>            
+                    </select> --%>
+                    <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
+                        <option value="1">数据元名称</option>
+                        <option value="2">数据元类别</option>
                     </select>
-                </div>                    
-                <input id="eName" eName="nameCn" type="text" placeholder="输入名称"
+                </div>               
+                <input id="eName" eName="name" type="text" placeholder="输入检索关键字"
                     class="form-control col-sm-5">
                 <div class="input-group-btn col-sm-6">
                     <button type="button" id="searchForElement"
@@ -723,14 +727,13 @@
 
             // 得到查询的参数
             oTableInit.queryParams = function(params) {
-                // obj={};
-                // $("#searchForElement").parents(".form-inline").find("input").each(function (index, item) {
-                //     if($(this).attr("eName")!=undefined)
-                //         obj[$(this).attr("eName")] = $(this).val();
-                //     else
-                //         obj["dataType"]=$('#dataTypeSelect').val();
-                // });
-                obj = {'codes': '','name': '', 'type': ''}
+                obj={codes: '',name: '',type: ''};
+                if ($('#dataTypeSelect').val() === '1') {
+                    $('#eName').attr('name', 'name');
+                } else if ($('#dataTypeSelect').val() === '2') {
+                    $('#eName').attr('name', 'type');
+                }
+                obj[$('#eName').attr('name')] = $('#eName').val();
                 var temp = {
                     pageNum : params.offset / params.limit + 1,
                     pageSize : params.limit,
@@ -847,9 +850,6 @@
                     + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             html += '<button type="button" class="btn btn-white" onclick="elementEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
-            html += '<button type="button" class="btn btn-white" onclick="elementDeleteRow(\''
-                    + row.id
-                    + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             return html;
         }
 

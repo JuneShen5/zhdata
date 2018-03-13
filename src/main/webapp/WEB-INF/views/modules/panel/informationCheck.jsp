@@ -113,14 +113,14 @@
 		</div>
 		<table id="elementTable">
 			<thead>
-			<tr>
-				<th data-field="idCode">内部标识符</th>
-				<th data-field="nameCn">信息项名称</th>
-				<th data-field="dataTypeName">数据类型</th>
-				<th data-field="len">数据长度</th>
-				<th data-field="companyName">来源部门</th>
-				<th data-field="Score" data-formatter="elementTableButton">操作</th>
-			</tr>
+			    <tr>
+                    <th data-field="nameCn">信息项名称</th>
+                    <th data-field="name">数据元名称</th>
+                    <th data-field="type">数据类型</th>
+                    <th data-field="len">数据长度</th>
+                    <%-- <th data-field="companyName">来源部门</th> --%>
+                    <th data-field="Score" data-formatter="elementTableButton">操作</th>
+                </tr>
 			</thead>
 		</table>
 	</div>
@@ -135,8 +135,12 @@
 
 	<div id="element_layer_form" style="display:none" class="ibox-content">
 		<form id="elementform" class="form-horizontal">
-			<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
-			
+			<fieldset id="eleForm">
+                <%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
+            </fieldset>
+            <fieldset id="itemForm">
+                <%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
+            </fieldset>
 		</form>
 	</div>
 	<div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
@@ -151,16 +155,20 @@
 		</div>
 		<div id="elementInfoToolbar">
 			<div class="form-inline">
-				<label class="col-sm-2 control-label">数据类：</label>
+				<label class="col-sm-2 control-label">数据元检索：</label>
 				<div class="col-sm-5">
-					<select name="dataType" id="dataTypeSelect" class="select-chosen" required>
+					<%-- <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
 						<option value=""></option>
 						<c:forEach var="dict" items="${fns:getDictList('data_type')}">
 							<option value="${dict.value}">${dict.label}</option>
 						</c:forEach>
-					</select>
+					</select> --%>
+                    <select name="dataType" id="dataTypeSelect" class="select-chosen" required>
+                        <option value="1">数据元名称</option>
+                        <option value="2">数据元类别</option>
+                    </select>
 				</div>
-				<input id="eName" eName="nameCn" type="text" placeholder="输入名称"
+				<input id="eName" eName="name" type="text" placeholder="输入检索关键字"
 					   class="form-control col-sm-5">
 				<div class="input-group-btn col-sm-6">
 					<button type="button" id="searchForElement"
@@ -171,15 +179,16 @@
 		</div>
 		<table id="elementTable2">
 			<thead>
-			<tr>
-				<th data-field="selectId" data-formatter="checkFormatter">添加</th>
-				<th data-field="idCode">内部标识符</th>
-				<th data-field="nameCn">中文名称</th>
-				<th data-field="len">数据长度</th>
-				<th data-field="companyName">来源部门</th>
-				<th data-field="source">来源</th>
-				<th data-field="Score" data-formatter="elementTableButton">操作</th>
-			</tr>
+                <tr>
+                    <th data-field="selectId" data-formatter="checkFormatter">添加</th>
+                    <th data-field="codes">数据元编码</th>
+                    <th data-field="name">数据元名称</th>
+                    <th data-field="type">数据元类型</th>
+                    <th data-field="len">数据长度</th>
+                    <%-- <th data-field="companyName">来源部门</th> --%>
+                    <!--  <th data-field="source">来源</th>  -->
+                    <th data-field="Score" data-formatter="elementTable2Button">操作</th>
+			    </tr>
 			</thead>
 		</table>
 	</div>
@@ -239,6 +248,7 @@
         var flag=false;
         var checkedIds = ",";
         var dataEles = new Array();//存放选中的数据元
+        var currEditEleRow = 0;
         
         function changeInit () {
             linkRelInfo.onChange(function () {
@@ -295,6 +305,20 @@
             linkRelInfo.reset();
             // 将code的input隐藏
             $("input[name=code]").closest(".form-group").hide();
+        }
+
+        // 修改
+        function infoEditRow (id) {
+            var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+            // itemIndex
+            $.each(row.elementList, function (index, item) {
+                item.itemIndex = index;
+            })
+            openLayer(editTitle);
+            loadData(row);
+            // 通过验证
+            $(formId).validate().form();
+            $("#selectElement").removeClass("hide");    
         }
 
         // 在查看详情时将提供方代码显示出来
@@ -380,7 +404,7 @@
 			$('.i-checks').iCheck('disable');
             var data1 = $(elementTableId).bootstrapTable('getData');
         	//合并单元格
-        	mergeCells(data1, "dataTypeName", 1, $(elementTableId));
+        	// mergeCells(data1, "dataTypeName", 1, $(elementTableId));
         }
 
         function notThrough (id) {
@@ -459,13 +483,19 @@
 
             // 得到查询的参数
             oTableInit.queryParams = function(params) {
-                obj={};
-                $("#searchForElement").parents(".form-inline").find("input").each(function (index, item) {
-                    if($(this).attr("eName")!=undefined)
-                        obj[$(this).attr("eName")] = $(this).val();
-                    else
-                        obj["dataType"]=$('#dataTypeSelect').val();
-                });
+                obj={codes: '',name: '',type: ''};
+                // $("#searchForElement").parents(".form-inline").find("input").each(function (index, item) {
+                //     if($(this).attr("eName")!=undefined)
+                //         obj[$(this).attr("eName")] = $(this).val();
+                //     else
+                //         obj["dataType"]=$('#dataTypeSelect').val();
+                // });
+                if ($('#dataTypeSelect').val() === '1') {
+                    $('#eName').attr('name', 'name');
+                } else if ($('#dataTypeSelect').val() === '2') {
+                    $('#eName').attr('name', 'type');
+                }
+                obj[$('#eName').attr('name')] = $('#eName').val();
                 var temp = {
                     pageNum : params.offset / params.limit + 1,
                     pageSize : params.limit,
@@ -481,11 +511,14 @@
             var row;
             if(flag==false){
                 row = $(elementTableId).bootstrapTable('getRowByUniqueId', id);
+                $('#eleForm').show();
             }else{
                 row = $(elementTableId2).bootstrapTable('getRowByUniqueId', id);
+                $('#eleForm').hide();
             }
             mOpenDetail($(elementLayerId),$(elementFormId));
             // loadData(row);
+            row.companyName = $(formId).find('[name=companyName]').val();
             loadToData(row, 'elementform')
             // 然后将所有表单中的选项做一个禁选中操作
             $(elementFormId).find("input").each(function () {
@@ -498,26 +531,99 @@
             $(elementFormId).find('.i-checks').iCheck('disable');
         }
 
-        // 查看详情弹框
-        function mOpenDetail(l,f) {
-            layeForm = layer.open({
-                title: '信息项详情',
-                type : 1,
-                area : [ '100%', '100%' ],
-                scrollbar : false,
-                zIndex : 100,
-                content : l,
-                cancel : function () {
-                    // 当弹框被关闭的时候将所有加上的属性移除掉
-                    f.find("input").each(function () {
-                        $(this).removeAttr("disabled");
-                    });
-                    f.find("select").prop("disabled", false);
-                    f.find("select").trigger("chosen:updated");
-                    f.find('.i-checks').iCheck('enable');
+        // 修改信息项表单
+        function elementEditRow(id) {
+            var row;
+            row = $(elementTableId).bootstrapTable('getRowByUniqueId', id);
+            console.log(row);
+            currEditEleRow = row.itemIndex;
+            $('#eleForm').show();
+            mOpenDetail($(elementLayerId),$(elementFormId),'edit');
+            // loadData(row);
+            row.companyName = $(formId).find('[name=companyName]').val();
+            loadToData(row, 'elementform')
+            // 然后将所有表单中的选项做一个禁选中操作
+            $(elementFormId).find("input:not(.js-edit-enable)").each(function () {
+                $(this).attr("disabled","disabled");
+            });
+            // 判断select
+            $(elementFormId).find("select").prop("disabled", true);
+            $(elementFormId).find("select").trigger("chosen:updated");
+            // checkbox
+            $(elementFormId).find('.i-checks').iCheck('disable');
+            $(elementFormId).validate({
+                ignore: ":disabled",
+                submitHandler: function(form){
+                    console.log('row:', row)
+                    console.log("dataEles: ", currEditEleRow)
+                    dataEles[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
+                    $(elementTableId).bootstrapTable('load',dataEles);
+                    layer.close(layeForm4);
+                    return false;
                 }
             });
         }
+        
+        // 查看详情弹框
+        function mOpenDetail(l,f,type) {
+            if (type === 'detail') {
+                layeForm3 = layer.open({
+                    title: '信息项详情',
+                    type : 1,
+                    area : [ '95%', '90%' ],
+                    scrollbar : false,
+                    zIndex : 100,
+                    content : l,
+                    cancel : function () {
+                        // 当弹框被关闭的时候将所有加上的属性移除掉
+                        f.find("input").each(function () {
+                            $(this).removeAttr("disabled");
+                        });
+                        $(elementFormId).find("select").prop("disabled", false);
+                        $(elementFormId).find("select").trigger("chosen:updated");
+                        $(elementFormId).find('.i-checks').iCheck('enable');
+                    }
+                });
+            } else if (type === 'edit') {
+                layeForm4 = layer.open({
+                    title: '信息项修改',
+                    type : 1,
+                    area : [ '95%', '90%' ],
+                    scrollbar : false,
+                    zIndex : 100,
+                    btn : [ '保存', '关闭' ],
+                    yes : function(index, layero) {
+                        $(elementFormId).submit();
+                    },
+                    end : function() {
+                        $(elementFormId).resetForm();
+                        // endMethod(elementFormId, "close");
+                    },
+                    content : l
+                });
+            }
+        }
+
+        // 查看详情弹框
+        // function mOpenDetail(l,f) {
+        //     layeForm = layer.open({
+        //         title: '信息项详情',
+        //         type : 1,
+        //         area : [ '100%', '100%' ],
+        //         scrollbar : false,
+        //         zIndex : 100,
+        //         content : l,
+        //         cancel : function () {
+        //             // 当弹框被关闭的时候将所有加上的属性移除掉
+        //             f.find("input").each(function () {
+        //                 $(this).removeAttr("disabled");
+        //             });
+        //             f.find("select").prop("disabled", false);
+        //             f.find("select").trigger("chosen:updated");
+        //             f.find('.i-checks').iCheck('enable');
+        //         }
+        //     });
+        // }
 
         function elementTableButton(index, row, element) {
             var html = '';
@@ -525,6 +631,17 @@
             html += '<button type="button" class="btn btn-white" onclick="elementDatailRow(\''
                 + row.id
                 + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+            html += '<button type="button" class="btn btn-white" onclick="elementEditRow(\''
+                    + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
+            return html;
+        }
+        // 选择数据元表格按钮设置
+        function elementTable2Button(index, row, element) {
+            var html = '';
+            html += '<div class="btn-group">';
+            html += '<button type="button" class="btn btn-white" onclick="elementDatailRow(\''
+                    + row.id
+                    + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             return html;
         }
 
@@ -532,11 +649,11 @@
             var html = '';
             if (checkedIds.indexOf("," + row.id + ",") > -1) {
                 html += '<input type="checkbox" name="des" data-id="'+element+'" value="' + row.id + '" data-name="'
-                    + row.nameCn
+                    + row.name
                     + '" onclick="selectDE(this);" checked="checked"/>';
             } else {
                 html += '<input type="checkbox" name="des" data-id="'+element+'" value="' + row.id + '" data-name="'
-                    + row.nameCn + '" onclick="selectDE(this);"/>';
+                    + row.name + '" onclick="selectDE(this);"/>';
             }
             return html;
         }
@@ -586,7 +703,7 @@
                 for (var k = 0; k < checkedEles.length; k++) {
                     html += '<li class="search-choice">'
                         +'<span onclick="detail(\'' + checkedEles[k].id+'\');">'
-                        + checkedEles[k].nameCn + '</span><a class="search-choice-close" onclick="unCheck(\''
+                        + checkedEles[k].name + '</span><a class="search-choice-close" onclick="unCheck(\''
                         + checkedEles[k].id + '\');"></a></li>';
                 }
                 $('.c-list').html(html);
@@ -626,7 +743,7 @@
             mTable2.Init();
             initText();
             //增加搜索按钮
-            $(elementTableId2).bootstrapTable('refresh', {url: '${ctx}/catalog/element/'+ 'list?',toolbar : "#elementInfoToolbar"});
+            $(elementTableId2).bootstrapTable('refresh', {url: '${ctx}/catalog/item/'+ 'list?',toolbar : "#elementInfoToolbar"});
             layeForm2 = layer.open({
                 title: title,
                 type : 1,
@@ -635,6 +752,11 @@
                 zIndex : 100,
                 btn : [ '保存', '关闭' ],
                 yes : function(index, layero) {
+                    $.each(dataEles, function (index, dataItem) {
+                        console.log('index:'+index);
+                        dataItem.itemIndex = index;
+                        dataItem.nameCn = dataItem.name;
+                    });
                     $(elementTableId).bootstrapTable('refreshOptions',{
                         data:dataEles,
                         totalRows:dataEles.length
@@ -668,19 +790,58 @@
             value=value.replace(/, /g, ",");
             $("#dictId").val(value);
         }
-        function getCode(){
-            $.ajax({
-                url: "${ctx}/catalog/information/getCode",
-                type: 'get',
-                success: function (data) {
-                    $("input[name='nameEn']").val(data);
-                    $("input[name='nameEn']").blur();
-                }
-            });
-        }
+        // function getCode(){
+        //     $.ajax({
+        //         url: "${ctx}/catalog/information/getCode",
+        //         type: 'get',
+        //         success: function (data) {
+        //             $("input[name='nameEn']").val(data);
+        //             $("input[name='nameEn']").blur();
+        //         }
+        //     });
+        // }
 
+        // 信息资源提交（参数格式化）
+        function informationSubmit() {
+            var data = {};
+            $('#eform input,#eform select').each(function (index, row) {
+                data[$(this).attr('name')] = $(this).val();
+            });
+            data.elementList = [];
+            $.each(dataEles, function (index, eleItem) {
+                data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
+            });
+            delete data.elementIds;
+            data.infoType3 == undefined ? data.infoType3 = 0 : '';
+            data.infoType4 == undefined ? data.infoType4 = 0 : '';
+            if ($('#eform').valid()) {
+                $.ajax({
+                    url: url + 'save',
+                    contentType: "application/json; charset=utf-8", 
+                    dataType: "json",    
+                    type: 'post',
+                    data: JSON.stringify(data),
+                    success : function(data){
+                        layer.close(layeForm);
+                        $(tableId).bootstrapTable('refresh');
+                        layer.msg(data);
+                        endMethod(formId);
+                    },
+                    error : function(XmlHttpRequest, textStatus, errorThrown){
+                        layer.close(layeForm);
+                        $(tableId).bootstrapTable('refresh');
+                        layer.msg("数据操作失败!");
+                        endMethod(formId);
+                    },
+                    resetForm : true
+                });
+            } else {
+                layer.msg('有未填写的必填字段，请检查！');
+            }
+        }
+        
         // 信息资源格式的值写死成数据库
-        $("input[name=xinxiziyuangeshi]").val("数据库");
+        // $("input[name=xinxiziyuangeshi]").val("数据库");
 
         // 共享类型、是否向社会开放--暂时性开放（后续自己填写的时候需要开放）
         $("select[name=gongxiangleixing]").closest(".form-group").show();
@@ -718,7 +879,7 @@
 			html += '<div class="btn-group">';
 			html += '<button type="button" class="btn btn-white" onclick="datailRowBefore('
 					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
-            html += '<button type="button" class="btn btn-white" onclick="editRow('
+            html += '<button type="button" class="btn btn-white" onclick="infoEditRow('
                 + row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
 			if (itemState == 0) {
 				html += '<button type="button" class="btn btn-white" id="edit"  onclick="releaseAudit('
