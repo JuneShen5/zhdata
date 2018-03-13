@@ -248,19 +248,19 @@
 	</select>
 
 	<!-- 根据条件查询 -->
-    <select id="queryListByPage" resultMap="informationResult">
+    <!-- <select id="queryListByPage" resultMap="informationResult">
         SELECT
         <include refid="informationColumns" />
         ,
         e.id AS "elementList.id",
-       <!--  LPAD(e.id,7,'0') AS "elementList.idCode", -->
+        LPAD(e.id,7,'0') AS "elementList.idCode",
         e.name_cn AS "elementList.nameCn",
         e.info_id AS "elementList.infoId",
         e.item_id AS "elementList.itemId",
         e.remarks AS "elementList.remarks",
         c1.name AS "elementList.companyName",
         e.company_id AS "elementList.companyId"
-        <!-- d.label AS "elementList.dataTypeName" -->
+        d.label AS "elementList.dataTypeName"
         FROM (SELECT i.* FROM drs_information i
         LEFT JOIN sys_company c ON c.id = i.company_id
         WHERE
@@ -277,7 +277,7 @@
                     AND i.is_audit = '${value}'
                 </if>
                 <if test="key=='companyIds'" >
-                <!--     AND company_id = '${value}' -->
+                    AND company_id = '${value}'
                 	AND i.company_id IN 
      			   <foreach collection="value" item="id" open="("  close=")" separator=",">
          			   #{id}
@@ -304,9 +304,9 @@
                 <if test="key=='companyName'" >
                     AND c.name LIKE CONCAT('%','${value}','%')
                 </if>
-               <!--  <if test="key!='name'"> 
+                <if test="key!='name'"> 
                     and json_extract(info,'$."${key}"') like '%#{value}%'
-                </if>  -->
+                </if> 
             </if>
         </foreach>
          ORDER BY i.id DESC
@@ -319,9 +319,9 @@
         LEFT JOIN drs_element e ON ie.element_id=e.id
         LEFT JOIN sys_company c1 ON c1.id = e.company_id
         LEFT JOIN sys_company co ON co.id = a.depart_id
-       <!--  LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value` -->
+        LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
         ORDER BY a.id DESC
-    </select>
+    </select> -->
     
     
 	

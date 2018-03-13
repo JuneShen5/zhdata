@@ -186,9 +186,9 @@ public class InformationService extends BaseService<Information> {
         return infoDao.findElementById(id);
     }
 
-    public List<Information> queryList(Page<Information> page) {
+    /*public List<Information> queryList(Page<Information> page) {
         return infoDao.queryListByPage(page);
-    }
+    }*/
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer updateAuditByids(String ids) {
