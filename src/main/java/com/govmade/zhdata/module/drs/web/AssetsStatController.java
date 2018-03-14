@@ -204,7 +204,7 @@ public class AssetsStatController {
             if (inCount >0) {
                 iCount=inCount;
             }
-            Information info1=new Information();
+            /*Information info1=new Information();
             info1.setCompanyId(companyId);
             info1.setInfoType1(1);
             info1.setDelFlag(Global.DEL_FLAG_NORMAL);
@@ -222,7 +222,7 @@ public class AssetsStatController {
             if (inforCount2>0) {
                 iCount2=inforCount2;
             }
-            
+            */
             
            /* Integer iCount3=0;
             String shareType="1";
@@ -250,8 +250,8 @@ public class AssetsStatController {
             map2.put("sCount", sCount);
             map2.put("eCount", eCount);
             map2.put("iCount", iCount);
-            map2.put("iCount1", iCount1);
-            map2.put("iCount2", iCount2);
+            /*map2.put("iCount1", iCount1);
+            map2.put("iCount2", iCount2);*/
             /*map2.put("iCount3", iCount3);
             map2.put("iCount4", iCount4);
             map2.put("iCount5", iCount5);*/

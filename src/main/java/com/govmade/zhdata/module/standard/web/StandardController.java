@@ -545,8 +545,8 @@ public class StandardController {
                 map.put("shareType", s.getShareType());
                 map.put("shareMode", s.getShareMode());
                 map.put("shareCondition", s.getShareCondition());
-                map.put("infoType1", s.getInfoType1());
-                map.put("infoType2", s.getInfoType2());
+                map.put("infoType", s.getInfoType());
+           /*     map.put("infoType2", s.getInfoType2());*/
                 map.put("remarks", s.getRemarks());
                 map.put("isAudit", s.getIsAudit());
                 map.put("systemId", s.getSystemId());
