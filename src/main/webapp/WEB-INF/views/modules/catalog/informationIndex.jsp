@@ -959,7 +959,6 @@
         $.each(dataElesResetList, function (index, dataElesItem) {
             ids.push(dataElesItem.id);
         });
-        console.log(ids);
         var checkedEles = new Array();
         if (ids.length) {
             for (var i = 0; i < ids.length; i++) {
@@ -1010,7 +1009,6 @@
             }
             checkedIds =ck;
             $("#selectElement").addClass("hide");
-            console.log(dataElesResetList);
             $(elementTableId).bootstrapTable('refreshOptions',{
                 data:dataElesResetList,
                 totalRows:dataElesResetList.length
@@ -1044,11 +1042,9 @@
                 btn : [ '保存', '关闭' ],
                 yes : function(index, layero) {
                     $.each(dataElesResetList, function (index, dataItem) {
-                        console.log('index:'+index);
                         dataItem.itemIndex = index;
                         // dataItem.nameCn = dataItem.name;
                     });
-                    console.log(dataElesResetList);
                     $(elementTableId).bootstrapTable('refreshOptions',{
                         data:dataElesResetList,
                         totalRows:dataElesResetList.length

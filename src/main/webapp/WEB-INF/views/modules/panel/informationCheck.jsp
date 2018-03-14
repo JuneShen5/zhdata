@@ -579,14 +579,11 @@
             layeConfirm = layer.confirm('您确定要删除么？', {
                 btn : [ '确定', '取消' ]
             }, function() {
-                console.log(id);
-                console.log(dataElesResetList);
                 for (var i = 0; i < dataElesResetList.length; i++) {
                     if (dataElesResetList[i].id == id) {
                         dataElesResetList.splice($.inArray(dataElesResetList[i],dataElesResetList),1);
                     }
                 }
-                console.log(dataElesResetList);
                 $(elementTableId).bootstrapTable('refreshOptions',{
                     data:dataElesResetList,
                     totalRows:dataElesResetList.length
@@ -662,8 +659,6 @@
             var html = '';
             html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
                 + row.name + '" onclick="selectDE(this);"/>';
-            console.log(dataElesResetList);
-            console.log(row);
             if (dataElesResetList.length > 0) {
                 $.each(dataElesResetList, function (index, dataElesItem) {
                     if (dataElesItem.id === row.id) {
@@ -707,7 +702,6 @@
             $.each(dataElesResetList, function (index, dataElesItem) {
                 ids.push(dataElesItem.id);
             });
-            console.log(ids);
             var checkedEles = new Array();
             if (ids.length) {
                 for (var i = 0; i < ids.length; i++) {
@@ -791,7 +785,6 @@
                 btn : [ '保存', '关闭' ],
                 yes : function(index, layero) {
                     $.each(dataElesResetList, function (index, dataItem) {
-                        console.log('index:'+index);
                         dataItem.itemIndex = index;
                         // dataItem.nameCn = dataItem.name;
                     });
