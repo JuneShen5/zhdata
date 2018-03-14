@@ -67,7 +67,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label layerTips" data-tips-text="">信息资源编码：</label>
 		<div class="col-sm-7">
-			<input type="text" name="nameEn" class="form-control" required>
+			<input type="text" name="nameEn" class="form-control">
 		</div>
 	</div>
 	<!-- <div class="form-group">
