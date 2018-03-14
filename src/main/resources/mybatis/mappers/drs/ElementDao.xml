@@ -225,6 +225,8 @@
 	</delete>
 	
 	
+	
+	<!-- 最新版 -->
 	<select id="queryAlList" resultType="Element">
 		SELECT 
 		<include refid="elementColumns" />,
@@ -239,7 +241,7 @@
 			<if test="element.companyId != null and element.companyId !=''" >
 				AND a.company_id = #{element.companyId}
 			</if>
-		ORDER BY a.id DESC
+		ORDER BY a.id
 	</select>
 
 

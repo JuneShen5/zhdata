@@ -40,7 +40,7 @@
 			<!-- <if test="item.typen != null and item.typen !=''" >
 				AND a.typen LIKE CONCAT('%',#{item.type},'%')
 			</if> -->
-		ORDER BY a.id DESC
+		ORDER BY a.id 
 	</select>
 	
 	
