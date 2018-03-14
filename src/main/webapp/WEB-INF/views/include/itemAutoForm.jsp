@@ -9,6 +9,12 @@
 		</div>
 	</div>
 	<div class="form-group">
+		<label class="col-sm-3 control-label">数据元名称：</label>
+		<div class="col-sm-7">
+			<input type="text" name="name" class="form-control" placeholder="标明该信息项在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）" required>
+		</div>
+	</div>
+	<div class="form-group">
 		<label class="col-sm-3 control-label">数据元类别：</label>
 		<div class="col-sm-7">
 			<input type="text" name="type" class="form-control" placeholder="描述信息资源中具体数据项（数据元）的中文标题" required>
@@ -20,12 +26,7 @@
 			<input type="text" name="typen" class="form-control" placeholder="描述信息资源中具体信息项的英文标题" required>
 		</div>
 	</div>
-	<div class="form-group">
-		<label class="col-sm-3 control-label">数据元名称：</label>
-		<div class="col-sm-7">
-			<input type="text" name="name" class="form-control" placeholder="标明该信息项在计算机中存储时占用的字节数，适用于结构化数据（数据库类、电子表格类）" required>
-		</div>
-	</div>
+	
 	<div class="form-group">
 		<label class="col-sm-3 control-label">数据元长度：</label>
 		<div class="col-sm-7">
