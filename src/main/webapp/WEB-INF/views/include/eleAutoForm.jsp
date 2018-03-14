@@ -15,7 +15,7 @@
 		</div>
 	</div>
 	<div class="form-group">
-		<label class="col-sm-3 control-label">信息项中文名称：</label>
+		<label class="col-sm-3 control-label">信息项名称：</label>
 		<div class="col-sm-7">
 			<input type="text" name="nameCn" class="form-control js-edit-enable" placeholder="描述信息资源中具体数据项（数据元）的中文标题" required>
 		</div>
