@@ -2,12 +2,14 @@
 
 	<input type="text" name="id" class="hide">
 	<div class="form-group linkagesel-select-group-info clearfix">
-		<label class="col-sm-3 control-label">信息资源分类：</label>
-		<div class="col-sm-7 linkagesel-select-list clearfix">
+		<label class="col-sm-3 control-label">信息类分类：</label>
+		<%-- <div class="col-sm-7 linkagesel-select-list clearfix">
 			<div class="linkagesel-select-div" required>
 				<select id="linkageSelSelect" class="linkagesel-select-info" name="infoType1" value="" required></select>
-
 			</div>
+		</div> --%>
+		<div class="col-sm-7">
+			<input type="text" name="infoType" class="form-control" placeholder="请输入信息类分类名称" required>
 		</div>
 	</div>
 	<div class="form-group">
@@ -67,7 +69,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label layerTips" data-tips-text="">信息资源编码：</label>
 		<div class="col-sm-7">
-			<input type="text" name="nameEn" class="form-control" required>
+			<input type="text" name="nameEn" class="form-control">
 		</div>
 	</div>
 	<!-- <div class="form-group">
@@ -81,7 +83,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源格式：</label>
 		<div class="col-sm-7">
-			<select name="shareType" class="select-chosen" required>
+			<select name="resourceFormat" class="select-chosen" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('resource_format')}">
 					<option value="${dict.value}">${dict.label}</option>
@@ -172,12 +174,13 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">数据范围：</label>
 		<div class="col-sm-7">
-			<select name="ranges" class="select-chosen js-hasChild" required>
+			<%-- <select name="ranges" class="select-chosen js-hasChild" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('data_range')}">
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
-			</select>
+			</select> --%>
+			<input type="text" name="ranges" class="form-control" placeholder="" required>
 		</div>
 	</div>
 	

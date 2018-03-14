@@ -291,8 +291,8 @@ public class InformationService extends BaseService<Information> {
                 information.setIsOpen(Integer.valueOf(infoMap.get("is_open")));
                 information.setSystemId(Integer.valueOf(infoMap.get("system_id")));
               /*  information.setOpenType(Integer.valueOf(infoMap.get("open_type")));*/
-                information.setInfoType1(Integer.valueOf(infoMap.get("info_type1")));
-                information.setInfoType2(Integer.valueOf(infoMap.get("info_type2")));
+                information.setInfoType(infoMap.get("info_type"));
+               /* information.setInfoType2(Integer.valueOf(infoMap.get("info_type2")));*/
                 
           /*      information.setRightRelation(infoMap.get("right_relation"));*/
                 information.setNameCn(infoMap.get("name_cn"));
