@@ -1085,8 +1085,8 @@
                 data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
             });
             delete data.elementIds;
-            data.infoType3 == undefined ? data.infoType3 = 0 : '';
-            data.infoType4 == undefined ? data.infoType4 = 0 : '';
+            // data.infoType3 == undefined ? data.infoType3 = 0 : '';
+            // data.infoType4 == undefined ? data.infoType4 = 0 : '';
             if ($('#eform').valid()) {
                 $(document).one('click', '.layui-layer-btn0', function () {
                     $(this).hide();
