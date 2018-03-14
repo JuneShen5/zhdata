@@ -33,10 +33,8 @@ public class Information extends BasePo<Information> {
     private String nameEn; // 信息资源代码
 
     private String nameCn;
-
-    private Integer infoType1;
-
-    private Integer infoType2;
+    
+    private String infoType;
 
     private String code;
 
@@ -56,7 +54,7 @@ public class Information extends BasePo<Information> {
 
     private String matter;
 
-    private Integer ranges;
+    private String ranges;
 
     private Integer isAudit;
 
@@ -200,21 +198,6 @@ public class Information extends BasePo<Information> {
         this.shareCondition = shareCondition;
     }
 
-    public Integer getInfoType1() {
-        return infoType1;
-    }
-
-    public void setInfoType1(Integer infoType1) {
-        this.infoType1 = infoType1;
-    }
-
-    public Integer getInfoType2() {
-        return infoType2;
-    }
-
-    public void setInfoType2(Integer infoType2) {
-        this.infoType2 = infoType2;
-    }
 
     public Integer getIsAudit() {
         return isAudit;
@@ -312,11 +295,11 @@ public class Information extends BasePo<Information> {
         this.matter = matter;
     }
 
-    public Integer getRanges() {
+    public String getRanges() {
         return ranges;
     }
 
-    public void setRanges(Integer ranges) {
+    public void setRanges(String ranges) {
         this.ranges = ranges;
     }
 
@@ -358,6 +341,14 @@ public class Information extends BasePo<Information> {
 
     public void setUpdateCycle(String updateCycle) {
         this.updateCycle = updateCycle;
+    }
+
+    public String getInfoType() {
+        return infoType;
+    }
+
+    public void setInfoType(String infoType) {
+        this.infoType = infoType;
     }
     
     

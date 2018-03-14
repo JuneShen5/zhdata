@@ -372,8 +372,9 @@ public class DbsController {
                 map.put("shareType", infoDetail.getShareType());
                 map.put("shareMode", infoDetail.getShareMode());
                 map.put("shareCondition", infoDetail.getShareCondition());
-                map.put("infoType1", infoDetail.getInfoType1());
-                map.put("infoType2", infoDetail.getInfoType2());
+                map.put("infoType", infoDetail.getInfoType());
+                /*map.put("infoType1", infoDetail.getInfoType1());
+                map.put("infoType2", infoDetail.getInfoType2());*/
                 map.put("remarks", infoDetail.getRemarks());
                 map.put("isAudit", infoDetail.getIsAudit());
                 map.put("systemId", infoDetail.getSystemId());
