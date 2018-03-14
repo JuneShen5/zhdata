@@ -837,7 +837,6 @@
                         dataElesResetList.splice($.inArray(dataElesResetList[i],dataElesResetList),1);
                     }
                 }
-                // $(elementTableId).bootstrapTable('load',arr);
                 $(elementTableId).bootstrapTable('refreshOptions',{
                     data:dataElesResetList,
                     totalRows:dataElesResetList.length
