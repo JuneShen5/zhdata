@@ -83,7 +83,7 @@
 	<div class="form-group">
 		<label class="col-sm-3 control-label">信息资源格式：</label>
 		<div class="col-sm-7">
-			<select name="shareType" class="select-chosen" required>
+			<select name="resourceFormat" class="select-chosen" required>
 				<option value=""></option>
 				<c:forEach var="dict" items="${fns:getDictList('resource_format')}">
 					<option value="${dict.value}">${dict.label}</option>

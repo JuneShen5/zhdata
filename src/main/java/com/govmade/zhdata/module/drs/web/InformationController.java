@@ -157,8 +157,6 @@ public class InformationController extends BaseController<Information>{
                 map.put("matter", s.getMatter());
                 map.put("manageStyle", s.getManageStyle());
                 map.put("ranges", s.getRanges());
-                map.put("infoType3", s.getInfoType3());
-                map.put("infoType4", s.getInfoType4());
                 map.put("summary", s.getSummary());
                 map.put("updateCycle", s.getUpdateCycle());
                 switch (s.getIsAudit()) {
@@ -241,7 +239,7 @@ public class InformationController extends BaseController<Information>{
                         || paramName.trim().equals("nameEn") || paramName.trim().equals("nameCn") ||paramName.trim().equals("systemId")
                         || paramName.trim().equals("elementIds") || paramName.trim().equals("isOpen")|| paramName.trim().equals("openType")
                         || paramName.trim().equals("shareType")|| paramName.trim().equals("shareMode")|| paramName.trim().equals("shareCondition")
-                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("infoType2")
+                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType") 
                         ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("departId")||paramName.trim().equals("dept")
                         ||paramName.trim().equals("isCreated")||paramName.trim().equals("matter")|| paramName.trim().equals("reason")
                         ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("ranges")||paramName.trim().equals("code"))) {
