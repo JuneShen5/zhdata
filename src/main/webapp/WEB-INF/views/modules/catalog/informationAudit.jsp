@@ -113,11 +113,10 @@
 		<table id="elementTable">
 			<thead>
 			<tr>
-				<th data-field="idCode">内部标识符</th>
 				<th data-field="nameCn">信息项名称</th>
-				<th data-field="dataTypeName">数据类型</th>
-				<th data-field="len">数据长度</th>
-				<th data-field="companyName">来源部门</th>
+                <th data-field="name">数据元名称</th>
+                <th data-field="type">数据类型</th>
+                <th data-field="len">数据长度</th>
 				<th data-field="Score" data-formatter="elementTableButton">操作</th>
 			</tr>
 			</thead>
@@ -134,8 +133,12 @@
 
 	<div id="element_layer_form" style="display:none" class="ibox-content">
 		<form id="elementform" class="form-horizontal">
-			<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
-			
+			<fieldset id="eleForm">
+                <%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
+            </fieldset>
+            <fieldset id="itemForm">
+                <%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
+            </fieldset>
 		</form>
 	</div>
 	<div id="element_layer_form2" style="display: none" class="ibox-content form-horizontal">
