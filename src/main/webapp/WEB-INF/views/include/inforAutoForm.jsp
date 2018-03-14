@@ -180,7 +180,7 @@
 					<option value="${dict.value}">${dict.label}</option>
 				</c:forEach>
 			</select> --%>
-			<input type="text" name="ranges" class="form-control" placeholder="">
+			<input type="text" name="ranges" class="form-control" placeholder="" required>
 		</div>
 	</div>
 	
