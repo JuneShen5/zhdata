@@ -381,7 +381,7 @@ h3 {
                 // 各部门资源数据对比图形设置-begin
                 var chartData4 = {
                     companyName: [],
-                    sourceName: ['信息系统','信息项','信息资源','基础资源','主题资源'],
+                    sourceName: ['信息系统','信息项','信息资源'],
                     data: []
                 };
                 var selectedId2 = [];
@@ -393,8 +393,8 @@ h3 {
                     dataArr.push(pItem.sCount);
                     dataArr.push(pItem.eCount);
                     dataArr.push(pItem.iCount);
-                    dataArr.push(pItem.iCount1);
-                    dataArr.push(pItem.iCount2);
+                    // dataArr.push(pItem.iCount1);
+                    // dataArr.push(pItem.iCount2);
                     dataInit['name'] = pItem.companyName;
                     dataInit['type'] = 'bar';
                     dataInit['data'] = dataArr;

@@ -673,6 +673,8 @@
             var html = '';
             html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
                 + row.name + '" onclick="selectDE(this);"/>';
+            console.log(dataElesResetList);
+            console.log(row);
             if (dataElesResetList.length > 0) {
                 $.each(dataElesResetList, function (index, dataElesItem) {
                     if (dataElesItem.id === row.id) {
@@ -844,8 +846,6 @@
                 data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
             });
             delete data.elementIds;
-            data.infoType3 == undefined ? data.infoType3 = 0 : '';
-            data.infoType4 == undefined ? data.infoType4 = 0 : '';
             if ($('#eform').valid()) {
                 $(document).one('click', '.layui-layer-btn0', function () {
                     $(this).hide();
