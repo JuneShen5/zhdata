@@ -413,20 +413,6 @@
             $(formId).validate().form();
             $("#selectElement").removeClass("hide");
             $('.js-toggle-btn').show();
-            dataElesResetList = [];
-            $.each(dataEles, function (index, dataElesItem) {
-                dataElesResetList.push({
-                    'codes': dataElesItem.codes,
-                    'id': dataElesItem.itemId,
-                    'itemIndex': dataElesItem.itemIndex,
-                    'len': dataElesItem.len,
-                    'name': dataElesItem.name,
-                    'nameCn': dataElesItem.nameCn,
-                    'remarks': dataElesItem.remarks,
-                    'type': dataElesItem.type,
-                    'typen': dataElesItem.typen
-                });
-            });
         }
         
         // 在查看详情时将提供方代码显示出来
@@ -830,16 +816,37 @@
                 ignore: ":disabled",
                 submitHandler: function(form){
                     dataElesResetList[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
-                    console.log('dataElesResetList：')
-                    console.log(dataElesResetList);
-                    // $(elementTableId).bootstrapTable('load',dataElesResetList);
-                    $(elementTableId).bootstrapTable('refreshOptions',{
-                        data:dataElesResetList,
-                        totalRows:dataElesResetList.length
-                    });
+                    $(elementTableId).bootstrapTable('load',dataElesResetList);
+                    // $(elementTableId).bootstrapTable('refreshOptions',{
+                    //     data:dataElesResetList,
+                    //     totalRows:dataElesResetList.length
+                    // });
                     layer.close(layeForm4);
                     return false;
                 }
+            });
+        }
+
+        // 删除数据项
+        function elementDeleteRow(id) {
+            layeConfirm = layer.confirm('您确定要删除么？', {
+                btn : [ '确定', '取消' ]
+            }, function() {
+                var arr = [];
+                console.log(dataElesResetList);
+                for (var i = 0; i < dataElesResetList.length; i++) {
+                    if (dataElesResetList[i].id != id) {
+                        arr.push(dataElesResetList[i]);
+                    }
+                }
+                console.log(arr);
+                // $(elementTableId).bootstrapTable('load',arr);
+                $(elementTableId).bootstrapTable('refreshOptions',{
+                    data:arr,
+                    totalRows:arr.length
+                });
+                layer.close(layeConfirm);
+                layer.msg('删除成功!');
             });
         }
         
@@ -876,7 +883,7 @@
                     },
                     end : function() {
                         $(elementFormId).resetForm();
-                        // endMethod(elementFormId, "close");
+                        endMethod(elementFormId, "close");
                     },
                     content : l
                 });
@@ -892,6 +899,8 @@
                     + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
+            html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementDeleteRow(\''
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             return html;
         }
 
@@ -926,6 +935,7 @@
             if ($(t).is(':checked')) {
                 checkedIds += $(t).attr('data-value') + ",";
                 var data = $(elementTableId2).bootstrapTable('getRowByUniqueId', $(t).attr('data-value'));
+                data.nameCn = data.name
                 dataElesResetList.push(data);
             } else {
                 checkedIds = checkedIds.replace("," + $(t).val() + ",", ",");
@@ -949,7 +959,6 @@
         } 
         //加载选中框的内容
         function initText() {
-            console.log(dataElesResetList);
         var ids = [];
         $.each(dataElesResetList, function (index, dataElesItem) {
             ids.push(dataElesItem.id);
@@ -985,15 +994,30 @@
         }
         function dataTo(value){
             dataEles=value;
-             var ck=",";
-              for(var j=0;j<dataEles.length;j++){
-                  ck+=dataEles[j].id+",";
-              }
-             checkedIds =ck;
+            dataElesResetList = [];
+            $.each(dataEles, function (index, dataElesItem) {
+                dataElesResetList.push({
+                    'codes': dataElesItem.codes,
+                    'id': dataElesItem.itemId,
+                    'itemIndex': dataElesItem.itemIndex,
+                    'len': dataElesItem.len,
+                    'name': dataElesItem.name,
+                    'nameCn': dataElesItem.nameCn,
+                    'remarks': dataElesItem.remarks,
+                    'type': dataElesItem.type,
+                    'typen': dataElesItem.typen
+                });
+            });
+            var ck=",";
+            for(var j=0;j<dataEles.length;j++){
+                ck+=dataEles[j].id+",";
+            }
+            checkedIds =ck;
             $("#selectElement").addClass("hide");
+            console.log(dataElesResetList);
             $(elementTableId).bootstrapTable('refreshOptions',{
-                data:value,
-                totalRows:value.length
+                data:dataElesResetList,
+                totalRows:dataElesResetList.length
             })
         }
         
@@ -1026,7 +1050,7 @@
                     $.each(dataElesResetList, function (index, dataItem) {
                         console.log('index:'+index);
                         dataItem.itemIndex = index;
-                        dataItem.nameCn = dataItem.name;
+                        // dataItem.nameCn = dataItem.name;
                     });
                     console.log(dataElesResetList);
                     $(elementTableId).bootstrapTable('refreshOptions',{

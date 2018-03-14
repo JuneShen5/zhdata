@@ -327,20 +327,6 @@
             $(formId).validate().form();
             $("#selectElement").removeClass("hide");    
             $('.js-toggle-btn').show();
-            dataElesResetList = [];
-            $.each(dataEles, function (index, dataElesItem) {
-                dataElesResetList.push({
-                    'codes': dataElesItem.codes,
-                    'id': dataElesItem.itemId,
-                    'itemIndex': dataElesItem.itemIndex,
-                    'len': dataElesItem.len,
-                    'name': dataElesItem.name,
-                    'nameCn': dataElesItem.nameCn,
-                    'remarks': dataElesItem.remarks,
-                    'type': dataElesItem.type,
-                    'typen': dataElesItem.typen
-                });
-            });
         }
 
         // 在查看详情时将提供方代码显示出来
@@ -577,14 +563,26 @@
                 ignore: ":disabled",
                 submitHandler: function(form){
                     dataElesResetList[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
-                    // $(elementTableId).bootstrapTable('load',dataElesResetList);
-                    $(elementTableId).bootstrapTable('refreshOptions',{
-                        data:dataElesResetList,
-                        totalRows:dataElesResetList.length
-                    });
+                    $(elementTableId).bootstrapTable('load',dataElesResetList);
+                    // $(elementTableId).bootstrapTable('refreshOptions',{
+                    //     data:dataElesResetList,
+                    //     totalRows:dataElesResetList.length
+                    // });
                     layer.close(layeForm4);
                     return false;
                 }
+            });
+        }
+
+        // 删除数据项
+        function elementDeleteRow(index) {
+            layeConfirm = layer.confirm('您确定要删除么？', {
+                btn : [ '确定', '取消' ]
+            }, function() {
+                dataElesResetList.splice(index,1);
+                $(elementTableId).bootstrapTable('load',dataElesResetList);
+                layer.close(layeConfirm);
+                layer.msg('删除成功!');
             });
         }
         
@@ -628,27 +626,6 @@
             }
         }
 
-        // 查看详情弹框
-        // function mOpenDetail(l,f) {
-        //     layeForm = layer.open({
-        //         title: '信息项详情',
-        //         type : 1,
-        //         area : [ '100%', '100%' ],
-        //         scrollbar : false,
-        //         zIndex : 100,
-        //         content : l,
-        //         cancel : function () {
-        //             // 当弹框被关闭的时候将所有加上的属性移除掉
-        //             f.find("input").each(function () {
-        //                 $(this).removeAttr("disabled");
-        //             });
-        //             f.find("select").prop("disabled", false);
-        //             f.find("select").trigger("chosen:updated");
-        //             f.find('.i-checks').iCheck('enable');
-        //         }
-        //     });
-        // }
-
         function elementTableButton(index, row, element) {
             var html = '';
             html += '<div class="btn-group">';
@@ -657,6 +634,8 @@
                 + '\')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
             html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
+            html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementDeleteRow(\''
+                    + row.itemIndex + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             return html;
         }
         // 选择数据元表格按钮设置
@@ -690,6 +669,7 @@
             if ($(t).is(':checked')) {
                 checkedIds += $(t).attr('data-value') + ",";
                 var data = $(elementTableId2).bootstrapTable('getRowByUniqueId', $(t).attr('data-value'));
+                data.nameCn = data.name
                 dataElesResetList.push(data);
             } else {
                 checkedIds = checkedIds.replace("," + $(t).val() + ",", ",");
@@ -748,6 +728,20 @@
         }
         function dataTo(value){
             dataEles=value;
+            dataElesResetList = [];
+            $.each(dataEles, function (index, dataElesItem) {
+                dataElesResetList.push({
+                    'codes': dataElesItem.codes,
+                    'id': dataElesItem.itemId,
+                    'itemIndex': dataElesItem.itemIndex,
+                    'len': dataElesItem.len,
+                    'name': dataElesItem.name,
+                    'nameCn': dataElesItem.nameCn,
+                    'remarks': dataElesItem.remarks,
+                    'type': dataElesItem.type,
+                    'typen': dataElesItem.typen
+                });
+            });
             var ck=",";
             for(var j=0;j<dataEles.length;j++){
                 ck+=dataEles[j].id+",";
@@ -755,8 +749,8 @@
             checkedIds =ck;
             $("#selectElement").addClass("hide");
             $(elementTableId).bootstrapTable('refreshOptions',{
-                data:value,
-                totalRows:value.length
+                data:dataElesResetList,
+                totalRows:dataElesResetList.length
             })
         }
 
@@ -789,7 +783,7 @@
                     $.each(dataElesResetList, function (index, dataItem) {
                         console.log('index:'+index);
                         dataItem.itemIndex = index;
-                        dataItem.nameCn = dataItem.name;
+                        // dataItem.nameCn = dataItem.name;
                     });
                     $(elementTableId).bootstrapTable('refreshOptions',{
                         data:dataElesResetList,
