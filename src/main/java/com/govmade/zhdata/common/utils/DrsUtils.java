@@ -1,5 +1,6 @@
 package com.govmade.zhdata.common.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -92,7 +93,7 @@ public class DrsUtils {
      * 
      * @return
      */
-    public static List<Attribute> getAttList(Integer typeId,Integer isCore) {
+/*    public static List<Attribute> getAttList(Integer typeId,Integer isCore) {
         List<Attribute> attList = Lists.newArrayList();
         
         Example example = new Example(Attribute.class);
@@ -104,7 +105,28 @@ public class DrsUtils {
         example.setOrderByClause("sort asc,id asc");
         attList = drsUtils.attService.queryByExample(example);
         return attList;
-    }
+    }*/
+    public static List<Attribute> getAttList(String typeId,Integer isCore) {
+        List<Attribute> attList = Lists.newArrayList();
+          
+          Example example = new Example(Attribute.class);
+          Example.Criteria criteria=example.createCriteria();
+          criteria.andEqualTo("delFlag", 0);
+          //有时候typeId传过来两个
+          String[] typeArr = typeId.split(",");
+          List<Object> types = new ArrayList<Object>();
+          for(int j=0;j<typeArr.length;j++){
+              types.add(typeArr[j]);
+          }
+          criteria.andIn("type", types);
+          
+          if(isCore>0){
+              criteria.andEqualTo("isCore", isCore);
+          }
+          example.setOrderByClause("sort asc,id asc");
+          attList = drsUtils.attService.queryByExample(example);
+          return attList;
+      }
     
     /**
      * 获取URL参数
