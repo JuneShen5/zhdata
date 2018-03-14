@@ -832,18 +832,15 @@
             layeConfirm = layer.confirm('您确定要删除么？', {
                 btn : [ '确定', '取消' ]
             }, function() {
-                var arr = [];
-                console.log(dataElesResetList);
                 for (var i = 0; i < dataElesResetList.length; i++) {
-                    if (dataElesResetList[i].id != id) {
-                        arr.push(dataElesResetList[i]);
+                    if (dataElesResetList[i].id == id) {
+                        dataElesResetList.splice($.inArray(dataElesResetList[i],dataElesResetList),1);
                     }
                 }
-                console.log(arr);
                 // $(elementTableId).bootstrapTable('load',arr);
                 $(elementTableId).bootstrapTable('refreshOptions',{
-                    data:arr,
-                    totalRows:arr.length
+                    data:dataElesResetList,
+                    totalRows:dataElesResetList.length
                 });
                 layer.close(layeConfirm);
                 layer.msg('删除成功!');

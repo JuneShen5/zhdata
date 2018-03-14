@@ -575,12 +575,20 @@
         }
 
         // 删除数据项
-        function elementDeleteRow(index) {
+        function elementDeleteRow(id) {
             layeConfirm = layer.confirm('您确定要删除么？', {
                 btn : [ '确定', '取消' ]
             }, function() {
-                dataElesResetList.splice(index,1);
-                $(elementTableId).bootstrapTable('load',dataElesResetList);
+                for (var i = 0; i < dataElesResetList.length; i++) {
+                    if (dataElesResetList[i].id == id) {
+                        dataElesResetList.splice($.inArray(dataElesResetList[i],dataElesResetList),1);
+                    }
+                }
+                // $(elementTableId).bootstrapTable('load',arr);
+                $(elementTableId).bootstrapTable('refreshOptions',{
+                    data:dataElesResetList,
+                    totalRows:dataElesResetList.length
+                });
                 layer.close(layeConfirm);
                 layer.msg('删除成功!');
             });
