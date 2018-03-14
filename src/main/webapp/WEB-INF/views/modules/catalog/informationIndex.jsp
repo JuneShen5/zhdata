@@ -294,6 +294,7 @@
         var flag=false;
         var checkedIds = ",";
         var dataEles = new Array();//存放选中的数据元
+        var dataElesResetList = []; // 修改时参数重置
         var currEditEleRow = 0;
         </script>
         <script src="${ctxStatic}/js/common/common.js"></script>
@@ -346,7 +347,7 @@
             mTable = new TableInit2($(elementTableId));
             mTable.Init();
 
-            console.log($('.keep-open').length);
+            // console.log($('.keep-open').length);
             $('.keep-open').on('click',function () {
                 console.log($(this).find('button').length);
             })
@@ -412,6 +413,20 @@
             $(formId).validate().form();
             $("#selectElement").removeClass("hide");
             $('.js-toggle-btn').show();
+            dataElesResetList = [];
+            $.each(dataEles, function (index, dataElesItem) {
+                dataElesResetList.push({
+                    'codes': dataElesItem.codes,
+                    'id': dataElesItem.itemId,
+                    'itemIndex': dataElesItem.itemIndex,
+                    'len': dataElesItem.len,
+                    'name': dataElesItem.name,
+                    'nameCn': dataElesItem.nameCn,
+                    'remarks': dataElesItem.remarks,
+                    'type': dataElesItem.type,
+                    'typen': dataElesItem.typen
+                });
+            });
         }
         
         // 在查看详情时将提供方代码显示出来
@@ -814,10 +829,14 @@
             $(elementFormId).validate({
                 ignore: ":disabled",
                 submitHandler: function(form){
-                    console.log('row:', row)
-                    console.log("dataEles: ", dataEles)
-                    dataEles[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
-                    $(elementTableId).bootstrapTable('load',dataEles);
+                    dataElesResetList[currEditEleRow].nameCn = $(elementFormId).find('[name=nameCn]').val();
+                    console.log('dataElesResetList：')
+                    console.log(dataElesResetList);
+                    // $(elementTableId).bootstrapTable('load',dataElesResetList);
+                    $(elementTableId).bootstrapTable('refreshOptions',{
+                        data:dataElesResetList,
+                        totalRows:dataElesResetList.length
+                    });
                     layer.close(layeForm4);
                     return false;
                 }
@@ -887,85 +906,83 @@
         }
         
          function checkFormatter(index, row, element) {
-                var html = '';
-                html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
-                    + row.name + '" onclick="selectDE(this);"/>';
-                if (dataEles.length > 0) {
-                    $.each(dataEles, function (index, dataElesItem) {
-                        // console.log(dataElesItem.id);
-                        // console.log(row.id);
-                        if (dataElesItem.itemId === row.id) {
-                            html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
-                                + row.name
-                                + '" onclick="selectDE(this);" checked="checked"/>';
-                        }
-                    });
-                }
-                return html;
-              }
-         function selectDE(t) {
-             if ($(t).is(':checked')) {
-                  checkedIds += $(t).attr('data-value') + ",";
-                  var data = $(elementTableId2).bootstrapTable('getRowByUniqueId', $(t).val());
-                  dataEles.push(data);
-                } else {
-                  checkedIds = checkedIds.replace("," + $(t).val() + ",", ",");
-                  unCheck($(t).val());
-                }
-                initText();
-              }
-        function unCheck(id){
-              var arr=new Array();
-              var ck=",";
-              console.log(dataEles);
-              console.log(id);
-              for(var j=0;j<dataEles.length;j++){
-                if(dataEles[j].id!=id){
-                  arr.push(dataEles[j]);
-                  ck+=dataEles[j].id+",";
-                }
-              }
-              $('#elementTable2 input[data-value="'+id+'"]').removeAttr("checked");
-              checkedIds =ck;
-              dataEles=arr;
-              initText();
-            } 
-        //加载选中框的内容
-          function initText() {
-              var ids = [];
-              $.each(dataEles, function (index, dataElesItem) {
-                  ids.push(dataElesItem.id);
-              });
-            // var ids = checkedIds.split(",");
-            console.log(ids);
-            console.log(dataEles);
-            var checkedEles = new Array();
-            if (ids.length) {
-              for (var i = 0; i < ids.length; i++) {
-
-                if (ids[i] != "") {
-                  for (var j = 0; j < dataEles.length; j++) {
-                    if (ids[i] == dataEles[j].id) {
-                      checkedEles.push(dataEles[j]);
+            var html = '';
+            html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
+                + row.name + '" onclick="selectDE(this);"/>';
+            if (dataElesResetList.length > 0) {
+                $.each(dataElesResetList, function (index, dataElesItem) {
+                    // console.log(dataElesItem.id);
+                    // console.log(row.id);
+                    if (dataElesItem.id === row.id) {
+                        html = '<input type="checkbox" name="des" data-id="'+element+'" data-value="' + row.id + '" data-name="'
+                            + row.name
+                            + '" onclick="selectDE(this);" checked="checked"/>';
                     }
-                  }
-                }
-              }
+                });
             }
-            if (checkedEles.length) {
-              var html = '';
-              for (var k = 0; k < checkedEles.length; k++) {
-                html += '<li class="search-choice">'
-                    +'<span onclick="detail(\'' + checkedEles[k].id+'\');">'
-                    + checkedEles[k].name + '</span><a class="search-choice-close" onclick="unCheck(\''
-                    + checkedEles[k].id + '\');"></a></li>';
-              }
-              $('.c-list').html(html);
+            return html;
+        }
+         function selectDE(t) {
+            if ($(t).is(':checked')) {
+                checkedIds += $(t).attr('data-value') + ",";
+                var data = $(elementTableId2).bootstrapTable('getRowByUniqueId', $(t).attr('data-value'));
+                dataElesResetList.push(data);
             } else {
-              $('.c-list').html('');
+                checkedIds = checkedIds.replace("," + $(t).val() + ",", ",");
+                unCheck($(t).attr('data-value'));
             }
+            initText();
+        }
+        function unCheck(id){
+            var arr=new Array();
+            var ck=",";
+            for(var j=0;j<dataElesResetList.length;j++){
+                if(dataElesResetList[j].id!=id){
+                    arr.push(dataElesResetList[j]);
+                    ck+=dataElesResetList[j].id+",";
+                }
+            }
+            $('#elementTable2 input[data-value="'+id+'"]').removeAttr("checked");
+            checkedIds =ck;
+            dataElesResetList=arr;
+            initText();
+        } 
+        //加载选中框的内容
+        function initText() {
+            console.log(dataElesResetList);
+        var ids = [];
+        $.each(dataElesResetList, function (index, dataElesItem) {
+            ids.push(dataElesItem.id);
+        });
+        console.log(ids);
+        var checkedEles = new Array();
+        if (ids.length) {
+            for (var i = 0; i < ids.length; i++) {
 
-          }
+            if (ids[i] != "") {
+                for (var j = 0; j < dataElesResetList.length; j++) {
+                if (ids[i] == dataElesResetList[j].id) {
+                    checkedEles.push(dataElesResetList[j]);
+                }
+                }
+            }
+            }
+        }
+        // console.log(checkedEles);
+        if (checkedEles.length) {
+            var html = '';
+            for (var k = 0; k < checkedEles.length; k++) {
+            html += '<li class="search-choice">'
+                +'<span onclick="detail(\'' + checkedEles[k].id+'\');">'
+                + checkedEles[k].name + '</span><a class="search-choice-close" onclick="unCheck(\''
+                + checkedEles[k].id + '\');"></a></li>';
+            }
+            $('.c-list').html(html);
+        } else {
+            $('.c-list').html('');
+        }
+
+        }
         function dataTo(value){
             dataEles=value;
              var ck=",";
@@ -1006,15 +1023,15 @@
                 zIndex : 100,
                 btn : [ '保存', '关闭' ],
                 yes : function(index, layero) {
-                    $.each(dataEles, function (index, dataItem) {
+                    $.each(dataElesResetList, function (index, dataItem) {
                         console.log('index:'+index);
                         dataItem.itemIndex = index;
                         dataItem.nameCn = dataItem.name;
                     });
-                    console.log(dataEles);
+                    console.log(dataElesResetList);
                     $(elementTableId).bootstrapTable('refreshOptions',{
-                        data:dataEles,
-                        totalRows:dataEles.length
+                        data:dataElesResetList,
+                        totalRows:dataElesResetList.length
                     });
                     flag=false;
                     obj={isAuthorize:1};
@@ -1064,7 +1081,7 @@
                 data[$(this).attr('name')] = $(this).val();
             });
             data.elementList = [];
-            $.each(dataEles, function (index, eleItem) {
+            $.each(dataElesResetList, function (index, eleItem) {
                 data.elementList.push({nameCn: eleItem.nameCn, itemId: eleItem.id});
             });
             delete data.elementIds;
