@@ -7,11 +7,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.hssf.util.HSSFColor.GOLD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -101,10 +101,10 @@ public class InformationController extends BaseController<Information>{
         try{
         String keyword=new String (information.getNameCn().getBytes("ISO-8859-1"), "UTF-8");
         if(keyword!= null && !keyword.equals("")){
-        	infoSearchService.saveKeyWord(keyword);}
+                infoSearchService.saveKeyWord(keyword);}
             
         }catch(Exception e){
-        	 e.printStackTrace();
+                 e.printStackTrace();
         }
             
         
@@ -128,8 +128,8 @@ public class InformationController extends BaseController<Information>{
         Integer returnCount=this.infoService.queryIsAuditCount(comList,isAudit2); //信息资源已退回数量
         
         try {
-            Long total = infoService.getTotal(page);
-            List<Information> iList = this.infoService.queryList(page);
+            Long total = infoService.getAlTotal(page);
+            List<Information> iList = this.infoService.queryALList(page);
             List<Map<String, Object>> list = Lists.newArrayList();
             for (Information s : iList) {
                 Map<String, Object> map = Maps.newHashMap();
@@ -140,7 +140,7 @@ public class InformationController extends BaseController<Information>{
                 map.put("departName", s.getDepartName());
                 map.put("nameEn", s.getNameEn());
                 map.put("nameCn", s.getNameCn());
-                map.put("tbName", s.getTbName());
+                map.put("dept", s.getDept());
                 map.put("code", s.getCode());
                 map.put("isOpen", s.getIsOpen());
                 map.put("openType", s.getOpenType());
@@ -154,9 +154,13 @@ public class InformationController extends BaseController<Information>{
                 map.put("systemId", s.getSystemId());
                 map.put("reason", s.getReason());
                 map.put("resourceFormat", s.getResourceFormat());
-                map.put("rightRelation", s.getRightRelation());
+                map.put("matter", s.getMatter());
                 map.put("manageStyle", s.getManageStyle());
-                map.put("releaseDate", s.getReleaseDate());
+                map.put("ranges", s.getRanges());
+                map.put("infoType3", s.getInfoType3());
+                map.put("infoType4", s.getInfoType4());
+                map.put("summary", s.getSummary());
+                map.put("updateCycle", s.getUpdateCycle());
                 switch (s.getIsAudit()) {
                 case 0:
                     map.put("auditName", "未发布");
@@ -193,6 +197,7 @@ public class InformationController extends BaseController<Information>{
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
     }
     
+  
     
     /**
      * 根据父级查询子级
@@ -222,38 +227,42 @@ public class InformationController extends BaseController<Information>{
      * @param request
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @SuppressWarnings({ "rawtypes" })
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public ResponseEntity<String> save(Information info, HttpServletRequest request) {
+    public ResponseEntity<String> save(@RequestBody Information info, HttpServletRequest request) {
         try {
             Enumeration paramNames = request.getParameterNames(); 
             String infos = "{";
             while (paramNames.hasMoreElements()) {
                 String paramName = (String) paramNames.nextElement();
                 String paramValue = request.getParameter(paramName);
+                
                 if (!(paramName.trim().equals("id") || paramName.trim().equals("companyId") || paramName.trim().equals("companyName")
                         || paramName.trim().equals("nameEn") || paramName.trim().equals("nameCn") ||paramName.trim().equals("systemId")
                         || paramName.trim().equals("elementIds") || paramName.trim().equals("isOpen")|| paramName.trim().equals("openType")
                         || paramName.trim().equals("shareType")|| paramName.trim().equals("shareMode")|| paramName.trim().equals("shareCondition")
-                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("reason")
-                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("rightRelation")
-                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("releaseDate")
-                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("tbName")||paramName.trim().equals("code"))) {
+                        || paramName.trim().equals("isAudit")||paramName.trim().equals("infoType1") || paramName.trim().equals("infoType2")
+                        ||paramName.trim().equals("resourceFormat")||paramName.trim().equals("departId")||paramName.trim().equals("dept")
+                        ||paramName.trim().equals("isCreated")||paramName.trim().equals("matter")|| paramName.trim().equals("reason")
+                        ||paramName.trim().equals("manageStyle") ||paramName.trim().equals("ranges")||paramName.trim().equals("code"))) {
                     infos += "\"" + paramName + "\":\"" + paramValue + "\",";
                 }
             }
-            infos = infos.substring(0, infos.length() - 1);
-            infos += "}";
-            
+            if (infos.length() > 1) {
+                infos = infos.substring(0, infos.length() - 1);
+                infos += "}";
+            } else {
+                infos += "}";
+            }
             info.setInfo(infos);
 
-            List<Element> elements = Lists.newArrayList();
+           /* List<Element> elements = Lists.newArrayList();
             String jsonArray = info.getElementIds();
             if (StringUtils.isNotBlank(jsonArray)) {
                 // json数组转List对象
                 elements = (List<Element>) JsonUtil.jsonArray2List(jsonArray, Element.class);
                 info.setElementList(elements);
-            }
+            }*/
 
             if (null == info.getId()) {
                 info.preInsert();
@@ -284,7 +293,7 @@ public class InformationController extends BaseController<Information>{
     public ResponseEntity<String> delete(String ids) throws Exception {
         try {
             if (this.infoService.deleteByIds(ids)>0) {
-                this.infoService.deleteInfoEle(ids);
+                this.infoService.deleteEle(ids);
                 this.tablesService.updateTabs(ids); //将数据表中info_id设置成0
             }
             return ResponseEntity.ok(Global.HANDLE_SUCCESS);
@@ -342,7 +351,7 @@ public class InformationController extends BaseController<Information>{
         for (Element e : elementList) {
             // if (e.getIsShow() == 1) {
             Map<String, Object> map = Maps.newHashMap();
-            map.put("nameEn", e.getNameEn());
+            //map.put("nameEn", e.getNameEn());
             map.put("nameCn", e.getNameCn());
             // map.put("inputType", e.getInputType());
             // map.put("dict", e.getDict());
@@ -368,7 +377,7 @@ public class InformationController extends BaseController<Information>{
 
         for (Element e : elementList) {
             Map<String, Object> map = Maps.newHashMap();
-            map.put("nameEn", e.getNameEn());
+            //map.put("nameEn", e.getNameEn());
             map.put("nameCn", e.getNameCn());
             mapList.add(map);
         }
@@ -386,11 +395,11 @@ public class InformationController extends BaseController<Information>{
         try {
             Information record = new Information();
             record.setId(info.getId());
-            if (info.getOpenType() == 1) {
+            /*if (info.getOpenType() == 1) {
                 record.setOpenType(2);
             } else if (info.getOpenType() == 2) {
                 record.setOpenType(1);
-            }
+            }*/
             infoService.updateSelective(record);
             return ResponseEntity.ok("操作成功");
         } catch (Exception e) {

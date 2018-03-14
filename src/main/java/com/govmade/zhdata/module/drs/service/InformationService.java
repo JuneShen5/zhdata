@@ -1,13 +1,9 @@
 package com.govmade.zhdata.module.drs.service;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,16 +16,19 @@ import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.BaseService;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.JsonUtil;
-import com.govmade.zhdata.common.utils.MapUtil;
 import com.govmade.zhdata.common.utils.StringUtil;
+import com.govmade.zhdata.module.drs.dao.ElementDao;
 import com.govmade.zhdata.module.drs.dao.InformationDao;
 import com.govmade.zhdata.module.drs.dao.TablesDao;
+import com.govmade.zhdata.module.drs.mapper.ElementMapper;
 import com.govmade.zhdata.module.drs.mapper.InformationMapper;
 import com.govmade.zhdata.module.drs.pojo.Element;
 import com.govmade.zhdata.module.drs.pojo.Information;
 import com.govmade.zhdata.module.drs.pojo.Tables;
 import com.govmade.zhdata.module.sys.pojo.Company;
 import com.govmade.zhdata.module.sys.service.CompanyService;
+
+import net.sf.json.JSONObject;
 
 @Service
 public class InformationService extends BaseService<Information> {
@@ -40,6 +39,12 @@ public class InformationService extends BaseService<Information> {
     @Autowired
     private InformationMapper infoMapper;
 
+    @Autowired
+    private ElementMapper elementMapper;
+    
+    @Autowired
+    private ElementDao elementDao;
+    
     @Autowired
     private TablesService tablesService;
     
@@ -66,7 +71,7 @@ public class InformationService extends BaseService<Information> {
         return infoDao.getSearchCount(page);
     }
 
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+   /* @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -78,31 +83,58 @@ public class InformationService extends BaseService<Information> {
         Criteria criteria = example.createCriteria();
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(info, example);
-    }
-
-    public void deleteInfoEle(String ids) {
+    }*/
+    
+    public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List<String> idList = Arrays.asList(array);
-        this.infoDao.deleteInfoEle(idList);
+        return this.infoDao.delete(idList);
+
+    }
+
+    
+    public void deleteEle(String ids) {
+        String[] array = StringUtil.split(ids, ',');
+        List<String> idList = Arrays.asList(array);
+        this.elementDao.deleteEle(idList);
 
     }
 
     public void saveInformation(Information info) {
-//        try {
+        try {
             if (this.saveSelective(info) > 0 && info.getElementList().size() > 0) {
-                this.infoDao.saveRelation(info);
+//                this.infoDao.saveRelation(info);
+                List<Element> elementList=info.getElementList();
+                for (Element element : elementList) {
+                    element.setInfoId(info.getId());
+                    element.setCompanyId(info.getCompanyId());
+                    element.preInsert();
+                    this.elementMapper.insertSelective(element);
+                }
             }
-//        } catch (Exception e) {
-//            // 保存失败
-//            e.printStackTrace();
-//        }
+       } catch (Exception e) {
+           // 保存失败
+           e.printStackTrace();
+       }
     }
 
     public void updateInformation(Information info) {
         try {
-            if (this.updateSelective(info) > 0) {
-                this.infoDao.deleteRelation(info);
-                this.infoDao.saveRelation(info);
+            if (this.updateSelective(info) > 0 ){
+                Element record=new Element();
+                record.setInfoId(info.getId());
+                this.elementMapper.delete(record);
+                    if (info.getElementList().size() > 0) {
+                        List<Element> elementList=info.getElementList();
+                        for (Element element : elementList) {
+                            element.setInfoId(info.getId());
+                            element.setCompanyId(info.getCompanyId());
+                            element.preInsert();
+                            this.elementMapper.insertSelective(element);
+                        }
+                }
+                
+                
             }
         } catch (Exception e) {
             // 保存失败
@@ -154,9 +186,9 @@ public class InformationService extends BaseService<Information> {
         return infoDao.findElementById(id);
     }
 
-    public List<Information> queryList(Page<Information> page) {
+    /*public List<Information> queryList(Page<Information> page) {
         return infoDao.queryListByPage(page);
-    }
+    }*/
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer updateAuditByids(String ids) {
@@ -179,7 +211,7 @@ public class InformationService extends BaseService<Information> {
     public void deleteAll(List<String> idList) {
        
         if ( this.infoDao.delete(idList)>0) {
-            this.infoDao.deleteInfoEle(idList);
+            this.elementDao.deleteEle(idList);
             this.tablesDao.updateTabs(idList); //将table表中的info_id设置为0
         }
 
@@ -258,11 +290,11 @@ public class InformationService extends BaseService<Information> {
                 information.setShareType(Integer.valueOf(infoMap.get("share_type")));
                 information.setIsOpen(Integer.valueOf(infoMap.get("is_open")));
                 information.setSystemId(Integer.valueOf(infoMap.get("system_id")));
-                information.setOpenType(Integer.valueOf(infoMap.get("open_type")));
+              /*  information.setOpenType(Integer.valueOf(infoMap.get("open_type")));*/
                 information.setInfoType1(Integer.valueOf(infoMap.get("info_type1")));
                 information.setInfoType2(Integer.valueOf(infoMap.get("info_type2")));
                 
-                information.setRightRelation(infoMap.get("right_relation"));
+          /*      information.setRightRelation(infoMap.get("right_relation"));*/
                 information.setNameCn(infoMap.get("name_cn"));
                 information.setNameEn(infoMap.get("name_en"));
                 information.setCode(infoMap.get("code"));
@@ -271,8 +303,8 @@ public class InformationService extends BaseService<Information> {
                 information.setShareMode(infoMap.get("share_mode"));
                 information.setShareCondition(infoMap.get("share_condition"));
                 information.setResourceFormat(infoMap.get("resource_format"));
-                information.setReleaseDate(infoMap.get("release_date"));
-                
+               /* information.setReleaseDate(infoMap.get("release_date"));
+                */
                 String jsonArray = information.getElementIds();
                 List<Element> elements = Lists.newArrayList();
                 
@@ -311,4 +343,13 @@ public class InformationService extends BaseService<Information> {
         return this.infoDao.queryIsAuditCount(comList,isAudit);
     }
 
+    public List<Information> queryALList(Page<Information> page) {
+        return this.infoDao.queryALList(page);
+    }
+
+    public Long getAlTotal(Page<Information> page) {
+        return this.infoDao.getAlTotal(page);
+    }
+
+   
 }

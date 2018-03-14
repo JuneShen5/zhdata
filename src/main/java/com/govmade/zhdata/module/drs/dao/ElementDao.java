@@ -30,6 +30,14 @@ public interface ElementDao extends BaseDao<Element>{
 
     public List<Element> queyListById(@Param("eleIdList")List<String> eleIdList);
 
-    public void deleteInfoEle(@Param("idList")List<String> idList);
+    //public void deleteInfoEle(@Param("idList")List<String> idList);
+
+    public List<Element> queryAlList(@Param("element")Element element);
+
+    public List<Element> queryHotItem();
+
+    public void deleteEle(@Param("idList")List<String> idList);
+
+    public Integer delete(@Param("idList")List<String> idList);
 
 }

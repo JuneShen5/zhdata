@@ -137,7 +137,7 @@ h3 {
 					<div class="row">
 						<div class="col-sm-12">
               				<div class="item-wrapper">
-	  							<h3 class="title">热门信息项</h3>
+	  							<h3 class="title">热门数据元</h3>
 	  							<div class="ibox float-e-margins">
 	  								<div class="ibox-content">
 	  									<div class="echarts" id="main3" style="height: 330px;"></div>
@@ -629,19 +629,19 @@ h3 {
         var wordChart = echarts.init(document.getElementById("main3"));
         wordChart.showLoading();
         $.ajax({
-            url:'${ctx}/standard/analy/list',
+            url:'${ctx}/panel/overview/hotItem',
             dataType: 'json',
             type:'get',
             success: function (data) {
                 wordChart.hideLoading();
                 var dataArr = [];
-                $.each(data.data,function (index,item) {
+                $.each(data,function (index,item) {
                     var chartData2 = {
                         name: '',
                         value: ''
                     };
-                    chartData2.name = item.nameCn;
-                    chartData2.value = parseInt(item.compCount);
+                    chartData2.name = item.name;
+                    chartData2.value = parseInt(item.count);
                     dataArr.push(chartData2);
                 });
                 var wordoption = {

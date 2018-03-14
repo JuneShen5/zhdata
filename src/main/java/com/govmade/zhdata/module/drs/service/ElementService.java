@@ -10,8 +10,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.github.abel533.entity.Example;
-import com.github.abel533.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
@@ -106,7 +104,14 @@ public class ElementService extends BaseService<Element> {
      * @param ids
      * @return
      */
-    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Integer deleteByIds(String ids) {
+        String[] array = StringUtil.split(ids, ',');
+        List<String> idList = Arrays.asList(array);
+       
+        return this.elementDao.delete(idList);
+    }
+    
+   /* @SuppressWarnings({ "rawtypes", "unchecked" })
     public Integer deleteByIds(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List idList = Arrays.asList(array);
@@ -118,7 +123,9 @@ public class ElementService extends BaseService<Element> {
         Criteria criteria = example.createCriteria();
         criteria.andIn("id", idList);
         return this.updateByExampleSelective(Element, example);
-    }
+    }*/
+    
+    
 
     public List<Element> queryList(Integer id) {
         return this.elementDao.queryList(id);
@@ -139,15 +146,15 @@ public class ElementService extends BaseService<Element> {
         for(Map<String,String> infoMap :dataList){
             Map<String,String>  relationMap = new HashMap<String,String>();
             Element element = new Element();
-            element.setCode(infoMap.get("code"));
+          /*  element.setCode(infoMap.get("code"));*/
             element.setNameCn(infoMap.get("name_cn"));
-            element.setNameEn(infoMap.get("name_en"));
+           /* element.setNameEn(infoMap.get("name_en"));
             element.setDes(infoMap.get("des"));
             element.setDataType(Integer.valueOf(infoMap.get("data_type")));
-            element.setLen(infoMap.get("len"));
+            element.setLen(infoMap.get("len"));*/
             element.setCompanyId(Integer.valueOf(infoMap.get("company_id")));
-            element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
-            element.setObjectType(Integer.valueOf(infoMap.get("object_type")));
+            /*element.setDataLabel(Integer.valueOf(infoMap.get("data_label")));
+            element.setObjectType(Integer.valueOf(infoMap.get("object_type")));*/
             Integer isSave = saveSelective(element);
             if(isSave == 1){
                 relationMap.put("element_id", String.valueOf(element.getId()));
@@ -167,7 +174,7 @@ public class ElementService extends BaseService<Element> {
             Map<String, Object> map1=Maps.newHashMap();
             map1.put("id",e.getId());
             map1.put("nameCn", e.getNameCn());
-            map1.put("infoCount", e.getCount());
+           /* map1.put("infoCount", e.getCount());*/
             List<Information> infors=this.informationDao.queryCompCount(e.getId());   
             map1.put("compCount", infors.size());
             maps.add(map1);
@@ -195,13 +202,13 @@ public class ElementService extends BaseService<Element> {
     public void deleteInfoEle(String ids) {
         String[] array = StringUtil.split(ids, ',');
         List<String> idList = Arrays.asList(array);
-        this.elementDao.deleteInfoEle(idList);
+        this.elementDao.deleteEle(idList);
         
     }
 
     public void deleteAll(List<String> idList) {
        if ( this.elementMapper.delete(null)>0) {
-           this.elementDao.deleteInfoEle(idList);
+           //this.elementDao.deleteInfoEle(idList);
            this.columnsDao.updateCol(idList);  //将columns表中的ele_id设置为0
     }
         
@@ -210,6 +217,20 @@ public class ElementService extends BaseService<Element> {
     public List<Element> queryForExport() {
         Element element = new Element();
         return elementDao.findAll(element);
+    }
+
+    public PageInfo<Element> queryAlList(Page<Element> page) {
+        PageHelper.startPage(page.getPageNum(), page.getPageSize());
+        Element element = JsonUtil.readValue(page.getObj(), Element.class);
+            try {
+                String nameCn = new String(element.getNameCn().toString().getBytes("ISO-8859-1"), "UTF-8");
+                element.setNameCn(nameCn);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+        }
+        
+        List<Element> list=elementDao.queryAlList(element);    
+        return new PageInfo<Element>(list);
     }
 
 }

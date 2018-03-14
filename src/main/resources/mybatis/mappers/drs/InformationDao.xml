@@ -4,53 +4,47 @@
 
 	<resultMap id="informationResult" type="Information">
         <id property="id" column="id" />
-        <result property="companyName" column="companyName" />
         <result property="companyId" column="companyId" />
+        <result property="companyName" column="companyName" />       
          <result property="departId" column="departId" />
-         <result property="departName" column="departName" />
+         <result property="departName" column="departName" />         
 		<result property="systemId" column="systemId" />
+		<result property="dept" column="dept" />
 		<result property="nameEn" column="nameEn" />
 		<result property="nameCn" column="nameCn" />
+		<result property="infoType1" column="infoType1" />
+        <result property="infoType2" column="infoType2" />
+        <result property="infoType3" column="infoType3" />
+        <result property="infoType4" column="infoType4" />
+        <result property="summary" column="summary" />
+        <result property="updateCycle" column="updateCycle" />
 		<result property="code" column="code" />
+		<result property="resourceFormat" column="resourceFormat" />	
 		<result property="isOpen" column="isOpen" />
         <result property="openType" column="openType" />
         <result property="shareType" column="shareType" />
         <result property="shareMode" column="shareMode" />
         <result property="shareCondition" column="shareCondition" />
-		<result property="infoType1" column="infoType1" />
-        <result property="infoType2" column="infoType2" />
-		<result property="isAudit" column="isAudit" />
-		<result property="reason" column="reason" />
-		<result property="tbName" column="tbName" />
-		<result property="resourceFormat" column="resourceFormat" />
-		<result property="rightRelation" column="rightRelation" />
 		<result property="manageStyle" column="manageStyle" />
-		<result property="releaseDate" column="releaseDate" />
-        <result property="info" column="info" />
+		<result property="matter" column="matter" />
+		<result property="ranges" column="ranges" />
+		<result property="isAudit" column="isAudit" />
+		<result property="isCreated" column="isCreated" />
+		<result property="info" column="info" />		
+		<result property="reason" column="reason" />
         <result property="remarks" column="remarks" />
         <collection property="elementList" ofType="Element">
             <id property="id" column="elementList.id" />
-            <result property="idCode" column="elementList.idCode" />
-            <result property="nameCn" column="elementList.nameCn" />
-            <result property="nameEn" column="elementList.nameEn" />
-             <result property="code" column="elementList.code" />
-             <result property="des" column="elementList.des" />
-            <result property="label" column="elementList.label" />
+           <!--  <result property="idCode" column="elementList.idCode" /> -->
+            <result property="nameCn" column="elementList.nameCn" />           
+             <result property="infoId" column="elementList.infoId" />
+             <result property="itemId" column="elementList.itemId" />
+            <result property="codes" column="elementList.codes" />
+            <result property="type" column="elementList.type" />
+            <result property="typen" column="elementList.typen" />
+            <result property="name" column="elementList.name" />
             <result property="len" column="elementList.len" />
-            <result property="objectType" column="elementList.objectType" />
-            <result property="dataLabel" column="elementList.dataLabel" />
-            <result property="isDict" column="elementList.isDict" />
-            <result property="shareType" column="elementList.shareType" />
-            <result property="shareCondition" column="elementList.shareCondition" />
-            <result property="shareMode" column="elementList.shareMode" />
-            <result property="isOpen" column="elementList.isOpen" />
-            <result property="openType" column="elementList.openType" />
-            <result property="updateCycle" column="elementList.updateCycle" />
-            <result property="dataType" column="elementList.dataType" />
-             <result property="dataTypen" column="elementList.dataTypen" />
-            <result property="dataTypeName" column="elementList.dataTypeName" />
-            <result property="remarks" column="elementList.remarks" />
-            <result property="sort" column="elementList.sort" />
+            <result property="des" column="elementList.des" />
             <result property="companyName" column="elementList.companyName" />
             <result property="companyId" column="elementList.companyId" />
         </collection>
@@ -61,24 +55,29 @@
 		a.company_id AS "companyId",
 		a.depart_id AS "departId",
 		a.system_id AS "systemId",
+		a.dept,
 		a.name_en AS "nameEn",
 		a.name_cn AS "nameCn",
+		a.info_type1 AS "infoType1",
+		a.info_type2 AS	"infoType2",
+		a.info_type3 AS	"infoType3",
+		a.info_type4 AS	"infoType4",
+		a.summary,
+		a.update_cycle AS "updateCycle",
 		a.code,
+		a.resource_format AS "resourceFormat",
 		a.is_open AS "isOpen",
 		a.open_type AS "openType",
 		a.share_type AS "shareType",
 		a.share_mode AS "shareMode",
 		a.share_condition AS "shareCondition",
-		a.info_type1 AS "infoType1",
-		a.info_type2 AS	"infoType2",
-		a.is_audit AS "isAudit",
-		a.tb_name AS "tbName",
-		a.reason,
-		a.resource_format AS "resourceFormat",
-		a.right_relation AS "rightRelation",
 		a.manage_style AS "manageStyle",
-		a.release_date AS "releaseDate",
+		a.matter,
+		a.ranges,
+		a.is_audit AS "isAudit",
+		a.is_created AS "isCreated",
 		JSON_UNQUOTE(a.info) as "info",
+		a.reason,				
 		a.create_by AS "createBy",
 		a.create_date AS "createDate",
 		a.update_by AS "updateBy",
@@ -87,6 +86,25 @@
 		a.del_flag AS "delFlag",
 		c.name AS "companyName",
 		co.name AS "departName"
+	</sql>
+	
+	
+	<sql id="eleColumns">
+	 e.id AS "elementList.id",
+	 e.name_cn AS "elementList.nameCn",
+	 e.company_id AS "elementList.companyId",
+	 e.info_id AS "elementList.infoId",
+	 e.item_id AS "elementList.itemId",
+	 i.codes AS "elementList.codes",
+	 i.type AS "elementList.type",
+	 i.typen AS "elementList.typen",
+	 i.name AS "elementList.name",
+	 i.len AS "elementList.len",
+	 i.des AS "elementList.des"
+	 
+	 
+	 
+	 
 	</sql>
 	
     <sql id="shareOpen">
@@ -104,7 +122,7 @@
     </sql>
     
     
-	<sql id="informationJoins">
+	<sql id="informationJoins"><!-- TODO -->
 		LEFT JOIN drs_info_element ie ON ie.info_id=a.id
 		LEFT JOIN drs_element e ON ie.element_id=e.id
 	</sql>
@@ -230,31 +248,18 @@
 	</select>
 
 	<!-- 根据条件查询 -->
-    <select id="queryListByPage" resultMap="informationResult">
+    <!-- <select id="queryListByPage" resultMap="informationResult">
         SELECT
         <include refid="informationColumns" />
         ,
         e.id AS "elementList.id",
         LPAD(e.id,7,'0') AS "elementList.idCode",
         e.name_cn AS "elementList.nameCn",
-        e.name_en AS "elementList.nameEn",
-        e.label AS "elementList.label",
-        e.len AS "elementList.len",
-        e.object_type AS "elementList.objectType",
-        e.data_label AS "elementList.dataLabel",
-        e.is_dict AS "elementList.isDict",
-        e.share_type AS "elementList.shareType",
-        e.share_condition AS "elementList.shareCondition",
-        e.share_mode AS "elementList.shareMode",
-        e.is_open AS "elementList.isOpen",
-        e.open_type AS "elementList.openType",
-        e.update_cycle AS "elementList.updateCycle",
-        e.data_type AS "elementList.dataType",
-        e.data_typen AS "elementList.dataTypen",
+        e.info_id AS "elementList.infoId",
+        e.item_id AS "elementList.itemId",
         e.remarks AS "elementList.remarks",
-        e.sort AS "elementList.sort",
         c1.name AS "elementList.companyName",
-        e.company_id AS "elementList.companyId",
+        e.company_id AS "elementList.companyId"
         d.label AS "elementList.dataTypeName"
         FROM (SELECT i.* FROM drs_information i
         LEFT JOIN sys_company c ON c.id = i.company_id
@@ -272,7 +277,7 @@
                     AND i.is_audit = '${value}'
                 </if>
                 <if test="key=='companyIds'" >
-                <!--     AND company_id = '${value}' -->
+                    AND company_id = '${value}'
                 	AND i.company_id IN 
      			   <foreach collection="value" item="id" open="("  close=")" separator=",">
          			   #{id}
@@ -299,9 +304,9 @@
                 <if test="key=='companyName'" >
                     AND c.name LIKE CONCAT('%','${value}','%')
                 </if>
-               <!--  <if test="key!='name'"> 
+                <if test="key!='name'"> 
                     and json_extract(info,'$."${key}"') like '%#{value}%'
-                </if>  -->
+                </if> 
             </if>
         </foreach>
          ORDER BY i.id DESC
@@ -316,7 +321,9 @@
         LEFT JOIN sys_company co ON co.id = a.depart_id
         LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value`
         ORDER BY a.id DESC
-    </select>
+    </select> -->
+    
+    
 	
 	<!-- 保存关联表 -->
 	<insert id="saveRelation">
@@ -337,25 +344,11 @@
 		<include refid="informationColumns" />
 		,
 		e.id AS "elementList.id",
-		LPAD(e.id,7,'0') as "elementList.idCode",
+		<!-- LPAD(e.id,7,'0') as "elementList.idCode", -->
 		e.name_cn AS "elementList.nameCn",
-		e.name_en AS "elementList.nameEn",
-		e.source AS "elementList.source",
-		e.label AS "elementList.label",
-		e.len AS "elementList.len",
-		e.object_type AS "elementList.objectType",
-        e.data_label AS "elementList.dataLabel",
-        e.is_dict AS "elementList.isDict",
-        e.share_type AS "elementList.shareType",
-        e.share_condition AS "elementList.shareCondition",
-        e.share_mode AS "elementList.shareMode",
-        e.is_open AS "elementList.isOpen",
-        e.open_type AS "elementList.openType",
-        e.update_cycle AS "elementList.updateCycle",
-		e.data_type AS "elementList.dataType",
-		e.data_typen AS "elementList.dataTypen",
+		e.info_id AS "elementList.infoId",
+		e.item_id AS "elementList.itemId",
 		e.remarks AS "elementList.remarks",
-		e.sort AS "elementList.sort",
 		e.company_id AS "elementList.companyId"
 		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id} order by id) ie
 		LEFT JOIN drs_information a ON ie.info_id = a.id
@@ -374,10 +367,8 @@
 	<select id="findElementById" resultType="Element" parameterType="java.lang.Integer">
 		SELECT 
 		e.id,
-		LPAD(e.id,7,'0') AS "idCode",
-		e.name_en AS "nameEn",
+		<!-- LPAD(e.id,7,'0') AS "idCode", -->
 		e.name_cn AS "nameCn",
-		e.label AS "elementList.label"
 		FROM (SELECT * FROM drs_info_element WHERE info_id = #{id}) ie LEFT JOIN  drs_element e ON e.id = ie.element_id
 	</select>
 	
@@ -386,9 +377,9 @@
 		</select>
 	
 	<!-- 根据共享类型查找信息资源的总数 -->
-	<select id="queryInfoByshareType" resultType="Integer">
+	<!-- <select id="queryInfoByshareType" resultType="Integer">
 	  SELECT COUNT(*) FROM drs_information WHERE json_extract(info,'$.gongxiangleixing') = #{shareType} AND company_id=#{companyId} AND del_flag='0'
-	</select>
+	</select> -->
 	
 	
 	
@@ -402,14 +393,6 @@
 	SELECT COUNT(id) FROM drs_information WHERE open_type='1' AND del_flag='0'
 	</select>
 	
-	
-	<!-- 删除关联表 -->
-	<delete id="deleteInfoEle">
-		 DELETE FROM drs_info_element WHERE info_id IN 
-        <foreach collection="idList" item="id" open="("  close=")" separator=",">
-            #{id}
-        </foreach>
-	</delete>
 	
 
 	
@@ -515,4 +498,135 @@
 			</foreach>
 		</foreach>
 	</insert>
+	
+	
+	<!-- 最新版 -->
+	<!-- 根据条件查询 -->
+    <select id="queryALList" resultMap="informationResult">
+        SELECT
+        <include refid="informationColumns" />,
+        <include refid="eleColumns" />,
+        c1.name AS "elementList.companyName"
+        FROM (SELECT i.* FROM drs_information i
+        LEFT JOIN sys_company c ON c.id = i.company_id
+        WHERE
+        i.del_flag = 0
+        <foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='nameEn'" >
+                    AND i.name_en like '%${value}%'
+                </if>
+				<if test="key=='nameCn'" >
+                    AND i.name_cn like '%${value}%'
+                </if>
+				<if test="key=='isAudit'" >
+                    AND i.is_audit = '${value}'
+                </if>
+                <if test="key=='companyIds'" >
+                <!--     AND company_id = '${value}' -->
+                	AND i.company_id IN 
+     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
+         			   #{id}
+        			</foreach>
+                </if>
+                <if test="key=='companyId'" >
+                    AND i.company_id = '${value}'
+                </if>
+                <if test="key=='departId'" >
+                	AND i.depart_id = '${value}'
+                </if>
+                <if test="key=='infoType1'" >
+                    AND i.info_type1 = '${value}'
+                </if>
+                 <if test="key=='infoType2'" >
+                    AND i.info_type2 = '${value}'
+                </if>
+                <if test="key=='shareType'" >
+                    AND i.share_type = '${value}'
+                </if>
+                <if test="key=='openType'" >
+                    AND i.open_type = '${value}'
+                </if>
+                <if test="key=='companyName'" >
+                    AND c.name LIKE CONCAT('%','${value}','%')
+                </if>
+               <!--  <if test="key!='name'"> 
+                    and json_extract(info,'$."${key}"') like '%#{value}%'
+                </if>  -->
+            </if>
+        </foreach>
+         ORDER BY i.id DESC
+        <if test="page.isPage==true">
+        LIMIT #{page.startRow}, #{page.endRow}
+        </if> 
+         ) a
+        LEFT JOIN sys_company c ON c.id = a.company_id
+       <!--  LEFT JOIN drs_info_element ie ON ie.info_id=a.id -->
+       <!--  LEFT JOIN drs_element e ON ie.element_id=e.id -->
+        LEFT JOIN drs_element e ON e.info_id=a.id AND e.del_flag=0
+		LEFT JOIN drs_item i ON i.id=e.item_id AND i.del_flag=0
+        LEFT JOIN sys_company c1 ON c1.id = e.company_id
+        LEFT JOIN sys_company co ON co.id = a.depart_id
+       <!--  LEFT JOIN (SELECT `value`,label FROM sys_dict WHERE type='data_type')d ON e.data_type=d.`value` -->
+        ORDER BY a.id DESC
+    </select>
+    
+    
+    
+    <!-- 查询条件总数 -->
+	<select id="getAlTotal" resultType="long">
+		SELECT
+		COUNT(1)
+		FROM
+		drs_information a
+		LEFT JOIN sys_company c ON c.id = a.company_id
+		WHERE 
+		a.del_flag = 0
+		<foreach collection="page.params" index="key" item="value" separator="" >
+            <if test="value != null and value !=''" >
+                <if test="key=='nameEn'" >
+                    AND a.name_en like '%${value}%'
+                </if>
+				<if test="key=='nameCn'" >
+                    AND a.name_cn like '%${value}%'
+                </if>
+				<if test="key=='isAudit'" >
+                    AND a.is_audit = '${value}'
+                </if>
+                <if test="key=='companyIds'" >
+                   <!--  AND company_id = '${value}' -->
+                   AND a.company_id IN 
+     			   <foreach collection="value" item="id" open="("  close=")" separator=",">
+         			   #{id}
+        			</foreach>
+                </if>
+                <if test="key=='companyId'" >
+                    AND a.company_id = '${value}'
+                </if>
+                 <if test="key=='departId'" >
+                	AND a.depart_id = '${value}'
+                </if>
+                <if test="key=='infoType1'" >
+                    AND a.info_type1 = '${value}'
+                </if>
+                 <if test="key=='infoType2'" >
+                    AND a.info_type2 = '${value}'
+                </if>
+                <if test="key=='shareType'" >
+                    and a.share_type = '${value}'
+                </if>
+                <if test="key=='openType'" >
+                    and a.open_type = '${value}'
+                </if>
+                <if test="key=='companyName'" >
+                    AND c.name LIKE CONCAT('%','${value}','%')
+                </if>
+               <!--  <if test="key!='name'"> 
+                    AND json_extract(info,'$."${key}"') like '%#{value}%'
+                </if>  -->
+            </if>
+        </foreach>
+	</select>
+    
+    
 </mapper>

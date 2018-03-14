@@ -1,14 +1,11 @@
 package com.govmade.zhdata.module.drs.web;
 
 
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,19 +15,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageInfo;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.govmade.zhdata.common.config.Global;
 import com.govmade.zhdata.common.persistence.Page;
 import com.govmade.zhdata.common.utils.DBMSMetaUtil;
 import com.govmade.zhdata.common.utils.MapUtil;
-import com.govmade.zhdata.common.utils.StringUtil;
-import com.govmade.zhdata.common.utils.excel.ExportExcelData;
-import com.govmade.zhdata.common.utils.excel.ExportExcelTemplate;
 import com.govmade.zhdata.module.drs.pojo.Columns;
 import com.govmade.zhdata.module.drs.pojo.Dbs;
 import com.govmade.zhdata.module.drs.pojo.Element;
@@ -41,7 +32,6 @@ import com.govmade.zhdata.module.drs.service.DbsService;
 import com.govmade.zhdata.module.drs.service.ElementService;
 import com.govmade.zhdata.module.drs.service.InformationService;
 import com.govmade.zhdata.module.drs.service.TablesService;
-import com.govmade.zhdata.module.sys.pojo.User;
 
 @Controller
 @RequestMapping(value="/assets")
@@ -375,7 +365,7 @@ public class DbsController {
                 map.put("companyName", infoDetail.getCompanyName());
                 map.put("nameEn", infoDetail.getNameEn());
                 map.put("nameCn", infoDetail.getNameCn());
-                map.put("tbName", infoDetail.getTbName());
+               /* map.put("tbName", infoDetail.getTbName());*/
                 map.put("code", infoDetail.getCode());
                 map.put("isOpen", infoDetail.getIsOpen());
                 map.put("openType", infoDetail.getOpenType());

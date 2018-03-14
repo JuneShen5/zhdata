@@ -27,12 +27,12 @@
 						</div>
 						<div class="form-group">
 							<div class="text-center">
-								<a data-toggle="modal" class="btn btn-green"
+								<!-- <a data-toggle="modal" class="btn btn-green"
 									onclick="openLayer('信息项新增');"><i class="fa fa-plus-square-o"></i> 新增</a>
 								<button class="btn btn-cyan" type="button" onclick="exportData();"><i class='fa fa-sign-out'></i> 导出数据</button>
-								<button class="btn btn-purple" type="button" onclick="importData(3);"><i class='fa fa-sign-in'></i> Excel导入</button>
+								<button class="btn btn-purple" type="button" onclick="importData(3);"><i class='fa fa-sign-in'></i> Excel导入</button> -->
 								<button class="btn btn-yellow" type="button" onclick="deleteAll();"><i class='fa fa-trash-o'></i> 批量删除</button>
-								<button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button>
+							<!-- 	<button class="btn btn-red" type="button" onclick="deleteAllRows();"><i class='fa fa-trash-o'></i> 清空所有</button> -->
 							</div>
 						</div>
 					</div>
@@ -56,12 +56,13 @@
 					<thead class="ele-hide">
 						<tr>
 							<th data-checkbox="true"></th>
-							<th data-field="idCode">内部标识符</th>
+							<!-- <th data-field="idCode">内部标识符</th> -->
 							<th data-field="nameCn">信息项名称</th>
-							<th data-field="dataTypeName">数据类型</th>
-							<th data-field="len">数据长度</th>
-							<!-- <th data-field="companyName">来源部门</th> -->
-							<th data-width="230px" data-field="Score" data-formatter="initTableButton" class="col-sm-4">操作</th>
+							<th data-field="name">数据元名称</th>
+							<th data-field="type">数据元类别</th>
+							<th data-field="len">数据元长度</th>
+							<th data-field="companyName">所属部门</th>
+							<th data-width="230px" data-field="Score" data-formatter="initElementTableButton" class="col-sm-4">操作</th>
 						</tr>
 					</thead>
 				</table>
@@ -71,8 +72,12 @@
 
 	<div id="layer_form" style="display:none" class="ibox-content">
 		<form id="eform" class="form-horizontal">
-			<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
-			
+			<fieldset id="eleForm">
+				<%@include file="/WEB-INF/views/include/eleAutoForm.jsp"%>
+			</fieldset>
+			<fieldset id="itemForm">
+				<%@include file="/WEB-INF/views/include/itemAutoForm.jsp"%>
+			</fieldset>
 		</form>
 	</div>
 	<c:set var="type" value="3" />
@@ -93,77 +98,45 @@
 		var rowInput = "#exportData input[name='obj']";
 		var uploaderServer = "element";
 
-        // 清空所有按钮事件
-        function deleteAllRows() {
-            layer.confirm('确定要删除所有数据？（选择确定将删除所有数据，请慎重）', function(index){
-                $.ajax({
-                    url: "${ctx}/catalog/element/deleteAll",
-                    type: 'get',
-                    success: function (data) {
-                        layer.msg('删除成功！');
-                        $(tableId).bootstrapTable('refresh');
-                    }
-                });
-                layer.close(index);
-                //向服务端发送删除指令
-            });
+		function initElementTableButton(index, row, element) {
+			var html = '';
+			html += '<div class="btn-group">';
+			html += '<button type="button" class="btn btn-white" onclick="datailRow('
+					+ row.id + ')"><i class="fa fa-info-circle"></i>&nbsp;详情</button>';
+			html += '<button type="button" class="btn btn-white" id="edit" onclick="editElementRow('
+					+ row.id + ')"><i class="fa fa-pencil"></i>&nbsp;修改</button>';
+			html += '<button type="button" class="btn btn-white" onclick="deleteRow('
+					+ row.id + ')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+			html += '</div>';
+			return html;
+		}
 
-        }
+		function editElementRow (id) {
+			$(formId).find("input:not(.js-edit-enable)").each(function () {
+				$(this).attr('name') != 'id' ? $(this).attr("disabled","disabled") : '';
+			});
+			var row = $(tableId).bootstrapTable('getRowByUniqueId', id);
+			openLayer(editTitle);
+			loadData(row);
+			// 通过验证
+			$(formId).validate().form();
+		}
 
-		// 共享方式
-		var gxtjSelect = $("select[name=shareCondition]");
-		var gxfsSelect = $("select[name=shareMode]");
-		gxtjSelect.closest('.form-group').hide();
-		gxtjSelect.removeAttr("required");
-		gxfsSelect.closest('.form-group').hide();
-		gxfsSelect.removeAttr("required");
-		$("select[name=shareType]").chosen({
-			width : "100%"
-		}).change(function () {
-			if ($(this).val() == 1) {
-				gxfsSelect.closest('.form-group').hide();
-				gxfsSelect.closest('.form-group').slideToggle();
-				gxfsSelect.attr("required", "required");
-				gxtjSelect.closest('.form-group').hide();
-				gxtjSelect.val("");
-				gxtjSelect.trigger("chosen:updated");
-				gxtjSelect.removeAttr("required");
-			} else if ($(this).val() == 2) {
-				gxfsSelect.closest('.form-group').hide();
-				gxtjSelect.closest('.form-group').hide();
-				gxfsSelect.closest('.form-group').slideToggle();
-				gxfsSelect.attr("required", "required");
-				gxtjSelect.closest('.form-group').slideToggle();
-				gxtjSelect.attr("required", "required");
-			} else if ($(this).val() == 3) {
-				gxfsSelect.closest('.form-group').hide();
-				gxfsSelect.val("");
-				gxfsSelect.trigger("chosen:updated");
-				gxfsSelect.removeAttr("required");
-				gxtjSelect.closest('.form-group').hide();
-				gxtjSelect.val("");
-				gxtjSelect.trigger("chosen:updated");
-				gxtjSelect.removeAttr("required");
-			}
-		});
-
-		// 是否向社会开放
-		$("select[name=openType]").closest('.form-group').hide();
-		$("select[name=openType]").removeAttr("required");
-		// 判断是否使用其他部门数据与是否提供数据给其他部门
-		$("select[name=isOpen]").chosen({
-			width : "100%"
-		}).change(function () {
-			if ($(this).val() == 1) {
-				$("select[name=openType]").closest('.form-group').slideToggle();
-				$("select[name=openType]").attr("required", "required");
-			} else if ($(this).val() == 0) {
-				$("select[name=openType]").closest('.form-group').hide();
-				$("select[name=openType]").val("");
-				$("select[name=openType]").trigger("chosen:updated");
-				$("select[name=openType]").removeAttr("required");
-			}
-		});
+		// 清空所有按钮事件
+		function deleteAllRows() {
+			layer.confirm('确定要删除所有数据？（选择确定将删除所有数据，请慎重）', function(index){
+				$.ajax({
+						url: "${ctx}/catalog/element/deleteAll",
+						type: 'get',
+						success: function (data) {
+								layer.msg('删除成功！');
+								$(tableId).bootstrapTable('refresh');
+						}
+				});
+				layer.close(index);
+				//向服务端发送删除指令
+			});
+		}
 	</script>
 	
 	<script src="${ctxStatic}/js/common/common.js"></script>

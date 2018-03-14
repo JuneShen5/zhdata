@@ -74,17 +74,20 @@
                   <div class="form-group user-case">
                       <input class="form-control" type="text"
                              id="loginName" name="loginName"
-                             required="required" value="admin" autocomplete="off">
+                             required="required"  autocomplete="off"
+                             placeholder="请输入用户名">
                   </div>
                   <div class="form-group lock-case">
                       <input class="form-control" type="password"
                              id="password" name="password"
-                             required="required" maxlength="16" autocomplete="off">
+                             required="required" maxlength="16" autocomplete="off"
+                             placeholder="请输入密码">
                   </div>
                   <div class="form-group verify-case clearfix">
                       <input class="form-control case-verify pull-left" id="verifyCodeId"
                           name="verifyCode" required="required" maxlength="4" type="tel"
-                          onkeyup="this.value=this.value.replace(/\D/g,'')"> <img
+                          onkeyup="this.value=this.value.replace(/\D/g,'')" placeholder="请输入验证码"> 
+                      <img
                           class="verify pull-right" id="vimg" style="cursor: pointer;"
                           title="验证码" width="90" height="34"
                           src="${pageContext.request.contextPath}/login/verifyCode?random=0.7304289337922849"
