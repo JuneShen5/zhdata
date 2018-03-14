@@ -579,11 +579,14 @@
             layeConfirm = layer.confirm('您确定要删除么？', {
                 btn : [ '确定', '取消' ]
             }, function() {
+                console.log(id);
+                console.log(dataElesResetList);
                 for (var i = 0; i < dataElesResetList.length; i++) {
                     if (dataElesResetList[i].id == id) {
                         dataElesResetList.splice($.inArray(dataElesResetList[i],dataElesResetList),1);
                     }
                 }
+                console.log(dataElesResetList);
                 $(elementTableId).bootstrapTable('refreshOptions',{
                     data:dataElesResetList,
                     totalRows:dataElesResetList.length
@@ -642,7 +645,7 @@
             html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementEditRow(\''
                     + row.id + '\')"><i class="fa fa-pencil"></i>&nbsp;修改信息项</button>';
             html += '<button type="button" class="btn btn-white js-toggle-btn" onclick="elementDeleteRow(\''
-                    + row.itemIndex + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
+                    + row.id + '\')"><i class="fa fa-trash"></i>&nbsp;删除</button>';
             return html;
         }
         // 选择数据元表格按钮设置
